@@ -1,9 +1,7 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -15,7 +13,6 @@
             <div class="bounce3"></div>
         </div>
     </div>
-
     <!-- ##### Header Area Start ##### -->
     <header class="header-area wow fadeInDown" data-wow-delay="500ms">
         <!-- Top Header Area -->
@@ -27,7 +24,6 @@
                         <div class="logo">
                             <a href="index.html"><img src="~/img/core-img/logo.png" alt=""></a>
                         </div>
-
                         <!-- Search & Login Area -->
                         <div class="search-login-area d-flex align-items-center">
                             <!-- Top Search Area -->
@@ -38,15 +34,18 @@
                                 </form>
                             </div>
                             <!-- Login Area -->
-                            <div style="padding-left:100px"  class="login-area">
+                            @*<div style="padding-left:100px"  class="login-area">
                                 <a href="#" style="border-radius:10px" ><span>Đăng nhập / Đăng ký</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                            </div>*@
+                            <div class="text-end">
+                                <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                                <button type="button" class="btn btn-primary">Sign-up</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- Navbar Area -->
         <div class="egames-main-menu" id="sticker">
             <div class="classy-nav-container breakpoint-off">
@@ -61,12 +60,10 @@
 
                         <!-- Menu -->
                         <div class="classy-menu">
-
                             <!-- Close Button -->
                             <div class="classycloseIcon">
                                 <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                             </div>
-
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
