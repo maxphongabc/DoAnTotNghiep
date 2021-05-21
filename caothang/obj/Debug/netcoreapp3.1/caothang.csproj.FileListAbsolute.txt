@@ -543,3 +543,4 @@ C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\c
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.dll
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.pdb
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.genruntimeconfig.cache
+C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs

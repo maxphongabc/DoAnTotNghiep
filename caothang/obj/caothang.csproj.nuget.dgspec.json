@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj": {}
+    "C:\\Users\\DELL\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj": {
+    "C:\\Users\\DELL\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj",
         "projectName": "caothang",
-        "projectPath": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj",
-        "packagesPath": "C:\\Users\\Thanh Duy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\obj\\",
+        "projectPath": "C:\\Users\\DELL\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DELL\\Source\\Repos\\DoAnTotNghiep\\caothang\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Thanh Duy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
