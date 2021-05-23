@@ -33,13 +33,12 @@
                                     <button type="submit" class="btn"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
-                            <!-- Login Area -->
-                            @*<div style="padding-left:100px"  class="login-area">
-                                <a href="#" style="border-radius:10px" ><span>Đăng nhập / Đăng ký</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
-                            </div>*@
                             <div class="text-end">
                                 <button type="button" class="btn btn-outline-primary me-2">Login</button>
                                 <button type="button" class="btn btn-primary">Sign-up</button>
+                            </div>
+                            <div class="cart-area" style="padding-left:10px;">
+                                <a><img src="~/img/shopping-cart.png" /><span style="padding-left:5px;">Giỏ Hàng</span></a>
                             </div>
                         </div>
                     </div>
@@ -69,29 +68,29 @@
                                 <ul>
                                     <li><a asp-controller="Home" asp-action="index">Trang Chủ</a></li>
                                     <li>
-                                        <a asp-controller="GameReview" asp-action="index">Playstation</a>
+                                        <a asp-controller="Product" asp-action="index">Playstation</a>
                                         <ul class="dropdown">
-                                            <li><a asp-controller="GameReview" asp-action="index">Máy Playstation</a></li>
-                                            <li><a asp-controller="GameReview" asp-action="index">Game</a></li>                                    
+                                            <li><a asp-controller="Product" asp-action="index">Máy Playstation</a></li>
+                                            <li><a asp-controller="Product" asp-action="index">Game</a></li>                                    
                                         </ul>
                                     </li>
                                     <li>
-                                        <a asp-controller="GameReview" asp-action="index">Switch</a>
+                                        <a asp-controller="Product" asp-action="index">Switch</a>
                                         <ul class="dropdown">
                                             
-                                            <li><a asp-controller="GameReview" asp-action="index">Máy Switch</a></li>
-                                            <li><a asp-controller="GameReview" asp-action="index">Game</a></li>
+                                            <li><a asp-controller="Product" asp-action="index">Máy Switch</a></li>
+                                            <li><a asp-controller="Product" asp-action="index">Game</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a asp-controller="GameReview" asp-action="index">Xbox</a>
+                                        <a asp-controller="Product" asp-action="index">Xbox</a>
                                         <ul class="dropdown">
-                                            <li><a asp-controller="GameReview" asp-action="index">Máy Xbox</a></li>
-                                            <li><a asp-controller="GameReview" asp-action="index">Game</a></li>
+                                            <li><a asp-controller="Product" asp-action="index">Máy Xbox</a></li>
+                                            <li><a asp-controller="Product" asp-action="index">Game</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a asp-controller="Review" asp-action="index">Bản Tin</a>
+                                        <a asp-controller="Blog" asp-action="index">Bản Tin</a>
                                     </li>
                                     <li><a asp-controller="Contact" asp-action="index">Liên hệ</a></li>
                                 </ul>
@@ -105,5 +104,6 @@
     </header>
     <!-- ##### Header Area End ##### -->
 </body>
+
 </html>
 

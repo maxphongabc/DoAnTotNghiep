@@ -250,10 +250,8 @@ C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Category\Index.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Contact\Index.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Detail\Index.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\GameReview\Index.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Review\Index.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_FooterPartial.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_HeaderPartial.cshtml.g.cs
@@ -544,3 +542,6 @@ C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\c
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.pdb
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.genruntimeconfig.cache
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
+C:\Users\DELL\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Cart\Index.cshtml.g.cs
+C:\Users\DELL\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Product\Index.cshtml.g.cs
+C:\Users\DELL\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Blog\Index.cshtml.g.cs

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace caothang.Controllers
 {
-    public class GameReviewController : Controller
+    public class ProductController : Controller
     {
         public IActionResult Index()
         {

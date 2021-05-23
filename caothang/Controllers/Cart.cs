@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace caothang.Controllers
 {
-    public class ReviewController : Controller
+    public class Cart : Controller
     {
         public IActionResult Index()
         {
