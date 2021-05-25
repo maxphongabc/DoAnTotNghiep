@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<caothang.Areas.Admin.Models.ChiTietHoaDonModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,39 +13,35 @@
     <thead>
         <tr>
             <th>
-               sanPham
+                @Html.DisplayNameFor(model => model.MaHD)
             </th>
             <th>
-               hoaDon
+                @Html.DisplayNameFor(model => model.MaSP)
             </th>
             <th>
-                SoLuong
-            </th>
-            <th>
-                DonGia
+                @Html.DisplayNameFor(model => model.SoLuong)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-
+@foreach (var item in Model) {
         <tr>
             <td>
-                
+                @Html.DisplayFor(modelItem => item.MaHD)
             </td>
             <td>
-              
+                @Html.DisplayFor(modelItem => item.MaSP)
             </td>
             <td>
-               
+                @Html.DisplayFor(modelItem => item.SoLuong)
             </td>
             <td>
-               
-            </td>
-            <td>
-                
+                <a asp-action="Edit" asp-route-id="@item.MaCTHD">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaCTHD">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaCTHD">Delete</a>
             </td>
         </tr>
-
+}
     </tbody>
 </table>

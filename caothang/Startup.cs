@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using caothang.Data;
 
 namespace caothang
 {
@@ -24,6 +26,9 @@ namespace caothang
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<caothangContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("caothangContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,12 +56,10 @@ namespace caothang
                 endpoints.MapAreaControllerRoute(
                name: "MyArea",
                areaName: "Admin",
-               pattern: "Admin/{controller=Login}/{action=Index}/{id?}");
-
-
+               pattern: "Admin/{controller=HomeAdmin}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Login}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

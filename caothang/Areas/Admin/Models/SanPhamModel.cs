@@ -10,7 +10,7 @@ namespace caothang.Areas.Admin.Models
     {
         [Key]
         public int MaSP { get; set; }
-        public int MlSP { get; set; }
+        public int MaLSP { get; set; }
         public string TenSP { get; set; }
         public string HinhAnh { get; set; }
         public decimal DonGia { get; set; }
