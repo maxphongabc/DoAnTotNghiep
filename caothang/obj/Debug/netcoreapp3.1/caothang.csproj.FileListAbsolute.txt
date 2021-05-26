@@ -676,3 +676,7 @@ C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\LoaiSP\_ViewLSP.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\PhanQuyen\Index.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ThongKe\Index.cshtml.g.cs
+C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\LoaiSP\Index.cshtml.g.cs
+C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\LoaiSP\_ViewLSP.cshtml.g.cs
+C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\PhanQuyen\Index.cshtml.g.cs
+C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ThongKe\Index.cshtml.g.cs
