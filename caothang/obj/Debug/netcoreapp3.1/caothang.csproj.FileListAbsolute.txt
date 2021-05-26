@@ -585,10 +585,6 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\R
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\SanPhamModels\Details.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\SanPhamModels\Edit.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\SanPhamModels\Index.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\DangNhap\Create.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\DangNhap\Delete.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\DangNhap\Details.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\DangNhap\Edit.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\DangNhap\Index.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\NhanVien\Create.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\NhanVien\Delete.cshtml.g.cs
