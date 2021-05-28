@@ -9,12 +9,28 @@ namespace caothang.Areas.Admin.Models
     public class SanPhamModel
     {
         [Key]
+        [Display(Name ="Mã sản phẩm")]
         public int MaSP { get; set; }
-        public int MaLSP { get; set; }
+        [Required(ErrorMessage = "Không được bỏ trống")]
+        [Display(Name ="Tên sản phẩm")]
+        [StringLength(maximumLength:80,ErrorMessage ="Tên sản phẩm quá dài")]
         public string TenSP { get; set; }
+        [Display(Name ="Hình ảnh")]
         public string HinhAnh { get; set; }
-        public decimal DonGia { get; set; }
-        public string ChiTietSP { get; set; }
-        public int TrangThai { get; set; }
+        [Required(ErrorMessage = "Không được bỏ trống")]
+        [Display(Name ="Đơn giá")]
+        public double DonGia { get; set; }
+        [Display(Name ="Mô tả")]
+        public string MoTa { get; set; }
+        [Required(ErrorMessage = "Không được bỏ trống")]
+        [Display(Name ="Mã loại sản phẩm")]
+        public int MaLSP { get; set; }
+        public virtual LoaiSanPhamModel LoaiSanPham { get; set; }
+        [Display(Name ="Trạng Thái")]
+        public bool TrangThai { get; set; }
+        public SanPhamModel()
+        {
+            TrangThai = true;
+        }
     }
 }

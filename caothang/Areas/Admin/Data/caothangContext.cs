@@ -16,13 +16,12 @@ namespace caothang.Data
 
         public DbSet<caothang.Areas.Admin.Models.SanPhamModel> SanPhamModel { get; set; }
 
-        public DbSet<caothang.Areas.Admin.Models.DangNhapModel> DangNhapModel { get; set; }
+        public DbSet<caothang.Areas.Admin.Models.TaiKhoanModel> TaiKhoanModel { get; set; }
 
-        public DbSet<caothang.Areas.Admin.Models.NhanVienModel> NhanVienModel { get; set; }
+        public DbSet<caothang.Areas.Admin.Models.NguoiDungModel> NguoiDungModel { get; set; }
 
         public DbSet<caothang.Areas.Admin.Models.LoaiSanPhamModel> LoaiSanPhamModel { get; set; }
 
-        public DbSet<caothang.Areas.Admin.Models.KhachHangModel> KhachHangModel { get; set; }
 
         public DbSet<caothang.Areas.Admin.Models.HoaDonModel> HoaDonModel { get; set; }
 

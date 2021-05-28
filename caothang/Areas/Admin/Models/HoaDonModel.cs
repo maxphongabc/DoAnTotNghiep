@@ -9,11 +9,28 @@ namespace caothang.Areas.Admin.Models
     public class HoaDonModel
     {
         [Key]
+        [Display(Name ="Mã HD")]
         public int MaHD { get; set; }
-        public int MaKH { get; set; }
+        [Required(ErrorMessage = "Không được bỏ trống")]
+        [Display(Name = "Mã ND")]
+        public int MaND { get; set; }
+        [Required(ErrorMessage = "Không được bỏ trống")]
+        [Display(Name = "Mã SP")]
         public int MaSP { get; set; }
+        [Required(ErrorMessage = "Không được bỏ trống")]
+        [Display(Name ="Tên sản phẩm")]
         public string TenSP { get; set; }
-        public DateTime NgayLapHD { get; set; }
-        public DateTime NgayNhanHang { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name ="Ngày lập HD")]
+        public string NgayLapHD { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name ="Ngày nhận hàng")]
+        public string NgayNhanHang { get; set; }
+        [Display(Name ="Trạng Thái")]
+        public bool TrangThai { get; set; }
+        public HoaDonModel()
+        {
+            TrangThai = true;
+        }
     }
 }

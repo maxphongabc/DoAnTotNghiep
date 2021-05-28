@@ -10,7 +10,12 @@ namespace caothang.Areas.Admin.Models
     {
         [Key]
         public int MaLSP { get; set; }
+        [Display(Name ="Tên Loại Sản Phẩm")]
         public string TenLoaiSP { get; set; }
-        public int TrangThai { get; set; }
+        public bool TrangThai { get; set; }
+        public LoaiSanPhamModel()
+        {
+            TrangThai = true;
+        }
     }
 }
