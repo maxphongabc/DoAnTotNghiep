@@ -468,7 +468,6 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Social item ]*/
 .login100-social-item {
-    font-size: 25px;
     color: #fff;
     display: -webkit-box;
     display: -webkit-flex;
@@ -10325,12 +10324,3 @@ iframe {
     right: 0px;
     bottom: 0px;
 }
-
-
-
-
-
-
-
-
-

@@ -229,10 +229,7 @@ C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\scoped
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.TagHelpers.input.cache
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.TagHelpers.output.cache
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.RazorCoreGenerate.cache
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ChiTietHoaDon\Index.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\HoaDon\Index.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\HomeAdmin\Index.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Login\Index.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\Error.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\MessagesPartial.cshtml.g.cs
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_FooterPartial.cshtml.g.cs
@@ -442,36 +439,6 @@ C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\bin\Debug\netcoreapp3.1\runtim
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ChiTietHoaDon\Create.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ChiTietHoaDon\Delete.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ChiTietHoaDon\Details.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ChiTietHoaDon\Edit.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\DangNhap\Index.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\HoaDon\Create.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\HoaDon\Delete.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\HoaDon\Details.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\HoaDon\Edit.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\KhachHang\Create.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\KhachHang\Delete.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\KhachHang\Details.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\KhachHang\Edit.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\KhachHang\Index.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\LoaiSanPham\Create.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\LoaiSanPham\Delete.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\LoaiSanPham\Details.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\LoaiSanPham\Edit.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\LoaiSanPham\Index.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\NhanVien\Create.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\NhanVien\Delete.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\NhanVien\Details.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\NhanVien\Edit.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\NhanVien\Index.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ThongKe\Index.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\SanPham\Create.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\SanPham\Delete.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\SanPham\Details.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\SanPham\Edit.cshtml.g.cs
-C:\Users\DELL\Source\Repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\SanPham\Index.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\caothang\bin\Debug\netcoreapp3.1\caothang.exe
