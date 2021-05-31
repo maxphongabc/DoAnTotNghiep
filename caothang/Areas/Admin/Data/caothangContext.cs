@@ -13,7 +13,7 @@ namespace caothang.Data
             : base(options)
         {
         }
-
+        public DbSet<caothang.Areas.Admin.Models.AdminModel> AdminModel { get; set; }
         public DbSet<caothang.Areas.Admin.Models.SanPhamModel> SanPhamModel { get; set; }
 
         public DbSet<caothang.Areas.Admin.Models.TaiKhoanModel> TaiKhoanModel { get; set; }
@@ -22,7 +22,7 @@ namespace caothang.Data
 
         public DbSet<caothang.Areas.Admin.Models.LoaiSanPhamModel> LoaiSanPhamModel { get; set; }
 
-
+        public DbSet<caothang.Areas.Admin.Models.PhanQuyenModel> PhanQuyenModel { get; set; }
         public DbSet<caothang.Areas.Admin.Models.HoaDonModel> HoaDonModel { get; set; }
 
         public DbSet<caothang.Areas.Admin.Models.ChiTietHoaDonModel> ChiTietHoaDonModel { get; set; }
