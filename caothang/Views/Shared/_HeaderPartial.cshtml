@@ -35,29 +35,41 @@
 
                             <!-- Giao diện sau khi đăng nhập-->
                             @*@if (Context.Session.GetString("user") != null)
-                            {
-                                <div class="sinlge-bar" style="padding-top: 15px;padding-bottom:15px">
-                                    <ul class="navbar-nav d-flex align-items-center navbar-light ml-auto">
-                                        <li class="dropdown">
-                                            <a href="#">
-                                                <div class="avatar mr-1">
-                                                    <img data-toggle="modal" data-target="#Password"
-                                                         style="border-radius: 50%;max-width: 50%;display: block;margin-left: auto;margin-right: auto;"
-                                                         src="~/Admin/assets/images/avatar/avatar-1.png"
-                                                         alt=""
-                                                         srcset="" class="anh-user" />
-                                                </div>
-                                            </a>
-
-                                        </li>
-                                    </ul>
-                                </div>
-                            }
-                                else
                             {*@
+                            <div class="sinlge-bar" style="padding-top: 25px;padding-bottom:15px">
+                                <ul class="navbar-nav d-flex align-items-center navbar-light ml-auto">
+                                    <li class="dropdown nav-icon mr-2">
+                                        <a href="#"
+                                           data-toggle="dropdown"
+                                           class="nav-link nav-link-lg nav-link-user">
+                                            <img style="border-radius: 50%;max-width: 50%;display: block;margin-left: auto;margin-right: auto;"
+                                                 src="~/Admin/assets/images/avatar/avatar-1.png"
+                                                 alt=""
+                                                 srcset="" class="anh-user" />
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#Password"><i data-feather="user"></i> Change Password</a>
+
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#" ><i data-feather="log-out"></i> Logout</a>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown">
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#"><i data-feather="log-out"></i> Logout</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                                                    
+                            @*}
+                                else
+                            {
                             <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-outline-primary me-2">Login</button>
                             <button type="button" data-toggle="modal" data-target="#form" class="btn btn-primary">Sign-up</button>
-                            @*}*@
+                            }*@
                         </div>
                         <div class="cart-area" style="padding-left:10px;">
                             <a asp-controller="Cart" asp-action="index"><img src="~/img/shopping-cart.png" /><span style="padding-left:5px;">Giỏ Hàng</span></a>
@@ -69,7 +81,7 @@
     </div>
     <!-- Navbar Area -->
     <div class="egames-main-menu" id="sticker">
-        <div class="classy-nav-container breakpoint-off">
+        <div class="breakpoint-off">
             <div class="container">
                 <!-- Menu -->
                 <nav class="classy-navbar justify-content-between" id="egamesNav">
