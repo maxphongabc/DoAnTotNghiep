@@ -25,39 +25,14 @@ namespace caothang.Migrations
                 name: "PhanQuyenModel",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    MaQuyen = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenQuyen = table.Column<string>(nullable: false),
                     TrangThai = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PhanQuyenModel", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HoaDonModel",
-                columns: table => new
-                {
-                    MaHD = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MaND = table.Column<int>(nullable: false),
-                    MaSP = table.Column<int>(nullable: false),
-                    TenSP = table.Column<string>(nullable: false),
-                    NgayLapHD = table.Column<string>(nullable: true),
-                    NgayNhanHang = table.Column<string>(nullable: true),
-                    TrangThai = table.Column<bool>(nullable: false),
-                    ChiTietHoaDonModelMaCTHD = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HoaDonModel", x => x.MaHD);
-                    table.ForeignKey(
-                        name: "FK_HoaDonModel_ChiTietHoaDonModel_ChiTietHoaDonModelMaCTHD",
-                        column: x => x.ChiTietHoaDonModelMaCTHD,
-                        principalTable: "ChiTietHoaDonModel",
-                        principalColumn: "MaCTHD",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_PhanQuyenModel", x => x.MaQuyen);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,27 +57,29 @@ namespace caothang.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaiKhoanModel",
+                name: "NguoiDungModel",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    MaND = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    HoTen = table.Column<string>(maxLength: 50, nullable: false),
+                    DiaChi = table.Column<string>(maxLength: 300, nullable: false),
+                    DienThoai = table.Column<string>(maxLength: 10, nullable: false),
+                    Email = table.Column<string>(maxLength: 300, nullable: true),
                     TaiKhoan = table.Column<string>(maxLength: 200, nullable: false),
                     MatKhau = table.Column<string>(maxLength: 200, nullable: true),
-                    Img = table.Column<string>(nullable: true),
-                    PhanQuyen = table.Column<bool>(nullable: false),
                     TrangThai = table.Column<bool>(nullable: false),
-                    PhanQuyenModelId = table.Column<int>(nullable: true)
+                    MaQuyen = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaiKhoanModel", x => x.Id);
+                    table.PrimaryKey("PK_NguoiDungModel", x => x.MaND);
                     table.ForeignKey(
-                        name: "FK_TaiKhoanModel_PhanQuyenModel_PhanQuyenModelId",
-                        column: x => x.PhanQuyenModelId,
+                        name: "FK_NguoiDungModel_PhanQuyenModel_MaQuyen",
+                        column: x => x.MaQuyen,
                         principalTable: "PhanQuyenModel",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "MaQuyen",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,6 +94,7 @@ namespace caothang.Migrations
                     MoTa = table.Column<string>(nullable: true),
                     MaLSP = table.Column<int>(nullable: false),
                     LoaiSanPhamMaLSP = table.Column<int>(nullable: true),
+                    chiTietHoaDonModelsMaCTHD = table.Column<int>(nullable: true),
                     TrangThai = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -128,62 +106,52 @@ namespace caothang.Migrations
                         principalTable: "LoaiSanPhamModel",
                         principalColumn: "MaLSP",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AdminModel",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HoTen = table.Column<string>(maxLength: 50, nullable: false),
-                    Email = table.Column<string>(maxLength: 300, nullable: true),
-                    DiaChi = table.Column<string>(maxLength: 300, nullable: false),
-                    DienThoai = table.Column<string>(maxLength: 10, nullable: false),
-                    IdUser = table.Column<int>(nullable: false),
-                    Status = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AdminModel", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AdminModel_TaiKhoanModel_IdUser",
-                        column: x => x.IdUser,
-                        principalTable: "TaiKhoanModel",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NguoiDungModel",
-                columns: table => new
-                {
-                    MaND = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HoTen = table.Column<string>(maxLength: 50, nullable: false),
-                    GioiTinh = table.Column<bool>(nullable: false),
-                    DiaChi = table.Column<string>(maxLength: 300, nullable: false),
-                    DienThoai = table.Column<string>(maxLength: 10, nullable: false),
-                    Email = table.Column<string>(maxLength: 300, nullable: true),
-                    IdNguoiDung = table.Column<int>(nullable: false),
-                    IdNnguoiDung = table.Column<int>(nullable: true),
-                    TrangThai = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NguoiDungModel", x => x.MaND);
-                    table.ForeignKey(
-                        name: "FK_NguoiDungModel_TaiKhoanModel_IdNnguoiDung",
-                        column: x => x.IdNnguoiDung,
-                        principalTable: "TaiKhoanModel",
-                        principalColumn: "Id",
+                        name: "FK_SanPhamModel_ChiTietHoaDonModel_chiTietHoaDonModelsMaCTHD",
+                        column: x => x.chiTietHoaDonModelsMaCTHD,
+                        principalTable: "ChiTietHoaDonModel",
+                        principalColumn: "MaCTHD",
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AdminModel_IdUser",
-                table: "AdminModel",
-                column: "IdUser");
+            migrationBuilder.CreateTable(
+                name: "HoaDonModel",
+                columns: table => new
+                {
+                    MaHD = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MaND = table.Column<int>(nullable: false),
+                    MaSP = table.Column<int>(nullable: false),
+                    TenSP = table.Column<string>(nullable: false),
+                    NgayLapHD = table.Column<string>(nullable: true),
+                    NgayNhanHang = table.Column<string>(nullable: true),
+                    SanPhamsMaSP = table.Column<int>(nullable: true),
+                    NguoiDungsMaND = table.Column<int>(nullable: true),
+                    TrangThai = table.Column<bool>(nullable: false),
+                    ChiTietHoaDonModelMaCTHD = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HoaDonModel", x => x.MaHD);
+                    table.ForeignKey(
+                        name: "FK_HoaDonModel_ChiTietHoaDonModel_ChiTietHoaDonModelMaCTHD",
+                        column: x => x.ChiTietHoaDonModelMaCTHD,
+                        principalTable: "ChiTietHoaDonModel",
+                        principalColumn: "MaCTHD",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_HoaDonModel_NguoiDungModel_NguoiDungsMaND",
+                        column: x => x.NguoiDungsMaND,
+                        principalTable: "NguoiDungModel",
+                        principalColumn: "MaND",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_HoaDonModel_SanPhamModel_SanPhamsMaSP",
+                        column: x => x.SanPhamsMaSP,
+                        principalTable: "SanPhamModel",
+                        principalColumn: "MaSP",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_HoaDonModel_ChiTietHoaDonModelMaCTHD",
@@ -191,14 +159,24 @@ namespace caothang.Migrations
                 column: "ChiTietHoaDonModelMaCTHD");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HoaDonModel_NguoiDungsMaND",
+                table: "HoaDonModel",
+                column: "NguoiDungsMaND");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HoaDonModel_SanPhamsMaSP",
+                table: "HoaDonModel",
+                column: "SanPhamsMaSP");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LoaiSanPhamModel_ChiTietHoaDonModelMaCTHD",
                 table: "LoaiSanPhamModel",
                 column: "ChiTietHoaDonModelMaCTHD");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NguoiDungModel_IdNnguoiDung",
+                name: "IX_NguoiDungModel_MaQuyen",
                 table: "NguoiDungModel",
-                column: "IdNnguoiDung");
+                column: "MaQuyen");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SanPhamModel_LoaiSanPhamMaLSP",
@@ -206,16 +184,13 @@ namespace caothang.Migrations
                 column: "LoaiSanPhamMaLSP");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaiKhoanModel_PhanQuyenModelId",
-                table: "TaiKhoanModel",
-                column: "PhanQuyenModelId");
+                name: "IX_SanPhamModel_chiTietHoaDonModelsMaCTHD",
+                table: "SanPhamModel",
+                column: "chiTietHoaDonModelsMaCTHD");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AdminModel");
-
             migrationBuilder.DropTable(
                 name: "HoaDonModel");
 
@@ -226,13 +201,10 @@ namespace caothang.Migrations
                 name: "SanPhamModel");
 
             migrationBuilder.DropTable(
-                name: "TaiKhoanModel");
+                name: "PhanQuyenModel");
 
             migrationBuilder.DropTable(
                 name: "LoaiSanPhamModel");
-
-            migrationBuilder.DropTable(
-                name: "PhanQuyenModel");
 
             migrationBuilder.DropTable(
                 name: "ChiTietHoaDonModel");

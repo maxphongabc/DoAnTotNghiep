@@ -12,10 +12,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Areas\Admin\Data\caothangContext.cs" />
+    <Content Remove="Areas\Admin\Views\NguoiDung\DangKy.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Areas\Admin\Data\DPContext.cs" />
+    <Compile Include="Areas\Admin\Views\NguoiDung\DangKy.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\NguoiDung\Create.cshtml" />
+    <None Include="Areas\Admin\Views\NguoiDung\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\NguoiDung\Details.cshtml" />
+    <None Include="Areas\Admin\Views\NguoiDung\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\NguoiDung\Index.cshtml" />
     <None Include="wwwroot\.sass-cache\03465f23f19c9b31771cc8acec61089cccc1845c\style.scssc" />
     <None Include="wwwroot\.sass-cache\03465f23f19c9b31771cc8acec61089cccc1845c\_fonts.scssc" />
     <None Include="wwwroot\.sass-cache\03465f23f19c9b31771cc8acec61089cccc1845c\_mixin.scssc" />

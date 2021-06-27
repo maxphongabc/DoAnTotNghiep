@@ -13,9 +13,9 @@ namespace caothang.Areas.Admin.Controllers
     [Area("Admin")]
     public class HoaDonController : Controller
     {
-        private readonly caothangContext _context;
+        private readonly DPContext _context;
 
-        public HoaDonController(caothangContext context)
+        public HoaDonController(DPContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace caothang.Areas.Admin.Controllers
         // GET: Admin/HoaDon
         public async Task<IActionResult> Index()
         {
-            return View(await _context.HoaDonModel.ToListAsync());
+            return View(await _context.HoaDons.ToListAsync());
         }
 
         // GET: Admin/HoaDon/Details/5
@@ -34,7 +34,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var hoaDonModel = await _context.HoaDonModel
+            var hoaDonModel = await _context.HoaDons
                 .FirstOrDefaultAsync(m => m.MaHD == id);
             if (hoaDonModel == null)
             {
@@ -74,7 +74,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var hoaDonModel = await _context.HoaDonModel.FindAsync(id);
+            var hoaDonModel = await _context.HoaDons.FindAsync(id);
             if (hoaDonModel == null)
             {
                 return NotFound();
@@ -125,7 +125,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var hoaDonModel = await _context.HoaDonModel
+            var hoaDonModel = await _context.HoaDons
                 .FirstOrDefaultAsync(m => m.MaHD == id);
             if (hoaDonModel == null)
             {
@@ -140,15 +140,15 @@ namespace caothang.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hoaDonModel = await _context.HoaDonModel.FindAsync(id);
-            _context.HoaDonModel.Remove(hoaDonModel);
+            var hoaDonModel = await _context.HoaDons.FindAsync(id);
+            _context.HoaDons.Remove(hoaDonModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool HoaDonModelExists(int id)
         {
-            return _context.HoaDonModel.Any(e => e.MaHD == id);
+            return _context.HoaDons.Any(e => e.MaHD == id);
         }
     }
 }

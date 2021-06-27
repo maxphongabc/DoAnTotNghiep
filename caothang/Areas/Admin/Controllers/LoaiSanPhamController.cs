@@ -13,9 +13,9 @@ namespace caothang.Areas.Admin.Controllers
     [Area("Admin")]
     public class LoaiSanPhamController : Controller
     {
-        private readonly caothangContext _context;
+        private readonly DPContext _context;
 
-        public LoaiSanPhamController(caothangContext context)
+        public LoaiSanPhamController(DPContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace caothang.Areas.Admin.Controllers
         // GET: Admin/LoaiSanPham
         public async Task<IActionResult> Index()
         {
-            return View(await _context.LoaiSanPhamModel.ToListAsync());
+            return View(await _context.LoaiSanPhams.ToListAsync());
         }
 
         // GET: Admin/LoaiSanPham/Details/5
@@ -34,7 +34,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel
+            var loaiSanPhamModel = await _context.LoaiSanPhams
                 .FirstOrDefaultAsync(m => m.MaLSP == id);
             if (loaiSanPhamModel == null)
             {
@@ -74,7 +74,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel.FindAsync(id);
+            var loaiSanPhamModel = await _context.LoaiSanPhams.FindAsync(id);
             if (loaiSanPhamModel == null)
             {
                 return NotFound();
@@ -125,7 +125,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel
+            var loaiSanPhamModel = await _context.LoaiSanPhams
                 .FirstOrDefaultAsync(m => m.MaLSP == id);
             if (loaiSanPhamModel == null)
             {
@@ -140,15 +140,15 @@ namespace caothang.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel.FindAsync(id);
-            _context.LoaiSanPhamModel.Remove(loaiSanPhamModel);
+            var loaiSanPhamModel = await _context.LoaiSanPhams.FindAsync(id);
+            _context.LoaiSanPhams.Remove(loaiSanPhamModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LoaiSanPhamModelExists(int id)
         {
-            return _context.LoaiSanPhamModel.Any(e => e.MaLSP == id);
+            return _context.LoaiSanPhams.Any(e => e.MaLSP == id);
         }
     }
 }

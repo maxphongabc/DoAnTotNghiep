@@ -13,9 +13,9 @@ namespace caothang.Areas.Admin.Controllers
     [Area("Admin")]
     public class ChiTietHoaDonController : Controller
     {
-        private readonly caothangContext _context;
+        private readonly DPContext _context;
 
-        public ChiTietHoaDonController(caothangContext context)
+        public ChiTietHoaDonController(DPContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace caothang.Areas.Admin.Controllers
         // GET: Admin/ChiTietHoaDon
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ChiTietHoaDonModel.ToListAsync());
+            return View(await _context.ChiTietHoaDons.ToListAsync());
         }
 
         // GET: Admin/ChiTietHoaDon/Details/5
@@ -34,7 +34,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var chiTietHoaDonModel = await _context.ChiTietHoaDonModel
+            var chiTietHoaDonModel = await _context.ChiTietHoaDons
                 .FirstOrDefaultAsync(m => m.MaCTHD == id);
             if (chiTietHoaDonModel == null)
             {
@@ -74,7 +74,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var chiTietHoaDonModel = await _context.ChiTietHoaDonModel.FindAsync(id);
+            var chiTietHoaDonModel = await _context.ChiTietHoaDons.FindAsync(id);
             if (chiTietHoaDonModel == null)
             {
                 return NotFound();
@@ -125,7 +125,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var chiTietHoaDonModel = await _context.ChiTietHoaDonModel
+            var chiTietHoaDonModel = await _context.ChiTietHoaDons
                 .FirstOrDefaultAsync(m => m.MaCTHD == id);
             if (chiTietHoaDonModel == null)
             {
@@ -140,15 +140,15 @@ namespace caothang.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var chiTietHoaDonModel = await _context.ChiTietHoaDonModel.FindAsync(id);
-            _context.ChiTietHoaDonModel.Remove(chiTietHoaDonModel);
+            var chiTietHoaDonModel = await _context.ChiTietHoaDons.FindAsync(id);
+            _context.ChiTietHoaDons.Remove(chiTietHoaDonModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ChiTietHoaDonModelExists(int id)
         {
-            return _context.ChiTietHoaDonModel.Any(e => e.MaCTHD == id);
+            return _context.ChiTietHoaDons.Any(e => e.MaCTHD == id);
         }
     }
 }

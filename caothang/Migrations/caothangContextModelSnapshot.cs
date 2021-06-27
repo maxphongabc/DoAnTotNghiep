@@ -19,45 +19,6 @@ namespace caothang.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.AdminModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DiaChi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<string>("DienThoai")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<string>("HoTen")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("AdminModel");
-                });
-
             modelBuilder.Entity("caothang.Areas.Admin.Models.ChiTietHoaDonModel", b =>
                 {
                     b.Property<int>("MaCTHD")
@@ -101,6 +62,12 @@ namespace caothang.Migrations
                     b.Property<string>("NgayNhanHang")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NguoiDungsMaND")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SanPhamsMaSP")
+                        .HasColumnType("int");
+
                     b.Property<string>("TenSP")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -111,6 +78,10 @@ namespace caothang.Migrations
                     b.HasKey("MaHD");
 
                     b.HasIndex("ChiTietHoaDonModelMaCTHD");
+
+                    b.HasIndex("NguoiDungsMaND");
+
+                    b.HasIndex("SanPhamsMaSP");
 
                     b.ToTable("HoaDonModel");
                 });
@@ -159,33 +130,36 @@ namespace caothang.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
-                    b.Property<bool>("GioiTinh")
-                        .HasColumnType("bit");
-
                     b.Property<string>("HoTen")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("IdNguoiDung")
+                    b.Property<int>("MaQuyen")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdNnguoiDung")
-                        .HasColumnType("int");
+                    b.Property<string>("MatKhau")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("TaiKhoan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<bool>("TrangThai")
                         .HasColumnType("bit");
 
                     b.HasKey("MaND");
 
-                    b.HasIndex("IdNnguoiDung");
+                    b.HasIndex("MaQuyen");
 
                     b.ToTable("NguoiDungModel");
                 });
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.PhanQuyenModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("MaQuyen")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -197,7 +171,7 @@ namespace caothang.Migrations
                     b.Property<bool>("TrangThai")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.HasKey("MaQuyen");
 
                     b.ToTable("PhanQuyenModel");
                 });
@@ -232,55 +206,16 @@ namespace caothang.Migrations
                     b.Property<bool>("TrangThai")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("chiTietHoaDonModelsMaCTHD")
+                        .HasColumnType("int");
+
                     b.HasKey("MaSP");
 
                     b.HasIndex("LoaiSanPhamMaLSP");
 
+                    b.HasIndex("chiTietHoaDonModelsMaCTHD");
+
                     b.ToTable("SanPhamModel");
-                });
-
-            modelBuilder.Entity("caothang.Areas.Admin.Models.TaiKhoanModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Img")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MatKhau")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<bool>("PhanQuyen")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("PhanQuyenModelId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TaiKhoan")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PhanQuyenModelId");
-
-                    b.ToTable("TaiKhoanModel");
-                });
-
-            modelBuilder.Entity("caothang.Areas.Admin.Models.AdminModel", b =>
-                {
-                    b.HasOne("caothang.Areas.Admin.Models.TaiKhoanModel", "taikhoan")
-                        .WithMany()
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.HoaDonModel", b =>
@@ -288,6 +223,14 @@ namespace caothang.Migrations
                     b.HasOne("caothang.Areas.Admin.Models.ChiTietHoaDonModel", null)
                         .WithMany("hoaDonModels")
                         .HasForeignKey("ChiTietHoaDonModelMaCTHD");
+
+                    b.HasOne("caothang.Areas.Admin.Models.NguoiDungModel", "NguoiDungs")
+                        .WithMany("hoaDonModels")
+                        .HasForeignKey("NguoiDungsMaND");
+
+                    b.HasOne("caothang.Areas.Admin.Models.SanPhamModel", "SanPhams")
+                        .WithMany()
+                        .HasForeignKey("SanPhamsMaSP");
                 });
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.LoaiSanPhamModel", b =>
@@ -299,9 +242,11 @@ namespace caothang.Migrations
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.NguoiDungModel", b =>
                 {
-                    b.HasOne("caothang.Areas.Admin.Models.TaiKhoanModel", "TaiKhoan")
-                        .WithMany()
-                        .HasForeignKey("IdNnguoiDung");
+                    b.HasOne("caothang.Areas.Admin.Models.PhanQuyenModel", "PhanQuyenModels")
+                        .WithMany("nguoiDungModels")
+                        .HasForeignKey("MaQuyen")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.SanPhamModel", b =>
@@ -309,13 +254,10 @@ namespace caothang.Migrations
                     b.HasOne("caothang.Areas.Admin.Models.LoaiSanPhamModel", "LoaiSanPham")
                         .WithMany()
                         .HasForeignKey("LoaiSanPhamMaLSP");
-                });
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.TaiKhoanModel", b =>
-                {
-                    b.HasOne("caothang.Areas.Admin.Models.PhanQuyenModel", null)
-                        .WithMany("taikhoanmodels")
-                        .HasForeignKey("PhanQuyenModelId");
+                    b.HasOne("caothang.Areas.Admin.Models.ChiTietHoaDonModel", "chiTietHoaDonModels")
+                        .WithMany("sanPhamModels")
+                        .HasForeignKey("chiTietHoaDonModelsMaCTHD");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,9 +13,9 @@ namespace caothang.Areas.Admin.Controllers
     [Area("Admin")]
     public class PhanQuyenController : Controller
     {
-        private readonly caothangContext _context;
+        private readonly DPContext _context;
 
-        public PhanQuyenController(caothangContext context)
+        public PhanQuyenController(DPContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace caothang.Areas.Admin.Controllers
         // GET: Admin/PhanQuyen
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PhanQuyenModel.ToListAsync());
+            return View(await _context.PhanQuyens.ToListAsync());
         }
 
         // GET: Admin/PhanQuyen/Details/5
@@ -34,8 +34,8 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var phanQuyenModel = await _context.PhanQuyenModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var phanQuyenModel = await _context.PhanQuyens
+                .FirstOrDefaultAsync(m => m.MaQuyen == id);
             if (phanQuyenModel == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace caothang.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TenQuyen,TrangThai")] PhanQuyenModel phanQuyenModel)
+        public async Task<IActionResult> Create([Bind("MaQuyen,TenQuyen,TrangThai")] PhanQuyenModel phanQuyenModel)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var phanQuyenModel = await _context.PhanQuyenModel.FindAsync(id);
+            var phanQuyenModel = await _context.PhanQuyens.FindAsync(id);
             if (phanQuyenModel == null)
             {
                 return NotFound();
@@ -87,9 +87,9 @@ namespace caothang.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TenQuyen,TrangThai")] PhanQuyenModel phanQuyenModel)
+        public async Task<IActionResult> Edit(int id, [Bind("MaQuyen,TenQuyen,TrangThai")] PhanQuyenModel phanQuyenModel)
         {
-            if (id != phanQuyenModel.Id)
+            if (id != phanQuyenModel.MaQuyen)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace caothang.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PhanQuyenModelExists(phanQuyenModel.Id))
+                    if (!PhanQuyenModelExists(phanQuyenModel.MaQuyen))
                     {
                         return NotFound();
                     }
@@ -125,8 +125,8 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var phanQuyenModel = await _context.PhanQuyenModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var phanQuyenModel = await _context.PhanQuyens
+                .FirstOrDefaultAsync(m => m.MaQuyen == id);
             if (phanQuyenModel == null)
             {
                 return NotFound();
@@ -140,15 +140,15 @@ namespace caothang.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var phanQuyenModel = await _context.PhanQuyenModel.FindAsync(id);
-            _context.PhanQuyenModel.Remove(phanQuyenModel);
+            var phanQuyenModel = await _context.PhanQuyens.FindAsync(id);
+            _context.PhanQuyens.Remove(phanQuyenModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PhanQuyenModelExists(int id)
         {
-            return _context.PhanQuyenModel.Any(e => e.Id == id);
+            return _context.PhanQuyens.Any(e => e.MaQuyen == id);
         }
     }
 }

@@ -7,23 +7,29 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using caothang.Areas.Admin.Models;
 using caothang.Data;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace caothang.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class NguoiDungController : Controller
     {
-        private readonly caothangContext _context;
-
-        public NguoiDungController(caothangContext context)
+        private readonly DPContext _context;
+       
+        public NguoiDungController(DPContext context)
         {
             _context = context;
+
         }
 
         // GET: Admin/NguoiDung
         public async Task<IActionResult> Index()
         {
-            return View(await _context.NguoiDungModel.ToListAsync());
+            var dPContext = _context.NguoiDungs.Include(n => n.PhanQuyens);
+            return View(await dPContext.ToListAsync());
         }
 
         // GET: Admin/NguoiDung/Details/5
@@ -34,7 +40,8 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var nguoiDungModel = await _context.NguoiDungModel
+            var nguoiDungModel = await _context.NguoiDungs
+                .Include(n => n.PhanQuyens)
                 .FirstOrDefaultAsync(m => m.MaND == id);
             if (nguoiDungModel == null)
             {
@@ -47,6 +54,7 @@ namespace caothang.Areas.Admin.Controllers
         // GET: Admin/NguoiDung/Create
         public IActionResult Create()
         {
+            ViewData["MaQuyen"] = new SelectList(_context.Set<PhanQuyenModel>(), "MaQuyen", "TenQuyen");
             return View();
         }
 
@@ -55,14 +63,25 @@ namespace caothang.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaND,HoTen,GioiTinh,DiaChi,DienThoai,Email,IdNguoiDung,TrangThai")] NguoiDungModel nguoiDungModel)
+        public async Task<IActionResult> Create([Bind("MaND,HoTen,DiaChi,DienThoai,Email,TaiKhoan,MatKhau,TrangThai,MaQuyen")] NguoiDungModel nguoiDungModel,IFormFile ful)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(nguoiDungModel);
                 await _context.SaveChangesAsync();
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img",
+                    nguoiDungModel.MaND + "." + ful.FileName.Split('.')[ful.FileName.Split('.').Length - 1]);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await ful.CopyToAsync(stream);
+                }
+                nguoiDungModel.HinhAnh = nguoiDungModel.MaND + "." + ful.FileName.Split('.')[ful.FileName.Split('.').Length - 1];
+                await _context.SaveChangesAsync();
+                var nguoidung = _context.NguoiDungs.Where(sp => sp.MaND == nguoiDungModel.MaND).Include(s => s.MaQuyen).FirstOrDefault();
+
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MaQuyen"] = new SelectList(_context.Set<PhanQuyenModel>(), "MaQuyen", "TenQuyen", nguoiDungModel.MaQuyen);
             return View(nguoiDungModel);
         }
 
@@ -74,11 +93,12 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var nguoiDungModel = await _context.NguoiDungModel.FindAsync(id);
+            var nguoiDungModel = await _context.NguoiDungs.FindAsync(id);
             if (nguoiDungModel == null)
             {
                 return NotFound();
             }
+            ViewData["MaQuyen"] = new SelectList(_context.Set<PhanQuyenModel>(), "MaQuyen", "TenQuyen", nguoiDungModel.MaQuyen);
             return View(nguoiDungModel);
         }
 
@@ -87,7 +107,7 @@ namespace caothang.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaND,HoTen,GioiTinh,DiaChi,DienThoai,Email,IdNguoiDung,TrangThai")] NguoiDungModel nguoiDungModel)
+        public async Task<IActionResult> Edit(int id, [Bind("MaND,HoTen,DiaChi,DienThoai,Email,TaiKhoan,MatKhau,TrangThai,MaQuyen")] NguoiDungModel nguoiDungModel)
         {
             if (id != nguoiDungModel.MaND)
             {
@@ -114,6 +134,7 @@ namespace caothang.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MaQuyen"] = new SelectList(_context.Set<PhanQuyenModel>(), "MaQuyen", "TenQuyen", nguoiDungModel.MaQuyen);
             return View(nguoiDungModel);
         }
 
@@ -125,7 +146,8 @@ namespace caothang.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var nguoiDungModel = await _context.NguoiDungModel
+            var nguoiDungModel = await _context.NguoiDungs
+                .Include(n => n.PhanQuyens)
                 .FirstOrDefaultAsync(m => m.MaND == id);
             if (nguoiDungModel == null)
             {
@@ -140,15 +162,56 @@ namespace caothang.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var nguoiDungModel = await _context.NguoiDungModel.FindAsync(id);
-            _context.NguoiDungModel.Remove(nguoiDungModel);
+            var nguoiDungModel = await _context.NguoiDungs.FindAsync(id);
+            _context.NguoiDungs.Remove(nguoiDungModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool NguoiDungModelExists(int id)
         {
-            return _context.NguoiDungModel.Any(e => e.MaND == id);
+            return _context.NguoiDungs.Any(e => e.MaND == id);
+        }
+        public IActionResult DangNhap()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DangNhap(NguoiDungModel member)
+        {
+                //Encryptor.Encryptor.MD5Hash(member.MatKhau);
+                if (member.TaiKhoan != null && member.MatKhau != null)
+                {
+                member.MatKhau = Encryptor.Encryptor.MD5Hash(member.MatKhau);
+                    var r = _context.NguoiDungs.Where(m => m.TaiKhoan == member.TaiKhoan && m.MatKhau == (member.MatKhau)).ToList();
+                    if (r.Count == 0)
+                    {
+                        return View("DangNhap");
+                    }
+
+                    else
+                    {
+                        if (r[0].MaQuyen == 1)
+                        {
+                            var str = JsonConvert.SerializeObject(member);
+                            HttpContext.Session.SetString("user", str);
+
+                            var urlAdmin = Url.RouteUrl(new { controller = "HomeAdmin", action = "Index", area = "Admin" });
+                            return Redirect(urlAdmin);
+                        }
+                        else
+                        {
+                            var str = JsonConvert.SerializeObject(member);
+                            HttpContext.Session.SetString("user", str);
+
+                            var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
+                            return Redirect(urlAdmin);
+
+                        }
+                    }
+                }
+            return View();
         }
     }
 }

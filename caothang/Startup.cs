@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using caothang.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace caothang
 {
@@ -26,9 +27,23 @@ namespace caothang
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/Areas/Admin/NguoiDung/DangNhap/";
+                options.AccessDeniedPath = "";
 
-            services.AddDbContext<caothangContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("caothangContext")));
+            });
+            services.AddDbContext<DPContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DPContext")));
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromMinutes(5);
+                option.Cookie.HttpOnly = true;
+                option.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,15 +63,16 @@ namespace caothang
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(
                name: "MyArea",
                areaName: "Admin",
                pattern: "Admin/{controller=Login}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
