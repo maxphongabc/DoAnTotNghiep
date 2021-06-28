@@ -29,10 +29,11 @@ namespace caothang.Areas.Admin.Models
         [StringLength(maximumLength: 300, MinimumLength = 8)]
         [Display(Name = "E-Mail")]
         public string Email { get; set; }
+        [Display(Name ="Hình Ảnh")]
+        public string HinhAnh { get; set; }
         [Required(ErrorMessage = "Nhập Đầy Đủ Thông Tin")]
         [StringLength(maximumLength: 200, ErrorMessage = "Độ dài không phù hợp", MinimumLength = 8)]
         [Display(Name = "Tài Khoản")]
-        public string HinhAnh { get; set; }
         public string TaiKhoan { get; set; }
         [StringLength(maximumLength: 200, ErrorMessage = "Độ dài không phù hợp", MinimumLength = 8)]
         [Display(Name = "Mật Khẩu")]
@@ -40,8 +41,6 @@ namespace caothang.Areas.Admin.Models
         [Display(Name = "Trạng Thái")]
         public bool TrangThai { get; set; }
         public int MaQuyen { get; set; }
-        
-  
         public NguoiDungModel()
         {
             TrangThai = true;

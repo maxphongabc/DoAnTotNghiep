@@ -31,14 +31,14 @@
                             foreach (var item in a)
                             {
                                 int tong = 0;
-                                int gia = decimal.ToInt32(item.SanPham.DonGia);
-                                int total = gia * item.Quality;
+                                int gia = decimal.ToInt32(item.sanpham.DonGia);
+                                int total = gia * item.Quaility;
                                 tong += total;
                                 <tr>
-                                    <td class="image" data-title="No"><img src="~img/@item.SanPham.HinhAnh" alt="@item.SanPham.HinhAnh"></td>
+                                    <td class="image" data-title="No"><img src="~img/@item.sanpham.HinhAnh" alt="@item.sanpham.HinhAnh"></td>
                                     <td class="product-des" data-title="Description">
-                                        <p class="product-name"><a href="#">@item.SanPham.TenSP</a></p>
-                                        <p class="product-des">@item.SanPham.LoaiSanPham</p>
+                                        <p class="product-name"><a href="#">@item.sanpham.TenSP</a></p>
+                                        <p class="product-des">@item.sanpham.LoaiSanPham</p>
                                     </td>
 
                                     <td class="qty" data-title="Qty">
@@ -49,7 +49,7 @@
                                                     <i class="ti-minus"></i>
                                                 </button>
                                             </div>
-                                            <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="100" value="@item.Quality">
+                                            <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="100" value="@item.Quaility">
                                             <div class="button plus">
                                                 <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
                                                     <i class="ti-plus"></i>
@@ -59,7 +59,7 @@
                                         <!--/ End Input Order -->
                                     </td>
                                     <td class="total-amount" data-title="Total"><span>$@total</span></td>
-                                    <td class="action" onClick="alert('Xóa thành công sản phẩm @item.SanPham.TenSP');" data-title="Remove"><a asp-controller="Home" asp-action="DeleteCart" asp-route-id="@item.SanPham.MaSP"><i class="ti-trash remove-icon"></i></a></td>
+                                    <td class="action" onClick="alert('Xóa thành công sản phẩm @item.sanpham.TenSP');" data-title="Remove"><a asp-controller="Home" asp-action="DeleteCart" asp-route-id="@item.sanpham.MaSP"><i class="ti-trash remove-icon"></i></a></td>
                                 </tr>
                             }
                         }
@@ -87,8 +87,8 @@
                                 @foreach (var item in a)
                                 {
                                     int Tong = 0;
-                                    int gia = decimal.ToInt32(item.SanPham.DonGia);
-                                    int total = gia * item.Quality;
+                                    int gia = decimal.ToInt32(item.sanpham.DonGia);
+                                    int total = gia * item.Quaility;
                                     Tong += total;
                                     <div class="right">
                                         <ul>

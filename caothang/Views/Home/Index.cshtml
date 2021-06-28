@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
     var ListSPPlayStation = (List<caothang.Areas.Admin.Models.SanPhamModel>)ViewBag.ListSPPlayStation;
-    var a = Context.Session.GetString("CartSession");
+    //var a = Context.Session.GetString("CartSession");
     var sanphams = ViewBag.ListSP as List<caothang.Areas.Admin.Models.SanPhamModel>;
 }
 <!-- ##### Hero Area Start ##### -->
@@ -73,7 +73,7 @@
     <div class="tab-single">
         <div class="container-fluid">
             <div class="row">
-                @foreach (var sanpham in ListSPPlayStation)
+                @*@foreach (var sanpham in ListSPPlayStation)
                 {
                 <div class="card-deck"style="padding-left: 20px;" >
                     <div class="card" >
@@ -90,7 +90,7 @@
                         </div>
                     </div>             
                 </div>
-                }
+                }*@
             </div>
         </div>
     </div>

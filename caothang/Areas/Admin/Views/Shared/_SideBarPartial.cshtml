@@ -37,12 +37,48 @@
                 </li>
                 <li class="sidebar-item has-sub">
                     <a class="sidebar-link">
+                        <i data-feather="edit" width="20"></i>
+                        <span>Quản lý Hóa Đơn</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="HoaDon" asp-action="index">Danh sách hóa đơn</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="file-text" width="20"></i>
+                        <span>Quản lý CTHD</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="ChiTietHoaDon" asp-action="index">Danh sách chi tiết hóa đơn</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
                         <i data-feather="user" width="20"></i>
                         <span>Quản lý người dùng</span>
                     </a>
                     <ul class="submenu">
                         <li>
-                            <a asp-controller="NhanVien" asp-action="index">Danh sách tài khoản</a>
+                            <a asp-controller="NguoiDung" asp-action="index">Danh sách tài khoản</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="key" width="20"></i>
+                        <span>Quản lý quyền</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="PhanQuyen" asp-action="index">Danh sách quyền</a>
                         </li>
 
                     </ul>

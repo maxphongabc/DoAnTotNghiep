@@ -1,5 +1,4 @@
 ﻿using caothang.Areas.Admin.Models;
-using caothang.Common;
 using caothang.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

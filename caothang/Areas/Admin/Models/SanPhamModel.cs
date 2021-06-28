@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,12 +25,7 @@ namespace caothang.Areas.Admin.Models
         [Display(Name ="Số lượng" )]
         public int SoLuong { get; set; }
         
-        [Required(ErrorMessage = "Không được bỏ trống")]
-        [Display(Name = "Mã loại sản phẩm")]
-        public int MaLSP { get; set; }
-     
         [Display(Name = "Mô tả")]
-
         public string MoTa { get; set; }
         [Display(Name = "Trạng Thái")]
         public bool TrangThai { get; set; }
@@ -37,6 +33,10 @@ namespace caothang.Areas.Admin.Models
         {
             TrangThai = true;
         }
+        [Required(ErrorMessage = "Không được bỏ trống")]
+        [Display(Name = "Mã loại sản phẩm")]
+        public int MaLSP { get; set; }
+        [ForeignKey("MaLSP")]
         public virtual LoaiSanPhamModel LoaiSanPham { get; set; }
         public ICollection<ChiTietHoaDonModel> chiTietHoaDons { get; set; }
     }
