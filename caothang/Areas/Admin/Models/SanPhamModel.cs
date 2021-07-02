@@ -12,6 +12,7 @@ namespace caothang.Areas.Admin.Models
         [Key]
         [Display(Name = "Mã sản phẩm")]
         public int MaSP { get; set; }
+        public int MaLSP { get; set; }
         [Required(ErrorMessage = "Không được bỏ trống")]
         [Display(Name = "Tên sản phẩm")]
         [StringLength(maximumLength: 80, ErrorMessage = "Tên sản phẩm quá dài")]
@@ -35,9 +36,9 @@ namespace caothang.Areas.Admin.Models
         }
         [Required(ErrorMessage = "Không được bỏ trống")]
         [Display(Name = "Mã loại sản phẩm")]
-        public int MaLSP { get; set; }
+        
         [ForeignKey("MaLSP")]
-        public virtual LoaiSanPhamModel LoaiSanPham { get; set; }
+        public virtual LoaiSanPhamModel malsp { get; set; }
         public ICollection<ChiTietHoaDonModel> chiTietHoaDons { get; set; }
     }
 }

@@ -1,12 +1,7 @@
 ﻿@model caothang.Areas.Admin.Models.SanPhamModel
 
-@{ ViewData["Title"] = "Create";
-    Layout = null;
-    string IMG = null;
-    if (Model.HinhAnh == null)
-        IMG = "TS001.jpg";
-    else
-        IMG = Model.HinhAnh;
+@{
+    ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
@@ -22,14 +17,16 @@
                 <input asp-for="TenSP" class="form-control" />
                 <span asp-validation-for="TenSP" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label class="control-label">Loại SP</label>
+                <select asp-for="MaLSP" class="w-100 form-control" asp-items="@(new SelectList(ViewBag.ListLSP, "MaLSP", "TenLoaiSP"))"></select>
+            </div>
             <div class="custom-file">
-                <input type="file" name="ful" accept="*.png|*.jpg" class="custom-file-input" id="ful" value="" />
-                <label class="custom-file-label" for="ful">
-                    Chọn Hình
-                </label>
+                <input type="file" name="ful" id="ful" class="custom-file-input" accept="*.png|*.jpg" value="" />
+                <label class="custom-file-label" for="ful">Chọn ảnh</label>
             </div>
             <div class="form-group">
-                <img id="imgPre" alt="noImage" class="img-thumbnail " src="~/img/sanpham/PS5 DIGITAL.jpg" />
+                <img src="~/img/sanpham/A Big Adventure - US.jpg" class="img-thumbnail" id="imgPre" alt="Alternate Text" />
             </div>
             <div class="form-group">
                 <label asp-for="DonGia" class="control-label"></label>
@@ -52,10 +49,6 @@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="MaLSP" class="control-label"></label>
-                <select asp-for="MaLSP" class="form-control" asp-items="@(new SelectList(ViewBag.ListLSP,"MaLSP"))"></select>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -65,22 +58,22 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-@section Script{
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        function readURL(input, idImg) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $(idImg).attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
+<script>
+
+    function readURL(input, idImg) {
+        console.log(input, idImg);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(idImg).attr("src", e.target.result);
             }
+            reader.readAsDataURL(input.files[0])
         }
-        $("#ful").change(function () {
-            readURL(this, '#imgPre');
-        });
-    </script>
+    };
+    $("#ful").change(function () {
+        readURL(this, "#imgPre");
+    });
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-

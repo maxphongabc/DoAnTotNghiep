@@ -40,13 +40,13 @@ namespace caothang.Migrations
                 {
                     MaSP = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    MaLSP = table.Column<int>(nullable: false),
                     TenSP = table.Column<string>(maxLength: 80, nullable: false),
                     HinhAnh = table.Column<string>(nullable: true),
                     DonGia = table.Column<decimal>(nullable: false),
                     SoLuong = table.Column<int>(nullable: false),
                     MoTa = table.Column<string>(nullable: true),
-                    TrangThai = table.Column<bool>(nullable: false),
-                    MaLSP = table.Column<int>(nullable: false)
+                    TrangThai = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,6 +145,53 @@ namespace caothang.Migrations
                         principalTable: "SanPhams",
                         principalColumn: "MaSP",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "LoaiSanPhams",
+                columns: new[] { "MaLSP", "TenLoaiSP", "TrangThai" },
+                values: new object[,]
+                {
+                    { 1, "PlayStation", true },
+                    { 2, "Xbox", true },
+                    { 3, "Nintendo", true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PhanQuyens",
+                columns: new[] { "MaQuyen", "TenQuyen", "TrangThai" },
+                values: new object[,]
+                {
+                    { 1, "Admin", true },
+                    { 2, "User", true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "NguoiDungs",
+                columns: new[] { "MaND", "DiaChi", "DienThoai", "Email", "HinhAnh", "HoTen", "MaQuyen", "MatKhau", "TaiKhoan", "TrangThai" },
+                values: new object[,]
+                {
+                    { 1, "115 Trần Xuân Soạn", "0393030574", "Duyvo049@gmail.com", "user-1", "Võ Thành Duy", 1, "25f9e794323b453885f5181f1b624d0b", "vothanhduy", true },
+                    { 2, "115 Trần Xuân Soạn", "0393030574", "leloc603@gmail.com", "user-2", "Lê Xuân Lộc", 2, "25f9e794323b453885f5181f1b624d0b", "lexuanloc", true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SanPhams",
+                columns: new[] { "MaSP", "DonGia", "HinhAnh", "MaLSP", "MoTa", "SoLuong", "TenSP", "TrangThai" },
+                values: new object[,]
+                {
+                    { 1, 299m, " PS4 Pro 2nd hand.jpg", 1, "Đẹp", 50, "PS4 Pro 2nd hand", true },
+                    { 2, 39m, "Sony PS4 Slim Days Of Play 2019 Limited Edition.jpg", 1, "Đẹp", 50, "Sony PS4 Slim Days Of Play 2019 Limited Edition", true },
+                    { 3, 39m, "Máy PS4 Slim 1TB.jpg", 1, "Đẹp", 50, "Máy PS4 Slim 1TB", true },
+                    { 4, 39m, "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg", 1, "Đẹp", 50, "Máy PS4 Pro The Last Of Us 2 Limited Edition", true },
+                    { 5, 299m, " Xbox Series S.jpg", 2, "Đẹp", 50, "Xbox Series S", true },
+                    { 6, 299m, " Xbox Series X.jpg", 2, "Đẹp", 50, "Xbox Series X", true },
+                    { 7, 299m, " Xbox Wireless Adapter for Windows 10.jpg", 2, "Đẹp", 50, "Xbox Wireless Adapter for Windows 10", true },
+                    { 8, 299m, " Tay Cầm Xbox One S Wireless Minecraft Creeper.jpg", 2, "Đẹp", 50, "Tay Cầm Xbox One S Wireless Minecraft Creeper", true },
+                    { 9, 299m, "Nintendo Switch - Mario Red & Blue Edition.jpg", 3, "Đẹp", 50, "Nintendo Switch - Mario Red & Blue Edition", true },
+                    { 10, 299m, " Nintendo Switch - Monster Hunter Rise Edition.jpg", 3, "Đẹp", 50, "Nintendo Switch - Monster Hunter Rise Edition", true },
+                    { 11, 299m, " Máy Nintendo Switch Lite - Màu Turquoise.jpg", 3, "Đẹp", 50, "Máy Nintendo Switch Lite - Màu Turquoise", true },
+                    { 12, 299m, " Máy Nintendo Switch Fortnite Special Edition.jpg", 3, "Đẹp", 50, "Máy Nintendo Switch Fortnite Special Edition", true }
                 });
 
             migrationBuilder.CreateIndex(

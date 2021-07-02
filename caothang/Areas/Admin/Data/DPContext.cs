@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using caothang.Areas.Admin.Models;
+using caothang.Areas.Admin.Data;
 
 namespace caothang.Data
 {
@@ -25,5 +26,9 @@ namespace caothang.Data
         public DbSet<caothang.Areas.Admin.Models.PhanQuyenModel> PhanQuyens { get; set; }
 
         public DbSet<caothang.Areas.Admin.Models.SanPhamModel> SanPhams { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Seed();
+        }
     }
 }

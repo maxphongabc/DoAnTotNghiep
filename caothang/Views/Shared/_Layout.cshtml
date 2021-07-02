@@ -1,13 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    @await Html.PartialAsync("_HeadPartial.cshtml")
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <partial name="_HeadPartial.cshtml" />
     @RenderSection("CSS", required: false)
 </head>
 <body>
-    @await Html.PartialAsync("_HeaderPartial.cshtml")
+    <partial name="_HeaderPartial.cshtml" />
     @RenderBody()
-    @await Html.PartialAsync("_FooterPartial.cshtml")
+    <partial name="_FooterPartial.cshtml" />
     @RenderSection("Scripts", required: false)
     @RenderSection("JS", required: false)
 </body>

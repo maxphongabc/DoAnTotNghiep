@@ -71,7 +71,7 @@ namespace caothang
                 endpoints.MapAreaControllerRoute(
                name: "MyArea",
                areaName: "Admin",
-               pattern: "Admin/{controller=Login}/{action=Index}/{id?}");
+               pattern: "Admin/{controller=HomeAdmin}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

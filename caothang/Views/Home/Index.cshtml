@@ -2,7 +2,9 @@
 @{
     ViewData["Title"] = "Home Page";
     var ListSPPlayStation = (List<caothang.Areas.Admin.Models.SanPhamModel>)ViewBag.ListSPPlayStation;
-    //var a = Context.Session.GetString("CartSession");
+    var ListSPXbox = (List<caothang.Areas.Admin.Models.SanPhamModel>)ViewBag.ListSPXbox;
+    var ListSPNintendo = (List<caothang.Areas.Admin.Models.SanPhamModel>)ViewBag.ListSPNintendo;
+    var a = Context.Session.GetString("CartSession");
     var sanphams = ViewBag.ListSP as List<caothang.Areas.Admin.Models.SanPhamModel>;
 }
 <!-- ##### Hero Area Start ##### -->
@@ -65,7 +67,7 @@
 </div>
 <!-- ##### Games Area End ##### -->
 <div class="container-fluid">
-    <a href="#"><img style="height:80px;width:1280px;" src="~/img/ps4-home-banner-1280x80.jpg" /></a>
+    <a href="#"><img style="height:80px;width:1280px;" src="~/img/banner/ps4-home-banner-1280x80.jpg" /></a>
 </div>
 <br />
 
@@ -73,24 +75,72 @@
     <div class="tab-single">
         <div class="container-fluid">
             <div class="row">
-                @*@foreach (var sanpham in ListSPPlayStation)
+                @foreach (var sanpham in ListSPPlayStation)
                 {
-                <div class="card-deck"style="padding-left: 20px;" >
-                    <div class="card" >
-                        <img class="card-img-top" style="height:300px;width:300px;" src="~/img/ps/@sanpham.HinhAnh" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">@sanpham.TenSP</h5>
-                            <p class="card-text">@sanpham.DonGia $</p>
+                    <div class="card-deck" style="padding-left: 20px;">
+                        <div class="card">
+                            <img class="card-img-top" style="height:300px;width:300px;" src="~/img/sanpham/@sanpham.HinhAnh" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">@sanpham.TenSP</h5>
+                                <p class="card-text">@sanpham.DonGia $</p>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <a onClick="alert('Thêm thành công sản phẩm @sanpham.TenSP')" ; asp-controller="Cart" asp-action="AddCart" asp-route-id="@sanpham.MaSP"><img src="~/img/shopping-cart.png" /></a>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a class="btn egames-btn mt-30" asp-action="details" asp-controller="Home" asp-route-id="@sanpham.MaSP">Mua Ngay</a>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-center">
-                            <a onClick="alert('Thêm thành công sản phẩm @sanpham.TenSP')" ; asp-controller="Home" asp-action="ThemGioHang" asp-route-id="@sanpham.MaSP" ><img src="~/img/shopping-cart.png" /></a>
+                    </div>
+                }
+            </div>
+            <div class="container-fluid">
+                <a href="#"><img style="height:80px;width:1280px;" src="~/img/banner/ps4-home-banner-1280x80.jpg" /></a>
+            </div>
+            <br />
+            <div class="row">
+                @foreach (var sanpham in ListSPXbox)
+                {
+                    <div class="card-deck" style="padding-left: 20px;">
+                        <div class="card">
+                            <img class="card-img-top" style="height:300px;width:300px;" src="~/img/sanpham/@sanpham.HinhAnh" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">@sanpham.TenSP</h5>
+                                <p class="card-text">@sanpham.DonGia $</p>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <a onClick="alert('Thêm thành công sản phẩm @sanpham.TenSP')" ; asp-controller="Cart" asp-action="AddCart" asp-route-id="@sanpham.MaSP"><img src="~/img/shopping-cart.png" /></a>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a class="btn egames-btn mt-30" asp-action="details" asp-controller="Home" asp-route-id="@sanpham.MaSP">Mua Ngay</a>
+                            </div>
                         </div>
-                        <div class="card-footer text-center">
-                            <a class="btn egames-btn mt-30" asp-action="ChiTietSP" asp-controller="Home" asp-route-id="@sanpham.MaSP">Mua Ngay</a>
+                    </div>
+                }
+            </div>
+            <div class="container-fluid">
+                <a href="#"><img style="height:80px;width:1280px;" src="~/img/banner/ps4-home-banner-1280x80.jpg" /></a>
+            </div>
+            <br />
+            <div class="row">
+                @foreach (var sanpham in ListSPNintendo)
+                {
+                    <div class="card-deck" style="padding-left: 20px;">
+                        <div class="card">
+                            <img class="card-img-top" style="height:300px;width:300px;" src="~/img/sanpham/@sanpham.HinhAnh" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">@sanpham.TenSP</h5>
+                                <p class="card-text">@sanpham.DonGia $</p>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <a onClick="alert('Thêm thành công sản phẩm @sanpham.TenSP')" ; asp-controller="Cart" asp-action="AddCart" asp-route-id="@sanpham.MaSP"><img src="~/img/shopping-cart.png" /></a>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a class="btn egames-btn mt-30" asp-action="details" asp-controller="Home" asp-route-id="@sanpham.MaSP">Mua Ngay</a>
+                            </div>
                         </div>
-                    </div>             
-                </div>
-                }*@
+                    </div>
+                }
             </div>
         </div>
     </div>

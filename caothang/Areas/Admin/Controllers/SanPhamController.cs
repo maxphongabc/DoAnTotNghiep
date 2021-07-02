@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using caothang.Areas.Admin.Models;
 using caothang.Data;
-using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace caothang.Areas.Admin.Controllers
 {
@@ -49,116 +49,36 @@ namespace caothang.Areas.Admin.Controllers
         // GET: Admin/SanPham/Create
         public IActionResult Create()
         {
+            ViewBag.ListLSP = _context.LoaiSanPhams.Where(lsp => lsp.TrangThai == true).ToList();
             return View();
         }
 
         // POST: Admin/SanPham/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //public IActionResult Create()
-        //{
-        //    ViewData["MLSP"] = new SelectList(_context.LoaiSanPhams, "Id", "Id");
-        //    return View();
-        //}
-        public void SetMessage(string Message, string type)
-        {
-            TempData["AlertMessage"] = Message;
-            if (type == "success")
-            {
-                TempData["AlertType"] = "alert-success";
-            }
-            else if (type == "error")
-            {
-                TempData["AlertType"] = "alert-danger";
-            }
-        }
-        public async Task<IActionResult> Create(int id = 0)
-        {
-            if (id == 0)
-            {
-                ViewBag.ListLSP = _context.LoaiSanPhams.Where(lsp => lsp.TrangThai == true).ToList();
-                return View(new SanPhamModel());
-            }
-            else
-            {
-                var sanphamModel = await _context.SanPhams.FindAsync(id);
-                if (sanphamModel == null)
-                {
-                    return NotFound();
-                }
-                ViewBag.ListLSP = _context.LoaiSanPhams.Where(lsp => lsp.TrangThai == true).ToList();
-                ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", sanphamModel.MaSP);
-                return View(sanphamModel);
-            }
-
-        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int id,[Bind("MaSP,TenSP,HinhAnh,DonGia,SoLuong,MoTa,MLSP,TrangThai")] SanPhamModel sanPhamModel,IFormFile ful)
+        public async Task<IActionResult> Create([Bind("MaSP,TenSP,HinhAnh,DonGia,SoLuong,MoTa,TrangThai")] SanPhamModel sanPhamModel,IFormFile ful)
         {
+            sanPhamModel.TrangThai = true;
             if (ModelState.IsValid)
             {
-                if (id == 0)
+                _context.Add(sanPhamModel);
+                await _context.SaveChangesAsync();
+                var path = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot/img/sanpham",
+                  "." + sanPhamModel.MaSP + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1]);
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    //_context.Add(sanPhamModel);
-                    //await _context.SaveChangesAsync();
-                    var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgPro",
-                        sanPhamModel.MaSP + "." + ful.FileName.Split(".")
-                        [ful.FileName.Split(".").Length - 1]);
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await ful.CopyToAsync(stream);
-                    }
-                    sanPhamModel.HinhAnh = sanPhamModel.MaSP + "." + ful.FileName.Split(".")
-                        [ful.FileName.Split(".").Length - 1];
-
-                    _context.Update(sanPhamModel);
-                    await _context.SaveChangesAsync();
-                    SetMessage("Thêm sản phẩm thành công", "messages");
+                    await ful.CopyToAsync(stream);
                 }
-                else
-                {
-                    try
-                    {
-
-                        await _context.SaveChangesAsync();
-                        if (ful != null)
-                        {
-                            var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgPro",
-                        sanPhamModel.MaSP + "." + ful.FileName.Split(".")
-                        [ful.FileName.Split(".").Length - 1]);
-                            using (var stream = new FileStream(path, FileMode.Create))
-                            {
-                                await ful.CopyToAsync(stream);
-                            }
-                            sanPhamModel.HinhAnh = sanPhamModel.MaSP + "." + ful.FileName.Split(".")
-                                [ful.FileName.Split(".").Length - 1];
-                        }
-                        _context.Update(sanPhamModel);
-                        await _context.SaveChangesAsync();
-                        SetMessage("Sửa sản phẩm thành công", "messages");
-                    }
-                    catch (DbUpdateConcurrencyException)
-                    {
-                        if (!SanPhamModelExists(sanPhamModel.MaSP))
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                }
-                ViewBag.ListLSP = _context.LoaiSanPhams.Where(lsp => lsp.TrangThai == true).ToList();
-                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "Index", _context.SanPhams.Where(u => u.TrangThai == true).ToList()) });
+                sanPhamModel.HinhAnh = sanPhamModel.MaSP + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
+                sanPhamModel.HinhAnh = "." + sanPhamModel.HinhAnh;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            ModelState.AddModelError("", "Thêm mới sản phẩm thất bại");
             ViewBag.ListLSP = _context.LoaiSanPhams.Where(lsp => lsp.TrangThai == true).ToList();
-            return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "Create", sanPhamModel) });
-
+            return View(sanPhamModel);
         }
 
         // GET: Admin/SanPham/Edit/5

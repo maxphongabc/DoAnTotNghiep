@@ -1,0 +1,109 @@
+﻿
+@model List<caothang.Models.GioHang>
+@{
+    var b = Context.Session.GetString("CartSession");
+    var a = ViewBag.giohang as List<caothang.Models.GioHang>;
+    var c = ViewBag.model as List<caothang.Areas.Admin.Models.SanPhamModel>;
+    Layout = "~/Views/Shared/_layoutcart.cshtml";
+}
+@using Microsoft.AspNetCore.Http
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Giỏ Hàng</h1>
+    </div>
+</section>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Tình Trạng</th>
+                            <th scope="col" class="text-center">Số lượng</th>
+                            <th scope="col" class="text-right">Giá</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (b != null)
+                        {
+                            foreach (var item in a)
+                            {
+                                int tong = 0;
+                                int gia = decimal.ToInt32(item.SanPham.DonGia);
+                                int total = gia * item.Quality;
+                                tong += total;
+                                <tr>
+                                    <td><img style="height:300px;width:300px;" src="~/img/sanpham/@item.SanPham.HinhAnh" alt="@item.SanPham.HinhAnh" /> </td>
+                                    <td>@item.SanPham.TenSP</td>
+                                    <td>
+                                        @if (item.SanPham.SoLuong > 1)
+                                        {<span>Còn hàng</span>
+                                        }
+                                        else
+                                        {<span class="text-danger">Hết hàng</span>}
+                                    </td>
+
+
+                                    <td><input class="form-control" type="text" value="1" /></td>
+                                    <td class="text-right">@item.SanPham.DonGia $</td>
+                                    <td class="text-right"><button asp-action="Xoagiohang" asp-controller="home" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Tổng tiền</td>
+                                    <td class="text-right">@total $</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Tổng tiền</td>
+                                    <td class="text-right">@tong $</td>
+                                </tr>
+
+                            }
+
+                        }
+
+                        else
+                        {
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @if (b != null)
+        {
+            foreach (var item in a)
+            {
+                int tong = 0;
+                int gia = decimal.ToInt32(item.SanPham.DonGia);
+                int total = gia * item.Quality;
+                tong += total;
+                <div>@tong $</div>
+            }
+        }
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                    <button class="btn btn-block btn-light">Continue Shopping</button>
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">
+                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

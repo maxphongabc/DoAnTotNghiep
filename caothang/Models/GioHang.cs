@@ -8,8 +8,8 @@ namespace caothang.Models
 {
     public class GioHang
     {
-        public SanPhamModel sanpham { get; set; }
-        public int Quaility { get; set; }
+        public SanPhamModel SanPham { get; set; }
+        public int Quality { get; set; }
         public int Total { get; set; }
 
     }

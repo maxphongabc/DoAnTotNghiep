@@ -27,23 +27,23 @@ namespace caothang.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public  IActionResult Index()
         {
             GetUser();
-            //ViewBag.ListSPPlayStation = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 1).OrderBy(sp => sp.MaSP).ToList();
+            ViewBag.ListSPPlayStation = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 1).OrderBy(sp => sp.MaSP).ToList();
+            ViewBag.ListSPXbox = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 2).OrderBy(sp => sp.MaSP).ToList();
+            ViewBag.ListSPNintendo = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 3).OrderBy(sp => sp.MaSP).ToList();
             return View();
         }
 
-        public async Task<IActionResult> ChiTietSP(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
-            GetUser();
             if (id == null)
             {
                 return NotFound();
             }
-
             var sanPhamModel = await _context.SanPhams
-                .Include(s => s.LoaiSanPham)
+                .Include(s => s.MaLSP)
                 .FirstOrDefaultAsync(m => m.MaSP == id);
             if (sanPhamModel == null)
             {
@@ -89,8 +89,8 @@ namespace caothang.Controllers
                 {
                     new GioHang
                     {
-                        sanpham=product,
-                        Quaility=1
+                        SanPham=product,
+                        Quality=1
                     }
                 };
                 HttpContext.Session.SetString("CartSession", JsonConvert.SerializeObject(listCart));
@@ -101,9 +101,9 @@ namespace caothang.Controllers
                 bool check = true;
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].sanpham.MaSP == id)
+                    if (dataCart[i].SanPham.MaSP == id)
                     {
-                        dataCart[i].Quaility++;
+                        dataCart[i].Quality++;
                         check = false;
                     }
                 }
@@ -111,8 +111,8 @@ namespace caothang.Controllers
                 {
                     dataCart.Add(new GioHang
                     {
-                        sanpham = GetProduct(id),
-                        Quaility = 1
+                        SanPham = GetProduct(id),
+                        Quality = 1
                     });
                 }
                 HttpContext.Session.SetString("CartSession", JsonConvert.SerializeObject(dataCart));
@@ -146,7 +146,7 @@ namespace caothang.Controllers
 
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].sanpham.MaSP == id)
+                    if (dataCart[i].SanPham.MaSP == id)
                     {
                         dataCart.RemoveAt(i);
                     }

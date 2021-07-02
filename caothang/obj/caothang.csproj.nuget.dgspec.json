@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\caothang\\caothang.csproj": {}
+    "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\caothang\\caothang.csproj": {
+    "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\caothang\\caothang.csproj",
+        "projectUniqueName": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj",
         "projectName": "caothang",
-        "projectPath": "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\caothang\\caothang.csproj",
+        "projectPath": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\caothang.csproj",
         "packagesPath": "C:\\Users\\Thanh Duy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\caothang\\obj\\",
+        "outputPath": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\caothang\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Thanh Duy\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.AspNet.WebPages": {
+              "target": "Package",
+              "version": "[3.2.7, )"
+            },
             "Microsoft.AspNetCore.Session": {
               "target": "Package",
               "version": "[2.2.0, )"

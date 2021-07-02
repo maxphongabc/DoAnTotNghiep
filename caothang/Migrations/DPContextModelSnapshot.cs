@@ -107,6 +107,26 @@ namespace caothang.Migrations
                     b.HasKey("MaLSP");
 
                     b.ToTable("LoaiSanPhams");
+
+                    b.HasData(
+                        new
+                        {
+                            MaLSP = 1,
+                            TenLoaiSP = "PlayStation",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaLSP = 2,
+                            TenLoaiSP = "Xbox",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaLSP = 3,
+                            TenLoaiSP = "Nintendo",
+                            TrangThai = true
+                        });
                 });
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.NguoiDungModel", b =>
@@ -158,6 +178,34 @@ namespace caothang.Migrations
                     b.HasIndex("MaQuyen");
 
                     b.ToTable("NguoiDungs");
+
+                    b.HasData(
+                        new
+                        {
+                            MaND = 1,
+                            DiaChi = "115 Trần Xuân Soạn",
+                            DienThoai = "0393030574",
+                            Email = "Duyvo049@gmail.com",
+                            HinhAnh = "user-1",
+                            HoTen = "Võ Thành Duy",
+                            MaQuyen = 1,
+                            MatKhau = "25f9e794323b453885f5181f1b624d0b",
+                            TaiKhoan = "vothanhduy",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaND = 2,
+                            DiaChi = "115 Trần Xuân Soạn",
+                            DienThoai = "0393030574",
+                            Email = "leloc603@gmail.com",
+                            HinhAnh = "user-2",
+                            HoTen = "Lê Xuân Lộc",
+                            MaQuyen = 2,
+                            MatKhau = "25f9e794323b453885f5181f1b624d0b",
+                            TaiKhoan = "lexuanloc",
+                            TrangThai = true
+                        });
                 });
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.PhanQuyenModel", b =>
@@ -177,6 +225,20 @@ namespace caothang.Migrations
                     b.HasKey("MaQuyen");
 
                     b.ToTable("PhanQuyens");
+
+                    b.HasData(
+                        new
+                        {
+                            MaQuyen = 1,
+                            TenQuyen = "Admin",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaQuyen = 2,
+                            TenQuyen = "User",
+                            TrangThai = true
+                        });
                 });
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.SanPhamModel", b =>
@@ -214,6 +276,140 @@ namespace caothang.Migrations
                     b.HasIndex("MaLSP");
 
                     b.ToTable("SanPhams");
+
+                    b.HasData(
+                        new
+                        {
+                            MaSP = 1,
+                            DonGia = 299m,
+                            HinhAnh = " PS4 Pro 2nd hand.jpg",
+                            MaLSP = 1,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "PS4 Pro 2nd hand",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 2,
+                            DonGia = 39m,
+                            HinhAnh = "Sony PS4 Slim Days Of Play 2019 Limited Edition.jpg",
+                            MaLSP = 1,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Sony PS4 Slim Days Of Play 2019 Limited Edition",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 3,
+                            DonGia = 39m,
+                            HinhAnh = "Máy PS4 Slim 1TB.jpg",
+                            MaLSP = 1,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Máy PS4 Slim 1TB",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 4,
+                            DonGia = 39m,
+                            HinhAnh = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
+                            MaLSP = 1,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Máy PS4 Pro The Last Of Us 2 Limited Edition",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 5,
+                            DonGia = 299m,
+                            HinhAnh = " Xbox Series S.jpg",
+                            MaLSP = 2,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Xbox Series S",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 6,
+                            DonGia = 299m,
+                            HinhAnh = " Xbox Series X.jpg",
+                            MaLSP = 2,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Xbox Series X",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 7,
+                            DonGia = 299m,
+                            HinhAnh = " Xbox Wireless Adapter for Windows 10.jpg",
+                            MaLSP = 2,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Xbox Wireless Adapter for Windows 10",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 8,
+                            DonGia = 299m,
+                            HinhAnh = " Tay Cầm Xbox One S Wireless Minecraft Creeper.jpg",
+                            MaLSP = 2,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Tay Cầm Xbox One S Wireless Minecraft Creeper",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 9,
+                            DonGia = 299m,
+                            HinhAnh = "Nintendo Switch - Mario Red & Blue Edition.jpg",
+                            MaLSP = 3,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Nintendo Switch - Mario Red & Blue Edition",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 10,
+                            DonGia = 299m,
+                            HinhAnh = " Nintendo Switch - Monster Hunter Rise Edition.jpg",
+                            MaLSP = 3,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Nintendo Switch - Monster Hunter Rise Edition",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 11,
+                            DonGia = 299m,
+                            HinhAnh = " Máy Nintendo Switch Lite - Màu Turquoise.jpg",
+                            MaLSP = 3,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Máy Nintendo Switch Lite - Màu Turquoise",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            MaSP = 12,
+                            DonGia = 299m,
+                            HinhAnh = " Máy Nintendo Switch Fortnite Special Edition.jpg",
+                            MaLSP = 3,
+                            MoTa = "Đẹp",
+                            SoLuong = 50,
+                            TenSP = "Máy Nintendo Switch Fortnite Special Edition",
+                            TrangThai = true
+                        });
                 });
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.ChiTietHoaDonModel", b =>
@@ -249,7 +445,7 @@ namespace caothang.Migrations
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.SanPhamModel", b =>
                 {
-                    b.HasOne("caothang.Areas.Admin.Models.LoaiSanPhamModel", "LoaiSanPham")
+                    b.HasOne("caothang.Areas.Admin.Models.LoaiSanPhamModel", "malsp")
                         .WithMany("sanPhams")
                         .HasForeignKey("MaLSP")
                         .OnDelete(DeleteBehavior.Cascade)
