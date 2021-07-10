@@ -16,31 +16,37 @@ namespace caothang.Areas.Admin.Controllers
     //[Authorize("Admin")]
     public class HomeAdminController : Controller
     {
-        private readonly DPContext _context;
-        public HomeAdminController(DPContext context)
-        {
-            _context = context;
-        }
-        public IActionResult Index()
-        {
-            GetUser();
-            return View();
-        }
-        public void GetUser()
-        {
-            if (HttpContext.Session.GetString("user") != null)
-            {
-                JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
-                NguoiDungModel ND = new NguoiDungModel();
-                ND.TaiKhoan = us.SelectToken("TaiKhoan").ToString();
-                ND.MatKhau = us.SelectToken("MatKhau").ToString();
-                ViewBag.ND = _context.NguoiDungs.Where(nd => nd.TaiKhoan == ND.MatKhau).ToList();
-            }
-        }
-        public ActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("DangNhap", "NguoiDung");
-        }
+        //private readonly DPContext _context;
+        //public HomeAdminController(DPContext context)
+        //{
+        //    _context = context;
+        //}
+        //public IActionResult Index()
+        //{
+        //    GetUser();
+        //    var item = from s in _context.HoaDons
+        //               select new
+        //               {
+        //                   s.ThanhTien
+        //               };
+        //    ViewBag.ListTotal = item.ToList().Select(i => i.ThanhTien).Sum();
+        //    return View();
+        //}
+        //public void GetUser()
+        //{
+        //    if (HttpContext.Session.GetString("user") != null)
+        //    {
+        //        JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
+        //        NguoiDungModel ND = new NguoiDungModel();
+        //        ND.TaiKhoan = us.SelectToken("TaiKhoan").ToString();
+        //        ND.MatKhau = us.SelectToken("MatKhau").ToString();
+        //        ViewBag.ND = _context.NguoiDungs.Where(nd => nd.TaiKhoan == ND.MatKhau).ToList();
+        //    }
+        //}
+        //public ActionResult Logout()
+        //{
+        //    HttpContext.Session.Clear();
+        //    return RedirectToAction("DangNhap", "NguoiDung");
+        //}
     }
 }

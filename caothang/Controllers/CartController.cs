@@ -15,13 +15,13 @@ namespace caothang.Controllers
     public class CartController : Controller
     {
         private readonly DPContext _context;
-        public CartController (DPContext context)
+        public CartController(DPContext context)
         {
             _context = context;
         }
         public IActionResult Cart()
         {
-            GetUser();
+            //GetUser();
             var giohang = HttpContext.Session.GetString("CartSession");
             if (giohang != null)
             {
@@ -34,6 +34,7 @@ namespace caothang.Controllers
             }
             return View();
         }
+
         public IActionResult AddCart(int id)
         {
             var cart = HttpContext.Session.GetString("CartSession");//get key cart
@@ -44,7 +45,7 @@ namespace caothang.Controllers
                 {
                     new GioHang
                     {
-                        SanPham=product,
+                        Product=product,
                         Quality=1
                     }
                 };
@@ -56,7 +57,7 @@ namespace caothang.Controllers
                 bool check = true;
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].SanPham.MaSP == id)
+                    if (dataCart[i].Product.Id == id)
                     {
                         dataCart[i].Quality++;
                         check = false;
@@ -66,7 +67,7 @@ namespace caothang.Controllers
                 {
                     dataCart.Add(new GioHang
                     {
-                        SanPham = GetProduct(id),
+                        Product = GetProduct(id),
                         Quality = 1
                     });
                 }
@@ -77,7 +78,7 @@ namespace caothang.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-      
+
         public IActionResult DeleteCart(int id)
         {
             var giohang = HttpContext.Session.GetString("CartSession");
@@ -87,7 +88,7 @@ namespace caothang.Controllers
 
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].SanPham.MaSP == id)
+                    if (dataCart[i].Product.Id == id)
                     {
                         dataCart.RemoveAt(i);
                     }
@@ -98,21 +99,21 @@ namespace caothang.Controllers
             }
             return RedirectToAction(nameof(giohang));
         }
-        public SanPhamModel GetProduct(int id)
+        public ProductModel GetProduct(int id)
         {
-            var product = _context.SanPhams.Find(id);
+            var product = _context.products.Find(id);
             return product;
         }
-        public void GetUser()
-        {
-            if (HttpContext.Session.GetString("user") != null)
-            {
-                JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
-                NguoiDungModel ND = new NguoiDungModel();
-                ND.TaiKhoan = us.SelectToken("TaiKhoan").ToString();
-                ND.MatKhau = us.SelectToken("MatKhau").ToString();
-                ViewBag.ND = _context.NguoiDungs.Where(nd => nd.TaiKhoan == ND.TaiKhoan).ToList();
-            }
-        }
+        //public void GetUser()
+        //{
+        //    if (HttpContext.Session.GetString("user") != null)
+        //    {
+        //        JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
+        //        NguoiDungModel ND = new NguoiDungModel();
+        //        ND.TaiKhoan = us.SelectToken("TaiKhoan").ToString();
+        //        ND.MatKhau = us.SelectToken("MatKhau").ToString();
+        //        ViewBag.ND = _context.NguoiDungs.Where(nd => nd.TaiKhoan == ND.TaiKhoan).ToList();
+        //    }
+        //}
     }
 }

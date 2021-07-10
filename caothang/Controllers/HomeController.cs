@@ -17,7 +17,7 @@ using X.PagedList;
 
 namespace caothang.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
 
@@ -27,47 +27,36 @@ namespace caothang.Controllers
             _context = context;
         }
 
-        public  IActionResult Index()
+        [AllowAnonymous]
+        public IActionResult Index(string Search)
         {
-            GetUser();
-            ViewBag.ListSPPlayStation = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 1).OrderBy(sp => sp.MaSP).ToList();
-            ViewBag.ListSPXbox = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 2).OrderBy(sp => sp.MaSP).ToList();
-            ViewBag.ListSPNintendo = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 3).OrderBy(sp => sp.MaSP).ToList();
-            return View();
-        }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+            //GetUser();
+            var link = from l in _context.products select l;
+            if (!String.IsNullOrEmpty(Search))
             {
-                return NotFound();
+                link = link.Where(s => s.Name.Contains(Search));
             }
-            var sanPhamModel = await _context.SanPhams
-                .Include(s => s.MaLSP)
-                .FirstOrDefaultAsync(m => m.MaSP == id);
-            if (sanPhamModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(sanPhamModel);
+            ViewBag.ListSPPlayStation = _context.products.Where(sp => sp.Status == true && sp.CategoryId == 1).OrderBy(sp => sp.Id).ToList();
+            //ViewBag.ListSPXbox = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 2).OrderBy(sp => sp.MaSP).ToList();
+            //ViewBag.ListSPNintendo = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 3).OrderBy(sp => sp.MaSP).ToList();
+            return View(link);
         }
-        public void GetUser()
-        {
-            if (HttpContext.Session.GetString("user") != null)
-            {
-                JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
-                NguoiDungModel ND = new NguoiDungModel();
-                ND.TaiKhoan = us.SelectToken("TaiKhoan").ToString();
-                ND.MatKhau = us.SelectToken("MatKhau").ToString();
-                ViewBag.ND = _context.NguoiDungs.Where(nd => nd.TaiKhoan == ND.TaiKhoan).ToList();
-            }
-        }
+        //public void GetUser()
+        //{
+        //    if (HttpContext.Session.GetString("user") != null)
+        //    {
+        //        JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
+        //        NguoiDungModel ND = new NguoiDungModel();
+        //        ND.TaiKhoan = us.SelectToken("TaiKhoan").ToString();
+        //        ND.MatKhau = us.SelectToken("MatKhau").ToString();
+        //        ViewBag.ND = _context.NguoiDungs.Where(nd => nd.TaiKhoan == ND.TaiKhoan).ToList();
+        //    }
+        //}
         public IActionResult LoaiSP(int? page)
         {
-            GetUser();
-            var ListSP = _context.SanPhams.Where(sp => sp.TrangThai == true).ToList();
-            var listLSP = _context.LoaiSanPhams.Where(lsp => lsp.TrangThai == true).OrderBy(lsp => lsp.MaLSP).ToList();
+           // GetUser();
+            var ListSP = _context.products.Where(sp => sp.Status == true).ToList();
+            var listLSP = _context.categories.Where(lsp => lsp.Status == true).OrderBy(lsp => lsp.Id).ToList();
             var pageSize = 9;
             var PageNumber = page == null || page <= 0 ? 1 : page.Value;
             if (listLSP == null)
@@ -77,8 +66,6 @@ namespace caothang.Controllers
             ViewBag.SP = ListSP.ToPagedList(PageNumber, pageSize);
             return View(listLSP);
         }
-
-        //[Route("addcart/{masp:int}")]
         public IActionResult ThemGioHang(int id)
         {
             var cart = HttpContext.Session.GetString("CartSession");//get key cart
@@ -89,7 +76,7 @@ namespace caothang.Controllers
                 {
                     new GioHang
                     {
-                        SanPham=product,
+                        Product=product,
                         Quality=1
                     }
                 };
@@ -101,7 +88,7 @@ namespace caothang.Controllers
                 bool check = true;
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].SanPham.MaSP == id)
+                    if (dataCart[i].Product.Id == id)
                     {
                         dataCart[i].Quality++;
                         check = false;
@@ -111,7 +98,7 @@ namespace caothang.Controllers
                 {
                     dataCart.Add(new GioHang
                     {
-                        SanPham = GetProduct(id),
+                        Product = GetProduct(id),
                         Quality = 1
                     });
                 }
@@ -124,7 +111,7 @@ namespace caothang.Controllers
         }
         public IActionResult GioHang()
         {
-            GetUser();
+            //GetUser();
             var giohang = HttpContext.Session.GetString("CartSession");
             if (giohang != null)
             {
@@ -146,7 +133,7 @@ namespace caothang.Controllers
 
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].SanPham.MaSP == id)
+                    if (dataCart[i].Product.Id == id)
                     {
                         dataCart.RemoveAt(i);
                     }
@@ -157,9 +144,9 @@ namespace caothang.Controllers
             }
             return RedirectToAction(nameof(giohang));
         }
-        public SanPhamModel GetProduct(int id)
+        public ProductModel GetProduct(int id)
         {
-            var product = _context.SanPhams.Find(id);
+            var product = _context.products.Find(id);
             return product;
         }
     }

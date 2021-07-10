@@ -19,435 +19,538 @@ namespace caothang.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.ChiTietHoaDonModel", b =>
+            modelBuilder.Entity("caothang.Areas.Admin.Models.CategoryModel", b =>
                 {
-                    b.Property<int>("MaCTHD")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MaHD")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaSP")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoLuong")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("hoadonsMaHD")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("sanphamsMaSP")
-                        .HasColumnType("int");
-
-                    b.HasKey("MaCTHD");
-
-                    b.HasIndex("hoadonsMaHD");
-
-                    b.HasIndex("sanphamsMaSP");
-
-                    b.ToTable("ChiTietHoaDons");
-                });
-
-            modelBuilder.Entity("caothang.Areas.Admin.Models.HoaDonModel", b =>
-                {
-                    b.Property<int>("MaHD")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("MaND")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaSP")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NgayLapHD")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NgayNhanHang")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("NguoiDungsMaND")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SanPhamsMaSP")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenSP")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TrangThai")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.HasKey("MaHD");
+                    b.HasKey("Id");
 
-                    b.HasIndex("NguoiDungsMaND");
-
-                    b.HasIndex("SanPhamsMaSP");
-
-                    b.ToTable("HoaDons");
-                });
-
-            modelBuilder.Entity("caothang.Areas.Admin.Models.LoaiSanPhamModel", b =>
-                {
-                    b.Property<int>("MaLSP")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TenLoaiSP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
-
-                    b.HasKey("MaLSP");
-
-                    b.ToTable("LoaiSanPhams");
+                    b.ToTable("categories");
 
                     b.HasData(
                         new
                         {
-                            MaLSP = 1,
-                            TenLoaiSP = "PlayStation",
-                            TrangThai = true
+                            Id = 1,
+                            Name = "PlayStaion 4",
+                            Status = true
                         },
                         new
                         {
-                            MaLSP = 2,
-                            TenLoaiSP = "Xbox",
-                            TrangThai = true
+                            Id = 2,
+                            Name = "Xbox One S",
+                            Status = true
                         },
                         new
                         {
-                            MaLSP = 3,
-                            TenLoaiSP = "Nintendo",
-                            TrangThai = true
+                            Id = 3,
+                            Name = "Nintendo Switch",
+                            Status = true
                         });
                 });
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.NguoiDungModel", b =>
+            modelBuilder.Entity("caothang.Areas.Admin.Models.GalleryImageModel", b =>
                 {
-                    b.Property<int>("MaND")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DiaChi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("DienThoai")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<string>("HinhAnh")
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HoTen")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<int>("MaQuyen")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MatKhau")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("TaiKhoan")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<bool>("TrangThai")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.HasKey("MaND");
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("MaQuyen");
+                    b.Property<int?>("productsId")
+                        .HasColumnType("int");
 
-                    b.ToTable("NguoiDungs");
+                    b.HasKey("Id");
 
-                    b.HasData(
-                        new
-                        {
-                            MaND = 1,
-                            DiaChi = "115 Trần Xuân Soạn",
-                            DienThoai = "0393030574",
-                            Email = "Duyvo049@gmail.com",
-                            HinhAnh = "user-1",
-                            HoTen = "Võ Thành Duy",
-                            MaQuyen = 1,
-                            MatKhau = "25f9e794323b453885f5181f1b624d0b",
-                            TaiKhoan = "vothanhduy",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            MaND = 2,
-                            DiaChi = "115 Trần Xuân Soạn",
-                            DienThoai = "0393030574",
-                            Email = "leloc603@gmail.com",
-                            HinhAnh = "user-2",
-                            HoTen = "Lê Xuân Lộc",
-                            MaQuyen = 2,
-                            MatKhau = "25f9e794323b453885f5181f1b624d0b",
-                            TaiKhoan = "lexuanloc",
-                            TrangThai = true
-                        });
+                    b.HasIndex("productsId");
+
+                    b.ToTable("galleryImages");
                 });
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.PhanQuyenModel", b =>
+            modelBuilder.Entity("caothang.Areas.Admin.Models.InvoiceModel", b =>
                 {
-                    b.Property<int>("MaQuyen")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("TenQuyen")
-                        .IsRequired()
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TrangThai")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.HasKey("MaQuyen");
+                    b.Property<int>("Total")
+                        .HasColumnType("int");
 
-                    b.ToTable("PhanQuyens");
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
-                    b.HasData(
-                        new
-                        {
-                            MaQuyen = 1,
-                            TenQuyen = "Admin",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            MaQuyen = 2,
-                            TenQuyen = "User",
-                            TrangThai = true
-                        });
+                    b.HasKey("Id");
+
+                    b.ToTable("invoice");
                 });
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.SanPhamModel", b =>
+            modelBuilder.Entity("caothang.Areas.Admin.Models.Invoice_DetailsModel", b =>
                 {
-                    b.Property<int>("MaSP")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("DonGia")
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("HinhAnh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MaLSP")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MoTa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SoLuong")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("TenSP")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(80)")
-                        .HasMaxLength(80);
-
-                    b.Property<bool>("TrangThai")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.HasKey("MaSP");
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("MaLSP");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.ToTable("SanPhams");
+                    b.Property<int?>("invoiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("invoiceId");
+
+                    b.ToTable("invoice_Details");
+                });
+
+            modelBuilder.Entity("caothang.Areas.Admin.Models.ProductModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Desciption")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("products");
 
                     b.HasData(
                         new
                         {
-                            MaSP = 1,
-                            DonGia = 299m,
-                            HinhAnh = " PS4 Pro 2nd hand.jpg",
-                            MaLSP = 1,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "PS4 Pro 2nd hand",
-                            TrangThai = true
+                            Id = 1,
+                            CategoryId = 1,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 797, DateTimeKind.Local).AddTicks(9236),
+                            Desciption = "Đẹp",
+                            Image = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
+                            Name = "Máy PS4 Pro The Last Of Us 2 Limited Edition",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 2,
-                            DonGia = 39m,
-                            HinhAnh = "Sony PS4 Slim Days Of Play 2019 Limited Edition.jpg",
-                            MaLSP = 1,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Sony PS4 Slim Days Of Play 2019 Limited Edition",
-                            TrangThai = true
+                            Id = 2,
+                            CategoryId = 1,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(140),
+                            Desciption = "Đẹp",
+                            Image = "Máy PS4 Slim 1TB.jpg",
+                            Name = "Máy PS4 Slim 1TB",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 3,
-                            DonGia = 39m,
-                            HinhAnh = "Máy PS4 Slim 1TB.jpg",
-                            MaLSP = 1,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Máy PS4 Slim 1TB",
-                            TrangThai = true
+                            Id = 3,
+                            CategoryId = 1,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(188),
+                            Desciption = "Đẹp",
+                            Image = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
+                            Name = "Sony PS4 Slim Days Of Play 2019 Limited Edition",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 4,
-                            DonGia = 39m,
-                            HinhAnh = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
-                            MaLSP = 1,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Máy PS4 Pro The Last Of Us 2 Limited Edition",
-                            TrangThai = true
+                            Id = 4,
+                            CategoryId = 1,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(191),
+                            Desciption = "Đẹp",
+                            Image = "PS4 Pro 2nd hand.jpg",
+                            Name = "PS4 Pro 2nd hand",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 5,
-                            DonGia = 299m,
-                            HinhAnh = " Xbox Series S.jpg",
-                            MaLSP = 2,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Xbox Series S",
-                            TrangThai = true
+                            Id = 5,
+                            CategoryId = 2,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(193),
+                            Desciption = "Đẹp",
+                            Image = "PS4 Pro 2nd hand.jpg",
+                            Name = "Xbox Series X",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 6,
-                            DonGia = 299m,
-                            HinhAnh = " Xbox Series X.jpg",
-                            MaLSP = 2,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Xbox Series X",
-                            TrangThai = true
+                            Id = 6,
+                            CategoryId = 2,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(195),
+                            Desciption = "Đẹp",
+                            Image = "Xbox Series X.jpg",
+                            Name = "Xbox Series X",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 7,
-                            DonGia = 299m,
-                            HinhAnh = " Xbox Wireless Adapter for Windows 10.jpg",
-                            MaLSP = 2,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Xbox Wireless Adapter for Windows 10",
-                            TrangThai = true
+                            Id = 7,
+                            CategoryId = 2,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(197),
+                            Desciption = "Đẹp",
+                            Image = "Xbox Series X.jpg",
+                            Name = "Xbox Series X",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 8,
-                            DonGia = 299m,
-                            HinhAnh = " Tay Cầm Xbox One S Wireless Minecraft Creeper.jpg",
-                            MaLSP = 2,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Tay Cầm Xbox One S Wireless Minecraft Creeper",
-                            TrangThai = true
+                            Id = 8,
+                            CategoryId = 2,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(199),
+                            Desciption = "Đẹp",
+                            Image = "Xbox Series S.jpg",
+                            Name = "Xbox Series S",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 9,
-                            DonGia = 299m,
-                            HinhAnh = "Nintendo Switch - Mario Red & Blue Edition.jpg",
-                            MaLSP = 3,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Nintendo Switch - Mario Red & Blue Edition",
-                            TrangThai = true
+                            Id = 9,
+                            CategoryId = 3,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(202),
+                            Desciption = "Đẹp",
+                            Image = "Máy Nintendo Switch V2 Màu Neon.jpg",
+                            Name = "Máy Nintendo Switch V2 Màu Neon",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 10,
-                            DonGia = 299m,
-                            HinhAnh = " Nintendo Switch - Monster Hunter Rise Edition.jpg",
-                            MaLSP = 3,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Nintendo Switch - Monster Hunter Rise Edition",
-                            TrangThai = true
+                            Id = 10,
+                            CategoryId = 3,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(205),
+                            Desciption = "Đẹp",
+                            Image = "Máy Nintendo Switch Lite - Màu Blue.jpg",
+                            Name = "Máy Nintendo Switch Lite - Màu Blue",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 11,
-                            DonGia = 299m,
-                            HinhAnh = " Máy Nintendo Switch Lite - Màu Turquoise.jpg",
-                            MaLSP = 3,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Máy Nintendo Switch Lite - Màu Turquoise",
-                            TrangThai = true
+                            Id = 11,
+                            CategoryId = 3,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(207),
+                            Desciption = "Đẹp",
+                            Image = "Máy Nintendo Switch Fortnite Special Edition.jpg",
+                            Name = "Máy Nintendo Switch Fortnite Special Edition",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         },
                         new
                         {
-                            MaSP = 12,
-                            DonGia = 299m,
-                            HinhAnh = " Máy Nintendo Switch Fortnite Special Edition.jpg",
-                            MaLSP = 3,
-                            MoTa = "Đẹp",
-                            SoLuong = 50,
-                            TenSP = "Máy Nintendo Switch Fortnite Special Edition",
-                            TrangThai = true
+                            Id = 12,
+                            CategoryId = 3,
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(209),
+                            Desciption = "Đẹp",
+                            Image = "Máy Nintendo Switch Animal Crossing.jpg",
+                            Name = "Máy Nintendo Switch Animal Crossing",
+                            Price = 299m,
+                            Quantity = 50,
+                            Status = true
                         });
                 });
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.ChiTietHoaDonModel", b =>
+            modelBuilder.Entity("caothang.Areas.Admin.Models.Product_DetailsModel", b =>
                 {
-                    b.HasOne("caothang.Areas.Admin.Models.HoaDonModel", "hoadons")
-                        .WithMany("chiTietHoaDons")
-                        .HasForeignKey("hoadonsMaHD");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasOne("caothang.Areas.Admin.Models.SanPhamModel", "sanphams")
-                        .WithMany("chiTietHoaDons")
-                        .HasForeignKey("sanphamsMaSP");
+                    b.Property<string>("CPU")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GPU")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("productsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("productsId");
+
+                    b.ToTable("product_Details");
                 });
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.HoaDonModel", b =>
+            modelBuilder.Entity("caothang.Areas.Admin.Models.RolesModel", b =>
                 {
-                    b.HasOne("caothang.Areas.Admin.Models.NguoiDungModel", "NguoiDungs")
-                        .WithMany("hoaDons")
-                        .HasForeignKey("NguoiDungsMaND");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasOne("caothang.Areas.Admin.Models.SanPhamModel", "SanPhams")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User",
+                            Status = true
+                        });
+                });
+
+            modelBuilder.Entity("caothang.Areas.Admin.Models.UserModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Avarta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassWord")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RolesId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("user");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "115 Trần Xuân Soạn",
+                            Avarta = "user-1.png",
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(7166),
+                            Email = "duyvo049@gmail.com",
+                            FullName = "Võ Thành Duy",
+                            PassWord = "25f9e794323b453885f5181f1b624d0b",
+                            Phone = "0393030574",
+                            RolesId = 1,
+                            Status = true,
+                            UserName = "thanhduy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "115 Trần Xuân Soạn",
+                            Avarta = "user-2.png",
+                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(8316),
+                            Email = "leloc603@gmail.com",
+                            FullName = "Lê Xuân Lộc",
+                            PassWord = "25f9e794323b453885f5181f1b624d0b",
+                            Phone = "0393030574",
+                            RolesId = 2,
+                            Status = true,
+                            UserName = "leloc"
+                        });
+                });
+
+            modelBuilder.Entity("caothang.Areas.Admin.Models.GalleryImageModel", b =>
+                {
+                    b.HasOne("caothang.Areas.Admin.Models.ProductModel", "products")
+                        .WithMany("GalleryImage")
+                        .HasForeignKey("productsId");
+                });
+
+            modelBuilder.Entity("caothang.Areas.Admin.Models.Invoice_DetailsModel", b =>
+                {
+                    b.HasOne("caothang.Areas.Admin.Models.ProductModel", "product")
                         .WithMany()
-                        .HasForeignKey("SanPhamsMaSP");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("caothang.Areas.Admin.Models.UserModel", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("caothang.Areas.Admin.Models.InvoiceModel", "invoice")
+                        .WithMany("invoice_Details")
+                        .HasForeignKey("invoiceId");
                 });
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.NguoiDungModel", b =>
+            modelBuilder.Entity("caothang.Areas.Admin.Models.ProductModel", b =>
                 {
-                    b.HasOne("caothang.Areas.Admin.Models.PhanQuyenModel", "PhanQuyens")
-                        .WithMany("nguoiDungs")
-                        .HasForeignKey("MaQuyen")
+                    b.HasOne("caothang.Areas.Admin.Models.CategoryModel", "category")
+                        .WithMany("products")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("caothang.Areas.Admin.Models.SanPhamModel", b =>
+            modelBuilder.Entity("caothang.Areas.Admin.Models.Product_DetailsModel", b =>
                 {
-                    b.HasOne("caothang.Areas.Admin.Models.LoaiSanPhamModel", "malsp")
-                        .WithMany("sanPhams")
-                        .HasForeignKey("MaLSP")
+                    b.HasOne("caothang.Areas.Admin.Models.ProductModel", "products")
+                        .WithMany("product_detail")
+                        .HasForeignKey("productsId");
+                });
+
+            modelBuilder.Entity("caothang.Areas.Admin.Models.UserModel", b =>
+                {
+                    b.HasOne("caothang.Areas.Admin.Models.RolesModel", "roles")
+                        .WithMany("user")
+                        .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

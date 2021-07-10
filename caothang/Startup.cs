@@ -30,7 +30,7 @@ namespace caothang
             services.AddHttpClient();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
-                options.LoginPath = "/Areas/Admin/NguoiDung/DangNhap/";
+                options.LoginPath = "/Areas/Admin/User/Login/";
                 options.AccessDeniedPath = "";
 
             });
