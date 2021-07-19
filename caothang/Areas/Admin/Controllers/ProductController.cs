@@ -10,6 +10,7 @@ using caothang.Data;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace caothang.Areas.Admin.Controllers
 {
@@ -17,22 +18,31 @@ namespace caothang.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly DPContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(DPContext context,
-            IWebHostEnvironment webHostEnvironment)
+        public ProductController(DPContext context)
+           
         {
             _context = context;
-            _webHostEnvironment = webHostEnvironment;
         }
-
-        // GET: Admin/Product
-        public async Task<IActionResult> Index(string Search/*,int categoryId = 0*/)
+        public override void OnActionExecuted(ActionExecutedContext context)
         {
+            if (Request.QueryString.Value.IndexOf("count") < 0)
+            {
+                ViewBag.ListProduct = _context.products.ToList();
+            }
+            base.OnActionExecuted(context);
+        }
+        // GET: Admin/Product
+        public async Task<IActionResult> Index(string Search,string count,string countn)
+        {
+            if(count==null)
+            {
+                ViewBag.ListProduct = (from p in _context.products
+                                       where p.Name.IndexOf(count) >= 0
+                                       select p).ToList();
+            }
             if(Search!=null)
             {
-                //var category = from c in _context.categories select c;
-                //ViewBag.categoryId = new SelectList(category, "Id", "Name");
                 var link = from l in _context.products select l;
                 if (!String.IsNullOrEmpty(Search))
                 {
@@ -49,11 +59,6 @@ namespace caothang.Areas.Admin.Controllers
             var dPContext = _context.products.Include(p => p.category);
             return View(await dPContext.ToListAsync());
         }
-        //public ViewResult Index(int? pages)
-        //{
-        //    var model = _context.products.OrderByDescending(m => m.Id).ToPagedList(pages ?? 1, 9);
-        //    return View(model);
-        //}
         // GET: Admin/Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -141,17 +146,32 @@ namespace caothang.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CategoryId,Image,Quantity,Price,CreatedOn,UpdatedOn,Status")] ProductModel productModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CategoryId,Image,Quantity,Price,UpdatedOn,Status")] ProductModel productModel,IFormFile ful)
         {
+            productModel.UpdatedOn = DateTime.Now;
             if (id != productModel.Id)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    _context.Update(productModel);
+                    if(ful !=null)
+                    {
+                        var path = Path.Combine(
+                       Directory.GetCurrentDirectory(), "wwwroot/img/sanpham", productModel.Image);
+                        System.IO.File.Delete(path);
+                        path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot/img/sanpham",
+                        "phim-" + productModel.Id + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1]);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await ful.CopyToAsync(stream);
+                        }
+                        productModel.Image = productModel.Id + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
+                    }
                     _context.Update(productModel);
                     await _context.SaveChangesAsync();
                 }

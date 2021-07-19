@@ -21,5 +21,6 @@ namespace caothang.Areas.Admin.Models
         public DateTime? UpdatedOn { get; set; }
         public bool Status { get; set; }
         public RolesModel roles { get; set; }
+        public ICollection<InvoiceModel> invoices { get; set; }
     }
 }

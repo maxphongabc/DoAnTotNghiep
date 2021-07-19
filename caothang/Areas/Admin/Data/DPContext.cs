@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using caothang.Areas.Admin.Models;
 using caothang.Areas.Admin.Data;
+using caothang.Models;
 
 namespace caothang.Data
 {

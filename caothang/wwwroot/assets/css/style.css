@@ -1,0 +1,13 @@
+﻿.ABC{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#21beff;
+    border:1px solid #21beff;
+    border-radius:3px;
+    padding:3px 18px;
+    width:fit-content();
+    text-align:center;
+    font-size:12px;
+    cursor:pointer;
+}

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="zxx">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
@@ -8,9 +8,15 @@
 </head>
 <body class="cnt-home">
     <partial name="_HeaderPartial.cshtml" />
-    @RenderBody()
-    <partial name="_FooterPartial.cshtml" />
-    @RenderSection("Scripts", required: false)
-    @RenderSection("JS", required: false)
+    <div class="body-content outer-top-xs" id="top-banner-and-menu">
+        <div class="container">
+            <div class="row">
+                @RenderBody()
+            </div>
+        </div>
+        @RenderSection("Scripts", required: false)
+        @RenderSection("JS", required: false)
+        <partial name="_FooterPartial.cshtml" />
+    </div>
 </body>
 </html>

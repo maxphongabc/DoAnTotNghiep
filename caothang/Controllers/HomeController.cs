@@ -1,4 +1,5 @@
-﻿using caothang.Areas.Admin.Models;
+﻿using caothang.Areas.Admin.Encryptor;
+using caothang.Areas.Admin.Models;
 using caothang.Data;
 using caothang.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -17,7 +18,6 @@ using X.PagedList;
 
 namespace caothang.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
 
@@ -26,128 +26,60 @@ namespace caothang.Controllers
         {
             _context = context;
         }
-
         [AllowAnonymous]
-        public IActionResult Index(string Search)
+        public IActionResult Index()
         {
-            //GetUser();
-            var link = from l in _context.products select l;
-            if (!String.IsNullOrEmpty(Search))
-            {
-                link = link.Where(s => s.Name.Contains(Search));
-            }
             ViewBag.ListSPPlayStation = _context.products.Where(sp => sp.Status == true && sp.CategoryId == 1).OrderBy(sp => sp.Id).ToList();
-            //ViewBag.ListSPXbox = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 2).OrderBy(sp => sp.MaSP).ToList();
-            //ViewBag.ListSPNintendo = _context.SanPhams.Where(sp => sp.TrangThai == true && sp.MaLSP == 3).OrderBy(sp => sp.MaSP).ToList();
-            return View(link);
-        }
-        //public void GetUser()
-        //{
-        //    if (HttpContext.Session.GetString("user") != null)
-        //    {
-        //        JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
-        //        NguoiDungModel ND = new NguoiDungModel();
-        //        ND.TaiKhoan = us.SelectToken("TaiKhoan").ToString();
-        //        ND.MatKhau = us.SelectToken("MatKhau").ToString();
-        //        ViewBag.ND = _context.NguoiDungs.Where(nd => nd.TaiKhoan == ND.TaiKhoan).ToList();
-        //    }
-        //}
-        public IActionResult LoaiSP(int? page)
-        {
-           // GetUser();
-            var ListSP = _context.products.Where(sp => sp.Status == true).ToList();
-            var listLSP = _context.categories.Where(lsp => lsp.Status == true).OrderBy(lsp => lsp.Id).ToList();
-            var pageSize = 9;
-            var PageNumber = page == null || page <= 0 ? 1 : page.Value;
-            if (listLSP == null)
-            {
-                return NotFound();
-            }
-            ViewBag.SP = ListSP.ToPagedList(PageNumber, pageSize);
-            return View(listLSP);
-        }
-        public IActionResult ThemGioHang(int id)
-        {
-            var cart = HttpContext.Session.GetString("CartSession");//get key cart
-            if (cart == null)
-            {
-                var product = GetProduct(id);
-                List<GioHang> listCart = new List<GioHang>()
-                {
-                    new GioHang
-                    {
-                        Product=product,
-                        Quality=1
-                    }
-                };
-                HttpContext.Session.SetString("CartSession", JsonConvert.SerializeObject(listCart));
-            }
-            else
-            {
-                List<GioHang> dataCart = JsonConvert.DeserializeObject<List<GioHang>>(cart);
-                bool check = true;
-                for (int i = 0; i < dataCart.Count; i++)
-                {
-                    if (dataCart[i].Product.Id == id)
-                    {
-                        dataCart[i].Quality++;
-                        check = false;
-                    }
-                }
-                if (check)
-                {
-                    dataCart.Add(new GioHang
-                    {
-                        Product = GetProduct(id),
-                        Quality = 1
-                    });
-                }
-                HttpContext.Session.SetString("CartSession", JsonConvert.SerializeObject(dataCart));
-
-                return RedirectToAction("Index", "Home");
-
-            }
-            return RedirectToAction("Index", "Home");
-        }
-        public IActionResult GioHang()
-        {
-            //GetUser();
-            var giohang = HttpContext.Session.GetString("CartSession");
-            if (giohang != null)
-            {
-                List<GioHang> gioHangs = JsonConvert.DeserializeObject<List<GioHang>>(giohang);
-                if (gioHangs.Count > 0)
-                {
-                    ViewBag.giohang = gioHangs;
-                    return View();
-                }
-            }
+            ViewBag.ListSPXbox = _context.products.Where(sp => sp.Status == true && sp.CategoryId == 2).OrderBy(sp => sp.Id).ToList();
+            ViewBag.ListSPNintendo = _context.products.Where(sp => sp.Status == true && sp.CategoryId == 3).OrderBy(sp => sp.Id).ToList();
+            ViewBag.All = _context.products.Where(sp => sp.Status == true).ToList();
             return View();
-        }
-        public IActionResult XoaGioHang(int id)
-        {
-            var giohang = HttpContext.Session.GetString("CartSession");
-            if (giohang != null)
-            {
-                List<GioHang> dataCart = JsonConvert.DeserializeObject<List<GioHang>>(giohang);
-
-                for (int i = 0; i < dataCart.Count; i++)
-                {
-                    if (dataCart[i].Product.Id == id)
-                    {
-                        dataCart.RemoveAt(i);
-                    }
-                }
-                HttpContext.Session.SetString("CartSession", JsonConvert.SerializeObject(dataCart));
-                HttpContext.Session.Remove("CartSession");
-                return RedirectToAction(nameof(giohang));
-            }
-            return RedirectToAction(nameof(giohang));
         }
         public ProductModel GetProduct(int id)
         {
             var product = _context.products.Find(id);
             return product;
+        }
+        public IActionResult Login()
+        {
+            return View();
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(LoginViewModel member)
+        {
+            //Encryptor.Encryptor.MD5Hash(member.MatKhau);
+            if (member.UserName != null && member.PassWord != null)
+            {
+                member.PassWord = Encryptor.Decrypt(member.PassWord);
+                var r = _context.user.Where(m => m.UserName == member.UserName && m.PassWord == (member.PassWord)).ToList();
+                if (r.Count == 0)
+                {
+                    return View("Login");
+                }
+                else
+                {
+                    if (r[0].RolesId == 1)
+                    {
+                        var str = JsonConvert.SerializeObject(member);
+                        HttpContext.Session.SetString("user", str);
+
+                        var urlAdmin = Url.RouteUrl(new { controller = "HomeAdmin", action = "Index", area = "Admin" });
+                        return Redirect(urlAdmin);
+                    }
+                    else
+                    {
+                        var str = JsonConvert.SerializeObject(member);
+                        HttpContext.Session.SetString("user", str);
+
+                        var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
+                        return Redirect(urlAdmin);
+
+                    }
+                }
+            }
+            return View();
         }
     }
 }

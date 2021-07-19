@@ -20,6 +20,7 @@ namespace caothang.Areas.Admin.Models
         public CategoryModel category { get; set; }
         public ICollection<Product_DetailsModel> product_detail { get; set; }
         public ICollection<GalleryImageModel> GalleryImage { get; set; }
+        public ICollection<InvoiceModel> invoices { get; set; }
         public bool Status { get; set; }
     }
 }

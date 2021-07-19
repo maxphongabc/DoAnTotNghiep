@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using caothang.Areas.Admin.Models;
 using caothang.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace caothang.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles ="Admin")]
     public class CategoryController : Controller
     {
         private readonly DPContext _context;

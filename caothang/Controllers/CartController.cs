@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace caothang.Controllers
@@ -21,99 +22,143 @@ namespace caothang.Controllers
         }
         public IActionResult Cart()
         {
-            //GetUser();
-            var giohang = HttpContext.Session.GetString("CartSession");
-            if (giohang != null)
-            {
-                List<GioHang> gioHangs = JsonConvert.DeserializeObject<List<GioHang>>(giohang);
-                if (gioHangs.Count > 0)
-                {
-                    ViewBag.giohang = gioHangs;
-                    return View();
-                }
-            }
-            return View();
+            return View(GetCartItems());
         }
 
-        public IActionResult AddCart(int id)
+        public ActionResult AddCart(int id)
         {
-            var cart = HttpContext.Session.GetString("CartSession");//get key cart
-            if (cart == null)
+            var product = _context.products.Where(p => p.Id == id).FirstOrDefault();
+            if (product == null)
+                return NotFound("Không có sản phẩm");           
+            var cart = GetCartItems();
+            //check gio hang da co hay chua
+            var cartitem = cart.Find(p => p.Product.Id == id);
+            if(cartitem != null)
             {
-                var product = GetProduct(id);
-                List<GioHang> listCart = new List<GioHang>()
-                {
-                    new GioHang
-                    {
-                        Product=product,
-                        Quality=1
-                    }
-                };
-                HttpContext.Session.SetString("CartSession", JsonConvert.SerializeObject(listCart));
+                //neu ton tai tang them 1
+                cartitem.Quanlity++;
             }
             else
             {
-                List<GioHang> dataCart = JsonConvert.DeserializeObject<List<GioHang>>(cart);
-                bool check = true;
-                for (int i = 0; i < dataCart.Count; i++)
-                {
-                    if (dataCart[i].Product.Id == id)
-                    {
-                        dataCart[i].Quality++;
-                        check = false;
-                    }
-                }
-                if (check)
-                {
-                    dataCart.Add(new GioHang
-                    {
-                        Product = GetProduct(id),
-                        Quality = 1
-                    });
-                }
-                HttpContext.Session.SetString("CartSession", JsonConvert.SerializeObject(dataCart));
-
-                return RedirectToAction("Index", "Home");
-
+                //them moi
+                cart.Add(new GioHang() { Quanlity = 1, Product = product });
             }
+            //luu vao session
+            SaveCartSession(cart);
             return RedirectToAction("Index", "Home");
+
         }
-
-        public IActionResult DeleteCart(int id)
+        void SaveCartSession(List<GioHang> ls)
         {
-            var giohang = HttpContext.Session.GetString("CartSession");
-            if (giohang != null)
+            var session = HttpContext.Session;
+            string jsoncart = JsonConvert.SerializeObject(ls);
+            session.SetString(CARTKEY, jsoncart);
+        }
+        public const string CARTKEY = "cart";
+        public const string USER = "user";
+        // Lấy cart từ Session (danh sách CartItem)
+        List<GioHang> GetCartItems()
+        {
+            var session = HttpContext.Session;
+            string jsoncart = session.GetString(CARTKEY);
+            if (jsoncart != null)
             {
-                List<GioHang> dataCart = JsonConvert.DeserializeObject<List<GioHang>>(giohang);
-
-                for (int i = 0; i < dataCart.Count; i++)
-                {
-                    if (dataCart[i].Product.Id == id)
-                    {
-                        dataCart.RemoveAt(i);
-                    }
-                }
-                HttpContext.Session.SetString("CartSession", JsonConvert.SerializeObject(dataCart));
-                HttpContext.Session.Remove("CartSession");
-                return RedirectToAction(nameof(giohang));
+                return JsonConvert.DeserializeObject<List<GioHang>>(jsoncart);
             }
-            return RedirectToAction(nameof(giohang));
+            return new List<GioHang>();
+        }
+        
+        /// Cập nhật
+        [Route("/updatecart", Name = "updatecart")]
+        [HttpPost]
+        public IActionResult UpdateCart([FromForm] int productid, [FromForm] int quantity)
+        {
+            // Cập nhật Cart thay đổi số lượng quantity ...
+            var cart = GetCartItems();
+            var cartitem = cart.Find(p => p.Product.Id == productid);
+            if (cartitem != null)
+            {
+                // Đã tồn tại, tăng thêm 1
+                cartitem.Quanlity = quantity;
+            }
+            SaveCartSession(cart);
+            // Trả về mã thành công (không có nội dung gì - chỉ để Ajax gọi)
+            return Ok();
+        }
+        [Route("/removecart/{Id:int}", Name = "removecart")]
+        public IActionResult RemoveCart([FromRoute] int productid)
+        {
+            var cart = GetCartItems();
+            var cartitem = cart.Find(p => p.Product.Id == productid);
+            if (cartitem != null)
+            {
+                // Đã tồn tại, tăng thêm 1
+                cart.Remove(cartitem);
+            }
+
+            SaveCartSession(cart);
+            return RedirectToAction(nameof(Cart));
         }
         public ProductModel GetProduct(int id)
         {
             var product = _context.products.Find(id);
             return product;
         }
-        //public void GetUser()
-        //{
-        //    if (HttpContext.Session.GetString("user") != null)
-        //    {
-        //        JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
-        //        NguoiDungModel ND = new NguoiDungModel();
-        //        ND.TaiKhoan = us.SelectToken("TaiKhoan").ToString();
-        //        ND.MatKhau = us.SelectToken("MatKhau").ToString();
-        //        ViewBag.ND = _context.NguoiDungs.Where(nd => nd.TaiKhoan == ND.TaiKhoan).ToList();
-        //    }
-        //}
+
+        void ClearCart()
+        {
+            var session = HttpContext.Session;
+            session.Remove(CARTKEY);
+        }
+
+        [HttpPost]
+        public IActionResult CheckOut()
+        {
+            //Kiem tra da dang nhap hay chua đã đăng nhập hay chưa
+             var sessionUser = HttpContext.Session.GetString(USER);
+            if (sessionUser == null)
+            {
+                var urlAdmin = Url.RouteUrl(new { controller = "User", action = "Login", area = "Admin" });
+                return Redirect(urlAdmin);
+            }
+            //Kiem tra gio hang da co gi hay chua
+            if (HttpContext.Session.GetString(CARTKEY) == null)
+            {
+                var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
+                return Redirect(urlAdmin);
+            }
+            int Total = 0;
+            ProductModel product = new ProductModel();
+            string a = HttpContext.Session.GetString(USER);
+            UserModel user = JsonConvert.DeserializeObject<UserModel>(a);         
+            InvoiceModel invoice = new InvoiceModel();
+            List<GioHang> gh = GetCartItems();
+            invoice.CreatedOn = DateTime.Now;
+            invoice.Status = true;
+            invoice.UserId = user.Id;            
+            _context.invoice.Add(invoice);
+            _context.SaveChanges();
+            foreach(var item in gh)
+            {
+                Total += item.Total;
+                product = GetProduct(item.Product.Id);
+                Invoice_DetailsModel details = new Invoice_DetailsModel();
+                details.InvoiceId = invoice.Id;
+                details.CreatedOn = DateTime.Now;
+                details.Price = item.Product.Price;
+                details.ProductId = item.Product.Id;
+                details.Status = true;
+                details.Quantity = item.Quanlity;
+                product.Quantity = product.Quantity - details.Quantity;
+                _context.invoice_Details.Add(details);
+                invoice.Total += details.Price * details.Quantity;
+                _context.Update(product);
+            }
+            _context.Update(invoice);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Cart));
+        }
+
+
     }
 }

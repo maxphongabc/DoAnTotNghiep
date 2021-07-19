@@ -102,16 +102,26 @@ namespace caothang.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProductModelId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Total")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductModelId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("invoice");
                 });
@@ -126,7 +136,7 @@ namespace caothang.Migrations
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int>("InvoiceId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -144,19 +154,11 @@ namespace caothang.Migrations
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("invoiceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
+                    b.HasIndex("InvoiceId");
+
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("invoiceId");
 
                     b.ToTable("invoice_Details");
                 });
@@ -206,7 +208,7 @@ namespace caothang.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 797, DateTimeKind.Local).AddTicks(9236),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 327, DateTimeKind.Local).AddTicks(200),
                             Desciption = "Đẹp",
                             Image = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
                             Name = "Máy PS4 Pro The Last Of Us 2 Limited Edition",
@@ -218,7 +220,7 @@ namespace caothang.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(140),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2061),
                             Desciption = "Đẹp",
                             Image = "Máy PS4 Slim 1TB.jpg",
                             Name = "Máy PS4 Slim 1TB",
@@ -230,7 +232,7 @@ namespace caothang.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(188),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2122),
                             Desciption = "Đẹp",
                             Image = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
                             Name = "Sony PS4 Slim Days Of Play 2019 Limited Edition",
@@ -242,7 +244,7 @@ namespace caothang.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(191),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2126),
                             Desciption = "Đẹp",
                             Image = "PS4 Pro 2nd hand.jpg",
                             Name = "PS4 Pro 2nd hand",
@@ -254,7 +256,7 @@ namespace caothang.Migrations
                         {
                             Id = 5,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(193),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2128),
                             Desciption = "Đẹp",
                             Image = "PS4 Pro 2nd hand.jpg",
                             Name = "Xbox Series X",
@@ -266,7 +268,7 @@ namespace caothang.Migrations
                         {
                             Id = 6,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(195),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2130),
                             Desciption = "Đẹp",
                             Image = "Xbox Series X.jpg",
                             Name = "Xbox Series X",
@@ -278,7 +280,7 @@ namespace caothang.Migrations
                         {
                             Id = 7,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(197),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2132),
                             Desciption = "Đẹp",
                             Image = "Xbox Series X.jpg",
                             Name = "Xbox Series X",
@@ -290,7 +292,7 @@ namespace caothang.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(199),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2136),
                             Desciption = "Đẹp",
                             Image = "Xbox Series S.jpg",
                             Name = "Xbox Series S",
@@ -302,7 +304,7 @@ namespace caothang.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(202),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2139),
                             Desciption = "Đẹp",
                             Image = "Máy Nintendo Switch V2 Màu Neon.jpg",
                             Name = "Máy Nintendo Switch V2 Màu Neon",
@@ -314,7 +316,7 @@ namespace caothang.Migrations
                         {
                             Id = 10,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(205),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2140),
                             Desciption = "Đẹp",
                             Image = "Máy Nintendo Switch Lite - Màu Blue.jpg",
                             Name = "Máy Nintendo Switch Lite - Màu Blue",
@@ -326,7 +328,7 @@ namespace caothang.Migrations
                         {
                             Id = 11,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(207),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2143),
                             Desciption = "Đẹp",
                             Image = "Máy Nintendo Switch Fortnite Special Edition.jpg",
                             Name = "Máy Nintendo Switch Fortnite Special Edition",
@@ -338,7 +340,7 @@ namespace caothang.Migrations
                         {
                             Id = 12,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(209),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(2145),
                             Desciption = "Đẹp",
                             Image = "Máy Nintendo Switch Animal Crossing.jpg",
                             Name = "Máy Nintendo Switch Animal Crossing",
@@ -479,7 +481,7 @@ namespace caothang.Migrations
                             Id = 1,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-1.png",
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(7166),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(8330),
                             Email = "duyvo049@gmail.com",
                             FullName = "Võ Thành Duy",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -493,7 +495,7 @@ namespace caothang.Migrations
                             Id = 2,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-2.png",
-                            CreatedOn = new DateTime(2021, 7, 10, 15, 9, 53, 799, DateTimeKind.Local).AddTicks(8316),
+                            CreatedOn = new DateTime(2021, 7, 18, 15, 57, 28, 328, DateTimeKind.Local).AddTicks(9465),
                             Email = "leloc603@gmail.com",
                             FullName = "Lê Xuân Lộc",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -511,23 +513,32 @@ namespace caothang.Migrations
                         .HasForeignKey("productsId");
                 });
 
+            modelBuilder.Entity("caothang.Areas.Admin.Models.InvoiceModel", b =>
+                {
+                    b.HasOne("caothang.Areas.Admin.Models.ProductModel", null)
+                        .WithMany("invoices")
+                        .HasForeignKey("ProductModelId");
+
+                    b.HasOne("caothang.Areas.Admin.Models.UserModel", "user")
+                        .WithMany("invoices")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("caothang.Areas.Admin.Models.Invoice_DetailsModel", b =>
                 {
+                    b.HasOne("caothang.Areas.Admin.Models.InvoiceModel", "invoice")
+                        .WithMany("invoice_Details")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("caothang.Areas.Admin.Models.ProductModel", "product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("caothang.Areas.Admin.Models.UserModel", "user")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("caothang.Areas.Admin.Models.InvoiceModel", "invoice")
-                        .WithMany("invoice_Details")
-                        .HasForeignKey("invoiceId");
                 });
 
             modelBuilder.Entity("caothang.Areas.Admin.Models.ProductModel", b =>
