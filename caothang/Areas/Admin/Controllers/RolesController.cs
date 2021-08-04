@@ -11,7 +11,7 @@ using caothang.Data;
 namespace caothang.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class RolesController : Controller
+    public class RolesController : BaseController
     {
         private readonly DPContext _context;
 

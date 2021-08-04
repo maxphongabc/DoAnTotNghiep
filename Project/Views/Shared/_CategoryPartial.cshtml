@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Project.Areas.Admin.Models.CategoryModel>
+<ul class="dropdown-menu" role="menu">
+    @foreach (var item in Model)
+    {
+        <li class="menu-header">@Html.DisplayFor(modelItem => item.Name)</li>
+    }
+</ul>

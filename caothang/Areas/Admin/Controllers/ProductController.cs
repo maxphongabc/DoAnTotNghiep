@@ -11,16 +11,16 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Routing;
 
 namespace caothang.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         private readonly DPContext _context;
 
         public ProductController(DPContext context)
-           
         {
             _context = context;
         }
@@ -30,6 +30,7 @@ namespace caothang.Areas.Admin.Controllers
             {
                 ViewBag.ListProduct = _context.products.ToList();
             }
+
             base.OnActionExecuted(context);
         }
         // GET: Admin/Product
@@ -48,14 +49,8 @@ namespace caothang.Areas.Admin.Controllers
                 {
                     link = link.Where(s => s.Name.Contains(Search));
                 }
-                //if(categoryId != 0)
-                //{
-                //    link = link.Where(x => x.CategoryId == categoryId);
-                //}    
                 return View("Index",link);
-            }
-            
-               
+            }        
             var dPContext = _context.products.Include(p => p.category);
             return View(await dPContext.ToListAsync());
         }

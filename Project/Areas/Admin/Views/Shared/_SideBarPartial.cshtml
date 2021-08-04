@@ -1,0 +1,92 @@
+﻿<div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <img src="~/Admin/assets/images/favicon.jpg" alt="" srcset="" />
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class="sidebar-title">Main Menu</li>
+
+                <li class="sidebar-item active">
+                    <a asp-controller="HomeAdmin" asp-action="index" class="sidebar-link">
+                        <i data-feather="home" width="20"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="triangle" width="20"></i>
+                        <span> Quản lý Sản Phẩm</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="SanPham" asp-action="index">Product</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="briefcase" width="20"></i>
+                        <span>Quản lý Loại Sản Phẩm</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="LoaiSanPham" asp-action="index">Category</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="edit" width="20"></i>
+                        <span>Quản lý Hóa Đơn</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="HoaDon" asp-action="index">Invoice</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="file-text" width="20"></i>
+                        <span>Quản lý CTHD</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="ChiTietHoaDon" asp-action="index">Danh sách chi tiết hóa đơn</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="user" width="20"></i>
+                        <span>Quản lý người dùng</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="NguoiDung" asp-action="index">Danh sách tài khoản</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="key" width="20"></i>
+                        <span>Quản lý quyền</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="PhanQuyen" asp-action="index">Danh sách quyền</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x">
+            <i data-feather="x"></i>
+        </button>
+    </div>
+</div>

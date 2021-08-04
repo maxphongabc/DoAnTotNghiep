@@ -49,7 +49,6 @@ namespace caothang.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel member)
         {
-            //Encryptor.Encryptor.MD5Hash(member.MatKhau);
             if (member.UserName != null && member.PassWord != null)
             {
                 member.PassWord = Encryptor.Decrypt(member.PassWord);

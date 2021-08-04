@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +10,12 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
-using caothang.Models;
-using System.Security.Claims;
-using Microsoft.Extensions.Caching.Memory;
+
 
 namespace caothang.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly DPContext _context;
 
@@ -189,40 +186,7 @@ namespace caothang.Areas.Admin.Controllers
             return View();
 
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Login(UserModel member)
-        {
-            if (member.UserName != null && member.PassWord != null)
-            {
-                member.PassWord = Encryptor.Encryptor.Decrypt(member.PassWord);
-                var r = _context.user.Where(m => m.UserName == member.UserName && m.PassWord == (member.PassWord)).ToList();               
-                if (r.Count == 0)
-                {
-                    return View("Login");
-                }
-                else
-                {
-                    if (r[0].RolesId == 1)
-                    {
-                        var str = JsonConvert.SerializeObject(r[0]);
-                        HttpContext.Session.SetString("user", str);
-                        
-                        var urlAdmin = Url.RouteUrl(new { controller = "HomeAdmin", action = "Index", area = "Admin" });
-                        return Redirect(urlAdmin);
-                    }
-                    else
-                    {
-                        var str = JsonConvert.SerializeObject(r[0]);
-                        HttpContext.Session.SetString("user", str);
-                        var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
-                        return Redirect(urlAdmin);
-
-                    }
-                }
-            }
-            return View();
-        }
+       
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();

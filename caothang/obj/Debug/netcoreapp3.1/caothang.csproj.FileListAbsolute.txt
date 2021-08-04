@@ -658,8 +658,6 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\R
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Details.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Edit.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Index.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Login.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Register.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\API\Views\Login.cshtml.g.cs
@@ -682,5 +680,6 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\c
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.dll
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.pdb
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\caothang.genruntimeconfig.cache
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\bin\Debug\netcoreapp3.1\Microsoft.AspNet.SessionState.SessionStateModule.dll
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_SiderBarPartial.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Login\Login.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\caothang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Login\Register.cshtml.g.cs

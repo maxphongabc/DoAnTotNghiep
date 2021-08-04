@@ -10,7 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using caothang.Data;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 
 namespace caothang
@@ -26,59 +25,19 @@ namespace caothang
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            //services.AddAuthentication("SecurityScheme")
-            //    .AddCookie("SecurityScheme", options =>
-            //    {
-            //        options.AccessDeniedPath = new PathString("/Admin/User/Access");
-            //        options.Cookie = new CookieBuilder
-            //        {
-            //            //Domain = "",
-            //            HttpOnly = true,
-            //            Name = ".aspNetCoreDemo.Security.Cookie",
-            //            Path = "/",
-            //            SameSite = SameSiteMode.Lax,
-            //            SecurePolicy = CookieSecurePolicy.SameAsRequest
-            //        };
-            //        options.Events = new CookieAuthenticationEvents
-            //        {
-            //            OnSignedIn = context =>
-            //            {
-            //                Console.WriteLine("{0} - {1}: {2}", DateTime.Now,
-            //                    "OnSignedIn", context.Principal.Identity.Name);
-            //                return Task.CompletedTask;
-            //            },
-            //            OnSigningOut = context =>
-            //            {
-            //                Console.WriteLine("{0} - {1}: {2}", DateTime.Now,
-            //                    "OnSigningOut", context.HttpContext.User.Identity.Name);
-            //                return Task.CompletedTask;
-            //            },
-            //            OnValidatePrincipal = context =>
-            //            {
-            //                Console.WriteLine("{0} - {1}: {2}", DateTime.Now,
-            //                    "OnValidatePrincipal", context.Principal.Identity.Name);
-            //                return Task.CompletedTask;
-            //            }
-            //        };
-            //        options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-            //        options.LoginPath = new PathString("/Admin/User/Login");
-            //        options.ReturnUrlParameter = "RequestPath";
-            //        options.SlidingExpiration = true;
-            //    });
+        {         
             services.AddControllersWithViews();
             services.AddHttpClient();
             services.AddHttpContextAccessor();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
-            {
-                options.LoginPath = "/Areas/Admin/User/Login/";
-                options.AccessDeniedPath = "";
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            //{
+            //    options.LoginPath = "/Areas/Admin/User/Login/";
+            //    options.AccessDeniedPath = "";
 
-            });
+            //});
             services.AddDbContext<DPContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DPContext")));
             services.AddDistributedMemoryCache();
-
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromMinutes(5);
@@ -102,9 +61,8 @@ namespace caothang
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-            app.UseAuthentication();
+            //app.useauthentication();
             app.UseAuthorization();
             app.UseSession();
             app.UseEndpoints(endpoints =>

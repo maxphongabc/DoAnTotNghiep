@@ -12,8 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace caothang.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin")]
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
         private readonly DPContext _context;
 

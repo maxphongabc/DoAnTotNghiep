@@ -1,24 +1,33 @@
-﻿<!-- ============================================== HEADER ============================================== -->
+﻿
+@{
+    var session = Context.Session.GetString("user");
+}
+@using Microsoft.AspNetCore.Http
+<!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1">
     <!-- ============================================== TOP MENU ============================================== -->
-    <div class="top-bar animate-dropdown">
-        <div class="container">
-            <div class="header-top-inner">
-                <div class="cnt-account">
-                    <ul class="list-unstyled">
-                        <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-                        <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                        <li><a asp-action="Cart" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a asp-action="Logout" asp-controller="Home"><i class="icon fa fa-lock"></i>Login</a></li>
-                    </ul>
-                </div>            
-                <!-- /.cnt-cart -->
-                <div class="clearfix"></div>
+    @if (session == null)
+    {
+        <div class="top-bar animate-dropdown">
+            <div class="container">
+                <div class="header-top-inner">
+                    <div class="cnt-account">
+                        <ul class="list-unstyled">
+                            <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
+                            <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+                            <li><a asp-action="Cart" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+                            <li><a asp-action="Logout" asp-controller="Home"><i class="icon fa fa-lock"></i>Login</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.cnt-cart -->
+                    <div class="clearfix"></div>
+                </div>
+                <!-- /.header-top-inner -->
             </div>
-            <!-- /.header-top-inner -->
+            <!-- /.container -->
         </div>
-        <!-- /.container -->
-    </div>
+    }
+
     <!-- /.header-top -->
     <!-- ============================================== TOP MENU : END ============================================== -->
     <div class="main-header">
@@ -89,17 +98,16 @@
                                         <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
                                     </div>
                                 </div>-->
-                                <!-- /.cart-item -->
-                                <!--<div class="clearfix"></div>
-                                <hr>
-                                <div class="clearfix cart-total">
-                                    <div class="pull-right"> <span class="text">Sub Total :</span><span class='price'>$600.00</span> </div>
-                                    <div class="clearfix"></div>
-                                    <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
-                                </div>-->
-                                <!-- /.cart-total-->
-
-                            <!--</li>
+                        <!-- /.cart-item -->
+                        <!--<div class="clearfix"></div>
+                        <hr>
+                        <div class="clearfix cart-total">
+                            <div class="pull-right"> <span class="text">Sub Total :</span><span class='price'>$600.00</span> </div>
+                            <div class="clearfix"></div>
+                            <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                        </div>-->
+                        <!-- /.cart-total-->
+                        <!--</li>
                         </ul>-->
                         <!-- /.dropdown-menu-->
                     </div>

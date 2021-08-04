@@ -14,9 +14,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace caothang.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class HomeAdminController : Controller
+    public class HomeAdminController : BaseController
     {
         private readonly DPContext _context;
         public HomeAdminController(DPContext context)

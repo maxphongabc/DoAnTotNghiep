@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.SessionState.SessionStateModule" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.15" />
@@ -33,6 +32,67 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.10" />
     <PackageReference Include="X.PagedList" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\animated.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\core.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\icons.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\larger.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\list.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\path.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\less\variables.less" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="wwwroot\Admin\Login\fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
+    <None Include="wwwroot\Admin\Login\fonts\iconic\fonts\Material-Design-Iconic-Font.woff2" />
+    <None Include="wwwroot\Admin\Login\js\main.js" />
+    <None Include="wwwroot\Admin\Login\vendor\animsition\js\animsition.js" />
+    <None Include="wwwroot\Admin\Login\vendor\animsition\js\animsition.min.js" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\js\popper.js" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\js\popper.min.js" />
+    <None Include="wwwroot\Admin\Login\vendor\bootstrap\js\tooltip.js" />
+    <None Include="wwwroot\Admin\Login\vendor\countdowntime\countdowntime.js" />
+    <None Include="wwwroot\Admin\Login\vendor\daterangepicker\daterangepicker.js" />
+    <None Include="wwwroot\Admin\Login\vendor\daterangepicker\moment.js" />
+    <None Include="wwwroot\Admin\Login\vendor\daterangepicker\moment.min.js" />
+    <None Include="wwwroot\Admin\Login\vendor\jquery\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\Admin\Login\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <None Include="wwwroot\Admin\Login\vendor\select2\select2.js" />
+    <None Include="wwwroot\Admin\Login\vendor\select2\select2.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Admin\assets\" />
   </ItemGroup>
 
 </Project>
