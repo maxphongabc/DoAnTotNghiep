@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Data;
+using Common.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Project.Areas.Admin.Models;
-using Project.Data;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -57,8 +57,15 @@ namespace Project.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoryModel);
-                await _context.SaveChangesAsync();
+                if (CheckName(categoryModel.Name))
+                {
+                    ModelState.AddModelError("", "Tên loại sản phẩm này đã có");
+                }
+                else
+                {
+                    _context.Add(categoryModel);
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(categoryModel);
@@ -147,6 +154,10 @@ namespace Project.Areas.Admin.Controllers
         private bool CategoryModelExists(int id)
         {
             return _context.categories.Any(e => e.Id == id);
+        }
+        public bool CheckName(string name)
+        {
+            return _context.categories.Count(x => x.Name == name) > 0;
         }
     }
 }

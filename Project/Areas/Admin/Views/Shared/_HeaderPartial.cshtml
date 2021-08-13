@@ -1,6 +1,6 @@
 ﻿@{ 
     string a = Context.Session.GetString("Admin");
-    Project.Areas.Admin.Models.UserModel user = JsonConvert.DeserializeObject<Project.Areas.Admin.Models.UserModel>(a);
+    Common.Model.UserModel user = JsonConvert.DeserializeObject<Common.Model.UserModel>(a);
 }
 @using Newtonsoft.Json;
 @using Microsoft.AspNetCore.Http

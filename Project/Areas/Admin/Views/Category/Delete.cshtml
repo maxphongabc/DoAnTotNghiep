@@ -1,4 +1,4 @@
-﻿@model Project.Areas.Admin.Models.CategoryModel
+﻿@model Common.Model.CategoryModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -24,7 +24,7 @@
             @Html.DisplayFor(model => model.Status)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |

@@ -5,15 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Project.Areas.Admin.Models;
-using Project.Data;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Routing;
-using Project.Repository;
-using PagedList;
+using Common.Data;
+using Common.Model;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -38,20 +34,12 @@ namespace Project.Areas.Admin.Controllers
         // GET: Admin/Product
         public ActionResult Index(string Search,int page =1,int pageSize=5)
         {
-            var model = ListAllPaging(Search, page, pageSize);
+            //var model = ListAllPaging(Search, page, pageSize);
             ViewBag.Search = Search;
-            return View(model);
+            return View();
 
         }
-        public IEnumerable<ProductModel> ListAllPaging(string searchString, int page, int pageSize)
-        {
-            IQueryable<ProductModel> models = _context.products;
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                models = models.Where(x => x.Name.Contains(searchString) || x.Name.Contains(searchString));
-            }
-            return models.OrderByDescending(x => x.CreatedOn).ToPagedList(page, pageSize);
-        }
+       
         // GET: Admin/Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {

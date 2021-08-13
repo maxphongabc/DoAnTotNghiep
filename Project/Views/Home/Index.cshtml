@@ -1,11 +1,11 @@
 ﻿
 @{
     ViewData["Title"] = "Home Page";
-    var ListSPPlayStation = (List<Project.Areas.Admin.Models.ProductModel>)ViewBag.ListSPPlayStation;
-    var ListSPXbox= (List<Project.Areas.Admin.Models.ProductModel>)ViewBag.ListSPXbox;
-    var ListSPNintendo = (List<Project.Areas.Admin.Models.ProductModel>)ViewBag.ListSPNintendo;
-    var ListAll = (List<Project.Areas.Admin.Models.ProductModel>)ViewBag.All;
-    var ListNewProduct = (List<Project.Areas.Admin.Models.ProductModel>)ViewBag.ListNewProduct;
+    var ListSPPlayStation = (List<Common.Model.ProductModel>)ViewBag.ListSPPlayStation;
+    var ListSPXbox= (List<Common.Model.ProductModel>)ViewBag.ListSPXbox;
+    var ListSPNintendo = (List<Common.Model.ProductModel>)ViewBag.ListSPNintendo;
+    var ListAll = (List<Common.Model.ProductModel>)ViewBag.All;
+    var ListNewProduct = (List<Common.Model.ProductModel>)ViewBag.ListNewProduct;
     var a = Context.Session.GetString("CartSession");
 }
 <partial name="~/Views/Shared/_SiderBarPartial.cshtml">

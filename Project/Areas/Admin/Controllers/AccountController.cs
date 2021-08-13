@@ -1,12 +1,13 @@
 ﻿
 using System;
 using System.Linq;
+using Common.Data;
+using Common.Encryptor;
+using Common.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Project.Areas.Admin.Models;
-using Project.Data;
-using Project.Repository;
+using Project.Models;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -29,7 +30,7 @@ namespace Project.Areas.Admin.Controllers
         {
             if (member.UserName != null && member.PassWord != null)
             {
-                member.PassWord = Encryptor.Encryptor.MD5Hash(member.PassWord);
+                member.PassWord = Encryptor.MD5Hash(member.PassWord);
                 var r = _context.user.Where(m => m.UserName == member.UserName && m.PassWord == (member.PassWord)).ToList();
                 if (r.Count == 0)
                 {
@@ -65,29 +66,23 @@ namespace Project.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(UserModel member)
         {
-            if(member.UserName==null)
+            member = new UserModel()
             {
-                SetAlert("Tên tài khoản bắt buộc", "Error");
-                return View("Register");
-            }    
-            else if(member.PassWord==null)
-            {
-                SetAlert("Mật khẩu không được để trống", "Error");
-                return View("Register");
-            }    
-            else if(ModelState.IsValid)
-            {
-                
-                member.PassWord = Encryptor.Encryptor.MD5Hash(member.PassWord);
-                member.RolesId = 2;
-                member.CreatedOn = DateTime.Now;
-                member.Status = true;
-            }
+                Address = member.Address,
+                Email=member.Email,
+                DateOfBirth=member.DateOfBirth,
+                Phone=member.Phone,
+                FullName=member.FullName,
+                UserName=member.UserName,
+                PassWord=Encryptor.MD5Hash(member.PassWord),
+                RolesId=2,
+                Status=true,
+                CreatedOn=DateTime.Now
+            };
             _context.Add(member);
             _context.SaveChanges();
             var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
             return Redirect(urlAdmin);
-
         }
         protected void SetAlert(string message, string type)
         {

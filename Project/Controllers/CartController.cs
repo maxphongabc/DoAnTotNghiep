@@ -1,5 +1,4 @@
-﻿using Project.Areas.Admin.Models;
-using Project.Data;
+﻿
 using Project.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +6,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Configuration;
-using Project.Common;
-
+using Common.Data;
+using Common.Model;
 
 namespace Project.Controllers
 {

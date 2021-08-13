@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Data;
+using Common.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Project.Areas.Admin.Models;
-using Project.Data;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -59,6 +59,10 @@ namespace Project.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(CheckName(rolesModel.Name))
+                {
+                    ModelState.AddModelError("", "Tên quyền này đã có");
+                }    
                 _context.Add(rolesModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -149,6 +153,10 @@ namespace Project.Areas.Admin.Controllers
         private bool RolesModelExists(int id)
         {
             return _context.roles.Any(e => e.Id == id);
+        }
+        public bool CheckName(string name)
+        {
+            return _context.roles.Count(x => x.Name == name) > 0;
         }
     }
 }
