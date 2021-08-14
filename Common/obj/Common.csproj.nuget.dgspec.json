@@ -68,13 +68,13 @@
               "target": "Package",
               "version": "[5.0.2, )"
             },
-            "PageList": {
-              "target": "Package",
-              "version": "[1.2.0, )"
-            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.2, )"
+            },
+            "X.PagedList.Mvc.Core": {
+              "target": "Package",
+              "version": "[8.1.0, )"
             }
           },
           "imports": [

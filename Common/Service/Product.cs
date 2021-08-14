@@ -1,6 +1,7 @@
 ﻿using Common.Data;
 using Common.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Common.Service
     public class Product
     {
         private readonly DPContext _context;
+        private IConfiguration iconfiguration;
         public Product(DPContext context)
         {
             _context = context;
