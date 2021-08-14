@@ -13,6 +13,7 @@ namespace Common.Model
         public string Image { get; set; }
         public int Quantity { get; set; }
         public int Price { get; set; }
+        public string ImageUrl { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public CategoryModel category { get; set; }

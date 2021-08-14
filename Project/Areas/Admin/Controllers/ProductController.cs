@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-using Microsoft.AspNetCore.Mvc.Filters;
+using Common.Service;
 using Common.Data;
 using Common.Model;
+using Microsoft.AspNetCore.Hosting;
+using X.PagedList;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -17,27 +19,17 @@ namespace Project.Areas.Admin.Controllers
     public class ProductController : BaseController
     {
         private readonly DPContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
         public ProductController(DPContext context)
         {
             _context = context;
         }
-        public override void OnActionExecuted(ActionExecutedContext context)
+        public IActionResult Index(int ? page)
         {
-            if (Request.QueryString.Value.IndexOf("count") < 0)
-            {
-                ViewBag.ListProduct = _context.products.ToList();
-            }
-
-            base.OnActionExecuted(context);
-        }
-        // GET: Admin/Product
-        public ActionResult Index(string Search,int page =1,int pageSize=5)
-        {
-            //var model = ListAllPaging(Search, page, pageSize);
-            ViewBag.Search = Search;
+            var pageNumber = page ?? 1;
+            ViewBag.products = _context.products.ToList().ToPagedList(pageNumber, 5);
             return View();
-
         }
        
         // GET: Admin/Product/Details/5
@@ -171,6 +163,21 @@ namespace Project.Areas.Admin.Controllers
             }
             ViewData["CategoryId"] = new SelectList(_context.categories, "Id", "Id", productModel.CategoryId);
             return View(productModel);
+        }
+        private string UploadFile(IFormFile file)
+        {
+            string filename = null;
+            if(filename!=null)
+            {
+                string uploadDir = Path.Combine(webHostEnvironment.WebRootPath, "uploads");
+                filename = Guid.NewGuid().ToString() + "-" + file.FileName;
+                string filepath = Path.Combine(uploadDir, filename);
+                using (var fileStream= new FileStream(filepath,FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+            }
+            return filename;
         }
 
         // GET: Admin/Product/Delete/5
