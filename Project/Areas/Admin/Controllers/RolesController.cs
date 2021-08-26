@@ -13,9 +13,9 @@ namespace Project.Areas.Admin.Controllers
     [Area("Admin")]
     public class RolesController : BaseController
     {
-        private readonly DPContext _context;
+        private readonly ProjectDPContext _context;
 
-        public RolesController(DPContext context)
+        public RolesController(ProjectDPContext context)
         {
             _context = context;
         }

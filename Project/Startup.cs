@@ -19,17 +19,16 @@ namespace Project
         }
 
         public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddScoped<IProduct, ProductRepository>();
+            services.AddTransient<IProduct, ProductRepository>();
             services.AddControllersWithViews();
             services.AddHttpClient();
             services.AddHttpContextAccessor();
             services.AddMvc();
-            services.AddDbContext<DPContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DPContext")));
+            services.AddDbContext<ProjectDPContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ProjectDPContext")));
             services.AddDistributedMemoryCache();
             services.AddSession(option =>
             {

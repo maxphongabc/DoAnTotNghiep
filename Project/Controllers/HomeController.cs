@@ -8,14 +8,18 @@ using System.Collections.Generic;
 using System;
 using Common.Encryptor;
 using Project.Models;
+using System.Threading.Tasks;
+using X.PagedList;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace Project.Controllers
 {
     public class HomeController : Controller
     {
 
-        private readonly DPContext _context;
-        public HomeController(DPContext context)
+        private readonly ProjectDPContext _context;
+        public HomeController(ProjectDPContext context)
         {
             _context = context;
         }
@@ -34,56 +38,13 @@ namespace Project.Controllers
             ViewBag.All = _context.products.Where(sp => sp.Status == true).ToList();
             
             return View();
-        }
-        public ActionResult Category(int id,int page =1,int pageSize=1)
-        {
-            int totalRecord = 0;
-            var model = ListByCateId(id, ref totalRecord, page, pageSize);
-            ViewBag.Total = totalRecord;
-            ViewBag.Page = page;
-            int maxPage = 5;
-            int totalPage = 0;
-            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize));
-            ViewBag.TotalPage = totalPage;
-            ViewBag.MaxPage = maxPage;
-            ViewBag.First = 1;
-            ViewBag.Last = totalPage;
-            ViewBag.Next = page + 1;
-            ViewBag.Prev = page - 1;
-
-            return View(model);
-        }
+        }      
         public ProductModel GetProduct(int id)
         {
             var product = _context.products.Find(id);
             return product;
         }
-        public List<ProductViewModel> ListByCateId(int id, ref int totalRecord, int pageIndex = 1, int pageSize = 2)
-        {
-            totalRecord = _context.products.Where(x => x.CategoryId == id).Count();
-            var model = (from a in _context.products
-                         join b in _context.categories
-                         on a.CategoryId equals b.Id
-                         where a.CategoryId == id
-                         select new
-                         {
-                             Id = a.Id,
-                             Name = a.Name,
-                             CategoryId = a.CategoryId,
-                             Description = a.Desciption,
-                             Image = a.Image,
-                             Price = a.Price,
-                             Quantity = a.Quantity
-                         }).AsEnumerable().Select(x => new ProductViewModel()
-                         {
-                             Id = x.Id,
-                             Image = x.Image,
-                             Catename = x.Name,
-                             Price = x.Price
-                         });
-            model.OrderByDescending(x => x.CreatedOn).Skip((pageIndex - 1) * pageSize).Take(pageSize);
-            return model.ToList();
-        }
+     
         public IActionResult Register()
         {
             return View();
@@ -151,6 +112,53 @@ namespace Project.Controllers
         {
             return _context.user.Count(x => x.Email == email) > 0;
         }
+        public async Task<IActionResult> Category(string categoryslug,int ? page)
+        {
+            CategoryModel category1 =  _context.categories.Where(x => x.Name == categoryslug).FirstOrDefault();
+            if (category1 == null) return RedirectToAction("Index");
+            var pageNumber = page ?? 1;
+            var product = _context.products.OrderByDescending(x => x.Id)
+                                           .Where(x => x.CategoryId == category1.Id);
+            ViewBag.products = _context.products.ToList().ToPagedList(pageNumber, 5);
+            return View();
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(UserModel member)
+        {
+            if (member.UserName != null && member.PassWord != null)
+            {
+                member.PassWord = Encryptor.MD5Hash(member.PassWord);
+                var r = _context.user.Where(m => m.UserName == member.UserName && m.PassWord == (member.PassWord)).ToList();
+                if (r.Count == 0)
+                {
+                    return View("Login");
+                }
+                else
+                {
+                    if (r[0].RolesId == 1)
+                    {
+                        var str = JsonConvert.SerializeObject(r[0]);
+                        HttpContext.Session.SetString("Admin", str);
 
+                        var urlAdmin = Url.RouteUrl(new { controller = "HomeAdmin", action = "Index", area = "Admin" });
+                        return Redirect(urlAdmin);
+                    }
+                    else
+                    {
+                        var str = JsonConvert.SerializeObject(r[0]);
+                        HttpContext.Session.SetString("user", str);
+                        var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
+                        return Redirect(urlAdmin);
+
+                    }
+                }
+            }
+            return View();
+        }
     }
 }

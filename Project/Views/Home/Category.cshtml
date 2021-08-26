@@ -1,85 +1,34 @@
-﻿@model List<Common.Model.ProductModel>
+﻿@model IEnumerable<Common.Model.ProductModel>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
 @{
-    var category = (Common.Model.ProductModel)ViewBag.Category;
-    ViewBag.Title = category.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@*<div class="content">
-    <div class="content_top">
-        <div class="heading">
-            <h3>@category.Name</h3>
+@foreach (var item in Model)
+{
+    <div class="col-4">
+        <div class="ajaxbg d-none">
+            <img src="~/images/ajax-loader.gif" />
+            <p class="lead alert alert-success text-center d-none">
+                The product has been added!
+            </p>
         </div>
-        <div class="see">
-            <p><a href="#">See all Products</a></p>
+        <img src="~/media/products/@item.Image" class="img-fluid" alt="" />
+        <h4>@item.Name</h4>
+        <div>
+            @Html.Raw(item.Description)
         </div>
-        <div class="clear"></div>
+        <p>
+            @item.Price.ToString("C2")
+        </p>
+        <p>
+            <a asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id" data-id="@item.Id" class="btn btn-primary addToCart">Add to cart</a>
+        </p>
     </div>
-    <div class="section group">
-        @foreach (var item in Model)
-        {         
-            <div class="grid_1_of_4 images_1_of_4">
-                <a href=""><img src="@item.Image" alt="" /></a>
-                <h2>@item.Name</h2>
-                <span>@item.Name</span>
-                <div class="price-details">
-                    <div class="price-number">
-                    </div>
-                    <div class="add-cart">
-                        <h4><a href="/gio-hang/@item.Id">Thêm vào giỏ</a></h4>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-
-            </div>
-        }
-        <div class="clear"></div>*@
-        <!--Phân trang-->
-        @if (ViewBag.TotalPage > 1)
-        {
-            var pageDisplay = (int)ViewBag.MaxPage;
-            int totalPage = (int)ViewBag.TotalPage;
-            int currentPage = ((int)ViewBag.Page);
-
-            // Create numeric links
-            var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
-            var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
-        
-            <nav>
-                <ul class="pagination">
-                    @if (currentPage > ViewBag.First)
-                    {
-                        <li><a href="" title="Trang đầu" class="first"><i class="fa fa-angle-double-left"></i></a></li>
-                        <li>
-                            <a href="" title="Trang trước" class="prev"><i class="fa fa-angle-left"></i></a>
-                        </li>
-
-                    }
-                    @for (int i = startPageIndex; i <= endPageIndex; i++)
-                    {
-                        if (currentPage == i)
-                        {
-
-                            <li> <a href="" class="active" title="Trang @i">@i</a></li>
-                        }
-                        else
-                        {
-                            <li><a href="" title="Trang @i" class="pos">@i</a></li>
-                        }
-                    }
-                    @if (currentPage < totalPage)
-                    {
-                        <li><a href="" class="next" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
-                        <li> <a href="" class="last" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
-                    }
-
-                </ul>
-            </nav>
-
-        }
-        else
-        {
-            <span>Không có bản ghi nào</span>
-        }
+}
+<div class="row">
+    <div class="col-md-12">
+        @Html.PagedListPager((IPagedList)ViewBag.products, page => Url.Action("Index", "Product", new { page = page }))
     </div>
 </div>

@@ -11,8 +11,8 @@ namespace Project.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeAdminController : BaseController
     {
-        private readonly DPContext _context;
-        public HomeAdminController(DPContext context)
+        private readonly ProjectDPContext _context;
+        public HomeAdminController(ProjectDPContext context)
         {
             _context = context;
         }

@@ -1,4 +1,4 @@
-﻿@model Common.Model.ProductModel
+﻿@model Common.VIewModel.Product
 @{
     ViewData["Title"] = "Create";
 }
@@ -8,8 +8,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data" onsubmit="return jQueryAjaxPost(this);"
-              method="post">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -18,14 +17,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-            </div>
-            <div class="custom-file">
-                <input asp-for="Image" type="file" name="ful" id="ful" class="custom-file-input" accept="*.png|*.jpg" value="" />
-                <label class="custom-file-label" for="ful">Chọn ảnh</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
+                    <option value="0">Choose a category</option>
+                </select>
             </div>
             <div class="form-group">
-                <img src="~/img/sanpham/Máy PS4 Slim 1TB.jpg" class="img-thumbnail" id="imgPre" alt="Alternate Text" />
+            <label asp-for="Image" class="control-label">Product Image</label>
+            <input asp-for="ImageUpload" class="form-control"  />
+            <img src="~/img/sanpham/noimage.jpg" id="imgpreview" class="pt-2" alt="" />
+            <span asp-validation-for="ImageUpload" class="text-danger"></span>
+        </div>
+            <div class="form-group">
+                <label asp-for="GalleryFiles" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="GalleryFiles" class="custom-file-input" id="customFile" multiple>
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="GalleryFiles" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
@@ -38,9 +46,14 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Desciption" class="control-label"></label>
-                <input asp-for="Desciption" class="form-control" />
-                <span asp-validation-for="Desciption" class="text-danger"></span>
+                <label asp-for="PriceOld" class="control-label"></label>
+                <input asp-for="PriceOld" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control editor"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -52,21 +65,64 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-<script>
-    function readURL(input, idImg) {
-        console.log(input, idImg);
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $(idImg).attr("src", e.target.result);
-            }
-            reader.readAsDataURL(input.files[0])
-        }
-    };
-</script>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        ClassicEditor
+            .create(document.querySelector('.editor'), {
+
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'imageUpload',
+                        'blockQuote',
+                        'insertTable',
+                        'mediaEmbed',
+                        'undo',
+                        'redo'
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error('Oops, something went wrong!');
+                console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+                console.warn('Build id: 7druuo26sl7z-8o65j7c6blw0');
+                console.error(error);
+            });
+
+        $("#ImageUpload").change(function () {
+            readURL(this);
+        });
+    </script>
 }
 

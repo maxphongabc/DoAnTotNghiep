@@ -17,24 +17,9 @@
         @RenderSection("Scripts", required: false)
         @RenderSection("JS", required: false)
         <partial name="_FooterPartial.cshtml" />
+        <partial name="_LoginModal.cshtml" />
     </div>
 </body>
 </html>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-    </div>
-</div>
-<script>
-        $("body").on("click", "#Login,#RegisterPartial,#ForgotPasswordPartial", function () {
-            var url = "/?handler=" + $(this).attr("id");
-            console.log(url)
-            $.ajax({
-                url: url,
-                success: function (data) {
-                    $("#exampleModal .modal-dialog").html(data);
-                    $("#exampleModal").modal("show");
-                }
-            });
-        });
-</script>
+
 

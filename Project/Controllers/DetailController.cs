@@ -5,15 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Data;
 using Common.Model;
-using Common.Service;
 using System.Collections.Generic;
+using Common.VIewModel;
 
 namespace Project.Controllers
 {
     public class DetailController : Controller
     {
-        private readonly DPContext _context;
-        public DetailController(DPContext context)
+        private readonly ProjectDPContext _context;
+        public DetailController(ProjectDPContext context)
         {
             _context = context;
         }
@@ -25,19 +25,24 @@ namespace Project.Controllers
             return View(data);
         }
         
-        public async Task<ProductModel> GetSpById(int id)
+        public async Task<Product> GetSpById(int id)
         {
             return await _context.products.Where(x => x.Id == id)
-                .Select(product => new ProductModel()
+                .Select(product => new Product()
                 {
                     Name = product.Name,
                     CategoryId = product.CategoryId,
                     Image = product.Image,
                     Price = product.Price,
                     Quantity = product.Quantity,
-                    Desciption = product.Desciption,
-                    Status = product.Status
-
+                    Description = product.Description,
+                    Status = product.Status,
+                    Gallery=product.productGalleries.Select(p=> new ProductGallery()
+                    {
+                        Id=p.Id,
+                        Url=p.Url
+                    }).ToList()
+                    
                 }).FirstOrDefaultAsync();
         }
         public List<ProductModel> ListRelatedProduct(int id)

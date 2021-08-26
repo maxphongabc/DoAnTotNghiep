@@ -11,9 +11,9 @@ namespace Project.Areas.Admin.Controllers
     [Area("Admin")]
     public class CategoryController : BaseController
     {
-        private readonly DPContext _context;
+        private readonly ProjectDPContext _context;
 
-        public CategoryController(DPContext context)
+        public CategoryController(ProjectDPContext context)
         {
             _context = context;
         }

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ namespace Project.Areas.Admin.Controllers
     [Area("Admin")]
     public class UserController : Controller
     {
-        private readonly DPContext _context;
+        private readonly ProjectDPContext _context;
 
-        public UserController(DPContext context)
+        public UserController(ProjectDPContext context)
         {
             _context = context;
         }
@@ -23,12 +24,16 @@ namespace Project.Areas.Admin.Controllers
         // GET: Admin/User
         public async Task<IActionResult> Index(int page = 1)
         {
-            if(page<0|| page==0)
-            {
-                page = 1;
-            }
-            var dPContext = _context.user.Include(u => u.roles);
-            return View(await dPContext.ToListAsync());
+            int pageSize = 6;
+            var products = _context.user.OrderByDescending(x => x.Id)
+                                            .Skip((page - 1) * pageSize)
+                                            .Take(pageSize);
+
+            ViewBag.PageNumber = page;
+            ViewBag.PageRange = pageSize;
+            ViewBag.TotalPages = (int)Math.Ceiling((decimal)_context.user.Count() / pageSize);
+
+            return View(await products.ToListAsync());
         }
 
         // GET: Admin/User/Details/5

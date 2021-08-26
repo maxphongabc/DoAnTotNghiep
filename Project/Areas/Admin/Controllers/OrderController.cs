@@ -13,9 +13,9 @@ namespace Project.Areas.Admin.Controllers
     [Area("Admin")]
     public class OrderController : Controller
     {
-        private readonly DPContext _context;
+        private readonly ProjectDPContext _context;
 
-        public OrderController(DPContext context)
+        public OrderController(ProjectDPContext context)
         {
             _context = context;
         }

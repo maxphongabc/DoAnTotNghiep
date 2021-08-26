@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Common.Model.ProductModel>
-@using X.PagedList.Mvc.Core;
-@using X.PagedList;
-
 @{
     ViewData["Title"] = "Create";
 }
 <h2>Index</h2>
+<p>
+    <button type="button" class="btn btn-success" onclick="showModal('@Url.Action("Create","Product",null,Context.Request.Scheme)','Thêm một sản phẩm')">Thêm sản phẩm</button>
+</p>
 @*@using (Html.BeginForm("Index", "Product", FormMethod.Get)) // -- phần thay đổi
     {
         <div class="row form-group">
@@ -51,14 +51,14 @@
             <th></th>
         </tr>
     </thead>
-    @foreach (var item in ViewBag.products)
+    @foreach (var item in Model)
     {
         <tr>
             <td>
                 @item.Name
             </td>
             <td>
-                <img class="img-thumbnail"  src="~/img/sanpham/@item.Image"/>
+                <img class="img-thumbnail"  src="@item.Image"/>
             </td>
             <td>
                 @item.Quantity
@@ -79,16 +79,14 @@
                 @item.Status
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <button type="button" class="btn btn-light" onclick="showModal('@Url.Action("Edit","Product",new { id=$"{item.Id}"},Context.Request.Scheme)','Edit')">Edit</button>
+                <button type="button" class="btn btn-info"  onclick="showModal('@Url.Action("Details","Product",new { id=$"{item.Id}"},Context.Request.Scheme)','Details')">Details</button>
+                <button type="button" class="btn btn-danger" onclick="showModal('@Url.Action("Delete","Product",new { id=$"{item.Id}"},Context.Request.Scheme)','Delete')">Delete</button>
             </td>
         </tr>
     }
 </table>
     </div>
-<div class="row">
-    <div class="col-md12">
-        @Html.PagedListPager((IPagedList)ViewBag.products, page => Url.Action("Index", "Product", new { page = page }))
-    </div>
+<div class="d-flex w-100 justify-content-center">
+    <pagination page-count="@ViewBag.TotalPages" page-target="/admin/product" page-number="@ViewBag.PageNumber" page-range="@ViewBag.PageRange"></pagination>
 </div>

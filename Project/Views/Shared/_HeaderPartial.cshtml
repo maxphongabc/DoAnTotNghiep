@@ -42,8 +42,8 @@
                             <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
                             <li><a href="#"><i class="icon fa fa-heart"></i>My Wistlist</a></li>
                             <li><a asp-action="Cart" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                            <li class="dropdown">
-                                <a class="dropdown-item" asp-action="Login" asp-controller="Account" id="register" asp-area="Admin"><i class="icon fa fa-lock"></i>Login</a>
+                            <li >
+                                <a onclick="showModal('@Url.Action("Login","Home",null,Context.Request.Scheme)','Thêm một sản phẩm')" class="dropdown-item" ><i class="icon fa fa-lock"></i>Login</a>
                             </li>
                         </ul>
                     </div>

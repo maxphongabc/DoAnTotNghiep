@@ -1,31 +1,59 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    @await Html.PartialAsync("_HeadPartial.cshtml")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Area</title>
+    <link rel="stylesheet" href="~/Admin/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Admin/css/site.css" />
 </head>
 <body>
-    <div id="app">
-        @await Html.PartialAsync("_SideBarPartial.cshtml")
-        <div id="main">
-            @await Html.PartialAsync("_HeaderPartial.cshtml")
-
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" href="/" target="_blank">Home</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Pages" asp-action="Index">Pages</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Categories" asp-action="Index">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Products" asp-action="Index">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Roles" asp-action="Index">Roles</a>
+                        </li>
+                        <li class="nav-item ml-1 logout">
+                            <a asp-area="" asp-controller="Account" asp-action="Logout" class="btn btn-danger">Log out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <partial name="_NotificationPartial" />
             @RenderBody()
-            @await Html.PartialAsync("_FooterPartial.cshtml")
-        </div>
+        </main>
+        <partial name="_ModalPartial.cshtml" />
     </div>
-    <script src="~/Admin/assets/js/feather-icons/feather.min.js"></script>
-    <script src="~/Admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="~/Admin/assets/js/app.js"></script>
-    <script src="~/Admin/assets/vendors/chartjs/Chart.min.js"></script>
-    <script src="~/Admin/assets/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="~/Admin/assets/js/pages/dashboard.js"></script>
-    <script src="~/Admin/assets/js/main.js"></script>
-    <script src="~/assets/js/Ajax.js"></script>
-    <script src="~/ckeditor5/build/ckeditor.js"></script>
-    <script src="~/assets/fontawesome-free-5.15.3-web/js/all.js"></script>
-    <script src="~/Admin/assets/js/Ajax.js"></script>
-    <script src="~/Admin/assets/js/Ajax_CL.js"></script>
+
+    <script src="~/Admin/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/Admin/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/Admin/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/ckeditor5/build/ckeditor.js"></script>
+    <script src="~/Admin/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
-    @RenderSection("JS", required: false)
 </body>
 </html>

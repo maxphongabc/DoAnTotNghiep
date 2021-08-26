@@ -1,7 +1,8 @@
-﻿@using Common.Model;
-@model ProductModel
+﻿
+@model Common.VIewModel.Product
 
 @{
+    ViewData["Title"] = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var ListRelatedProduct = (List<Common.Model.ProductModel>)ViewBag.ListRelatedProduct;
 }
@@ -292,122 +293,26 @@
                                 <div class="product-item-holder size-big single-product-gallery small-gallery">
 
                                     <div id="owl-single-product">
-                                        <div class="single-product-gallery-item" id="slide1">
-                                            <a data-lightbox="image-1" data-title="Gallery" href="assets\images\products\p8.jpg">
-                                                <img class="img-responsive" alt="" src="~/img/sanpham/@Model.Image">
-                                            </a>
-                                        </div><!-- /.single-product-gallery-item -->
-
-                                        <div class="single-product-gallery-item" id="slide2">
-                                            <a data-lightbox="image-1" data-title="Gallery" href="assets\images\products\p9.jpg">
-                                                <img class="img-responsive" alt="" src="~/img/sanpham/@Model.Image">
-                                            </a>
-                                        </div><!-- /.single-product-gallery-item -->
-
-                                        <div class="single-product-gallery-item" id="slide3">
-                                            <a data-lightbox="image-1" data-title="Gallery" href="assets\images\products\p10.jpg">
-                                                <img class="img-responsive" alt="" src="~/img/sanpham/@Model.Image">
-                                            </a>
-                                        </div><!-- /.single-product-gallery-item -->
-
-                                        <div class="single-product-gallery-item" id="slide4">
-                                            <a data-lightbox="image-1" data-title="Gallery" href="assets\images\products\p11.jpg">
-                                                <img class="img-responsive" alt="" src="~/img/sanpham/@Model.Image">
-                                            </a>
-                                        </div><!-- /.single-product-gallery-item -->
-
-                                        <div class="single-product-gallery-item" id="slide5">
-                                            <a data-lightbox="image-1" data-title="Gallery" href="assets\images\products\p12.jpg">
-                                                <img class="img-responsive" alt="" src="~/img/sanpham/@Model.Image">
-                                            </a>
-                                        </div><!-- /.single-product-gallery-item -->
-
-                                        <div class="single-product-gallery-item" id="slide6">
-                                            <a data-lightbox="image-1" data-title="Gallery" href="assets\images\products\p13.jpg">
-                                                <img class="img-responsive" alt="" src="~/img/sanpham/@Model.Image">
-                                            </a>
-                                        </div><!-- /.single-product-gallery-item -->
-
-                                        <div class="single-product-gallery-item" id="slide7">
-                                            <a data-lightbox="image-1" data-title="Gallery" href="assets\images\products\p14.jpg">
-                                                <img class="img-responsive" alt="" src="~/img/sanpham/@Model.Image">
-                                            </a>
-                                        </div><!-- /.single-product-gallery-item -->
-
-                                        <div class="single-product-gallery-item" id="slide8">
-                                            <a data-lightbox="image-1" data-title="Gallery" href="assets\images\products\p15.jpg">
-                                                <img class="img-responsive" alt="" src="~/img/sanpham/@Model.Image">
-                                            </a>
-                                        </div><!-- /.single-product-gallery-item -->
-
                                         <div class="single-product-gallery-item" id="slide9">
                                             <a data-lightbox="image-1" data-title="Gallery" href="assets\images\products\p16.jpg">
-                                                <img class="img-responsive" alt="" src="~/img/sanpham/@Model.Image">
+                                                <img class="img-responsive" alt="" src="@Model.Image">
                                             </a>
                                         </div><!-- /.single-product-gallery-item -->
-
+                                       
                                     </div><!-- /.single-product-slider -->
 
 
                                     <div class="single-product-gallery-thumbs gallery-thumbs">
-
+                                    @for (int i=1;i<Model.Gallery.Count();i++)
+                                    {
                                         <div id="owl-single-product-thumbnails">
                                             <div class="item">
                                                 <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide1">
-                                                    <img class="img-responsive" width="85" alt="" src="~/img/sanpham/@Model.Image">
+                                                    <img class="img-responsive" width="85" alt="" src="@Model.Gallery[i].Url">
                                                 </a>
-                                            </div>
-
-                                            <div class="item">
-                                                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide2">
-                                                    <img class="img-responsive" width="85" alt="" src="~/img/sanpham/@Model.Image">
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="3" href="#slide3">
-                                                    <img class="img-responsive" width="85" alt="" src="~/img/sanpham/@Model.Image">
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="4" href="#slide4">
-                                                    <img class="img-responsive" width="85" alt="" src="~/img/sanpham/@Model.Image">
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="5" href="#slide5">
-                                                    <img class="img-responsive" width="85" alt="" src="~/img/sanpham/@Model.Image">
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="6" href="#slide6">
-                                                    <img class="img-responsive" width="85" alt="" src="~/img/sanpham/@Model.Image">
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="7" href="#slide7">
-                                                    <img class="img-responsive" width="85" alt="" src="~/img/sanpham/@Model.Image">
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="8" href="#slide8">
-                                                    <img class="img-responsive" width="85" alt="" src="~/img/sanpham/@Model.Image">
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="9" href="#slide9">
-                                                    <img class="img-responsive" width="85" alt="" src="~/img/sanpham/@Model.Image">
-                                                </a>
-                                            </div>
+                                            </div>                                        
                                         </div><!-- /#owl-single-product-thumbnails -->
-
-
+                                    }
 
                                     </div><!-- /.gallery-thumbs -->
 
@@ -523,7 +428,7 @@
 
                                     <div id="description" class="tab-pane in active">
                                         <div class="product-tab">
-                                            <p class="text">@Model.Desciption</p>
+                                            <p class="text">@Html.Raw(Model.Description)</p>
                                         </div>
                                     </div><!-- /.tab-pane -->
 
@@ -727,46 +632,6 @@
                 </div><!-- /.col -->
                 <div class="clearfix"></div>
             </div><!-- /.row -->
-            <!-- ============================================== BRANDS CAROUSEL ============================================== -->
-            <div id="brands-carousel" class="logo-slider wow fadeInUp">
-                <div class="logo-slider-inner">
-                    <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
-                        <div class="item m-t-15"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand1.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-
-                        <div class="item m-t-10"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand2.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-
-                        <div class="item"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand3.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-
-                        <div class="item"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand4.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-
-                        <div class="item"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand5.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-
-                        <div class="item"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand6.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-
-                        <div class="item"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand2.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-
-                        <div class="item"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand4.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-
-                        <div class="item"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand1.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-
-                        <div class="item"> <a href="#" class="image"> <img data-echo="~/assets/images/brands/brand5.png" src="~/assets/images/blank.gif" alt=""> </a> </div>
-                        <!--/.item-->
-                    </div>
-                    <!-- /.owl-carousel #logo-slider -->
-                </div>
-                <!-- /.logo-slider-inner -->
-
-            </div>
-            <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
         </div><!-- /.container -->
     </div><!-- /.body-content -->
 </div>

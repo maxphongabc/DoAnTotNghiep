@@ -14,9 +14,9 @@ namespace Project.Areas.Admin.Controllers
     [Area("Admin")]
     public class AccountController : Controller
     {
-        private readonly DPContext _context;
+        private readonly ProjectDPContext _context;
 
-        public AccountController(DPContext context)
+        public AccountController(ProjectDPContext context)
         {
             _context = context;
         }
@@ -99,6 +99,12 @@ namespace Project.Areas.Admin.Controllers
             {
                 TempData["AlertType"] = "alert-danger";
             }
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("Admin");
+            var urlAdmin = Url.RouteUrl(new { controller = "Account", action = "LogOut", area = "Admin" });
+            return Redirect(urlAdmin);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Common.Model;
+using Common.VIewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Common.Service.Interface
 {
     public interface IProduct
     {
-        List<ProductModel> ListRelatedProduct(int id);
+        Task<int> AddNewProduct(Product model);
+        Task<int> UpdateProduct(int id, ProductModel model);
     }
 }

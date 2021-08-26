@@ -13,8 +13,8 @@ namespace Project.Controllers
 {
     public class CartController : Controller
     {
-        private readonly DPContext _context;
-        public CartController(DPContext context)
+        private readonly ProjectDPContext _context;
+        public CartController(ProjectDPContext context)
         {
             _context = context;
         }
