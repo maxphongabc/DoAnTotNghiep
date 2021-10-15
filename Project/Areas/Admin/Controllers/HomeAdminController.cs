@@ -52,8 +52,8 @@ namespace Project.Areas.Admin.Controllers
                 ViewBag.ListOrder = (from p in _context.order
                                        where p.Description.IndexOf(countnn) >= 0 && p.Status == true
                                        select p).ToList();
-             
             }
+            ViewBag.SumOrder = _context.order.Sum(s => s.Total);
             return View();
         }
         public IActionResult Logout()

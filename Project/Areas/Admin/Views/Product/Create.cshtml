@@ -1,14 +1,16 @@
-﻿@model Common.VIewModel.Product
+﻿@model Common.Model.ProductModel
+
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h1>Create</h1>
+
 <h4>ProductModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data" method="post">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -17,23 +19,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
-                    <option value="0">Choose a category</option>
-                </select>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
-            <label asp-for="Image" class="control-label">Product Image</label>
-            <input asp-for="ImageUpload" class="form-control"  />
-            <img src="~/img/sanpham/noimage.jpg" id="imgpreview" class="pt-2" alt="" />
-            <span asp-validation-for="ImageUpload" class="text-danger"></span>
-        </div>
-            <div class="form-group">
-                <label asp-for="GalleryFiles" class="control-label"></label>
-                <div class="custom-file">
-                    <input asp-for="GalleryFiles" class="custom-file-input" id="customFile" multiple>
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                </div>
-                <span asp-validation-for="GalleryFiles" class="text-danger"></span>
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control editor" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
@@ -48,15 +39,16 @@
             <div class="form-group">
                 <label asp-for="PriceOld" class="control-label"></label>
                 <input asp-for="PriceOld" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <span asp-validation-for="PriceOld" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control editor"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="Image" class="control-label">Product Image</label>
+                <input asp-for="ImageUpload" class="form-control" />
+                <img src="" id="imgpreview" class="pt-2" alt="" />
+                <span asp-validation-for="ImageUpload" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -67,62 +59,10 @@
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        ClassicEditor
-            .create(document.querySelector('.editor'), {
-
-                toolbar: {
-                    items: [
-                        'heading',
-                        '|',
-                        'bold',
-                        'italic',
-                        'link',
-                        'bulletedList',
-                        'numberedList',
-                        '|',
-                        'indent',
-                        'outdent',
-                        '|',
-                        'imageUpload',
-                        'blockQuote',
-                        'insertTable',
-                        'mediaEmbed',
-                        'undo',
-                        'redo'
-                    ]
-                },
-                language: 'vi',
-                image: {
-                    toolbar: [
-                        'imageTextAlternative',
-                        'imageStyle:full',
-                        'imageStyle:side'
-                    ]
-                },
-                table: {
-                    contentToolbar: [
-                        'tableColumn',
-                        'tableRow',
-                        'mergeTableCells'
-                    ]
-                },
-                licenseKey: '',
-
-            })
-            .then(editor => {
-                window.editor = editor;
-            })
-            .catch(error => {
-                console.error('Oops, something went wrong!');
-                console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
-                console.warn('Build id: 7druuo26sl7z-8o65j7c6blw0');
-                console.error(error);
-            });
-
-        $("#ImageUpload").change(function () {
-            readURL(this);
-        });
-    </script>
+    <script type="text/javascript" src="~/Admin/js/controller/productController.js"></script>
+<script>
+    $("#ImageUpload").change(function () {
+        readURL(this);
+    });
+</script>
 }
-

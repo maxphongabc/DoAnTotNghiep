@@ -11,14 +11,30 @@ namespace Project.Areas.Admin.Controllers
 {
     public class BaseController : Controller
     {
-        public override void OnActionExecuted(ActionExecutedContext context)
+        //public override void OnActionExecuted(ActionExecutedContext context)
+        //{
+        //    if(HttpContext.Session.GetString("Admin")==null)
+        //    {
+        //        context.Result = new RedirectToRouteResult(new
+        //        RouteValueDictionary(new { controller = "Account", action = "login", Area = "Admin" }));
+        //    }
+        //    base.OnActionExecuted(context);
+        //}
+        protected void SetAlert(string message,string type)
         {
-            if(HttpContext.Session.GetString("Admin")==null)
+            TempData["AlertMessage"] = message;
+            if (type == "success")
             {
-                context.Result = new RedirectToRouteResult(new
-                RouteValueDictionary(new { controller = "Account", action = "login", Area = "Admin" }));
+                TempData["AlertType"] = "alert-success";
             }
-            base.OnActionExecuted(context);
+            if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
+            if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
         }
     }
 }

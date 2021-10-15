@@ -32,6 +32,9 @@ namespace Common.Migrations
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Sorting")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
@@ -44,18 +47,21 @@ namespace Common.Migrations
                         {
                             Id = 1,
                             Name = "PlayStaion 4",
+                            Sorting = 0,
                             Status = true
                         },
                         new
                         {
                             Id = 2,
                             Name = "Xbox One S",
+                            Sorting = 0,
                             Status = true
                         },
                         new
                         {
                             Id = 3,
                             Name = "Nintendo Switch",
+                            Sorting = 0,
                             Status = true
                         });
                 });
@@ -188,6 +194,9 @@ namespace Common.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MoreImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -220,9 +229,9 @@ namespace Common.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 99, DateTimeKind.Local).AddTicks(7709),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 702, DateTimeKind.Local).AddTicks(9622),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
+                            Image = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
                             Name = "PS4 Pro The Last Of Us 2 Limited Edition",
                             Price = 299,
                             PriceOld = 0,
@@ -233,9 +242,9 @@ namespace Common.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9559),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2527),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Máy PS4 Slim 1TB.jpg",
+                            Image = "Máy PS4 Slim 1TB.jpg",
                             Name = "PS4 Slim 1TB",
                             Price = 299,
                             PriceOld = 0,
@@ -246,9 +255,9 @@ namespace Common.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9590),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2569),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
+                            Image = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
                             Name = "Sony PS4 Slim Days Of Play 2019 Limited Edition",
                             Price = 299,
                             PriceOld = 0,
@@ -259,9 +268,9 @@ namespace Common.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9593),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2573),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/PS4 Pro 2nd hand.jpg",
+                            Image = "PS4 Pro 2nd hand.jpg",
                             Name = "PS4 Pro 2nd hand",
                             Price = 299,
                             PriceOld = 0,
@@ -272,9 +281,9 @@ namespace Common.Migrations
                         {
                             Id = 5,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9595),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2575),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/PS4 Pro 2nd hand.jpg",
+                            Image = "PS4 Pro 2nd hand.jpg",
                             Name = "Xbox Series X",
                             Price = 299,
                             PriceOld = 0,
@@ -285,9 +294,9 @@ namespace Common.Migrations
                         {
                             Id = 6,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9599),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2577),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Xbox Series X.jpg",
+                            Image = "Xbox Series X.jpg",
                             Name = "Xbox Series X",
                             Price = 299,
                             PriceOld = 0,
@@ -298,9 +307,9 @@ namespace Common.Migrations
                         {
                             Id = 7,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9601),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2579),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Xbox Series X.jpg",
+                            Image = "Xbox Series X.jpg",
                             Name = "Xbox Series X",
                             Price = 299,
                             PriceOld = 0,
@@ -311,9 +320,9 @@ namespace Common.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9603),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2581),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Xbox Series S.jpg",
+                            Image = "Xbox Series S.jpg",
                             Name = "Xbox Series S",
                             Price = 299,
                             PriceOld = 0,
@@ -324,9 +333,9 @@ namespace Common.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9730),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2583),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Máy Nintendo Switch V2 Màu Neon.jpg",
+                            Image = "Máy Nintendo Switch V2 Màu Neon.jpg",
                             Name = "Nintendo Switch V2 Màu Neon",
                             Price = 299,
                             PriceOld = 0,
@@ -337,9 +346,9 @@ namespace Common.Migrations
                         {
                             Id = 10,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9734),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2585),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Máy Nintendo Switch Lite - Màu Blue.jpg",
+                            Image = "Máy Nintendo Switch Lite - Màu Blue.jpg",
                             Name = "Nintendo Switch Lite - Màu Blue",
                             Price = 299,
                             PriceOld = 0,
@@ -350,9 +359,9 @@ namespace Common.Migrations
                         {
                             Id = 11,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9736),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2587),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Máy Nintendo Switch Fortnite Special Edition.jpg",
+                            Image = "Máy Nintendo Switch Fortnite Special Edition.jpg",
                             Name = "Nintendo Switch Fortnite Special Edition",
                             Price = 299,
                             PriceOld = 0,
@@ -363,9 +372,9 @@ namespace Common.Migrations
                         {
                             Id = 12,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 100, DateTimeKind.Local).AddTicks(9738),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2589),
                             Description = "Đẹp",
-                            Image = "/img/sanpham/Máy Nintendo Switch Animal Crossing.jpg",
+                            Image = "Máy Nintendo Switch Animal Crossing.jpg",
                             Name = "Nintendo Switch Animal Crossing",
                             Price = 299,
                             PriceOld = 0,
@@ -461,7 +470,7 @@ namespace Common.Migrations
                             Id = 1,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-1.png",
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 101, DateTimeKind.Local).AddTicks(5933),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(9167),
                             Email = "duyvo049@gmail.com",
                             FullName = "Võ Thành Duy",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -475,7 +484,7 @@ namespace Common.Migrations
                             Id = 2,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-2.png",
-                            CreatedOn = new DateTime(2021, 8, 25, 10, 4, 28, 101, DateTimeKind.Local).AddTicks(6997),
+                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 707, DateTimeKind.Local).AddTicks(247),
                             Email = "leloc603@gmail.com",
                             FullName = "Lê Xuân Lộc",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -532,7 +541,7 @@ namespace Common.Migrations
             modelBuilder.Entity("Common.Model.ProductModel", b =>
                 {
                     b.HasOne("Common.Model.CategoryModel", "category")
-                        .WithMany("products")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -549,11 +558,6 @@ namespace Common.Migrations
                         .IsRequired();
 
                     b.Navigation("roles");
-                });
-
-            modelBuilder.Entity("Common.Model.CategoryModel", b =>
-                {
-                    b.Navigation("products");
                 });
 
             modelBuilder.Entity("Common.Model.OrderModel", b =>

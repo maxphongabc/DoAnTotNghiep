@@ -97,7 +97,7 @@ a {
   color: #0f6cb2;
 }
 .product .product-info .product-price .price {
-  color: #333;
+    color: #f57224;
 }
 .product .cart .action ul li.lnk a:hover,
 .product .cart .action ul li.lnk a:focus {

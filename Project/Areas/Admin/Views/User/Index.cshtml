@@ -1,51 +1,61 @@
 ﻿@model IEnumerable<Common.Model.UserModel>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
 @{
     ViewData["Title"] = "Index";
 }
-
+<style>
+  
+</style>
 <h1>Index</h1>
-
+@using (Html.BeginForm("Index", "User", FormMethod.Get))
+{
+<div class=" p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+    <form asp-action="Index" asp-controller="Us" class="form-inline mr-auto w-100 navbar-search">
+        <div class="input-group">
+            <input id="txtKeyword" name="Search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+                <a class="btn btn-primary" asp-action="Create">Create New</a>
+            </div>
+        </div>
+    </form>
+</div>
+}
 <p>
-    <a asp-action="Create">Create New</a>
+    
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FullName)
+                FullName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Phone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+                Avarta
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Avarta)
+                CreatedOn
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                UpdatedOn
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PassWord)
+                Status
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.roles)
+                Roles
             </th>
             <th></th>
         </tr>
@@ -55,51 +65,44 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
+                    @item.FullName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Address)
+                    @item.Address
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
+                    @item.Phone
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @item.Email
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                   <img class="img-thumbnail" src="~/img/user/@item.Avarta"/> 
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Avarta)
+                    @item.CreatedOn
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
+                    @item.UpdatedOn
+                </td>
+                <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
+                <td>
+                    @item.RolesId
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PassWord)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.roles.Id)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 <div class="d-flex w-100 justify-content-center">
-    <pagination page-count="@ViewBag.TotalPages" page-target="/admin/products" page-number="@ViewBag.PageNumber" page-range="@ViewBag.PageRange"></pagination>
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "User", new { page, @Search = ViewBag.Search }))
 </div>
+@section Scripts{
+
+    <script src="~/Admin/js/controller/userController.js"></script>
+}
 

@@ -21,10 +21,12 @@ namespace Common.Model
         public string Image { get; set; }
         [NotMapped]
         [FileExtension]
-        public IFormFile ImageUpload { get; set; }       
+        public IFormFile ImageUpload { get; set; }
+        public string MoreImage { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
-        public CategoryModel category { get; set; }
+        [ForeignKey("CategoryId")]
+        public virtual CategoryModel category { get; set; }
         public ICollection<OrderModel> orders { get; set; }
         public ICollection<ProductGalleryModel> productGalleries { get; set; }
         public bool Status { get; set; }

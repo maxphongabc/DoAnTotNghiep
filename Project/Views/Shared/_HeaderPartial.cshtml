@@ -18,10 +18,9 @@
                 <div class="header-top-inner">
                     <div class="cnt-account">
                         <ul class="list-unstyled">
-                            <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
                             <li><a href="#"><i class="icon fa fa-heart"></i>Hi: @user.UserName</a></li>
-                            <li><a asp-action="Cart" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                            <li><a asp-action="Logout" asp-controller="Account" asp-area="Admin"><i class="icon fa fa-lock"></i>Logout</a></li>
+                            <li><a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Cart</a></li>
+                            <li><a asp-action="Logout" asp-controller="Account" asp-area="Admin"><i class="icon fa fa-lock"></i>Log Out</a></li>
                         </ul>
                     </div>
                     <!-- /.cnt-cart -->
@@ -39,12 +38,28 @@
                 <div class="header-top-inner">
                     <div class="cnt-account">
                         <ul class="list-unstyled">
-                            <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-                            <li><a href="#"><i class="icon fa fa-heart"></i>My Wistlist</a></li>
-                            <li><a asp-action="Cart" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                            <li >
-                                <a onclick="showModal('@Url.Action("Login","Home",null,Context.Request.Scheme)','Thêm một sản phẩm')" class="dropdown-item" ><i class="icon fa fa-lock"></i>Login</a>
-                            </li>
+                            <li><a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Cart</a></li>
+                            <div class="cnt-block">
+                                <ul class="list-unstyled list-inline">
+                                    <li class="dropdown dropdown-small">
+                                        <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">USD </span><b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">USD</a></li>
+                                            <li><a href="#">INR</a></li>
+                                            <li><a href="#">GBP</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown dropdown-small">
+                                        <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">English</a></li>
+                                            <li><a href="#">French</a></li>
+                                            <li><a href="#">German</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <!-- /.list-unstyled -->
+                            </div>
                         </ul>
                     </div>
                     <!-- /.cnt-cart -->
@@ -77,14 +92,13 @@
                                 <ul class="categories-filter animate-dropdown">
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" href="category.html">Categories <b class="caret"></b></a>
-                                        @*<partial name="~/Views/Shared/_CategoryPartial.cshtml">*@
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li class="menu-header">PS</li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Xbox</a></li>
+                                        </ul>
                                     </li>
-                                    @*<select></select>*@
                                 </ul>
-                                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-                                {
-                                    <input class="search-field" placeholder="Search here...">
-                                }
+                                <input class="search-field" placeholder="Search here...">
                                 <a class="search-button" href="#"></a>
                             </div>
                         </form>
@@ -93,25 +107,8 @@
                     <!-- ============================================================= SEARCH AREA : END ============================================================= -->
                 </div>
                 <!-- /.top-search-holder -->
-
-                <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
-                    <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
-                    <a asp-controller="cart" asp-action="cart">
-                        <div class="dropdown dropdown-cart">
-                            <a class="dropdown-toggle lnk-cart" data-toggle="dropdown">
-                                <div class="items-cart-inner">
-                                    <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
-                                    <div class="basket-item-count"><span class="count"></span></div>
-                                    @*<div class="basket-item-count"><span class="count"></span></div>*@
-                                    <partial name="~/Views/Shared/_CartPartial.cshtml"/>
-                                    <div class="total-price-basket"> <span class="lbl">cart -</span> <span class="total-price"> <span class="sign">$</span><span class="value"></span> </span> </div>
-                                </div>
-                            </a>
-                        </div>
-                    </a>
-                    <!-- /.dropdown-cart -->
-                    <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= -->
-                </div>
+                <partial name="_cartpartial.cshtml"/>
+            
                 <!-- /.top-cart-row -->
             </div>
             <!-- /.row -->
@@ -134,15 +131,60 @@
                     <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
                         <div class="nav-outer">
                             <ul class="nav navbar-nav">
-                                <li class="active dropdown yamm-fw"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Home</a> </li>
-                                <li class="dropdown yamm mega-menu">
-                                    <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Clothing</a>
-                                    <ul class="dropdown-menu container">
+                                <li class="active dropdown yamm-fw"> <a asp-action="Index" asp-controller="Home" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Home</a> </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">PlayStation</a>
+                                    <ul class="dropdown-menu pages">
+                                        <li>
+                                            <div class="yamm-content">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-menu">
+                                                        <ul class="links">
+                                                            <li><a href="home.html">Home</a></li>
+                                                            <li><a href="category.html">Category</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"> <a href="contact.html">Jewellery</a> </li>
-                                <li class="dropdown"> <a href="contact.html">Shoes</a> </li>
-                                <li class="dropdown"> <a href="contact.html">Kids & Girls</a> </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Xbox</a>
+                                    <ul class="dropdown-menu pages">
+                                        <li>
+                                            <div class="yamm-content">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-menu">
+                                                        <ul class="links">
+                                                            <li><a href="home.html">Home</a></li>
+                                                            <li><a href="category.html">Category</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Nintendo</a>
+                                    <ul class="dropdown-menu pages">
+                                        <li>
+                                            <div class="yamm-content">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-menu">
+                                                        <ul class="links">
+                                                            <li><a href="home.html">Home</a></li>
+                                                            <li><a href="category.html">Category</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"> <a asp-action="Contact" asp-controller="Home">Contact</a> </li>
                                 <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a> </li>
                             </ul>
                             <!-- /.navbar-nav -->

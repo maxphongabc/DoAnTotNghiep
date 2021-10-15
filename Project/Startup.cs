@@ -23,6 +23,7 @@ namespace Project
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IProduct, ProductRepository>();
+            services.AddTransient<IUser, UserRepository>();
             services.AddControllersWithViews();
             services.AddHttpClient();
             services.AddHttpContextAccessor();
@@ -54,7 +55,6 @@ namespace Project
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            //app.useauthentication();
             app.UseAuthorization();
             app.UseSession();
             app.UseEndpoints(endpoints =>

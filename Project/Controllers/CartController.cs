@@ -18,7 +18,7 @@ namespace Project.Controllers
         {
             _context = context;
         }
-        public IActionResult Cart()
+        public IActionResult Index()
         {
             return View(GetCartItems());
         }

@@ -4,12 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Common.Data;
 using Common.Model;
-using System.Collections.Generic;
 using System;
 using Common.Encryptor;
 using Project.Models;
-using System.Threading.Tasks;
-using X.PagedList;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 
@@ -44,7 +41,10 @@ namespace Project.Controllers
             var product = _context.products.Find(id);
             return product;
         }
-     
+        public IActionResult Contact()
+        {
+            return View();
+        }
         public IActionResult Register()
         {
             return View();
@@ -112,16 +112,7 @@ namespace Project.Controllers
         {
             return _context.user.Count(x => x.Email == email) > 0;
         }
-        public async Task<IActionResult> Category(string categoryslug,int ? page)
-        {
-            CategoryModel category1 =  _context.categories.Where(x => x.Name == categoryslug).FirstOrDefault();
-            if (category1 == null) return RedirectToAction("Index");
-            var pageNumber = page ?? 1;
-            var product = _context.products.OrderByDescending(x => x.Id)
-                                           .Where(x => x.CategoryId == category1.Id);
-            ViewBag.products = _context.products.ToList().ToPagedList(pageNumber, 5);
-            return View();
-        }
+
         public IActionResult Login()
         {
             return View();
@@ -158,6 +149,10 @@ namespace Project.Controllers
                     }
                 }
             }
+            return View();
+        }
+        public IActionResult Error()
+        {
             return View();
         }
     }

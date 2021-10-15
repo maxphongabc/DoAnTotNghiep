@@ -1,26 +1,16 @@
 ﻿@model IEnumerable<Common.Model.ProductModel>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Index";
 }
-<h2>Index</h2>
+
+<h1>Index</h1>
+
 <p>
-    <button type="button" class="btn btn-success" onclick="showModal('@Url.Action("Create","Product",null,Context.Request.Scheme)','Thêm một sản phẩm')">Thêm sản phẩm</button>
+    <a asp-action="Create">Create New</a>
 </p>
-@*@using (Html.BeginForm("Index", "Product", FormMethod.Get)) // -- phần thay đổi
-    {
-        <div class="row form-group">
-            <div class="col-lg-12">
-                <div class="col-md-4">
-                    <input type="text" value="@ViewBag.Search" class="form-control" name="Search" />
-                </div>
-                <div class="col-md-4">
-                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                    <a class="btn btn-primary" href="/Admin/Product/Create">Thêm mới</a>
-                </div>
-            </div>
-        </div>
-    }*@
-<div class="table-responsive">
+<link href="~/Admin/css/jquery.dataTables.min.css" />
 <table class="table">
     <thead>
         <tr>
@@ -28,19 +18,22 @@
                 Name
             </th>
             <th>
-                Image
+                Slug
             </th>
             <th>
-                Quanlity
+                Quantity
             </th>
             <th>
                 Price
             </th>
             <th>
-                CreateOn
+                PriceOld
             </th>
             <th>
-                UpdateOn
+                Image
+            </th>
+            <th>
+                CreatedOn
             </th>
             <th>
                 Category
@@ -51,42 +44,51 @@
             <th></th>
         </tr>
     </thead>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                <img class="img-thumbnail"  src="@item.Image"/>
-            </td>
-            <td>
-                @item.Quantity
-            </td>
-            <td>
-                @item.Price
-            </td>
-            <td>
-                @item.CreatedOn
-            </td>
-            <td>
-                @item.UpdatedOn
-            </td>
-            <td>
-                @item.CategoryId
-            </td>
-            <td>
-                @item.Status
-            </td>
-            <td>
-                <button type="button" class="btn btn-light" onclick="showModal('@Url.Action("Edit","Product",new { id=$"{item.Id}"},Context.Request.Scheme)','Edit')">Edit</button>
-                <button type="button" class="btn btn-info"  onclick="showModal('@Url.Action("Details","Product",new { id=$"{item.Id}"},Context.Request.Scheme)','Details')">Details</button>
-                <button type="button" class="btn btn-danger" onclick="showModal('@Url.Action("Delete","Product",new { id=$"{item.Id}"},Context.Request.Scheme)','Delete')">Delete</button>
-            </td>
-        </tr>
-    }
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriceOld)
+                </td>
+                <td>
+                    <img class="img-thumbnail" src="~/img/sanpham/@item.Image" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.category.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
-    </div>
 <div class="d-flex w-100 justify-content-center">
-    <pagination page-count="@ViewBag.TotalPages" page-target="/admin/product" page-number="@ViewBag.PageNumber" page-range="@ViewBag.PageRange"></pagination>
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "Product", new { page, @Search = ViewBag.Search }))
 </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript" src="~/Admin/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Admin/js/controller/productController.js"></script>
+}

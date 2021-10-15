@@ -8,6 +8,37 @@
 @if (jsoncart != null)
 {
     var cart = JsonConvert.DeserializeObject<List<Cart>>(jsoncart);
-    <div class="basket-item-count"><span class="count">@cart.Count</span></div>
-
+    <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
+        <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
+        <a asp-controller="cart" asp-action="cart">
+            <div class="dropdown dropdown-cart">
+                <a class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+                    <div class="items-cart-inner">
+                        <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
+                        <div class="basket-item-count"><span class="count">@cart.Count</span></div>
+                        <div class="total-price-basket"> <span class="lbl">cart -</span> <span class="total-price"> <span class="sign">$</span><span class="value"></span> </span> </div>
+                    </div>
+                </a>
+            </div>
+        </a>
+        <!-- /.dropdown-cart -->
+        <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= -->
+    </div>
+}
+else
+{
+    <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
+        <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
+        <a asp-controller="cart" asp-action="cart">
+            <div class="dropdown dropdown-cart">
+                <a class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+                    <div class="items-cart-inner">
+                        <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
+                        <div class="basket-item-count"><span class="count"></span></div>
+                        <div class="total-price-basket"> <span class="lbl">cart -</span> <span class="total-price"> <span class="sign">$</span><span class="value"></span> </span> </div>
+                    </div>
+                </a>
+            </div>
+        </a>
+    </div>
 }

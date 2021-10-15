@@ -12,5 +12,8 @@ namespace Common.Service.Interface
     {
         Task<int> AddNewProduct(Product model);
         Task<int> UpdateProduct(int id, ProductModel model);
+        List<string> ListName(string keyword);
+        ProductModel ViewDetail(int id);
+        void UpdateImages(int ProductId, string images);
     }
 }

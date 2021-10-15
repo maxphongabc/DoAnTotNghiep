@@ -5,37 +5,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Data;
 using Common.Model;
+using Common.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace Project.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly ProjectDPContext _context;
-
-        public UserController(ProjectDPContext context)
+        private readonly IUser _iuser;
+        public UserController(ProjectDPContext context,IUser iuser)
         {
             _context = context;
+            _iuser = iuser;
         }
 
         // GET: Admin/User
-        public async Task<IActionResult> Index(int page = 1)
+        public ActionResult Index(string Search, int page = 1, int pageSize = 2)
         {
-            int pageSize = 6;
-            var products = _context.user.OrderByDescending(x => x.Id)
-                                            .Skip((page - 1) * pageSize)
-                                            .Take(pageSize);
+            //var model = ListAllPaging(Search, page, pageSize);
+            ViewBag.Search = Search;    
+            var model = ListAllPaging(Search, page, pageSize);
+            return View(model);
 
-            ViewBag.PageNumber = page;
-            ViewBag.PageRange = pageSize;
-            ViewBag.TotalPages = (int)Math.Ceiling((decimal)_context.user.Count() / pageSize);
-
-            return View(await products.ToListAsync());
         }
+        public IEnumerable<UserModel> ListAllPaging(string Search, int page, int pageSize)
+        {
+            IQueryable<UserModel> model = _context.user;
+            if (!string.IsNullOrEmpty(Search))
+            {
+                model = model.Where(x => x.FullName.Contains(Search) || x.UserName.Contains(Search));
+            }
 
+            return model.OrderByDescending(x => x.CreatedOn).ToPagedList(page, pageSize);
+        }
         // GET: Admin/User/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -58,7 +65,7 @@ namespace Project.Areas.Admin.Controllers
         // GET: Admin/User/Create
         public IActionResult Create()
         {
-            ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Id");
+            ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Name");
             return View();
         }
 
@@ -74,8 +81,9 @@ namespace Project.Areas.Admin.Controllers
                 _context.Add(userModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+               
             }
-            ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Id", userModel.RolesId);
+            ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Name", userModel.RolesId);
             return View(userModel);
         }
 
@@ -158,6 +166,7 @@ namespace Project.Areas.Admin.Controllers
         {
             var userModel = await _context.user.FindAsync(id);
             _context.user.Remove(userModel);
+            SetAlert("Thêm thành công", "success");
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -165,6 +174,39 @@ namespace Project.Areas.Admin.Controllers
         private bool UserModelExists(int id)
         {
             return _context.user.Any(e => e.Id == id);
+        }
+        [HttpPost]
+        public JsonResult ChangeStatus(int id)
+        {
+            var result= ChangeStatuss(id);
+            return Json(new
+            {
+                status = result
+            });
+        }
+        public bool ChangeStatuss(int id)
+        {
+            var user = _context.user.Find(id);
+            user.Status = !user.Status;
+            _context.SaveChanges();
+            return user.Status;
+        }
+        [HttpGet]
+        public JsonResult ListName(string q)
+        {
+            var data = _iuser.ListName(q);
+            return Json(new
+            {
+                data = data,
+                status = true
+            });
+        }
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+           _iuser.Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 }

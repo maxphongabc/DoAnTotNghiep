@@ -62,5 +62,19 @@ namespace Common.Service.Repository
             await _context.SaveChangesAsync();
             return product.Id;
         }
+        public List<string> ListName(string keyword)
+        {
+            return _context.products.Where(x => x.Name.Contains(keyword)).Select(x => x.Name).ToList();
+        }
+        public void UpdateImages(int productId, string images)
+        {
+            var product = _context.products.Find(productId);
+            product.MoreImage = images;
+            _context.SaveChanges();
+        }
+        public ProductModel ViewDetail(int id)
+        {
+            return _context.products.Find(id);
+        }
     }
 }

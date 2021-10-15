@@ -4,6 +4,7 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\bin\Debug\net5.0\Common.run
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\bin\Debug\net5.0\Common.dll
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\bin\Debug\net5.0\ref\Common.dll
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\bin\Debug\net5.0\Common.pdb
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.csprojAssemblyReference.cache
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.AssemblyInfoInputs.cache
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.AssemblyInfo.cs
@@ -12,4 +13,3 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.dll
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\ref\Common.dll
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.pdb
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.genruntimeconfig.cache
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.csprojAssemblyReference.cache
