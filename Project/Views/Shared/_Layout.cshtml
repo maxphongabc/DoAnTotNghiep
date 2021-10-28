@@ -10,13 +10,9 @@
     <partial name="_HeaderPartial.cshtml" />
     <div class="body-content outer-top-xs" id="top-banner-and-menu">
         <div class="container">
-            <div class="row">
-                <partial name="_SiderBarPartial.cshtml"/>
-                @RenderBody()
-            </div>
+            @RenderBody()
         </div>
         <partial name="_FooterPartial.cshtml" />
-
         @RenderSection("Scripts", required: false)
     </div>
 </body>

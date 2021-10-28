@@ -16,7 +16,7 @@ namespace Common.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Common.Model.CategoryModel", b =>
@@ -47,6 +47,7 @@ namespace Common.Migrations
                         {
                             Id = 1,
                             Name = "PlayStaion 4",
+                            Slug = "playstation-4",
                             Sorting = 0,
                             Status = true
                         },
@@ -54,6 +55,7 @@ namespace Common.Migrations
                         {
                             Id = 2,
                             Name = "Xbox One S",
+                            Slug = "xbox-one-s",
                             Sorting = 0,
                             Status = true
                         },
@@ -61,6 +63,7 @@ namespace Common.Migrations
                         {
                             Id = 3,
                             Name = "Nintendo Switch",
+                            Slug = "nintendo-switch",
                             Sorting = 0,
                             Status = true
                         });
@@ -100,9 +103,6 @@ namespace Common.Migrations
                     b.Property<float>("Total")
                         .HasColumnType("real");
 
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -140,9 +140,6 @@ namespace Common.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("orderId")
                         .HasColumnType("int");
 
@@ -153,26 +150,6 @@ namespace Common.Migrations
                     b.HasIndex("orderId");
 
                     b.ToTable("order_Details");
-                });
-
-            modelBuilder.Entity("Common.Model.ProductGalleryModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("gallery");
                 });
 
             modelBuilder.Entity("Common.Model.ProductModel", b =>
@@ -194,16 +171,13 @@ namespace Common.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MoreImage")
+                    b.Property<string>("Model")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PriceOld")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -215,172 +189,11 @@ namespace Common.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 702, DateTimeKind.Local).AddTicks(9622),
-                            Description = "Đẹp",
-                            Image = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
-                            Name = "PS4 Pro The Last Of Us 2 Limited Edition",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2527),
-                            Description = "Đẹp",
-                            Image = "Máy PS4 Slim 1TB.jpg",
-                            Name = "PS4 Slim 1TB",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2569),
-                            Description = "Đẹp",
-                            Image = "Máy PS4 Pro The Last Of Us 2 Limited Edition.jpg",
-                            Name = "Sony PS4 Slim Days Of Play 2019 Limited Edition",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2573),
-                            Description = "Đẹp",
-                            Image = "PS4 Pro 2nd hand.jpg",
-                            Name = "PS4 Pro 2nd hand",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2575),
-                            Description = "Đẹp",
-                            Image = "PS4 Pro 2nd hand.jpg",
-                            Name = "Xbox Series X",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2577),
-                            Description = "Đẹp",
-                            Image = "Xbox Series X.jpg",
-                            Name = "Xbox Series X",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2579),
-                            Description = "Đẹp",
-                            Image = "Xbox Series X.jpg",
-                            Name = "Xbox Series X",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2581),
-                            Description = "Đẹp",
-                            Image = "Xbox Series S.jpg",
-                            Name = "Xbox Series S",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2583),
-                            Description = "Đẹp",
-                            Image = "Máy Nintendo Switch V2 Màu Neon.jpg",
-                            Name = "Nintendo Switch V2 Màu Neon",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2585),
-                            Description = "Đẹp",
-                            Image = "Máy Nintendo Switch Lite - Màu Blue.jpg",
-                            Name = "Nintendo Switch Lite - Màu Blue",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2587),
-                            Description = "Đẹp",
-                            Image = "Máy Nintendo Switch Fortnite Special Edition.jpg",
-                            Name = "Nintendo Switch Fortnite Special Edition",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(2589),
-                            Description = "Đẹp",
-                            Image = "Máy Nintendo Switch Animal Crossing.jpg",
-                            Name = "Nintendo Switch Animal Crossing",
-                            Price = 299,
-                            PriceOld = 0,
-                            Quantity = 50,
-                            Status = true
-                        });
                 });
 
             modelBuilder.Entity("Common.Model.RolesModel", b =>
@@ -470,7 +283,7 @@ namespace Common.Migrations
                             Id = 1,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-1.png",
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 706, DateTimeKind.Local).AddTicks(9167),
+                            CreatedOn = new DateTime(2021, 10, 28, 17, 18, 0, 376, DateTimeKind.Local).AddTicks(9336),
                             Email = "duyvo049@gmail.com",
                             FullName = "Võ Thành Duy",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -484,7 +297,7 @@ namespace Common.Migrations
                             Id = 2,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-2.png",
-                            CreatedOn = new DateTime(2021, 10, 8, 10, 32, 10, 707, DateTimeKind.Local).AddTicks(247),
+                            CreatedOn = new DateTime(2021, 10, 28, 17, 18, 0, 378, DateTimeKind.Local).AddTicks(734),
                             Email = "leloc603@gmail.com",
                             FullName = "Lê Xuân Lộc",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -527,21 +340,10 @@ namespace Common.Migrations
                     b.Navigation("product");
                 });
 
-            modelBuilder.Entity("Common.Model.ProductGalleryModel", b =>
-                {
-                    b.HasOne("Common.Model.ProductModel", "product")
-                        .WithMany("productGalleries")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("product");
-                });
-
             modelBuilder.Entity("Common.Model.ProductModel", b =>
                 {
                     b.HasOne("Common.Model.CategoryModel", "category")
-                        .WithMany()
+                        .WithMany("products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -560,6 +362,11 @@ namespace Common.Migrations
                     b.Navigation("roles");
                 });
 
+            modelBuilder.Entity("Common.Model.CategoryModel", b =>
+                {
+                    b.Navigation("products");
+                });
+
             modelBuilder.Entity("Common.Model.OrderModel", b =>
                 {
                     b.Navigation("order_Details");
@@ -568,8 +375,6 @@ namespace Common.Migrations
             modelBuilder.Entity("Common.Model.ProductModel", b =>
                 {
                     b.Navigation("orders");
-
-                    b.Navigation("productGalleries");
                 });
 
             modelBuilder.Entity("Common.Model.RolesModel", b =>

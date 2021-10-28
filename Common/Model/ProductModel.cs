@@ -17,18 +17,15 @@ namespace Common.Model
         public string Description { get; set; }  
         public int Quantity { get; set; }
         public int Price { get; set; }
-        public int PriceOld { get; set; }
+        public string Model { get; set; }
         public string Image { get; set; }
         [NotMapped]
         [FileExtension]
         public IFormFile ImageUpload { get; set; }
-        public string MoreImage { get; set; }
         public DateTime? CreatedOn { get; set; }
-        public DateTime? UpdatedOn { get; set; }
         [ForeignKey("CategoryId")]
         public virtual CategoryModel category { get; set; }
         public ICollection<OrderModel> orders { get; set; }
-        public ICollection<ProductGalleryModel> productGalleries { get; set; }
         public bool Status { get; set; }
     }
 

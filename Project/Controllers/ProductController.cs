@@ -37,13 +37,6 @@ namespace Project.Controllers
                     Quantity = product.Quantity,
                     Description = product.Description,
                     Status = product.Status
-                    //Gallery = product.productGalleries.Select(p => new ProductGallery()
-                    //{
-                    //    Id = p.Id,
-                    //    Url = p.Url
-                    //}).ToList()
-                 
-
                 }).FirstOrDefaultAsync();
             
 

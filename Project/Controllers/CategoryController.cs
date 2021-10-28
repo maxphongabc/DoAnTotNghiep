@@ -47,7 +47,7 @@ namespace Project.Controllers
                 var jsonData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data };
                 return Ok(jsonData);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 throw;
             }

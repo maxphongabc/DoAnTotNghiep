@@ -1,10 +1,10 @@
 ﻿
 @using Microsoft.AspNetCore.Http
 @using Newtonsoft.Json
+@model IEnumerable<Common.Model.ProductModel>
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     var session = HttpContextAccessor.HttpContext.Session;
-    string jsoncart = session.GetString(Project.Controllers.CartController.CARTKEY);
 }
 <!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1">
@@ -39,27 +39,7 @@
                     <div class="cnt-account">
                         <ul class="list-unstyled">
                             <li><a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Cart</a></li>
-                            <div class="cnt-block">
-                                <ul class="list-unstyled list-inline">
-                                    <li class="dropdown dropdown-small">
-                                        <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">USD </span><b class="caret"></b></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">USD</a></li>
-                                            <li><a href="#">INR</a></li>
-                                            <li><a href="#">GBP</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown dropdown-small">
-                                        <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b class="caret"></b></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">English</a></li>
-                                            <li><a href="#">French</a></li>
-                                            <li><a href="#">German</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <!-- /.list-unstyled -->
-                            </div>
+                            <li><a asp-action="Logout" asp-controller="Account" asp-area="Admin"><i class="icon fa fa-lock"></i>Login</a></li>
                         </ul>
                     </div>
                     <!-- /.cnt-cart -->
@@ -86,29 +66,31 @@
                 <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
-                    <div class="search-area">
-                        <form>
-                            <div class="control-group">
-                                <ul class="categories-filter animate-dropdown">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="category.html">Categories <b class="caret"></b></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li class="menu-header">PS</li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Xbox</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <input class="search-field" placeholder="Search here...">
-                                <a class="search-button" href="#"></a>
-                            </div>
-                        </form>
-                    </div>
+                    @*<div class="search-area">
+                        @using (Html.BeginForm("Search", "Product", FormMethod.Get))
+                        {
+                            <form>
+                                <div class="control-group">
+                                    <ul class="categories-filter animate-dropdown">
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="category.html">All <b class="caret"></b></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <input name="Search" aria-label="Search" type="search" class="search-field" placeholder="Nhập từ khóa sản phẩm cần tìm...">
+                                    <button class="search-button" type="submit">
+                                    </button>
+                                </div>
+                            </form>
+                        }
+                    </div>*@
                     <!-- /.search-area -->
                     <!-- ============================================================= SEARCH AREA : END ============================================================= -->
                 </div>
                 <!-- /.top-search-holder -->
-                <partial name="_cartpartial.cshtml"/>
-            
+                @await Component.InvokeAsync("SmallCart")
+
                 <!-- /.top-cart-row -->
             </div>
             <!-- /.row -->
@@ -131,8 +113,7 @@
                     <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
                         <div class="nav-outer">
                             <ul class="nav navbar-nav">
-                                <li class="active dropdown yamm-fw"> <a asp-action="Index" asp-controller="Home" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Home</a> </li>
-
+                                <li class="dropdown"> <a asp-action="Index" asp-controller="Home">Trang chủ</a> </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">PlayStation</a>
                                     <ul class="dropdown-menu pages">
@@ -184,8 +165,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"> <a asp-action="Contact" asp-controller="Home">Contact</a> </li>
-                                <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a> </li>
+                                <li class="dropdown"> <a asp-action="Contact" asp-controller="Home">Liên hệ</a> </li>
+                                <li class="dropdown"> <a asp-action="FAQ" asp-controller="Home">FAQ</a> </li>
                             </ul>
                             <!-- /.navbar-nav -->
                             <div class="clearfix"></div>

@@ -21,56 +21,10 @@ namespace Common.Service.Repository
         {
             _context = context;
             _iconfiguration = configuration;
-        }
-        public async Task<int> AddNewProduct(Product product)
-        {
-            var newProudct = new ProductModel()
-            {
-                Name = product.Name,
-                Slug = product.Name.ToLower().Replace(" ", "-"),
-                Description = product.Description,
-                CategoryId = product.CategoryId,
-                Quantity = product.Quantity,
-                Price = product.Price,
-                PriceOld = product.PriceOld,
-                Image = product.Image,
-                Status = true,
-                CreatedOn = DateTime.Now
-            };     
-            await _context.products.AddAsync(newProudct);
-            await _context.SaveChangesAsync();
-            return newProudct.Id;
-        }
-
-        public async Task<int> UpdateProduct(int id, ProductModel model)
-        {
-            var product = new ProductModel()
-            {
-                Name = model.Name,
-                Slug = model.Name.ToLower().Replace(" ", "-"),
-                Description = model.Description,
-                CategoryId = model.CategoryId,
-                Quantity = model.Quantity,
-                Price = model.Price,
-                PriceOld = model.PriceOld,
-                Image = model.Image,
-                Status = true,
-                CreatedOn = model.CreatedOn,
-                UpdatedOn = DateTime.Now
-            };
-             _context.products.Update(product);
-            await _context.SaveChangesAsync();
-            return product.Id;
-        }
+        }   
         public List<string> ListName(string keyword)
         {
             return _context.products.Where(x => x.Name.Contains(keyword)).Select(x => x.Name).ToList();
-        }
-        public void UpdateImages(int productId, string images)
-        {
-            var product = _context.products.Find(productId);
-            product.MoreImage = images;
-            _context.SaveChanges();
         }
         public ProductModel ViewDetail(int id)
         {

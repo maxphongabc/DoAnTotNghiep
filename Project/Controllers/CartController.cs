@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Common.Data;
 using Common.Model;
+using Project.Infratructure;
+using System.Threading.Tasks;
 
 namespace Project.Controllers
 {
@@ -20,120 +22,133 @@ namespace Project.Controllers
         }
         public IActionResult Index()
         {
-            return View(GetCartItems());
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+
+            CartViewModel cartVM = new CartViewModel
+            {
+                CartItems = cart,
+                GrandTotal = cart.Sum(x => x.Price * x.Quantity)
+            };
+
+            return View(cartVM);
         }
 
-        public ActionResult AddCart(int id)
+        public async Task<IActionResult> AddCart(int id)
         {
-            var product = _context.products.Where(p => p.Id == id).FirstOrDefault();
-            if (product == null)
-                return NotFound("Không có sản phẩm");           
-            var cart = GetCartItems();
-            //check gio hang da co hay chua
-            var cartitem = cart.Find(p => p.Product.Id == id);
-            if(cartitem != null)
+            ProductModel product = await _context.products.FindAsync(id);
+
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+
+            CartItem cartItem = cart.Where(x => x.ProductId == id).FirstOrDefault();
+
+            if (cartItem == null)
             {
-                //neu ton tai tang them 1
-                cartitem.Quanlity++;
+                cart.Add(new CartItem(product));
             }
             else
             {
-                //them moi
-                cart.Add(new Cart() { Quanlity = 1, Product = product });
+                cartItem.Quantity += 1;
             }
-            //luu vao session
-            SaveCartSession(cart);
-            return RedirectToAction("Index", "Home");
+
+            HttpContext.Session.SetJson("Cart", cart);
+
+            if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                return RedirectToAction("Index");
+
+            return ViewComponent("SmallCart");
 
         }
-        void SaveCartSession(List<Cart> ls)
-        {
-            var session = HttpContext.Session;
-            string jsoncart = JsonConvert.SerializeObject(ls);
-            session.SetString(CARTKEY, jsoncart);
-        }
-        public const string CARTKEY = "cart";
         public const string USER = "user";
-        // Lấy cart từ Session (danh sách CartItem)
-        List<Cart> GetCartItems()
+
+        public IActionResult Decrease(int id)
         {
-            var session = HttpContext.Session;
-            string jsoncart = session.GetString(CARTKEY);
-            if (jsoncart != null)
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+
+            CartItem cartItem = cart.Where(x => x.ProductId == id).FirstOrDefault();
+
+            if (cartItem.Quantity > 1)
             {
-                return JsonConvert.DeserializeObject<List<Cart>>(jsoncart);
+                --cartItem.Quantity;
             }
-            return new List<Cart>();
-        }
-        
-        /// Cập nhật
-        [Route("/updatecart", Name = "updatecart")]
-        [HttpPost]
-        public IActionResult UpdateCart([FromForm] int productid, [FromForm] int quantity)
-        {
-            // Cập nhật Cart thay đổi số lượng quantity ...
-            var cart = GetCartItems();
-            var cartitem = cart.Find(p => p.Product.Id == productid);
-            if (cartitem != null)
+            else
             {
-                // Đã tồn tại, tăng thêm 1
-                cartitem.Quanlity = quantity;
+                cart.RemoveAll(x => x.ProductId == id);
             }
-            SaveCartSession(cart);
-            // Trả về mã thành công (không có nội dung gì - chỉ để Ajax gọi)
+
+            if (cart.Count == 0)
+            {
+                HttpContext.Session.Remove("Cart");
+            }
+            else
+            {
+                HttpContext.Session.SetJson("Cart", cart);
+            }
+
             return Ok();
         }
-        [Route("/removecart/{Id:int}", Name = "removecart")]
-        public IActionResult RemoveCart([FromRoute] int productid)
+
+        public IActionResult Remove(int id)
         {
-            var cart = GetCartItems();
-            var cartitem = cart.Find(p => p.Product.Id == productid);
-            if (cartitem != null)
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+
+            cart.RemoveAll(x => x.ProductId == id);
+
+            if (cart.Count == 0)
             {
-                // Đã tồn tại, tăng thêm 1
-                cart.Remove(cartitem);
+                HttpContext.Session.Remove("Cart");
+            }
+            else
+            {
+                HttpContext.Session.SetJson("Cart", cart);
             }
 
-            SaveCartSession(cart);
-            return RedirectToAction(nameof(Cart));
+            return Ok();
         }
+
         public ProductModel GetProduct(int id)
         {
             var product = _context.products.Find(id);
             return product;
         }
-
-        void ClearCart()
+        public IActionResult Clear()
         {
-            var session = HttpContext.Session;
-            session.Remove(CARTKEY);
+            HttpContext.Session.Remove("Cart");
+            if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                return Redirect(Request.Headers["Referer"].ToString());
+
+            return Ok();
         }
         [HttpGet]
         public IActionResult CheckOut()
         {
-            //Kiem tra da dang nhap hay chua đã đăng nhập hay chưa
             var sessionUser = HttpContext.Session.GetString(USER);
             if (sessionUser == null)
             {
                 var urlAdmin = Url.RouteUrl(new { controller = "Account", action = "Login", area = "Admin" });
                 return Redirect(urlAdmin);
             }
-            //Kiem tra gio hang da co gi hay chua
-            if (HttpContext.Session.GetString(CARTKEY) == null)
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+            CartViewModel cartVM = new CartViewModel
             {
-                var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
-                return Redirect(urlAdmin);
-            }
-            return View(GetCartItems());
+                CartItems = cart,
+                GrandTotal = cart.Sum(x => x.Price * x.Quantity)
+            };
+            return View(cartVM);
         }
 
         [HttpPost]
-        public IActionResult CheckOut(string shipName,string shipAdress,string phone,string email)
+        public IActionResult CheckOut(string shipName, string shipAdress, string phone, string email)
         {
             ProductModel product = new ProductModel();
             string a = HttpContext.Session.GetString(USER);
             UserModel user = JsonConvert.DeserializeObject<UserModel>(a);
-            List<Cart> gh = GetCartItems();
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+
+            CartViewModel cartVM = new CartViewModel
+            {
+                CartItems = cart,
+                GrandTotal = cart.Sum(x => x.Price * x.Quantity)
+            };
             OrderModel order = new OrderModel();
             order.ShipAdress = shipAdress;
             order.ShipEmail = email;
@@ -144,25 +159,25 @@ namespace Project.Controllers
             order.UserId = user.Id;
             _context.order.Add(order);
             _context.SaveChanges();
-            foreach (var item in gh)
+            foreach (var item in cart)
             {
-                product = GetProduct(item.Product.Id);
+                product = GetProduct(item.ProductId);
                 Order_DetailsModel details = new Order_DetailsModel();
                 details.InvoiceId = order.Id;
                 details.CreatedOn = DateTime.Now;
-                details.Price = item.Product.Price;
-                details.ProductId = item.Product.Id;
+                details.Price = item.Price;
+                details.ProductId = item.ProductId;
                 details.Status = true;
-                details.Quantity = item.Quanlity;
+                details.Quantity = item.Quantity;
                 product.Quantity = product.Quantity - details.Quantity;
                 _context.order_Details.Add(details);
                 order.Total += details.Price * details.Quantity;
                 _context.Update(product);
-            }           
+            }
             _context.Update(order);
             _context.SaveChanges();
-            HttpContext.Session.Remove(CARTKEY);
-            var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index"});
+            HttpContext.Session.Remove("cart");
+            var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
             return Redirect(urlAdmin);
         }
     }

@@ -16,7 +16,6 @@ namespace Common.Data
         public DbSet<RolesModel> roles { get; set; }
         public DbSet<UserModel> user { get; set; }
         public DbSet<Order_DetailsModel> order_Details { get; set; }
-        public DbSet<ProductGalleryModel> gallery { get; set; }
         public DbSet<ProductModel> products { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

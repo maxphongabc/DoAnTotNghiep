@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\Common\\Common.csproj": {}
+    "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\Common\\Common.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\Common\\Common.csproj": {
+    "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\Common\\Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\Common\\Common.csproj",
+        "projectUniqueName": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\Common\\Common.csproj",
+        "projectPath": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\Common\\Common.csproj",
         "packagesPath": "C:\\Users\\Thanh Duy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\Common\\obj\\",
+        "outputPath": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Thanh Duy\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -104,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.207\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.208\\RuntimeIdentifierGraph.json"
         }
       }
     }

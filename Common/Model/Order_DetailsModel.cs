@@ -13,7 +13,6 @@ namespace Common.Model
         public int Quantity { get; set; }
         public int Price { get; set; }
         public DateTime? CreatedOn { get; set; }
-        public DateTime? UpdatedOn { get; set; }
         public ProductModel product { get; set; }
         public OrderModel order { get; set; }
         public bool Status { get; set; }

@@ -17,7 +17,6 @@ namespace Common.Model
         public string Description { get; set; }
         public ICollection<Order_DetailsModel> order_Details { get; set; }
         public DateTime? CreatedOn { get; set; }
-        public DateTime? UpdatedOn { get; set; }
         public bool Status { get; set; }
         public virtual UserModel user { get; set; }
     }

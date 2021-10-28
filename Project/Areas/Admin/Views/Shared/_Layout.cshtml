@@ -20,6 +20,23 @@
     </a>
 </body>
 </html>
-<partial name="_JSPartial.cshtml" />
-@RenderSection("JS",required:false)
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success notification">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger notification">
+        @TempData["Error"]
+    </div>
+}
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="~/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="~/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script type="text/javascript" src="~/Admin/js/sb-admin-2.min.js"></script>
+<script type="text/javascript" src="~/Admin/js/ckeditor5/build/ckeditor.js"></script>
+<script src="~/Admin/js/site.js" asp-append-version="true"></script>
 @RenderSection("Scripts", required: false)

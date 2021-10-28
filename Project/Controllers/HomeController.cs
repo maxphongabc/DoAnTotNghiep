@@ -9,6 +9,9 @@ using Common.Encryptor;
 using Project.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using X.PagedList;
 
 namespace Project.Controllers
 {
@@ -155,5 +158,44 @@ namespace Project.Controllers
         {
             return View();
         }
+        public IActionResult Search(int? size, int? page, string Search)
+        {
+            var products = from m in _context.products
+                           select m;
+            ViewBag.searchValue = Search;
+            ViewBag.page = page;
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "5", Value = "5" });
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+            items.Add(new SelectListItem { Text = "100", Value = "100" });
+            items.Add(new SelectListItem { Text = "200", Value = "200" });
+            // 1.1. Giữ trạng thái kích thước trang được chọn trên DropDownList
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+            if (!String.IsNullOrEmpty(Search))
+            {
+                products = products.Where(s => s.Name.Contains(Search));
+            }
+
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+
+            // 2. Nếu page = null thì đặt lại là 1.
+            page = page ?? 1; //if (page == null) page = 1;
+
+            // 4. Tạo kích thước trang (pageSize), mặc định là 5.
+            int pageSize = (size ?? 5);
+
+            // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
+            // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
+            int pageNumber = (page ?? 1);
+            return View(products.ToPagedList(pageNumber, pageSize));
+        }
+
     }
 }
