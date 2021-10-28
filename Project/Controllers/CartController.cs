@@ -1,14 +1,13 @@
-﻿
-using Project.Models;
+﻿using Common.Data;
+using Common.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Project.Infratructure;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Data;
-using Common.Model;
-using Project.Infratructure;
 using System.Threading.Tasks;
 
 namespace Project.Controllers
@@ -84,7 +83,7 @@ namespace Project.Controllers
                 HttpContext.Session.SetJson("Cart", cart);
             }
 
-            return Ok();
+            return View("Index");
         }
 
         public IActionResult Remove(int id)
@@ -102,7 +101,7 @@ namespace Project.Controllers
                 HttpContext.Session.SetJson("Cart", cart);
             }
 
-            return Ok();
+            return View("Index");
         }
 
         public ProductModel GetProduct(int id)
@@ -143,7 +142,6 @@ namespace Project.Controllers
             string a = HttpContext.Session.GetString(USER);
             UserModel user = JsonConvert.DeserializeObject<UserModel>(a);
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
-
             CartViewModel cartVM = new CartViewModel
             {
                 CartItems = cart,
@@ -163,7 +161,7 @@ namespace Project.Controllers
             {
                 product = GetProduct(item.ProductId);
                 Order_DetailsModel details = new Order_DetailsModel();
-                details.InvoiceId = order.Id;
+                details.OrderId = order.Id;
                 details.CreatedOn = DateTime.Now;
                 details.Price = item.Price;
                 details.ProductId = item.ProductId;

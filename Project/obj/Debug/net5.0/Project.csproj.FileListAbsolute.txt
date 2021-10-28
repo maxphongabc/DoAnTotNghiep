@@ -214,3 +214,6 @@ C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Project.p
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Project.genruntimeconfig.cache
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Shared\Components\Categories\Default.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Shared\Components\SmallCart\Default.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order_Details\Delete.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order_Details\Details.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order_Details\Index.cshtml.g.cs

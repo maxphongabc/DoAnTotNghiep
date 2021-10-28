@@ -12,48 +12,40 @@
                 <th>STT</th>
                 <th>Hình ảnh</th>
                 <th>Sản phẩm</th>
-                <th>Giá</th>
                 <th>Số lượng</th>
+                <th>Giá</th>
                 <th>Thành tiền</th>
                 <th></th>
                 <th></th>
             </tr>
             @foreach (var cartitem in Model.CartItems)
             {
-                <tr>
-                    <td>@(stt++)</td>
-                    <td><img class="img-thumbnail" src="~/img/sanpham/@cartitem.Image" /></td>
-                    <td>@cartitem.ProductName</td>
-                    <td>@(cartitem.Price.ToString("n0"))</td>
-                    <td>@cartitem.Quantity</td>
-                    <td>
-                        <div class="quant-input">
-                            <div class="arrows">
-                                <div class="arrow plus gradient"><span asp-action="AddCart" asp-route-id="@cartitem.ProductId" class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
-                                <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
-                            </div>
-                            <input type="text" value="1">
-                        </div>
-                    </td>
-                    <td colspan="4" class="text-right">Tổng tiền:  @Model.GrandTotal.ToString("C2")</td>
-                    <td>
-                        <a asp-action="AddCart" asp-route-id="@cartitem.ProductId" class="btn btn-sm btn-primary">+</a>
-                        <a asp-action="Decrease" asp-route-id="@cartitem.ProductId" class="btn btn-sm btn-success">-</a>
-                        <a asp-action="Remove" asp-route-id="@cartitem.ProductId" class="btn btn-sm btn-danger">Remove</a>
-                    </td>
-                </tr>
+        <tr>
+            <td>@(stt++)</td>
+            <td><img style="width:200px;height:200px;" src="~/img/sanpham/@cartitem.Image" /></td>
+            <td>@cartitem.ProductName</td>
+            <td>@cartitem.Quantity</td>
+            <td>
+                @(cartitem.Price.ToString("n0"))
+                <a asp-action="AddCart" asp-route-id="@cartitem.ProductId" class="btn btn-sm btn-primary">+</a>
+                <a asp-action="Decrease" asp-route-id="@cartitem.ProductId" class="btn btn-sm btn-success">-</a>
+                <a asp-action="Remove" asp-route-id="@cartitem.ProductId" class="btn btn-sm btn-danger">Xóa giỏ hàng</a>
+            </td>
+            <td>
+                @cartitem.Total.ToString("N0")
+            </td>
+            <td colspan="4" class="text-right">Tổng tiền:  @Model.GrandTotal.ToString("C2")</td>
+
+        </tr>
             }
         </table>
-        <a class="btn btn-success fa-align-right" asp-controller="Cart" asp-action="CheckOut">Check Out</a>
+        <div class="container">
+            <a class="btn btn-success " asp-controller="Cart" asp-action="CheckOut">Thanh toán</a>
+        </div>
     }
     else
     {
-        <p class="alert alert-danger">Your Cart is empty</p>
+<p class="alert alert-danger">Giỏ hàng của bạn đang trống!</p>
     }
 </div>
 <br />
-@*<div class="shopping-cart-btn">
-        <span class="">
-            <a asp-action="Index" asp-controller="Home" class="btn btn-upper btn-primary outer-left-xs">Tiếp tục mua sắm</a>
-        </span>
-    </div>*@

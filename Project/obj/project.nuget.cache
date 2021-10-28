@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cjZlkyDx7NIRz6dIfHKJKBS9IyZgZF8ks3NEAnlsApVWnLkJynbJ1nNQSQ06+/YLY23pI7JYO869R+bhIVPBEg==",
+  "dgSpecHash": "u05l0X0yiID1UTmTuUubLmVrwfZncwqqa6AeRtA3JHCzba6dxbcMvM9kr5YlIQ76N+15N3vAZ4DnNHx0ZmdrVA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\Project\\Project.csproj",
+  "projectFilePath": "C:\\Users\\Thanh Duy\\source\\repos\\DoAnTotNghiep\\Project\\Project.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Thanh Duy\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Thanh Duy\\.nuget\\packages\\jetbrains.annotations\\2021.1.0\\jetbrains.annotations.2021.1.0.nupkg.sha512",

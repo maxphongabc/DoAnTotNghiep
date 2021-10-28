@@ -1,7 +1,6 @@
 ﻿using Common.Data;
 using Common.Model;
 using Common.Service.Interface;
-using Common.VIewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;

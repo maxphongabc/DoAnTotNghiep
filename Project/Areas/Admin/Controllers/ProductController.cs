@@ -72,48 +72,7 @@ namespace Project.Areas.Admin.Controllers
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return View(links.ToPagedList(pageNumber, pageSize));
         }
-        public IActionResult DataTable()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult GetProduct()
-        {
-            try
-            {
-                var draw = Request.Form["draw"].FirstOrDefault();
-                var start = Request.Form["start"].FirstOrDefault();
-                var length = Request.Form["length"].FirstOrDefault();
-                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-                var searchValue = Request.Form["search[value]"].FirstOrDefault();
-                int pageSize = length != null ? Convert.ToInt32(length) : 0;
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = 0;
-                var productData = (from products in _context.products select products);
-                //Sorting  
-                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
-                {
-                    productData = productData.OrderBy(sortColumn + " " + sortColumnDirection);
-                }
-
-                if (!string.IsNullOrEmpty(searchValue))
-                {
-                    productData = productData.Where(m => m.Name.Contains(searchValue)
-                                                || m.Slug.Contains(searchValue));
-                }
-                //total number of rows count   
-                recordsTotal = productData.Count();
-                //Paging   
-                var data = productData.Skip(skip).Take(pageSize).ToList();
-                //Returning Json Data  
-                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+ 
         [HttpPost]
         public JsonResult ChangeStatus(int id)
         {

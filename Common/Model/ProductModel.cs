@@ -1,6 +1,5 @@
 ﻿
 using Common.Infrastructure;
-using Common.VIewModel;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
