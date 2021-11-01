@@ -23,7 +23,6 @@ namespace Project.Controllers
         {
             _context = context;
         }
-        [AllowAnonymous]
         public IActionResult Index()
         {
             //lay 4 san pham moi nhat
@@ -45,6 +44,10 @@ namespace Project.Controllers
             return product;
         }
         public IActionResult Contact()
+        {
+            return View();
+        }
+        public IActionResult FAQ()
         {
             return View();
         }
@@ -163,6 +166,7 @@ namespace Project.Controllers
             var products = from m in _context.products
                            select m;
             ViewBag.searchValue = Search;
+            ViewData["CategoryId"] = new SelectList(_context.categories, "Id", "Name");
             ViewBag.page = page;
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "5", Value = "5" });

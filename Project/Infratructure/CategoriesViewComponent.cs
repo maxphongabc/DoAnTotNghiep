@@ -24,7 +24,7 @@ namespace Project.Infratructure
 
         private Task<List<CategoryModel>> GetCategoriesAsync()
         {
-            return context.categories.OrderBy(x => x.Sorting).ToListAsync();
+            return context.categories.OrderBy(x => x.Name).ToListAsync();
         }
     }
 }

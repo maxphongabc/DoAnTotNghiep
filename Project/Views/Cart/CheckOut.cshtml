@@ -1,77 +1,149 @@
 ﻿@model CartViewModel
-
-<h2>GIỎ HÀNG</h2>
-
+@{ 
+    
+}
+<h2>Thanh toán</h2>
 @if (Model.CartItems.Count > 0)
 {
-    int stt = 1;
-    <table class="table">
-        <tr>
-            <th>#</th>
-            <th>Sản phẩm</th>
-            <th>Giá</th>
-            <th>Số lượng</th>
-            <th>Tổng cộng</th>
-            <th></th>
-        </tr>
-        @foreach (var cartitem in Model.CartItems)
-        {
-            <tr>
-                <td>@(stt++)</td>
-                <td><img class="img-thumbnail" src="~/img/sanpham/@cartitem.Image" /></td>
-                <td>@cartitem.ProductName</td>
-                <td>@(cartitem.Price.ToString("n0"))</td>
-                <td colspan="4" class="text-right">Tổng tiền:  @cartitem.Total</td>
-            </tr>
-        }
-        <tr>
-            <td colspan="4" class="text-right">Tổng tiền</td>
-            <td colspan="4" class="text-right">Tổng tiền:  @Model.GrandTotal.ToString("N0")</td>
-            <td></td>
-        </tr>
-    </table>
-}
-<div class="section group">
-    <div class="col-md-6">
-        @using (Html.BeginForm("CheckOut", "Cart", FormMethod.Post))
-        {
-            <div class="form-group">
-                <label>Người nhận hàng</label>
-                <input name="shipName" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>Điện thoại</label>
-                <input name="phone" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>Địa chỉ nhận hàng</label>
-                <input name="shipAdress" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input name="email" class="form-control" />
-            </div>
-            <button asp-controller="Cart" asp-action="Clear" class="btn btn-success" type="submit">Gửi đơn hàng</button>
-        }
+<div class="shopping-cart">
+    <div class="shopping-cart-table ">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
 
-    </div>
+                        <th class="cart-description item">Hình ảnh</th>
+                        <th class="cart-product-name item">Tên sản phẩm</th>
+                        <th class="cart-qty item">Quantity</th>
+                        <th class="cart-sub-total item">Giá</th>
+                        <th class="cart-total last-item">Thành tiền</th>
+                        <th class="cart-romove item">Xóa</th>
+                    </tr>
+                </thead><!-- /thead -->
+                <tbody>
+                    @foreach (var cartitem in Model.CartItems)
+                    {
+                        <tr>
+                            <td class="cart-image">
+                                <a class="entry-thumbnail">
+                                    <img src="~/img/sanpham/@cartitem.Image" alt="">
+                                </a>
+                            </td>
+                            <td class="cart-product-name-info">
+                                <h4 class="cart-product-description"><span>@cartitem.ProductName</span></h4>
+                            </td>
+                            <td class="cart-product-quantity">
+                                <div class="cart-quantity">
+                                    <div class="quant-input">
+                                        <div class="arrows">
+                                            <a asp-action="AddCart" asp-controller="Cart" asp-route-id="@cartitem.ProductId" class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></a>
+                                            <a asp-action="Decrease" asp-controller="Cart" asp-route-id="@cartitem.ProductId" class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></a>
+                                        </div>
+                                        <input type="text" value="@cartitem.Quantity" max="@cartitem.Quantity">
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="cart-product-sub-total"><span class="cart-sub-total-price">@cartitem.Price.ToString("N0")</span>VNĐ</td>
+                            <td class="cart-product-grand-total"><span class="cart-grand-total-price">@cartitem.Total.ToString("N0")</span>VNĐ</td>
+                            <td class="romove-item"><a asp-action="Remove" asp-controller="Cart" asp-route-id="@cartitem.ProductId" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
+
+                        </tr>
+                    }
+                </tbody><!-- /tbody -->
+            </table><!-- /table -->
+        </div>
+    </div><!-- /.shopping-cart-table -->
+    @using (Html.BeginForm("CheckOut", "Cart", FormMethod.Post))
+    {
+<div class="col-md-4 col-sm-12 estimate-ship-tax">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <span class="estimate-title">Xác nhận đơn hàng</span>
+                  
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <input type="text" name="description" class="form-control unicase-form-control text-input" placeholder="Thêm ghi chú cho đơn hàng của bạn">
+                    </div>
+                </td>
+            </tr>
+        </tbody><!-- /tbody -->
+    </table>
 </div>
+        <div class="col-md-4 col-sm-12 estimate-ship-tax">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <span class="estimate-title">Phương thức thanh toán</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <form>
+                                <input name="shipname" type="radio" value="Thu tiền khi giao hàng" />Thu tiền khi giao hàng
+                                <input name="shipname" type="radio" value="Chuyển khoản ngân hàng" />Chuyển khoản ngân hàng
+                            </form>
+                        </td>
+                    </tr>
+                </tbody><!-- /tbody -->
+            </table>
+        </div>
+        <div class="col-md-4 col-sm-12 cart-shopping-total">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="cart-grand-total">
+                                Tổng tiền<span class="inner-left-md">@Model.GrandTotal.ToString("N0") VNĐ</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead><!-- /thead -->
+                <tbody>
+                    <tr>
+                        <td>
+
+                            <div class="cart-checkout-btn pull-right">
+                                <button class="btn btn-success" type="submit">Gửi đơn hàng</button>
+                            </div>
+                           
+                        </td>
+                    </tr>
+                </tbody><!-- /tbody -->
+            </table><!-- /table -->
+        </div>
+    }
+    </div>
+
+}
+
+
+
 @section Scripts {
 
     <script>
-    $(function () {
+        $(function () {
 
-        $("a.checkout").click(function (e) {
-            e.preventDefault();
+            $("a.checkout").click(function (e) {
+                e.preventDefault();
 
-            $("div.cartbg").removeClass("d-none");
+                $("div.cartbg").removeClass("d-none");
 
-            $.get("/cart/clear", {}, function () {              
+                $.get("/cart/clear", {}, function () {
+                });
+
             });
 
         });
-
-    });
     </script>
 
 }

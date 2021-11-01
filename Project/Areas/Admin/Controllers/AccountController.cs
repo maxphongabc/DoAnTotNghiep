@@ -84,26 +84,10 @@ namespace Project.Areas.Admin.Controllers
             var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
             return Redirect(urlAdmin);
         }
-        protected void SetAlert(string message, string type)
-        {
-            TempData["AlertMessage"] = message;
-            if (type == "success")
-            {
-                TempData["AlertType"] = "alert-success";
-            }
-            else if (type == "warning")
-            {
-                TempData["AlertType"] = "alert-warning";
-            }
-            else if (type == "error")
-            {
-                TempData["AlertType"] = "alert-danger";
-            }
-        }
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("Admin");
-            var urlAdmin = Url.RouteUrl(new { controller = "Account", action = "LogOut", area = "Admin" });
+            var urlAdmin = Url.RouteUrl(new { controller = "Account", action = "Login", area = "Admin" });
             return Redirect(urlAdmin);
         }
     }

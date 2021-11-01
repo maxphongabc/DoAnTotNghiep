@@ -7,6 +7,8 @@ using Common.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
+using X.PagedList;
+
 namespace Project.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -20,13 +22,37 @@ namespace Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Category
-       public IActionResult Index()
+        public ActionResult Index(int? size, int? page, string Search)
         {
-            return View();
+
+            ViewBag.searchValue = Search;
+            ViewBag.page = page;
+            // 1. Tạo list pageSize để người dùng có thể chọn xem để phân trang
+            // Bạn có thể thêm bớt tùy ý --- dammio.com
+            // 1.1. Giữ trạng thái kích thước trang được chọn trên DropDownList
+            var links = from l in _context.categories
+                        select l;
+            // 1.2. Tạo các biến ViewBag
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+
+            // 2. Nếu page = null thì đặt lại là 1.
+            page = page ?? 1; //if (page == null) page = 1;
+
+            // 4. Tạo kích thước trang (pageSize), mặc định là 5.
+            int pageSize = (size ?? 5);
+
+            // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
+            // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
+            int pageNumber = (page ?? 1);
+            if (!string.IsNullOrEmpty(Search))
+            {
+                links = links.Where(x => x.Name.Contains(Search));
+            }
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return View(links.ToPagedList(pageNumber, pageSize));
         }
-      
-        // GET: Admin/Category/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: Admin/Category/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -42,7 +68,22 @@ namespace Project.Areas.Admin.Controllers
 
             return View(categoryModel);
         }
-
+        [HttpPost]
+        public JsonResult ChangeStatus(int id)
+        {
+            var result = ChangeStatuss(id);
+            return Json(new
+            {
+                status = result
+            });
+        }
+        public bool ChangeStatuss(int id)
+        {
+            var cate = _context.categories.Find(id);
+            cate.Status = !cate.Status;
+            _context.SaveChanges();
+            return cate.Status;
+        }
         // GET: Admin/Category/Create
         public IActionResult Create()
         {
@@ -54,19 +95,22 @@ namespace Project.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Status")] CategoryModel categoryModel)
+        public async Task<IActionResult> Create(CategoryModel categoryModel)
         {
             if (ModelState.IsValid)
             {
-                if (CheckName(categoryModel.Name))
+                categoryModel.Status = true;
+                categoryModel.Slug = categoryModel.Name.ToLower().Replace(" ", "-");
+
+                var slug = await _context.products.FirstOrDefaultAsync(x => x.Slug == categoryModel.Slug);
+                if (slug != null)
                 {
-                    ModelState.AddModelError("", "Tên loại sản phẩm này đã có");
+                    ModelState.AddModelError("", "Thể loại sản phẩm đã có.");
+                    return View(categoryModel);
                 }
-                else
-                {
-                    _context.Add(categoryModel);
-                    await _context.SaveChangesAsync();
-                }
+                _context.Add(categoryModel);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Thêm thể loại sản phẩm thành công!";
                 return RedirectToAction(nameof(Index));
             }
             return View(categoryModel);
@@ -93,7 +137,7 @@ namespace Project.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Status")] CategoryModel categoryModel)
+        public async Task<IActionResult> Edit(int id,CategoryModel categoryModel)
         {
             if (id != categoryModel.Id)
             {
@@ -160,63 +204,8 @@ namespace Project.Areas.Admin.Controllers
         {
             return _context.categories.Count(x => x.Name == name) > 0;
         }
-        [HttpPost]
-        public IActionResult LoadData()
-        {
-            try
-            {
-                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
-
-                // Skip number of Rows count  
-                var start = Request.Form["start"].FirstOrDefault();
-
-                // Paging Length 10,20  
-                var length = Request.Form["length"].FirstOrDefault();
-
-                // Sort Column Name  
-                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-
-                // Sort Column Direction (asc, desc)  
-                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-
-                // Search Value from (Search box)  
-                var searchValue = Request.Form["search[value]"].FirstOrDefault();
-
-                //Paging Size (10, 20, 50,100)  
-                int pageSize = length != null ? Convert.ToInt32(length) : 0;
-
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-
-                int recordsTotal = 0;
-
-                // getting all Customer data  
-                var customerData = (from tempcustomer in _context.categories
-                                    select tempcustomer);
-                ////Sorting  
-                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
-                {
-                    customerData = customerData.OrderBy(sortColumn + " " + sortColumnDirection);
-                }
-                //Search  
-                if (!string.IsNullOrEmpty(searchValue))
-                {
-                    customerData = customerData.Where(m => m.Name == searchValue);
-                }
-
-                //total number of rows counts   
-                recordsTotal = customerData.Count();
-                //Paging   
-                var data = customerData.Skip(skip).Take(pageSize).ToList();
-                //Returning Json Data  
-                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-        }
+        
+     
     }
 
 }

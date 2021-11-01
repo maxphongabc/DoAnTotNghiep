@@ -17,6 +17,7 @@ namespace Common.Model
         public int Quantity { get; set; }
         public int Price { get; set; }
         public string Model { get; set; }
+        public string System { get; set; }
         public string Image { get; set; }
         [NotMapped]
         [FileExtension]
@@ -24,7 +25,9 @@ namespace Common.Model
         public DateTime? CreatedOn { get; set; }
         [ForeignKey("CategoryId")]
         public virtual CategoryModel category { get; set; }
-        public ICollection<OrderModel> orders { get; set; }
+        public ICollection<Order_DetailsModel> orderDetails { get; set; }
+        public ICollection<CommentProduct> commentProducts { get; set; }
+        public ICollection<WishListModel> wishLists { get; set; }
         public bool Status { get; set; }
     }
 

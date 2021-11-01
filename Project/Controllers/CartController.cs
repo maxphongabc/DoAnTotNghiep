@@ -83,7 +83,7 @@ namespace Project.Controllers
                 HttpContext.Session.SetJson("Cart", cart);
             }
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Remove(int id)
@@ -101,7 +101,7 @@ namespace Project.Controllers
                 HttpContext.Session.SetJson("Cart", cart);
             }
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public ProductModel GetProduct(int id)
@@ -134,9 +134,14 @@ namespace Project.Controllers
             };
             return View(cartVM);
         }
-
+        [HttpGet]
+        public IActionResult WishList()
+        {
+            return View();
+        }
+        
         [HttpPost]
-        public IActionResult CheckOut(string shipName, string shipAdress, string phone, string email)
+        public IActionResult CheckOut(string description,string shipname)
         {
             ProductModel product = new ProductModel();
             string a = HttpContext.Session.GetString(USER);
@@ -148,10 +153,11 @@ namespace Project.Controllers
                 GrandTotal = cart.Sum(x => x.Price * x.Quantity)
             };
             OrderModel order = new OrderModel();
-            order.ShipAdress = shipAdress;
-            order.ShipEmail = email;
-            order.ShipPhone = phone;
-            order.ShipName = shipName;
+            order.Description = description;
+            order.ShipAdress = user.Address;
+            order.ShipEmail = user.Email;
+            order.ShipPhone = user.Phone;
+            order.ShipName = shipname;
             order.CreatedOn = DateTime.Now;
             order.Status = true;
             order.UserId = user.Id;
@@ -174,7 +180,7 @@ namespace Project.Controllers
             }
             _context.Update(order);
             _context.SaveChanges();
-            HttpContext.Session.Remove("cart");
+            HttpContext.Session.Remove("Cart");
             var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
             return Redirect(urlAdmin);
         }

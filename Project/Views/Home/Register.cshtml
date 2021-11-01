@@ -1,7 +1,7 @@
 ﻿@model Project.Models.RegisterViewModel
 
 @{
-    <title>Register</title>
+    <title>Đăng Ký</title>
     Layout = "~/Areas/Admin/Views/Shared/_layoutlogin.cshtml";
 }
 
@@ -14,38 +14,31 @@
                     Register
                 </span>
                 <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-                    <span class="label-input100">Name</span>
-                    <input asp-for="FullName" class="input100" type="text" placeholder="Type your Name">
+                    <input asp-for="FullName" class="input100" type="text" placeholder="Họ và tên">
                     <span asp-validation-for="FullName" class="focus-input100" data-symbol="&#xf206;"></span>
                 </div>
                 <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-                    <span class="label-input100">Address</span>
-                    <input asp-for="Address" class="input100" type="text" placeholder="Type your Address">
+                    <input asp-for="Address" class="input100" type="text" placeholder="Địa chỉ">
                     <span asp-validation-for="Address" class="focus-input100" data-symbol="&#xf206;"></span>
                 </div>
-                <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-                    <span class="label-input100">Phone</span>
-                    <input asp-for="Phone" class="input100" type="number" placeholder="Type your Phone">
+                <div class="wrap-input100 validate-input m-b-23" data-validate="Số điện thoại is reauired">
+                    <input asp-for="Phone" class="input100" type="number" placeholder="Số điện thoại">
                     <span asp-validation-for="Phone" class="focus-input100" data-symbol="&#xf206;"></span>
                 </div>
-                <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-                    <span class="label-input100">Email</span>
-                    <input asp-for="Email" class="input100" type="email" placeholder="Type your Email">
+                <div class="wrap-input100 validate-input m-b-23" data-validate="Email is reauired">
+                    <input asp-for="Email" class="input100" type="email" placeholder="Email">
                     <span asp-validation-for="Email" class="focus-input100" data-symbol="&#xf206;"></span>
                 </div>
                 <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-                    <span class="label-input100">Username</span>
-                    <input asp-for="UserName" class="input100" type="text" placeholder="Type your username">
+                    <input asp-for="UserName" class="input100" type="text" placeholder="Tài khoản">
                     <span asp-validation-for="UserName" class="focus-input100" data-symbol="&#xf206;"></span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <span class="label-input100">Password</span>
-                    <input asp-for="PassWord" class="input100" type="password" placeholder="Type your PassWord">
+                    <input asp-for="PassWord" class="input100" type="password" placeholder="Mật khẩu">
                     <span asp-validation-for="PassWord" class="focus-input100" data-symbol="&#xf190;"></span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <span class="label-input100">Password</span>
-                    <input asp-for="ConfirmPassword" class="input100" type="password" placeholder="Type your ConfirmPassword">
+                    <input asp-for="ConfirmPassword" class="input100" type="password" placeholder="Nhập lại mật khẩu">
                     <span asp-validation-for="ConfirmPassword" class="focus-input100" data-symbol="&#xf190;"></span>
                 </div>
                 <div class="text-right p-t-8 p-b-31">
@@ -84,3 +77,6 @@
         </div>
     </div>
 </div>
+<script>
+
+</script>

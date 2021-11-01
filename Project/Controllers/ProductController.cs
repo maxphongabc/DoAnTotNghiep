@@ -1,9 +1,8 @@
 ﻿using Common.Data;
 using Common.Model;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
+using Project.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -19,59 +18,111 @@ namespace Project.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Details(string slug)
+        public IActionResult Index(int? size, int? page)
         {
-            if (slug == null)
+            ViewBag.page = page;
+
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+            int pageSize = (size ?? 5);
+            int pageNumber = (page ?? 1);
+            return View(ListAll().ToPagedList(pageNumber,pageSize));
+        }
+        public IActionResult Details(string slug)
+        {
+            var product = DetailProduct(slug);
+            ProductModel cate = _context.products.Where(x => x.Slug == slug).FirstOrDefault();
+            ViewBag.ListRelatedBlog = ListRelatedProduct(cate.Id);
+            if (product == null)
             {
                 return NotFound();
             }
-            
-            var productModel = await _context.products
-                .Include(p => p.category)
-                .FirstOrDefaultAsync(m => m.Slug == slug);
-            int id = productModel.Id;
-            if (productModel == null)
-            {
-                return NotFound();
-            }
-            ViewBag.ListRelatedProduct = ListRelatedProduct(id);
-            return View(productModel);
+            return View(product);
         }
-        public List<ProductModel> ListRelatedProduct(int id)
-        {
-            var product = _context.products.Find(id);
-            return _context.products.Where(x => x.Id != id && x.CategoryId == product.CategoryId).ToList();
-        }
-        [HttpGet]
         public async Task<IActionResult> ProductByCategory(string slug,int? size,int? page)
         {
             ViewBag.page = page;
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "5", Value = "5" });
-            items.Add(new SelectListItem { Text = "10", Value = "10" });
-            items.Add(new SelectListItem { Text = "20", Value = "20" });
-            items.Add(new SelectListItem { Text = "25", Value = "25" });
-            items.Add(new SelectListItem { Text = "50", Value = "50" });
-            items.Add(new SelectListItem { Text = "100", Value = "100" });
-            items.Add(new SelectListItem { Text = "200", Value = "200" });
-            foreach (var item in items)
-            {
-                if (item.Value == size.ToString()) item.Selected = true;
-            }
-            ViewBag.size = items; // ViewBag DropDownList
+           
             ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
             int pageSize = (size ?? 5);
-
-            // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
-            // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
             int pageNumber = (page ?? 1);
             CategoryModel category = await _context.categories.Where(x => x.Slug == slug).FirstOrDefaultAsync();
             if (category == null) return RedirectToAction("Index");
 
             var products = _context.products.OrderByDescending(x => x.Id)
                                             .Where(x => x.CategoryId == category.Id);
-            ViewBag.CategoryName = category.Name;
+            ViewBag.CategoryName = category.Name;         
             return View(await products.ToPagedListAsync(pageNumber, pageSize));
+        }
+        public List<ProductViewModel> ListProductCate(string slug)
+        {
+            var product = (from p in _context.products
+                           join c in _context.categories on p.CategoryId equals c.Id
+                           where c.Slug == slug
+                           select new ProductViewModel
+                           {
+                               ProductId = p.Id,
+                               Name = p.Name,
+                               Slug = p.Slug,
+                               CategoryId = c.Id,
+                               Image = p.Image,
+                               Description = p.Description,
+                               System = p.System,
+                               Price = p.Price,
+                               Quantity = p.Quantity,
+                               Model = p.Model,
+                               NameCate = c.Name,
+                               SlugCate = c.Slug
+                           });
+            return product.ToList();
+        }
+        public ProductViewModel DetailProduct(string slug)
+        {
+            var product = (from p in _context.products
+                           join c in _context.categories on p.CategoryId equals c.Id
+                           where c.Slug == slug
+                           select new ProductViewModel
+                           {
+                               ProductId = p.Id,
+                               Name = p.Name,
+                               Slug = p.Slug,
+                               CategoryId = c.Id,
+                               Image = p.Image,
+                               Description = p.Description,
+                               System = p.System,
+                               Price = p.Price,
+                               Quantity = p.Quantity,
+                               Model = p.Model,
+                               NameCate = c.Name,
+                               SlugCate = c.Slug
+                           });
+            return product.FirstOrDefault();
+        }
+        public List<ProductViewModel> ListAll()
+        {
+
+            var product = (from p in _context.products
+                           join c in _context.categories on p.CategoryId equals c.Id
+                           select new ProductViewModel
+                           {
+                               ProductId = p.Id,
+                               Name = p.Name,
+                               Slug = p.Slug,
+                               CategoryId = c.Id,
+                               Image = p.Image,
+                               Description = p.Description,
+                               System = p.System,
+                               Price = p.Price,
+                               Quantity = p.Quantity,
+                               Model = p.Model,
+                               NameCate = c.Name,
+                               SlugCate = c.Slug
+                           });
+            return product.ToList();
+        }
+        public List<ProductModel> ListRelatedProduct(int id)
+        {
+            var product = _context.products.Find(id);
+            return _context.products.Where(x => x.Id != id && x.CategoryId == product.CategoryId).ToList();
         }
     }
 }

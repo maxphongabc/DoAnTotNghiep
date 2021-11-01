@@ -9,6 +9,19 @@
             <div id="content">
                 <partial name="_HeaderPartial.cshtml" />
                 <div class="container-fluid">
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success notification">
+                            @TempData["Success"]
+                        </div>
+                    }
+
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger notification">
+                            @TempData["Error"]
+                        </div>
+                    }
                     @RenderBody()
                 </div>
             </div>
@@ -20,19 +33,8 @@
     </a>
 </body>
 </html>
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success notification">
-        @TempData["Success"]
-    </div>
-}
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger notification">
-        @TempData["Error"]
-    </div>
-}
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="~/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="~/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>

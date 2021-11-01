@@ -5,96 +5,102 @@
     ViewData["Title"] = "Index";
 }
 <style>
-  
 </style>
 <h1>Index</h1>
-@using (Html.BeginForm("Index", "User", FormMethod.Get))
-{
-<div class=" p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-    <form asp-action="Index" asp-controller="Us" class="form-inline mr-auto w-100 navbar-search">
-        <div class="input-group">
-            <input id="txtKeyword" name="Search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
-                <a class="btn btn-primary" asp-action="Create">Create New</a>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Tìm kiếm</h3>
+            @using (Html.BeginForm("Index", "User", FormMethod.Get))
+            {
+                <div class="input-group">
+                    <input id="txtKeyword" type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm ..." name="Search" aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            }
         </div>
-    </form>
+    </div>
 </div>
-}
-<p>
-    
-</p>
-<table class="table table-hover">
+<br />
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
-                FullName
+                Họ và tên
             </th>
             <th>
-                Address
+                Quyền
             </th>
             <th>
-                Phone
+                Sđt
             </th>
             <th>
                 Email
             </th>
             <th>
-                Avarta
+                Địa chỉ
             </th>
             <th>
-                CreatedOn
+                Hình ảnh
             </th>
             <th>
-                UpdatedOn
+                Ngày tạo
             </th>
             <th>
-                Status
+                Trạng thái
             </th>
-            <th>
-                Roles
-            </th>
+
+
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @item.FullName
-                </td>
-                <td>
-                    @item.Address
-                </td>
-                <td>
-                    @item.Phone
-                </td>
-                <td>
-                    @item.Email
-                </td>
-                <td>
-                   <img class="img-thumbnail" src="~/img/user/@item.Avarta"/> 
-                </td>
-                <td>
-                    @item.CreatedOn
-                </td>
-                <td>
-                    @item.UpdatedOn
-                </td>
-                <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
-                <td>
-                    @item.RolesId
-                </td>
-                <td>
-                    <a class="btn btn-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @item.FullName
+            </td>
+            @if (item.RolesId == 1)
+            {
+                <td><p class="btn btn-danger">Quản trị</p></td>
+
+            }
+            @if (item.RolesId == 2)
+            {
+                <td><p class="btn btn-primary">Người dùng</p></td>
+
+            }
+
+            <td>
+                @item.Phone
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                <img class="img-thumbnail" src="~/img/user/@item.Avarta" />
+            </td>
+            <td>
+                @item.CreatedOn
+            </td>
+            <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><img src="~/Admin/img/edit-a.png" /></a>
+                <br />
+                <a asp-action="Details" asp-route-id="@item.Id"><img src="~/Admin/img/list.png" /></a>
+                <br />
+                <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -102,7 +108,9 @@
     @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "User", new { page, @Search = ViewBag.Search }))
 </div>
 @section Scripts{
+    <script src="~/Admin/js/jquery-ui.js"></script>
+    <script src="~/Admin/js/controller/userController.js">
+</script>
 
-    <script src="~/Admin/js/controller/userController.js"></script>
 }
 

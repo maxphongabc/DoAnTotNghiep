@@ -60,5 +60,5 @@ var user = {
             });
         });
     }
-} 
+}
 user.init();

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Data;
 using Common.Model;
-using Common.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,21 +16,52 @@ namespace Project.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         private readonly ProjectDPContext _context;
-        private readonly IUser _iuser;
-        public UserController(ProjectDPContext context,IUser iuser)
+        public UserController(ProjectDPContext context)
         {
             _context = context;
-            _iuser = iuser;
         }
 
         // GET: Admin/User
-        public ActionResult Index(string Search, int page = 1, int pageSize = 2)
+        public ActionResult Index(int? size, int? page, string Search)
         {
-            //var model = ListAllPaging(Search, page, pageSize);
-            ViewBag.Search = Search;    
-            var model = ListAllPaging(Search, page, pageSize);
-            return View(model);
 
+            ViewBag.searchValue = Search;
+            ViewBag.page = page;
+            // 1. Tạo list pageSize để người dùng có thể chọn xem để phân trang
+            // Bạn có thể thêm bớt tùy ý --- dammio.com
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "5", Value = "5" });
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+            items.Add(new SelectListItem { Text = "100", Value = "100" });
+            // 1.1. Giữ trạng thái kích thước trang được chọn trên DropDownList
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+            var links = from l in _context.user
+                        select l;
+            // 1.2. Tạo các biến ViewBag
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+
+            // 2. Nếu page = null thì đặt lại là 1.
+            page = page ?? 1; //if (page == null) page = 1;
+
+            // 4. Tạo kích thước trang (pageSize), mặc định là 5.
+            int pageSize = (size ?? 5);
+
+            // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
+            // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
+            int pageNumber = (page ?? 1);
+            if (!string.IsNullOrEmpty(Search))
+            {
+                links = links.Where(x => x.FullName.Contains(Search)||x.UserName.Contains(Search));
+            }
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return View(links.ToPagedList(pageNumber, pageSize));
         }
         public IEnumerable<UserModel> ListAllPaging(string Search, int page, int pageSize)
         {
@@ -166,7 +196,7 @@ namespace Project.Areas.Admin.Controllers
         {
             var userModel = await _context.user.FindAsync(id);
             _context.user.Remove(userModel);
-            SetAlert("Thêm thành công", "success");
+            TempData["Success"] = "Đã xóa sản phẩm thành công!";
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -191,22 +221,6 @@ namespace Project.Areas.Admin.Controllers
             _context.SaveChanges();
             return user.Status;
         }
-        [HttpGet]
-        public JsonResult ListName(string q)
-        {
-            var data = _iuser.ListName(q);
-            return Json(new
-            {
-                data = data,
-                status = true
-            });
-        }
-        [HttpDelete]
-        public ActionResult Delete(int id)
-        {
-           _iuser.Delete(id);
-
-            return RedirectToAction("Index");
-        }
+       
     }
 }

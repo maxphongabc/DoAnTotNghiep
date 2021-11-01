@@ -16,8 +16,24 @@
                     <div class="cnt-account">
                         <ul class="list-unstyled">
                             <li><a href="#"><i class="icon fa fa-heart"></i>Hi: @user.UserName</a></li>
-                            <li><a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Cart</a></li>
-                            <li><a asp-action="Logout" asp-controller="Account" asp-area="Admin"><i class="icon fa fa-lock"></i>Log Out</a></li>
+                            <li><a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+                            <li><a asp-action="Logout" asp-controller="Account" asp-area="Admin"><i class="icon fa fa-lock"></i>Đăng xuẩt</a></li>
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Trang cá nhân
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Đăng xuất
+                                    </a>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <!-- /.cnt-cart -->
@@ -35,8 +51,24 @@
                 <div class="header-top-inner">
                     <div class="cnt-account">
                         <ul class="list-unstyled">
-                            <li><a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Cart</a></li>
-                            <li><a asp-action="Logout" asp-controller="Account" asp-area="Admin"><i class="icon fa fa-lock"></i>Login</a></li>
+                            <li><a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+                            <li><a asp-action="Login" asp-controller="Account" asp-area="Admin"><i class="icon fa fa-lock"></i>Đăng nhập</a></li>
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Trang cá nhân
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Đăng xuất
+                                    </a>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <!-- /.cnt-cart -->
@@ -64,17 +96,10 @@
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
-                        @using (Html.BeginForm("Search", "Product", FormMethod.Get))
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Get))
                         {
                             <form>
                                 <div class="control-group">
-                                    <ul class="categories-filter animate-dropdown">
-                                        <li class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="category.html">All <b class="caret"></b></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                            </ul>
-                                        </li>
-                                    </ul>
                                     <input name="Search" aria-label="Search" type="search" class="search-field" placeholder="Nhập từ khóa sản phẩm cần tìm...">
                                     <button class="search-button" type="submit">
                                     </button>
@@ -85,9 +110,9 @@
                     <!-- /.search-area -->
                     <!-- ============================================================= SEARCH AREA : END ============================================================= -->
                 </div>
-                <!-- /.top-search-holder -->
-                @await Component.InvokeAsync("SmallCart")
 
+                @await Component.InvokeAsync("SmallCart")
+                <!-- /.top-search-holder -->
                 <!-- /.top-cart-row -->
             </div>
             <!-- /.row -->
@@ -112,58 +137,11 @@
                             <ul class="nav navbar-nav">
                                 <li class="dropdown"> <a asp-action="Index" asp-controller="Home">Trang chủ</a> </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">PlayStation</a>
-                                    <ul class="dropdown-menu pages">
-                                        <li>
-                                            <div class="yamm-content">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-menu">
-                                                        <ul class="links">
-                                                            <li><a href="home.html">Home</a></li>
-                                                            <li><a href="category.html">Category</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <a asp-action="Index" asp-controller="Product">Sản phẩm</a>                                  
                                 </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Xbox</a>
-                                    <ul class="dropdown-menu pages">
-                                        <li>
-                                            <div class="yamm-content">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-menu">
-                                                        <ul class="links">
-                                                            <li><a href="home.html">Home</a></li>
-                                                            <li><a href="category.html">Category</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Nintendo</a>
-                                    <ul class="dropdown-menu pages">
-                                        <li>
-                                            <div class="yamm-content">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-menu">
-                                                        <ul class="links">
-                                                            <li><a href="home.html">Home</a></li>
-                                                            <li><a href="category.html">Category</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
+                                <li class="dropdown"> <a asp-action="Index" asp-controller="Blog">Bản tin</a> </li>
                                 <li class="dropdown"> <a asp-action="Contact" asp-controller="Home">Liên hệ</a> </li>
-                                <li class="dropdown"> <a asp-action="FAQ" asp-controller="Home">FAQ</a> </li>
+                                <li class="dropdown"> <a asp-action="FAQ" asp-controller="Home">Hỏi đáp</a> </li>
                             </ul>
                             <!-- /.navbar-nav -->
                             <div class="clearfix"></div>

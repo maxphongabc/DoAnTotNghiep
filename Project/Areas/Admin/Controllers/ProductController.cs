@@ -11,7 +11,6 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using X.PagedList;
 using System.Linq.Dynamic.Core;
-using Common.Service.Interface;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -20,12 +19,10 @@ namespace Project.Areas.Admin.Controllers
     {
         private readonly ProjectDPContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly IProduct _iproduct;
-        public ProductController(ProjectDPContext context, IWebHostEnvironment webHostEnvironment, IProduct iproduct)
+        public ProductController(ProjectDPContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             this.webHostEnvironment = webHostEnvironment;
-            this._iproduct = iproduct;
         }
 
         [HttpGet]
@@ -130,7 +127,7 @@ namespace Project.Areas.Admin.Controllers
                 var slug = await _context.products.FirstOrDefaultAsync(x => x.Slug == product.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError("", "The product already exists.");
+                    ModelState.AddModelError("", "Sản phẩm đã có.");
                     return View(product);
                 }
 
@@ -150,7 +147,7 @@ namespace Project.Areas.Admin.Controllers
                 _context.Add(product);
                 await _context.SaveChangesAsync();
 
-                TempData["Success"] = "The product has been added!";
+                TempData["Success"] = "Thêm sản phẩm thành công!";
 
                 return RedirectToAction("Index");
             }
@@ -191,7 +188,7 @@ namespace Project.Areas.Admin.Controllers
                 var slug = await _context.products.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Slug == product.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError("", "The product already exists.");
+                    ModelState.AddModelError("", "Sản phẩm đã có.");
                     return View(product);
                 }
 
@@ -218,7 +215,7 @@ namespace Project.Areas.Admin.Controllers
                 _context.Update(product);
                 await _context.SaveChangesAsync();
 
-                TempData["Success"] = "The product has been edited!";
+                TempData["Success"] = "Chỉnh sửa sản phẩm thành công!";
 
                 return RedirectToAction("Index");
             }
@@ -233,7 +230,7 @@ namespace Project.Areas.Admin.Controllers
 
             if (product == null)
             {
-                TempData["Error"] = "The product does not exist!";
+                TempData["Error"] = "Không có sản phẩm để xóa!";
             }
             else
             {
@@ -249,23 +246,13 @@ namespace Project.Areas.Admin.Controllers
                 _context.products.Remove(product);
                 await _context.SaveChangesAsync();
 
-                TempData["Success"] = "The product has been deleted!";
+                TempData["Success"] = "Đã xóa sản phẩm thành công!";
             }
 
             return RedirectToAction("Index");
         }
 
         // POST: Admin/Product/Delete/5
-        [HttpGet]
-        public JsonResult ListName(string q)
-        {
-            var data = _iproduct.ListName(q);
-            return Json(new
-            {
-                data = data,
-                status = true
-            });
-        }
         private bool ProductModelExists(int id)
         {
             return _context.products.Any(e => e.Id == id);

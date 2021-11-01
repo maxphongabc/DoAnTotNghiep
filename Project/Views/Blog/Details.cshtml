@@ -1,0 +1,108 @@
+﻿@model  Project.Models.BlogViewModel
+@{
+    ViewData["Title"] = Model.Title;
+    var ListRelatedBlog = (List<Common.Model.BlogModel>)ViewBag.ListRelatedBlog;
+}
+<div class="breadcrumb-inner">
+    <ul class="list-inline list-unstyled">
+        <li><a asp-action="Index" asp-controller="Blog">Bài viết</a></li>/
+        <li><a asp-action="BlogByCate" asp-controller="Blog" asp-route-slug="@Model.SlugCate"> @Model.Cate_post</a></li>/
+        <li class="active"> @Model.Title</li>
+    </ul>
+</div>
+<div class="row">
+    <div class="blog-page">
+        <div class="col-md-9">
+            <div class="blog-post wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                <img class="img-responsive" src="~/img/blogs/@Model.Image" alt="">
+                <h1>@Model.Title</h1>
+                <br />
+                <h5>@Model.Brief</h5>
+                <span class="author">@Model.UserName </span>
+                <span class="new">@Model.Cate_post</span>
+                <span class="date-time">@Model.PostedDate</span>
+                @Html.Raw(Model.Content)
+                <hr />
+            </div>
+            <div class="blog-post-author-details wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="~/img/user/@Model.UserImage" alt="Responsive image" class="img-circle img-responsive">
+                    </div>
+                    <div class="col-md-10">
+                        <h4>@Model.UserName</h4>
+                        <span class="author-job">Tác giả</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="blog-review wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="title-review-comments">16 comments</h3>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <img src="assets\images\testimonials\member1.png" alt="Responsive image" class="img-rounded img-responsive">
+                    </div>
+                    <div class="col-md-10 col-sm-10">
+                        <div class="blog-comments inner-bottom-xs outer-bottom-xs">
+                            <h4>Saraha Smith</h4>
+                            <span class="review-action pull-right">
+                                03 Day ago /
+                                <a href=""> Repost</a> /
+                                <a href=""> Reply</a>
+                            </span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+                        </div>
+                    </div>                               
+                </div>
+            </div>
+            <div class="blog-write-comment outer-bottom-xs outer-top-xs">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="register-form" role="form">
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputComments">Bình luận của bạn <span>*</span></label>
+                                <textarea class="form-control unicase-form-control" id="exampleInputComments"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-12 outer-bottom-small m-t-20">
+                        <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Bình luận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 sidebar">
+            <div class="sidebar-module-container">
+                <div class="search-area outer-bottom-small">
+                    <form>
+                        <div class="control-group">
+                            <input placeholder="Tìm kiếm bài viết ..." class="search-field">
+                            <a href="#" class="search-button"></a>
+                        </div>
+                    </form>
+                </div>
+                <div class="sidebar-widget outer-bottom-xs wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                    <h3 class="section-title">Bài viết liên quan</h3>
+                    @foreach (var item in ListRelatedBlog)
+                    {
+                        <div class="tab-content" style="padding-left:0">
+                            <div class="tab-pane active m-t-20" id="popular">
+                                <div class="blog-post inner-bottom-30 ">
+                                    <img class="img-responsive" src="~/img/blogs/@item.Image" alt="">
+                                    <h4><a asp-action="Details" asp-controller="Blog" asp-route-slug="@item.Slug">@item.Title</a></h4>
+                                    <span class="date-time">@item.PostedDate</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                @await Component.InvokeAsync("Blogs")
+            </div>
+        </div>
+
+    </div>
+</div>

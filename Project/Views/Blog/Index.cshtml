@@ -1,0 +1,43 @@
+﻿@model IPagedList<Project.Models.BlogViewModel>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Bài viết";
+}
+<div class="row">
+    <div class="blog-page">
+        <div class="col-md-9">
+            @foreach (var item in Model)
+            {
+                <div class="blog-post outer-top-bd  wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                    <a href="blog-details.html"><img class="img-responsive" src="~/img/blogs/@item.Image" alt=""></a>
+                    <h1><a href="blog-details.html">@item.Title</a></h1>
+                    <span class="author">@item.UserName</span>
+                    <span class="date-time">@item.PostedDate</span>
+                    <p>@item.Title</p>
+                    <a asp-route-slug="@item.Slug" asp-controller="Blog" asp-action="Details" class="btn btn-upper btn-primary read-more">Xem thêm</a>
+                </div>
+            }
+            <div class="d-flex w-100 justify-content-center">
+                @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "Blog", new { page, size = ViewBag.currentSize }))
+            </div>
+            <div class="col col-sm-3 col-md-6 no-padding">
+                Trang: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                <!-- /.lbl-cnt -->
+            </div>
+        </div>
+        <div class="col-md-3 sidebar">
+            <div class="sidebar-module-container">
+                <div class="search-area outer-bottom-small">
+                    <form>
+                        <div class="control-group">
+                            <input placeholder="Type to search" class="search-field">
+                            <a href="#" class="search-button"></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

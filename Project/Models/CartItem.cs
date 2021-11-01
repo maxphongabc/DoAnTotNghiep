@@ -11,11 +11,9 @@ namespace Project.Models
         public int Price { get; set; }
         public float Total { get { return Quantity * Price; } }
         public string Image { get; set; }
-
         public CartItem()
         {
         }
-
         public CartItem(ProductModel product)
         {
             ProductId = product.Id;
@@ -25,4 +23,5 @@ namespace Project.Models
             Image = product.Image;
         }
     }
+
 }
