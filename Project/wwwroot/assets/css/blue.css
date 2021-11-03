@@ -6,6 +6,9 @@
 a {
   color: #0f6cb2;
 }
+.outstock {
+    color: #d43f3a;
+}
 .show-theme-options:hover,
 .show-theme-options:focus {
   background: #0f6cb2;

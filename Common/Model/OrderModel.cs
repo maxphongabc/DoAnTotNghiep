@@ -9,7 +9,7 @@ namespace Common.Model
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public float Total { get; set; }
+        public double Total { get; set; }
         public string ShipName { get; set; }
         public string ShipPhone { get; set; }
         public string ShipEmail { get; set; }

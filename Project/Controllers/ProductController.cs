@@ -1,8 +1,12 @@
 ﻿using Common.Data;
 using Common.Model;
+using Common.Service.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -14,115 +18,74 @@ namespace Project.Controllers
     public class ProductController : Controller
     {
         private readonly ProjectDPContext _context;
-        public ProductController(ProjectDPContext context)
+        private readonly IProduct _iproduct;
+        public ProductController(ProjectDPContext context,IProduct iproduct)
         {
             _context = context;
+            _iproduct = iproduct;
         }
         public IActionResult Index(int? size, int? page)
         {
+            var product = _iproduct.ListAll();
             ViewBag.page = page;
-
             ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
-            int pageSize = (size ?? 5);
+            int pageSize = (size ?? 6);
             int pageNumber = (page ?? 1);
-            return View(ListAll().ToPagedList(pageNumber,pageSize));
+            return View(product.ToPagedList(pageNumber,pageSize));
         }
         public IActionResult Details(string slug)
         {
-            var product = DetailProduct(slug);
+            var product =_iproduct.DetailProduct(slug);
             ProductModel cate = _context.products.Where(x => x.Slug == slug).FirstOrDefault();
-            ViewBag.ListRelatedBlog = ListRelatedProduct(cate.Id);
+            ViewBag.ListRelatedProduct = _iproduct.ListRelatedProduct(cate.Id);
+            ViewBag.ProductId = cate.Id;
             if (product == null)
             {
                 return NotFound();
             }
+            ViewBag.Comment = _iproduct.ListComment(cate.Id);
             return View(product);
         }
+        public const string USER = "user";
         public async Task<IActionResult> ProductByCategory(string slug,int? size,int? page)
         {
             ViewBag.page = page;
            
             ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
-            int pageSize = (size ?? 5);
+            int pageSize = (size ?? 6);
             int pageNumber = (page ?? 1);
             CategoryModel category = await _context.categories.Where(x => x.Slug == slug).FirstOrDefaultAsync();
             if (category == null) return RedirectToAction("Index");
 
-            var products = _context.products.OrderByDescending(x => x.Id)
-                                            .Where(x => x.CategoryId == category.Id);
+            var products = _iproduct.ListProductCate(slug);
             ViewBag.CategoryName = category.Name;         
             return View(await products.ToPagedListAsync(pageNumber, pageSize));
         }
-        public List<ProductViewModel> ListProductCate(string slug)
-        {
-            var product = (from p in _context.products
-                           join c in _context.categories on p.CategoryId equals c.Id
-                           where c.Slug == slug
-                           select new ProductViewModel
-                           {
-                               ProductId = p.Id,
-                               Name = p.Name,
-                               Slug = p.Slug,
-                               CategoryId = c.Id,
-                               Image = p.Image,
-                               Description = p.Description,
-                               System = p.System,
-                               Price = p.Price,
-                               Quantity = p.Quantity,
-                               Model = p.Model,
-                               NameCate = c.Name,
-                               SlugCate = c.Slug
-                           });
-            return product.ToList();
-        }
-        public ProductViewModel DetailProduct(string slug)
-        {
-            var product = (from p in _context.products
-                           join c in _context.categories on p.CategoryId equals c.Id
-                           where c.Slug == slug
-                           select new ProductViewModel
-                           {
-                               ProductId = p.Id,
-                               Name = p.Name,
-                               Slug = p.Slug,
-                               CategoryId = c.Id,
-                               Image = p.Image,
-                               Description = p.Description,
-                               System = p.System,
-                               Price = p.Price,
-                               Quantity = p.Quantity,
-                               Model = p.Model,
-                               NameCate = c.Name,
-                               SlugCate = c.Slug
-                           });
-            return product.FirstOrDefault();
-        }
-        public List<ProductViewModel> ListAll()
-        {
 
-            var product = (from p in _context.products
-                           join c in _context.categories on p.CategoryId equals c.Id
-                           select new ProductViewModel
-                           {
-                               ProductId = p.Id,
-                               Name = p.Name,
-                               Slug = p.Slug,
-                               CategoryId = c.Id,
-                               Image = p.Image,
-                               Description = p.Description,
-                               System = p.System,
-                               Price = p.Price,
-                               Quantity = p.Quantity,
-                               Model = p.Model,
-                               NameCate = c.Name,
-                               SlugCate = c.Slug
-                           });
-            return product.ToList();
-        }
-        public List<ProductModel> ListRelatedProduct(int id)
+        [HttpPost]
+        public IActionResult AddComment(int ProductId,string Comment)
         {
-            var product = _context.products.Find(id);
-            return _context.products.Where(x => x.Id != id && x.CategoryId == product.CategoryId).ToList();
+            var sessionUser = HttpContext.Session.GetString(USER);
+            if (sessionUser == null)
+            {
+                var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Login" });
+                return Redirect(urlAdmin);
+            }
+            CommentProduct cmt = new CommentProduct();
+            UserModel user = JsonConvert.DeserializeObject<UserModel>(sessionUser);
+            var product = _context.products.Where(x => x.Id == ProductId).FirstOrDefault(); 
+
+            if(user!=null && product!=null)
+            {
+                cmt.CreateOn = DateTime.Now;
+                cmt.ProductId = ProductId;
+                cmt.UserId = user.Id;
+                cmt.Content = Comment;
+                cmt.Status = true;
+                _context.commentsproduct.Add(cmt);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Details", "Product", new { Slug = product.Slug });
         }
     }
 }

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Common.ViewModel.OrderViewModel>
+@{
+    ViewData["Title"] = "Đơn hàng của tôi";
+    var a = ViewBag.Total;
+}
+<div class="track-order-page">
+    <div class="row">
+        <div class="shopping-cart">
+            <div class="shopping-cart-table ">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Hình ảnh</td>
+                                <th>Sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                @*<th>Tạm tính</th>*@
+                            </tr>
+                        </thead><!-- /thead -->
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="cart-image">
+                                        <a class="entry-thumbnail">
+                                            <img src="~/img/sanpham/@item.ProductImage" alt="">
+                                        </a>
+                                    </td>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.Price.ToString("N0") VNĐ</td>
+                                    <td>@item.Quantity</td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody><!-- /tbody -->
+                    </table><!-- /table -->
+                </div>
+            </div><!-- /.shopping-cart-table -->
+        </div>
+    </div><!-- /.row -->
+</div>
+<div class="col-md-4 col-sm-12 estimate-ship-tax"></div>
+<div class="col-md-4 col-sm-12 estimate-ship-tax"></div>
+<div class="col-md-4 col-sm-12 cart-shopping-total">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <div class="cart-grand-total">
+                        Tổng tiền<span class="inner-left-md">Model.a.ToString("N0") VNĐ</span>
+                    </div>
+                </th>
+            </tr>
+        </thead><!-- /thead -->
+    </table><!-- /table -->
+</div>

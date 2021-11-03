@@ -13,16 +13,13 @@ namespace Common.Model
         [Key]
         public int Id { get; set; }
         [Required]
-        [StringLength(maximumLength: 300, ErrorMessage = "Độ Dài khong phù hợp", MinimumLength = 16)]
-        [Display(Name = "Title")]
-        public string Title { get; set; }
-        [Required]
-        [Display(Name = "Content")]
+        [StringLength(maximumLength: 500, ErrorMessage = "Viết ngắn ngắn hoy", MinimumLength = 5)]
         public string Content { get; set; }
-        public int IdProduct { get; set; }
-        public virtual ProductModel Product { get; set; }
-        public int IdUser { get; set; }
-        public virtual UserModel User { get; set; }
+        public int ProductId { get; set; }
+        public int UserId { get; set; }
+        public DateTime CreateOn { get; set; }
+        public virtual ProductModel products { get; set; }
+        public virtual UserModel users { get; set; }
         public bool Status { get; set; }
     }
 }

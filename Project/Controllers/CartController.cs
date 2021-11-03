@@ -118,6 +118,7 @@ namespace Project.Controllers
             return Ok();
         }
         [HttpGet]
+        [HttpGet]
         public IActionResult CheckOut()
         {
             var sessionUser = HttpContext.Session.GetString(USER);
@@ -134,11 +135,7 @@ namespace Project.Controllers
             };
             return View(cartVM);
         }
-        [HttpGet]
-        public IActionResult WishList()
-        {
-            return View();
-        }
+    
         
         [HttpPost]
         public IActionResult CheckOut(string description,string shipname)
