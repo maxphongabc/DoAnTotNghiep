@@ -6,79 +6,64 @@
 <!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1">
     <!-- ============================================== TOP MENU ============================================== -->
-    @if (Context.Session.GetString("user") != null)
-    {
-        string a = Context.Session.GetString("user");
-        Common.Model.UserModel user = JsonConvert.DeserializeObject<Common.Model.UserModel>(a);
+
         <div class="top-bar animate-dropdown">
             <div class="container">
                 <div class="header-top-inner">
-                    <div class="cnt-account">
-                        <ul class="list-unstyled">
-                            <li><a href="#"><i class="icon fa fa-heart"></i>Hi: @user.UserName</a></li>
-                            <li><a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
-                            <li><a asp-action="Logout" asp-controller="Account" asp-area="Admin"><i class="icon fa fa-lock"></i>Đăng xuẩt</a></li>
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Trang cá nhân
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Đăng xuất
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    @if (Context.Session.GetString("user") != null)
+                    {
+                        string a = Context.Session.GetString("user");
+                        Common.Model.UserModel user = JsonConvert.DeserializeObject<Common.Model.UserModel>(a);
+                        <div class="cnt-account">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="cnt-block">
+                            <ul class="list-unstyled list-inline">
+                                <li class="dropdown dropdown-small">
+                                    <a style="color:snow;" asp-controller="home" asp-action="Login" class="dropdown-toggle " data-hover="dropdown" data-toggle="dropdown"><span class="value"><i class="icon fa fa-user"></i>  @user.UserName </span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a asp-controller="Order" asp-action="OrderHistory"><i class="far fa-list-alt"></i> Đơn hàng của tôi</a></li>
+                                        <li><a><i class="icon fa fa-user"></i>Tài khoản của tôi</a></li>
+                                        <li><a  asp-action="Index" asp-controller="WishList"><i class="icon fa fa-heart"></i> Danh sách yêu thích</a></li>
+                                        <li><a asp-controller="Home" asp-action="Logout"><i class="icon fa fa-lock"></i> Đăng xuất</a></li>
+                                    </ul>
+                                </li>
+                            </ul><!-- /.list-unstyled -->
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="cnt-account">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="cnt-block">
+                            <ul class="list-unstyled list-inline">
+                                <li class="dropdown dropdown-small">
+                                    <a asp-controller="home" asp-action="Login" class="dropdown"><span class="value"><i class="icon fa fa-user"></i> Đăng nhập</span></a>
+
+                                </li>
+
+                            </ul><!-- /.list-unstyled -->
+                        </div>
+                    }
                     <!-- /.cnt-cart -->
                     <div class="clearfix"></div>
                 </div>
                 <!-- /.header-top-inner -->
             </div>
             <!-- /.container -->
-        </div>
-    }
-    else
-    {
-        <div class="top-bar animate-dropdown">
-            <div class="container">
-                <div class="header-top-inner">
-                    <div class="cnt-account">
-                        <ul class="list-unstyled">
-                            <li><a asp-action="Index" asp-controller="Cart"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
-                            <li><a asp-action="Login" asp-controller="Account" asp-area="Admin"><i class="icon fa fa-lock"></i>Đăng nhập</a></li>
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Trang cá nhân
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Đăng xuất
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.cnt-cart -->
-                    <div class="clearfix"></div>
-                </div>
-                <!-- /.header-top-inner -->
-            </div>
-            <!-- /.container -->
-        </div>
-    }
+        </div> 
     <!-- /.header-top -->
     <!-- ============================================== TOP MENU : END ============================================== -->
     <div class="main-header">
@@ -107,17 +92,17 @@
                             </form>
                         }
                     </div>
+
                     <!-- /.search-area -->
                     <!-- ============================================================= SEARCH AREA : END ============================================================= -->
                 </div>
-
                 @await Component.InvokeAsync("SmallCart")
                 <!-- /.top-search-holder -->
                 <!-- /.top-cart-row -->
             </div>
-            <!-- /.row -->
+                <!-- /.row -->
 
-        </div>
+            </div>
         <!-- /.container -->
 
     </div>

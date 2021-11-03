@@ -61,7 +61,6 @@ namespace Common.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    ProducerId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
@@ -150,26 +149,26 @@ namespace Common.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdProduct = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CreateOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    productsId = table.Column<int>(type: "int", nullable: true),
+                    usersId = table.Column<int>(type: "int", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_commentsproduct", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_commentsproduct_products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_commentsproduct_products_productsId",
+                        column: x => x.productsId,
                         principalTable: "products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_commentsproduct_user_UserId",
-                        column: x => x.UserId,
+                        name: "FK_commentsproduct_user_usersId",
+                        column: x => x.usersId,
                         principalTable: "user",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -182,7 +181,7 @@ namespace Common.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    Total = table.Column<float>(type: "real", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
                     ShipName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShipPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShipEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -280,21 +279,21 @@ namespace Common.Migrations
 
             migrationBuilder.InsertData(
                 table: "products",
-                columns: new[] { "Id", "CategoryId", "CreatedOn", "Description", "Image", "Model", "Name", "Price", "ProducerId", "Quantity", "Slug", "Status", "System" },
+                columns: new[] { "Id", "CategoryId", "CreatedOn", "Description", "Image", "Model", "Name", "Price", "Quantity", "Slug", "Status", "System" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 11, 1, 12, 39, 21, 160, DateTimeKind.Local).AddTicks(4714), "Đẹp", "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg", "P12498S1", "PlayStation 4 Slim 1TB", 9180000, 0, 50, "playstation-4-slim-1tb", true, null },
-                    { 2, 1, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5923), "Đẹp", "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg", null, "PS4 Slim 1TB", 7800000, 0, 50, "ps4-slim-1tb", true, null },
-                    { 3, 1, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5950), "Đẹp", "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg", null, "Sony PS4 Slim Days Of Play 2019 Limited Edition", 4800000, 0, 50, "sony-ps4-slim-days-of-play-2019-limited-edition", true, null },
-                    { 4, 1, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5956), "Đẹp", "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg", null, "PS4 Pro 2nd hand", 9300000, 0, 50, "ps4-pro-2nd-hand", true, null },
-                    { 5, 2, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5960), "Đẹp", "e1f498e5-8386-4221-b9ac-6f5cd7acea80_ps4-pro-god-of-war-limited-edition-44-700x700.jpg", null, "Xbox Series X", 8800000, 0, 50, "xbox-series-x", true, null },
-                    { 6, 2, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5962), "Đẹp", "6d9b947a-8d78-4a34-91a6-20c96a37395a_xbox-series-x-00-700x700.jpg", null, "Xbox Series X", 19300000, 0, 50, "xbox-series-x", true, null },
-                    { 7, 2, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5965), "Đẹp", "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg", null, "Xbox Series X", 11800000, 0, 50, "xbox-series-x", true, null },
-                    { 8, 2, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5968), "Đẹp", "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg", null, "Xbox Series S", 9800000, 0, 50, "xbox-series-s", true, null },
-                    { 9, 3, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5971), "Đẹp", "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg", null, "Nintendo Switch V2 Màu Neon", 9800000, 0, 50, "nintendo-switch-v2-mau-neon", true, null },
-                    { 10, 3, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5973), "Đẹp", "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", null, "Nintendo Switch Lite - Màu Blue", 7080000, 0, 50, "nintendo-switch-lite-mau-blue", true, null },
-                    { 11, 3, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5977), "Đẹp", "86236c3c-1dbe-4ab2-85b0-f892a37413c0_nintendo-switch-gray-joy-con-45-700x700.jpg", null, "Nintendo Switch Fortnite Special Edition", 6880000, 0, 50, "nintendo-switch-fortnite-special-edition", true, null },
-                    { 12, 3, new DateTime(2021, 11, 1, 12, 39, 21, 161, DateTimeKind.Local).AddTicks(5981), "Đẹp", "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg", null, "Nintendo Switch Animal Crossing", 7380000, 0, 50, "nintendo-switch-animal-crossing", true, null }
+                    { 1, 1, new DateTime(2021, 11, 2, 19, 29, 40, 549, DateTimeKind.Local).AddTicks(2249), "Đẹp", "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg", "P12498S1", "PlayStation 4 Slim 1TB", 9180000, 50, "playstation-4-slim-1tb", true, null },
+                    { 2, 1, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2821), "Đẹp", "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg", null, "PS4 Slim 1TB", 7800000, 50, "ps4-slim-1tb", true, null },
+                    { 3, 1, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2845), "Đẹp", "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg", null, "Sony PS4 Slim Days Of Play 2019 Limited Edition", 4800000, 50, "sony-ps4-slim-days-of-play-2019-limited-edition", true, null },
+                    { 4, 1, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2925), "Đẹp", "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg", null, "PS4 Pro 2nd hand", 9300000, 50, "ps4-pro-2nd-hand", true, null },
+                    { 5, 2, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2928), "Đẹp", "e1f498e5-8386-4221-b9ac-6f5cd7acea80_ps4-pro-god-of-war-limited-edition-44-700x700.jpg", null, "Xbox Series X", 8800000, 50, "xbox-series-x", true, null },
+                    { 6, 2, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2930), "Đẹp", "6d9b947a-8d78-4a34-91a6-20c96a37395a_xbox-series-x-00-700x700.jpg", null, "Xbox Series X", 19300000, 50, "xbox-series-x", true, null },
+                    { 7, 2, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2932), "Đẹp", "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg", null, "Xbox Series X", 11800000, 50, "xbox-series-x", true, null },
+                    { 8, 2, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2934), "Đẹp", "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg", null, "Xbox Series S", 9800000, 50, "xbox-series-s", true, null },
+                    { 9, 3, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2936), "Đẹp", "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg", null, "Nintendo Switch V2 Màu Neon", 9800000, 50, "nintendo-switch-v2-mau-neon", true, null },
+                    { 10, 3, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2938), "Đẹp", "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", null, "Nintendo Switch Lite - Màu Blue", 7080000, 50, "nintendo-switch-lite-mau-blue", true, null },
+                    { 11, 3, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2940), "Đẹp", "86236c3c-1dbe-4ab2-85b0-f892a37413c0_nintendo-switch-gray-joy-con-45-700x700.jpg", null, "Nintendo Switch Fortnite Special Edition", 6880000, 50, "nintendo-switch-fortnite-special-edition", true, null },
+                    { 12, 3, new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2942), "Đẹp", "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg", null, "Nintendo Switch Animal Crossing", 7380000, 50, "nintendo-switch-animal-crossing", true, null }
                 });
 
             migrationBuilder.InsertData(
@@ -302,8 +301,8 @@ namespace Common.Migrations
                 columns: new[] { "Id", "Address", "Avarta", "CreatedOn", "DateOfBirth", "Email", "FullName", "PassWord", "Phone", "RolesId", "Status", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "115 Trần Xuân Soạn", "user-1.png", new DateTime(2021, 11, 1, 12, 39, 21, 162, DateTimeKind.Local).AddTicks(2023), null, "duyvo049@gmail.com", "Võ Thành Duy", "25f9e794323b453885f5181f1b624d0b", "0393030574", 1, true, "thanhduy" },
-                    { 2, "115 Trần Xuân Soạn", "user-2.png", new DateTime(2021, 11, 1, 12, 39, 21, 162, DateTimeKind.Local).AddTicks(3713), null, "leloc603@gmail.com", "Lê Xuân Lộc", "25f9e794323b453885f5181f1b624d0b", "0393030574", 2, true, "leloc" }
+                    { 1, "115 Trần Xuân Soạn", "user-1.png", new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(7086), null, "duyvo049@gmail.com", "Võ Thành Duy", "25f9e794323b453885f5181f1b624d0b", "0393030574", 1, true, "thanhduy" },
+                    { 2, "115 Trần Xuân Soạn", "user-2.png", new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(7692), null, "leloc603@gmail.com", "Lê Xuân Lộc", "25f9e794323b453885f5181f1b624d0b", "0393030574", 2, true, "leloc" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -317,14 +316,14 @@ namespace Common.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_commentsproduct_ProductId",
+                name: "IX_commentsproduct_productsId",
                 table: "commentsproduct",
-                column: "ProductId");
+                column: "productsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_commentsproduct_UserId",
+                name: "IX_commentsproduct_usersId",
                 table: "commentsproduct",
-                column: "UserId");
+                column: "usersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_order_UserId",

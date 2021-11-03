@@ -1,4 +1,6 @@
 using Common.Data;
+using Common.Service.Interface;
+using Common.Service.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +23,10 @@ namespace Project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IProduct, ProductRepository>();
+            services.AddTransient<IBlog, BlogRepository>();
+            services.AddTransient<IOrder, OrderRepository>();
+            services.AddTransient<IWishList, WishListRepository>();
             services.AddControllersWithViews();
             services.AddHttpClient();
             services.AddHttpContextAccessor();
@@ -30,7 +36,7 @@ namespace Project
             services.AddDistributedMemoryCache();
             services.AddSession(option =>
             {
-                option.IdleTimeout = TimeSpan.FromMinutes(5);
+                option.IdleTimeout = TimeSpan.FromMinutes(30);
                 option.Cookie.HttpOnly = true;
                 option.Cookie.IsEssential = true;
             });

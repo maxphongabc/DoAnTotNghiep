@@ -118,7 +118,12 @@ namespace Project.Controllers
         {
             return _context.user.Count(x => x.Email == email) > 0;
         }
-
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("user");
+            var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index"});
+            return Redirect(urlAdmin);
+        }
         public IActionResult Login()
         {
             return View();

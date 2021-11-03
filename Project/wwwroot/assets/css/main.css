@@ -1191,7 +1191,9 @@ a {
 /*===================================================================================*/
 /* Header
 /*===================================================================================*/
-header{background:#157ed2}
+header {
+    background: #259cfb
+}
 
 .main-header {
   padding:5px 0px 12px 0px;
@@ -1294,7 +1296,7 @@ header{background:#157ed2}
 }
 .top-cart-row {
   padding-top:8px;
-  padding-left:0px
+  padding-left:0px;
 }
 .top-cart-row .dropdown-cart {
   float: right;

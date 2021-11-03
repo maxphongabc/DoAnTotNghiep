@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Project.Models
+namespace Common.ViewModel
 {
     public class ProductViewModel
     {
@@ -8,6 +8,7 @@ namespace Project.Models
         public string Name { get; set; }
         public string Slug { get; set; }
         public int CategoryId { get; set; }
+        public int UserId { get; set; }
         public DateTime CreateOn { get; set; }
         public string Description { get; set; }
         public int Quantity { get; set; }

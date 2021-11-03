@@ -202,7 +202,6 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Vie
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Blog\Index.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Cart\CheckOut.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Cart\Index.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Cart\WishList.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\Contact.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\Error.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
@@ -235,3 +234,8 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\ref\Proje
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Project.pdb
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Project.genruntimeconfig.cache
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\FAQ.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Order\OrderDetailsHistory.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Order\OrderHistory.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\Profile.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Shared\_CommentBox.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\WishList\Index.cshtml.g.cs
