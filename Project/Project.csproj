@@ -95,96 +95,6 @@
     <None Include="wwwroot\Admin\img\undraw_profile_2.svg" />
     <None Include="wwwroot\Admin\img\undraw_profile_3.svg" />
     <None Include="wwwroot\Admin\img\undraw_rocket.svg" />
-    <None Include="wwwroot\Admin\js\ckfinder\ckfinder.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\ckfinder_v1.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\config.ascx" />
-    <None Include="wwwroot\Admin\js\ckfinder\config.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\core\connector\aspx\connector.aspx" />
-    <None Include="wwwroot\Admin\js\ckfinder\help\files\other\help.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\bg.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\ca.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\cs.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\cy.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\da.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\de.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\el.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\en.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\eo.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\es-mx.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\es.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\et.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\fa.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\fi.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\fr.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\gu.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\he.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\hi.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\hr.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\hu.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\it.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\ja.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\lt.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\lv.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\nb.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\nl.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\nn.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\no.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\pl.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\pt-br.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\ro.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\ru.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\sk.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\sl.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\sr.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\sv.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\tr.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\vi.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\zh-cn.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\lang\zh-tw.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\dummy\lang\en.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\dummy\lang\pl.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\dummy\plugin.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\bin\Debug\CKFinder_FileEditor.dll" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\bin\Debug\CKFinder_FileEditor.pdb" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\bin\Release\CKFinder_FileEditor.dll" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\bin\Release\CKFinder_FileEditor.pdb" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\addon\mode\overlay.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\lib\codemirror.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\clike\clike.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\css\css.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\htmlmixed\htmlmixed.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\javascript\javascript.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\markdown\markdown.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\perl\perl.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\python\python.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\rst\rst.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\ruby\ruby.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\sass\sass.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\sql\sql.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\stex\stex.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\codemirror\mode\xml\xml.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\fileeditor\plugin.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\flashupload\flash\Uploader.swf" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\gallery\colorbox\jquery.colorbox-min.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\gallery\colorbox\jquery.min.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\imageresize\bin\Debug\CKFinder_ImageResize.dll" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\imageresize\bin\Debug\CKFinder_ImageResize.pdb" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\imageresize\bin\Release\CKFinder_ImageResize.dll" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\imageresize\bin\Release\CKFinder_ImageResize.pdb" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\imageresize\plugin.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\watermark\bin\Debug\CKFinder_Watermark.dll" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\watermark\bin\Debug\CKFinder_Watermark.pdb" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\watermark\bin\Release\CKFinder_Watermark.dll" />
-    <None Include="wwwroot\Admin\js\ckfinder\plugins\watermark\bin\Release\CKFinder_Watermark.pdb" />
-    <None Include="wwwroot\Admin\js\ckfinder\skins\kama\skin.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\skins\v1\skin.js" />
-    <None Include="wwwroot\Admin\js\ckfinder\userfiles\.htaccess" />
-    <None Include="wwwroot\Admin\js\ckfinder\_samples\aspx\ckeditor.aspx" />
-    <None Include="wwwroot\Admin\js\ckfinder\_samples\aspx\fckeditor.aspx" />
-    <None Include="wwwroot\Admin\js\ckfinder\_samples\aspx\popup.aspx" />
-    <None Include="wwwroot\Admin\js\ckfinder\_samples\aspx\popups.aspx" />
-    <None Include="wwwroot\Admin\js\ckfinder\_samples\aspx\standalone.aspx" />
     <None Include="wwwroot\Admin\js\sb-admin-2.js" />
     <None Include="wwwroot\Admin\js\sb-admin-2.min.js" />
     <None Include="wwwroot\Admin\scss\navs\_global.scss" />
@@ -4371,8 +4281,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.15.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.11">
       <PrivateAssets>all</PrivateAssets>
@@ -4386,7 +4299,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
-    <PackageReference Include="Nancy" Version="2.0.0" />
+    <PackageReference Include="MimeKit" Version="2.15.1" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.13" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
   </ItemGroup>
@@ -4445,6 +4358,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="mailssave\" />
     <Folder Include="wwwroot\img\js\" />
   </ItemGroup>
 

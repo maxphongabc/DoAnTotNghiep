@@ -1,10 +1,14 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Data;
+using Common.Encryptor;
 using Common.Model;
+using Common.Service.Interface;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +20,13 @@ namespace Project.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         private readonly ProjectDPContext _context;
-        public UserController(ProjectDPContext context)
+        private readonly IUser _iuser;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public UserController(ProjectDPContext context,IUser iuser, IWebHostEnvironment webHostEnvironment)
         {
+            _iuser = iuser;
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Admin/User
@@ -33,9 +41,6 @@ namespace Project.Areas.Admin.Controllers
             items.Add(new SelectListItem { Text = "5", Value = "5" });
             items.Add(new SelectListItem { Text = "10", Value = "10" });
             items.Add(new SelectListItem { Text = "20", Value = "20" });
-            items.Add(new SelectListItem { Text = "25", Value = "25" });
-            items.Add(new SelectListItem { Text = "50", Value = "50" });
-            items.Add(new SelectListItem { Text = "100", Value = "100" });
             // 1.1. Giữ trạng thái kích thước trang được chọn trên DropDownList
             foreach (var item in items)
             {
@@ -62,16 +67,6 @@ namespace Project.Areas.Admin.Controllers
             }
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return View(links.ToPagedList(pageNumber, pageSize));
-        }
-        public IEnumerable<UserModel> ListAllPaging(string Search, int page, int pageSize)
-        {
-            IQueryable<UserModel> model = _context.user;
-            if (!string.IsNullOrEmpty(Search))
-            {
-                model = model.Where(x => x.FullName.Contains(Search) || x.UserName.Contains(Search));
-            }
-
-            return model.OrderByDescending(x => x.CreatedOn).ToPagedList(page, pageSize);
         }
         // GET: Admin/User/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -104,16 +99,52 @@ namespace Project.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RolesId,FullName,Address,Phone,Email,DateOfBirth,Avarta,UserName,PassWord,CreatedOn,UpdatedOn,Status")] UserModel userModel)
+        public async Task<IActionResult> Create(UserModel userModel)
         {
+            ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Name", userModel.RolesId);
             if (ModelState.IsValid)
             {
-                _context.Add(userModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-               
+
+                if (_iuser.CheckUserName(userModel.UserName))
+                {
+                    ModelState.AddModelError("", "Tên đăng nhập đã tồn tại");
+                }
+                else if (_iuser.CheckEmail(userModel.Email))
+                {
+                    ModelState.AddModelError("", "Email đã tồn tại");
+                }
+                else if (_iuser.CheckPhone(userModel.Phone))
+                {
+                    ModelState.AddModelError("", "Số điện thoại này đã có người sủ dụng !");
+                }
+                else
+                {
+                    userModel.CreatedOn = DateTime.Now;
+                    userModel.Status = true;
+                    userModel.PassWord = Encryptor.MD5Hash(userModel.PassWord);
+                    string imageName = "noimage.jpg";
+                    if (userModel.ImageUpload != null)
+                    {
+                        string uploadsDir = Path.Combine(_webHostEnvironment.WebRootPath, "img/user");
+                        imageName = Guid.NewGuid().ToString() + "_" + userModel.ImageUpload.FileName;
+                        string filePath = Path.Combine(uploadsDir, imageName);
+                        FileStream fs = new FileStream(filePath, FileMode.Create);
+                        await userModel.ImageUpload.CopyToAsync(fs);
+                        fs.Close();
+                    }
+                    userModel.Avarta = imageName;
+                    _context.Add(userModel);
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = "Đăng ký thành công!";
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Name", userModel.RolesId);
+            else
+            {
+                ModelState.AddModelError("", "Đăng ký không thành công");
+                return View("Create");
+            }
+            
             return View(userModel);
         }
 
@@ -130,7 +161,7 @@ namespace Project.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Id", userModel.RolesId);
+            ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Name");
             return View(userModel);
         }
 
@@ -139,7 +170,7 @@ namespace Project.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RolesId,FullName,Address,Phone,Email,DateOfBirth,Avarta,UserName,PassWord,CreatedOn,UpdatedOn,Status")] UserModel userModel)
+        public async Task<IActionResult> Edit(int id, UserModel userModel)
         {
             if (id != userModel.Id)
             {
@@ -148,10 +179,55 @@ namespace Project.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Name");
                 try
                 {
-                    _context.Update(userModel);
-                    await _context.SaveChangesAsync();
+                    var username = await _context.user.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.UserName == userModel.UserName);
+                    var email = await _context.user.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Email == userModel.Email);
+                    var phone = await _context.user.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Phone == userModel.Phone);
+
+                    if (username != null)
+                    {
+                        ModelState.AddModelError("", "Tài khoản này đã có người dùng.");
+                        return View(userModel);
+                    }
+                    else if (email != null)
+                    {
+                        ModelState.AddModelError("", "EMail này đã có người dùng.");
+                        return View(userModel);
+                    }
+                    else if (email != null)
+                    {
+                        ModelState.AddModelError("", "Số điện thoại này đã có người dùng.");
+                        return View(userModel);
+                    }
+                    else
+                    {
+                        if (userModel.ImageUpload != null)
+                        {
+                            string uploadsDir = Path.Combine(_webHostEnvironment.WebRootPath, "img/user");
+
+                            if (!string.Equals(userModel.Avarta, "noimage.png"))
+                            {
+                                string oldImagePath = Path.Combine(uploadsDir, userModel.Avarta);
+                                if (System.IO.File.Exists(oldImagePath))
+                                {
+                                    System.IO.File.Delete(oldImagePath);
+                                }
+                            }
+                            string imageName = Guid.NewGuid().ToString() + "_" + userModel.ImageUpload.FileName;
+                            string filePath = Path.Combine(uploadsDir, imageName);
+                            FileStream fs = new FileStream(filePath, FileMode.Create);
+                            await userModel.ImageUpload.CopyToAsync(fs);
+                            fs.Close();
+                            userModel.Avarta = imageName;
+                            _context.Update(userModel);
+                            await _context.SaveChangesAsync();
+                            TempData["Success"] = "Chỉnh sửa thành công!";
+                            return RedirectToAction(nameof(Index));
+                        }
+                    }
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -164,10 +240,10 @@ namespace Project.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
             }
-            ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Id", userModel.RolesId);
-            return View(userModel);
+            TempData["Success"] = "Chỉnh sửa thành công!";
+            return View("Index");      
         }
 
         // GET: Admin/User/Delete/5
@@ -187,6 +263,16 @@ namespace Project.Areas.Admin.Controllers
             }
 
             return View(userModel);
+        }
+        [HttpGet]
+        public JsonResult ListName(string q)
+        {
+            var data = _iuser.ListName(q);
+            return Json(new
+            {
+                data = data,
+                status = true
+            });
         }
 
         // POST: Admin/User/Delete/5

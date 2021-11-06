@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using X.PagedList;
 using System.Linq.Dynamic.Core;
+using Common.Service.Interface;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -19,17 +20,18 @@ namespace Project.Areas.Admin.Controllers
     {
         private readonly ProjectDPContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public ProductController(ProjectDPContext context, IWebHostEnvironment webHostEnvironment)
+        private readonly IProduct _iproduct;
+        public ProductController(ProjectDPContext context, IWebHostEnvironment webHostEnvironment,IProduct iproduct)
         {
             _context = context;
             this.webHostEnvironment = webHostEnvironment;
+            _iproduct = iproduct;
         }
 
         [HttpGet]
         // GET: /Link/
         public ActionResult Index(int? size, int? page, string Search)
         {
-
             ViewBag.searchValue = Search;
             ViewBag.page = page;
             // 1. Tạo list pageSize để người dùng có thể chọn xem để phân trang
@@ -69,7 +71,16 @@ namespace Project.Areas.Admin.Controllers
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return View(links.ToPagedList(pageNumber, pageSize));
         }
- 
+        [HttpGet]
+        public JsonResult ListName(string q)
+        {
+            var data = _iproduct.ListName(q);
+            return Json(new
+            {
+                data = data,
+                status = true
+            });
+        }
         [HttpPost]
         public JsonResult ChangeStatus(int id)
         {

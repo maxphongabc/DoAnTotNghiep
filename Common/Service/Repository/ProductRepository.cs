@@ -14,11 +14,9 @@ namespace Common.Service.Repository
     public class ProductRepository:IProduct
     {
         private readonly ProjectDPContext _context;
-        private readonly IConfiguration _iconfiguration;
         public ProductRepository(ProjectDPContext context, IConfiguration configuration)
         {
             _context = context;
-            _iconfiguration = configuration;
 
         }
         public List<ProductViewModel> ListProductCate(string slug)
@@ -101,6 +99,7 @@ namespace Common.Service.Repository
                            select new CommentProductViewModel {
                            ProductId = p.Id,
                            CommentId = c.Id,
+                           CreateOn = c.CreateOn,
                            UserId = u.Id,
                            UserImage = u.Avarta,
                            UserName = u.UserName,
@@ -109,7 +108,26 @@ namespace Common.Service.Repository
                            });
             return comment.ToList();
         }
-      public List<ProductViewModel> ListWishList(int userId)
+        public List<CommentProductViewModel> ListCommentAdmin()
+        {
+            var comment = (from c in _context.commentsproduct
+                           join p in _context.products on c.ProductId equals p.Id
+                           join u in _context.user on c.UserId equals u.Id
+                           select new CommentProductViewModel
+                           {
+                               ProductId = p.Id,
+                               CommentId = c.Id,
+                               CreateOn = c.CreateOn,
+                               UserId = u.Id,
+                               UserImage = u.Avarta,
+                               UserName = u.UserName,
+                               ProductName = p.Name,
+                               Image = p.Image,
+                               Content = c.Content
+                           });
+            return comment.ToList();
+        }
+        public List<ProductViewModel> ListWishList(int userId)
        {
             var wishlist = (from w in _context.wistlists
                             join p in _context.products on w.ProductId equals p.Id
@@ -123,6 +141,33 @@ namespace Common.Service.Repository
                             });
             return wishlist.ToList();
         }
-        
+        public List<string> ListName(string keyword)
+        {
+            return _context.products.Where(x => x.Name.Contains(keyword)).Select(x => x.Name).ToList();
+        }
+        public bool CheckName(string name)
+        {
+            return _context.products.Count(x => x.Name == name) > 0;
+        }
+        public  CommentProductViewModel CommentId(int? cmtId)
+        {
+            var comment = (from c in _context.commentsproduct
+                           join p in _context.products on c.ProductId equals p.Id
+                           join u in _context.user on c.UserId equals u.Id
+                           where c.Id == cmtId
+                           select new CommentProductViewModel
+                           {
+                               ProductId = p.Id,
+                               CommentId = c.Id,
+                               CreateOn = c.CreateOn,
+                               UserId = u.Id,
+                               UserImage = u.Avarta,
+                               ProductName = p.Name,
+                               UserName = u.UserName,
+                               Image = p.Image,
+                               Content = c.Content
+                           });
+            return comment.FirstOrDefault();
+        }
     }
 }

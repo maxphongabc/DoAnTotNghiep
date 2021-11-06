@@ -1,12 +1,12 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Common.Data;
 using Common.Model;
+using Common.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-
+using X.PagedList;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -14,17 +14,24 @@ namespace Project.Areas.Admin.Controllers
     public class OrderController : Controller
     {
         private readonly ProjectDPContext _context;
-
-        public OrderController(ProjectDPContext context)
+        private readonly IOrder _iorder;
+        public OrderController(ProjectDPContext context, IOrder iorder)
         {
             _context = context;
+            _iorder = iorder;
         }
 
         // GET: Admin/Order
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? size, int? page)
         {
-            var dPContext = _context.order.Include(o => o.user);
-            return View(await dPContext.ToListAsync());
+            ViewBag.currentSize = size; 
+
+            page = page ?? 1; //if (page == null) page = 1;
+
+            int pageSize = (size ?? 10);
+            int pageNumber = (page ?? 1);
+            var order = _iorder.ListOrderAdmin();
+            return View(order.ToPagedList(pageNumber,pageSize));
         }
 
         // GET: Admin/Order/Details/5
@@ -105,7 +112,22 @@ namespace Project.Areas.Admin.Controllers
             ViewData["UserId"] = new SelectList(_context.user, "Id", "Id", orderModel.UserId);
             return View(orderModel);
         }
-
+        [HttpPost]
+        public JsonResult ChangeStatus(int id)
+        {
+            var result = ChangeStatuss(id);
+            return Json(new
+            {
+                status = result
+            });
+        }
+        public bool ChangeStatuss(int id)
+        {
+            var order = _context.order.Find(id);
+            order.Status = !order.Status;
+            _context.SaveChanges();
+            return order.Status;
+        }
         // GET: Admin/Order/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

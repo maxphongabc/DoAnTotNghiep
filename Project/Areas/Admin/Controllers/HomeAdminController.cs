@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Common.Data;
+using Common.Model;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -53,7 +54,14 @@ namespace Project.Areas.Admin.Controllers
                                        where p.Description.IndexOf(countnn) >= 0 && p.Status == true
                                        select p).ToList();
             }
-            ViewBag.SumOrder = _context.order.Sum(s => s.Total);
+
+            var a = (from o in _context.order
+                     where o.Status==true
+                     select new OrderModel { Total = o.Total,
+                     Status=o.Status}
+                     );
+            a.Sum(x => x.Total);
+            ViewBag.SumOrder = a;
             return View();
         }
         public IActionResult Logout()

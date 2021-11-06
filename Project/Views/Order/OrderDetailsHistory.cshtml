@@ -11,11 +11,11 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <td>Hình ảnh</td>
+                                <th>Hình ảnh</th>
                                 <th>Sản phẩm</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
-                                @*<th>Tạm tính</th>*@
+                                <th>Tạm tính</th>
                             </tr>
                         </thead><!-- /thead -->
                         <tbody>
@@ -30,7 +30,7 @@
                                     <td>@item.ProductName</td>
                                     <td>@item.Price.ToString("N0") VNĐ</td>
                                     <td>@item.Quantity</td>
-                                    <td></td>
+                                    <td>@item.</td>
                                 </tr>
                             }
                         </tbody><!-- /tbody -->

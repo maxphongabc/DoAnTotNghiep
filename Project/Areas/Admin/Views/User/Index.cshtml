@@ -4,9 +4,8 @@
 @{
     ViewData["Title"] = "Index";
 }
-<style>
-</style>
-<h1>Index</h1>
+<h1>Danh sách người dùng</h1>
+<br />
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -27,7 +26,7 @@
 </div>
 <br />
 <table class="table table-bordered">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>
                 Họ và tên
@@ -61,46 +60,46 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @item.FullName
-            </td>
-            @if (item.RolesId == 1)
-            {
-                <td><p class="btn btn-danger">Quản trị</p></td>
+            <tr>
+                <td>
+                    @item.FullName
+                </td>
+                @if (item.RolesId == 1)
+                {
+                    <td><p class="btn btn-danger">Quản trị</p></td>
 
-            }
-            @if (item.RolesId == 2)
-            {
-                <td><p class="btn btn-primary">Người dùng</p></td>
+                }
+                @if (item.RolesId == 2)
+                {
+                    <td><p class="btn btn-primary">Người dùng</p></td>
 
-            }
+                }
 
-            <td>
-                @item.Phone
-            </td>
-            <td>
-                @item.Email
-            </td>
-            <td>
-                @item.Address
-            </td>
-            <td>
-                <img class="img-thumbnail" src="~/img/user/@item.Avarta" />
-            </td>
-            <td>
-                @item.CreatedOn
-            </td>
-            <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
+                <td>
+                    @item.Phone
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.Address
+                </td>
+                <td>
+                    <img class="img-thumbnail" src="~/img/user/@item.Avarta" />
+                </td>
+                <td>
+                    @item.CreatedOn
+                </td>
+                <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
 
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id"><img src="~/Admin/img/edit-a.png" /></a>
-                <br />
-                <a asp-action="Details" asp-route-id="@item.Id"><img src="~/Admin/img/list.png" /></a>
-                <br />
-                <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
-            </td>
-        </tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><img src="~/Admin/img/edit-a.png" /></a>
+                    <br />
+                    <a asp-action="Details" asp-route-id="@item.Id"><img src="~/Admin/img/list.png" /></a>
+                    <br />
+                    <a data-toggle="modal" data-target="#flipFlop" data-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -110,7 +109,10 @@
 @section Scripts{
     <script src="~/Admin/js/jquery-ui.js"></script>
     <script src="~/Admin/js/controller/userController.js">
-</script>
+    </script>
 
 }
+
+
+
 

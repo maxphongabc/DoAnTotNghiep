@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Common.ViewModel.CommentProductViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sách bình luận</h1>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Tên người dùng
+            </th>
+            <th>
+                Nội dung
+            </th>
+            <th>
+                Ngày bình luận
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.ProductName
+                </td>
+
+                <td>
+                    @item.UserName
+                </td>
+                <td>
+                    @item.Content
+                </td>
+                <td>
+                    @item.CreateOn
+                </td>
+                <td><a href="#" class="btn-active" data-id="@item.CommentId">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.CommentId"><img src="~/Admin/img/list.png" /></a>
+                    <br />
+                    <a asp-action="Delete" asp-route-id="@item.CommentId"><img src="~/Admin/img/trash-bin.png" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

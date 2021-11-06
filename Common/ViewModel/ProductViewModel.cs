@@ -5,6 +5,7 @@ namespace Common.ViewModel
     public class ProductViewModel
     {
         public int ProductId { get; set; }
+        public int WishListId { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
         public int CategoryId { get; set; }
