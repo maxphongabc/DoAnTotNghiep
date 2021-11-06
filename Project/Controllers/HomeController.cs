@@ -12,16 +12,19 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using X.PagedList;
+using Common.ViewModel;
+using Common.Service.Interface;
 
 namespace Project.Controllers
 {
     public class HomeController : Controller
     {
-
+        private readonly IUser _iuser;
         private readonly ProjectDPContext _context;
-        public HomeController(ProjectDPContext context)
+        public HomeController(ProjectDPContext context,IUser iuser)
         {
             _context = context;
+            _iuser = iuser;
         }
         public IActionResult Index()
         {
@@ -43,14 +46,32 @@ namespace Project.Controllers
             var product = _context.products.Find(id);
             return product;
         }
+        [HttpGet]
         public IActionResult Contact()
         {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Contact(string content,string name,string email)
+        {
+            if(ModelState.IsValid)
+            {
+                FeedBackModel fb = new FeedBackModel();
+                fb.Content = content;
+                fb.Name = name;
+                fb.Email = email;
+                fb.Status = true;
+                _context.feedbacks.Add(fb);
+                _context.SaveChanges();
+                return View("Index");
+            }    
             return View();
         }
         public IActionResult FAQ()
         {
             return View();
         }
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
@@ -62,17 +83,21 @@ namespace Project.Controllers
             if(ModelState.IsValid)
             {
                 
-                if (CheckUserName(member.UserName))
+                if (_iuser.CheckUserName(member.UserName))
                 {
                     ModelState.AddModelError("", "Tên đăng nhập đã tồn tại");
                 }
-                else if (CheckEmail(member.Email))
+                else if (_iuser.CheckEmail(member.Email))
                 {
                     ModelState.AddModelError("", "Email đã tồn tại");
                 }
+                else if (_iuser.CheckPhone(member.Phone))
+                {
+                    ModelState.AddModelError("", "Số điện thoại này đã có người sủ dụng !");
+                }
                 else if (member.PassWord == member.ConfirmPassword)
                 {
-                    var user = new UserModel()             
+                    var user = new UserModel()
                     {
                         Address = member.Address,
                         Email = member.Email,
@@ -82,9 +107,10 @@ namespace Project.Controllers
                         PassWord = Encryptor.MD5Hash(member.PassWord),
                         RolesId = 2,
                         Status = true,
+                        Avarta = "user-2.png",
                         CreatedOn = DateTime.Now
                     };
-                    var result = Insert(user);
+                    var result = _iuser.Insert(user);
                     if(result>0)
                     {
                         ViewBag.Success = "Đăng Ký thành công";
@@ -103,20 +129,6 @@ namespace Project.Controllers
                
             }
             return View("Register");
-        }
-        public int Insert(UserModel user)
-        {
-            _context.Add(user);
-            _context.SaveChanges();
-            return user.Id;
-        }
-        public bool CheckUserName(string userName)
-        {
-            return _context.user.Count(x => x.UserName == userName) > 0;
-        }
-        public bool CheckEmail(string email)
-        {
-            return _context.user.Count(x => x.Email == email) > 0;
         }
         public IActionResult Logout()
         {
@@ -205,6 +217,6 @@ namespace Project.Controllers
             int pageNumber = (page ?? 1);
             return View(products.ToPagedList(pageNumber, pageSize));
         }
-
+        
     }
 }

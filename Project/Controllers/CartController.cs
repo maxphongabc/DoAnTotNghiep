@@ -1,5 +1,7 @@
 ﻿using Common.Data;
 using Common.Model;
+using Common.Service.Interface;
+using Common.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -8,6 +10,7 @@ using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
 namespace Project.Controllers
@@ -15,9 +18,11 @@ namespace Project.Controllers
     public class CartController : Controller
     {
         private readonly ProjectDPContext _context;
-        public CartController(ProjectDPContext context)
+        private readonly ISendMailService sendMailService;
+        public CartController(ProjectDPContext context,ISendMailService sendMail)
         {
             _context = context;
+            sendMailService = sendMail;
         }
         public IActionResult Index()
         {
@@ -138,7 +143,7 @@ namespace Project.Controllers
     
         
         [HttpPost]
-        public IActionResult CheckOut(string description,string shipname)
+        public async Task <IActionResult> CheckOut(string description,string shipname)
         {
             ProductModel product = new ProductModel();
             string a = HttpContext.Session.GetString(USER);
@@ -156,7 +161,7 @@ namespace Project.Controllers
             order.ShipPhone = user.Phone;
             order.ShipName = shipname;
             order.CreatedOn = DateTime.Now;
-            order.Status = true;
+            order.Status = false;
             order.UserId = user.Id;
             _context.order.Add(order);
             _context.SaveChanges();
@@ -168,13 +173,22 @@ namespace Project.Controllers
                 details.CreatedOn = DateTime.Now;
                 details.Price = item.Price;
                 details.ProductId = item.ProductId;
-                details.Status = true;
+                details.Status = false;
                 details.Quantity = item.Quantity;
                 product.Quantity = product.Quantity - details.Quantity;
                 _context.order_Details.Add(details);
                 order.Total += details.Price * details.Quantity;
                 _context.Update(product);
             }
+            
+            MailContent content = new MailContent
+            {
+                To = user.Email,
+                Subject = "Đơn hàng mới" + "#"+order.Id,
+                Body = "<p><strong>Xin chào</strong></p>" + user.FullName + "<p>Cảm ơn bạn đã quan tâm sản phẩm của chúng tôi.Đơn hàng của bạn sẽ được xử lý ngay.</p>"
+            };
+            await sendMailService.SendMail(content);
+
             _context.Update(order);
             _context.SaveChanges();
             HttpContext.Session.Remove("Cart");

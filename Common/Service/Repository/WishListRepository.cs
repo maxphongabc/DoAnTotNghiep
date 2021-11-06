@@ -1,11 +1,8 @@
 ﻿using Common.Data;
 using Common.Service.Interface;
 using Common.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Common.Service.Repository
 {
@@ -25,6 +22,7 @@ namespace Common.Service.Repository
                             select new ProductViewModel
                             {
                                 Name = p.Name,
+                                WishListId=wh.Id,
                                 Image = p.Image,
                                 Price = p.Price
                             });

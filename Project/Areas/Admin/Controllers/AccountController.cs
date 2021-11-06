@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using Common.Data;
 using Common.Encryptor;
@@ -7,7 +6,6 @@ using Common.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Project.Models;
 
 namespace Project.Areas.Admin.Controllers
 {

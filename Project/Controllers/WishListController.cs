@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Project.Controllers
 {
@@ -20,7 +21,7 @@ namespace Project.Controllers
             _context = context;
             _iwh = iwh;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? size, int? page)
         {
             string session = HttpContext.Session.GetString(USER);
             if (session == null)
@@ -32,7 +33,11 @@ namespace Project.Controllers
             if (user.Id != 0)
             {
                 var order = _iwh.ListAll(user.Id);
-                return View(order);
+                ViewBag.page = page;
+                ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+                int pageSize = (size ?? 10);
+                int pageNumber = (page ?? 1);
+                return View(order.ToPagedList(pageNumber,pageSize));
             }
             return View();
         }
@@ -48,8 +53,14 @@ namespace Project.Controllers
             WishListModel wh = new WishListModel();
             UserModel user = JsonConvert.DeserializeObject<UserModel>(sessionUser);
             var product = _context.products.Where(x => x.Id == id).FirstOrDefault();
+            //var check = _context.wistlists.Where(x => x.ProductId == id).FirstOrDefault(x => x.ProductId == product.Id);
             if (user != null && product != null)
             {
+                //if(check !=null)
+                //{
+                //    ModelState.AddModelError("", "Bạn đã thêm sản phẩm này rồi.");
+                //}    
+                //else
                 wh.ProductId = product.Id;
                 wh.UserId = user.Id;
                 wh.CreateOn = DateTime.UtcNow;
@@ -58,9 +69,21 @@ namespace Project.Controllers
             }
             return RedirectToAction("Index");
         }
-        public IActionResult DeleteWishList()
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            WishListModel wh = await _context.wistlists.FindAsync(id);
+
+            if (wh == null)
+            {
+                TempData["Error"] = "Không có sản phẩm để xóa!";
+            }
+            else
+            {
+                _context.wistlists.Remove(wh);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
         }
+
     }
 }

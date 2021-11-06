@@ -5,7 +5,6 @@
 <h2>GIỎ HÀNG</h2>
     @if (Model.CartItems.Count > 0)
     {
-        int stt = 1;
         <div class="shopping-cart">
     <div class="shopping-cart-table ">
         <div class="table-responsive">
@@ -25,7 +24,7 @@
                     @foreach (var cartitem in Model.CartItems)
                     {
                         <tr>
-                            <td>@stt++</td>
+                            <td></td>
                             <td class="cart-image">
                                 <a class="entry-thumbnail">
                                     <img src="~/img/sanpham/@cartitem.Image" alt="">

@@ -1,15 +1,14 @@
 ﻿using Common.Data;
 using Common.Model;
 using Common.Service.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Project.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Threading.Tasks;
+using Project.Infratructure;
 using X.PagedList;
+using Newtonsoft.Json;
 
 namespace Project.Controllers
 {
@@ -61,6 +60,32 @@ namespace Project.Controllers
             ViewBag.Name = cate.Name;
             return View(blog.ToPagedList(pageNumber, pageSize));
         }
-       
+        public const string USER = "user";
+        [HttpPost]
+        public IActionResult AddComment(int BlogId, string Comment)
+        {
+            var sessionUser = HttpContext.Session.GetString(USER);
+            if (sessionUser == null)
+            {
+                var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Login" });
+                return Redirect(urlAdmin);
+            }
+            CommentBlogModel cmt = new CommentBlogModel();
+            UserModel user = JsonConvert.DeserializeObject<UserModel>(sessionUser);
+            var blog = _context.blogs.Where(x => x.Id == BlogId).FirstOrDefault();
+
+            if (user != null && blog != null)
+            {
+                cmt.CreateOn = DateTime.Now;
+                cmt.BlogId = BlogId;
+                cmt.UserId = user.Id;
+                cmt.Content = Comment;
+                cmt.Status = true;
+                _context.commentBlogs.Add(cmt);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Details", "Product", new { Slug = blog.Slug });
+        }
+
     }
 }

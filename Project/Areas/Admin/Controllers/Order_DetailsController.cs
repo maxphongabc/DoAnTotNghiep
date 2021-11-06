@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Common.Data;
-using Common.Model;
+using Common.Service.Interface;
+using X.PagedList;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -14,17 +12,19 @@ namespace Project.Areas.Admin.Controllers
     public class Order_DetailsController : Controller
     {
         private readonly ProjectDPContext _context;
+        private readonly IOrder _iorder;
 
-        public Order_DetailsController(ProjectDPContext context)
+        public Order_DetailsController(ProjectDPContext context,IOrder iorder)
         {
             _context = context;
+            _iorder = iorder;
         }
 
         // GET: Admin/Order_Details
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int id)
         {
-            var projectDPContext = _context.order_Details.Include(o => o.product);
-            return View(await projectDPContext.ToListAsync());
+            var order_details = _iorder.ListOrder_Details(id);
+            return View(order_details.ToPagedList());
         }
 
         // GET: Admin/Order_Details/Details/5
@@ -47,39 +47,7 @@ namespace Project.Areas.Admin.Controllers
         }   
         // POST: Admin/Order_Details/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductId,InvoiceId,Quantity,Price,CreatedOn,Status")] Order_DetailsModel order_DetailsModel)
-        {
-            if (id != order_DetailsModel.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(order_DetailsModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!Order_DetailsModelExists(order_DetailsModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ProductId"] = new SelectList(_context.products, "Id", "Id", order_DetailsModel.ProductId);
-            return View(order_DetailsModel);
-        }
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.     
 
         // GET: Admin/Order_Details/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -114,6 +82,22 @@ namespace Project.Areas.Admin.Controllers
         private bool Order_DetailsModelExists(int id)
         {
             return _context.order_Details.Any(e => e.Id == id);
+        }
+        [HttpPost]
+        public JsonResult ChangeStatus(int id)
+        {
+            var result = ChangeStatuss(id);
+            return Json(new
+            {
+                status = result
+            });
+        }
+        public bool ChangeStatuss(int id)
+        {
+            var order = _context.order_Details.Find(id);
+            order.Status = !order.Status;
+            _context.SaveChanges();
+            return order.Status;
         }
     }
 }

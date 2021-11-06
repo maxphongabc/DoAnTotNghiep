@@ -158,7 +158,7 @@
                                                     <div class="blog-comments inner-bottom-xs outer-bottom-xs">
                                                         <h4>@item.UserName</h4>
                                                         <span class="review-action pull-right">
-                                                            @item.CreateOn.Date
+                                                            @item.CreateOn
                                                         </span>
                                                         <p>@item.Content</p>
                                                     </div>
@@ -170,8 +170,7 @@
                                     
 
                                 }
-
-                                @Html.Partial("_CommentBox")
+                                <partial name="~/views/shared/_CommentBox.cshtml"/>
                             </div><!-- /.tab-content -->
                         </div><!-- /.col -->
                     </div><!-- /.row -->

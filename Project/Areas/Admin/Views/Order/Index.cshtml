@@ -1,17 +1,21 @@
-﻿@model IEnumerable<Common.Model.OrderModel>
-
+﻿@model IPagedList<Common.ViewModel.OrderViewModel>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Đơn hàng";
 }
 
-<h1>Index</h1>
+<h1>Danh sách đơn hàng</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-bordered" width="100%"  >
+<table class="table table-bordered" width="100%">
     <thead>
         <tr>
+            <th>
+                STT
+            </th>
             <th>
                 Tổng tiền
             </th>
@@ -28,13 +32,10 @@
                 Địa chỉ
             </th>
             <th>
-               Ngày tạo
+                Ngày tạo
             </th>
             <th>
                 Trạng thái
-            </th>
-            <th>
-                Mã Người dùng
             </th>
             <th></th>
         </tr>
@@ -44,35 +45,75 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Total)
+                    
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ShipName)
+                    @item.Total.ToString("N0") VNĐ
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ShipPhone)
+                    @item.ShipName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ShipEmail)
+                    @item.ShipPhone
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ShipAdress)
+                    @item.ShipEmail
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                    @item.ShipAdress
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @item.CreatedOn
+                </td>
+
+                <td><a href="#" class="btn-active" data-id="@item.OrderId">@Html.Raw(item.StatusOrder ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
+                <td>
+                    <a asp-action="Index" asp-controller="Order_Details" asp-route-id="@item.OrderId"><img src="~/Admin/img/edit-a.png" /></a>
+                    <br />
+                    <a asp-action="Details" asp-route-id="@item.OrderId"><img src="~/Admin/img/list.png" /></a>
+                    <br />
+                    <a asp-action="Delete" asp-route-id="@item.OrderId"><img src="~/Admin/img/trash-bin.png" /></a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.user.Id)
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<div class="d-flex w-100 justify-content-center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "Order", new { page, size = ViewBag.currentSize, Search = ViewBag.searchValue }))
+</div>
 @section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
+    <script>
+        var user = {
+            init: function () {
+                user.registerEvents();
+            },
+            registerEvents: function () {
+                $('.btn-active').off('click').on('click', function (e) {
+                    e.preventDefault();
+                    var btn = $(this);
+                    var id = btn.data('id');
+                    $.ajax({
+                        url: "/Admin/Order/ChangeStatus",
+                        data: { id: id },
+                        dataType: "json",
+                        type: "POST",
+                        success: function (response) {
+                            console.log(response);
+                            if (response.status == true) {
+                                btn.text('Kích hoạt');
+                            }
+                            else {
+                                btn.text('Khoá');
+                            }
+                        }
+                    });
+                });
+            }
+        }
+        user.init();
+    </script>
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Common.Data;
 using Common.Model;
@@ -27,9 +25,7 @@ namespace Project.Areas.Admin.Controllers
 
             ViewBag.searchValue = Search;
             ViewBag.page = page;
-            // 1. Tạo list pageSize để người dùng có thể chọn xem để phân trang
-            // Bạn có thể thêm bớt tùy ý --- dammio.com
-            // 1.1. Giữ trạng thái kích thước trang được chọn trên DropDownList
+
             var links = from l in _context.categories
                         select l;
             // 1.2. Tạo các biến ViewBag
@@ -41,8 +37,6 @@ namespace Project.Areas.Admin.Controllers
             // 4. Tạo kích thước trang (pageSize), mặc định là 5.
             int pageSize = (size ?? 5);
 
-            // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
-            // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
             int pageNumber = (page ?? 1);
             if (!string.IsNullOrEmpty(Search))
             {

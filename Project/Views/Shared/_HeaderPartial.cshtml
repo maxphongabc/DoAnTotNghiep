@@ -28,7 +28,7 @@
                                     <a style="color:snow;" asp-controller="home" asp-action="Login" class="dropdown-toggle " data-hover="dropdown" data-toggle="dropdown"><span class="value"><i class="icon fa fa-user"></i>  @user.UserName </span></a>
                                     <ul class="dropdown-menu">
                                         <li><a asp-controller="Order" asp-action="OrderHistory"><i class="far fa-list-alt"></i> Đơn hàng của tôi</a></li>
-                                        <li><a><i class="icon fa fa-user"></i>Tài khoản của tôi</a></li>
+                                        <li><a asp-action="Index" asp-controller="User"><i class="icon fa fa-user"></i>Tài khoản của tôi</a></li>
                                         <li><a  asp-action="Index" asp-controller="WishList"><i class="icon fa fa-heart"></i> Danh sách yêu thích</a></li>
                                         <li><a asp-controller="Home" asp-action="Logout"><i class="icon fa fa-lock"></i> Đăng xuất</a></li>
                                     </ul>
@@ -126,7 +126,7 @@
                                 </li>
                                 <li class="dropdown"> <a asp-action="Index" asp-controller="Blog">Bản tin</a> </li>
                                 <li class="dropdown"> <a asp-action="Contact" asp-controller="Home">Liên hệ</a> </li>
-                                <li class="dropdown"> <a asp-action="FAQ" asp-controller="Home">Hỏi đáp</a> </li>
+                                <li class="dropdown"> <a asp-action="FAQ" asp-controller="Home">Giới thiệu</a> </li>
                             </ul>
                             <!-- /.navbar-nav -->
                             <div class="clearfix"></div>

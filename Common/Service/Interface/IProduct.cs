@@ -15,5 +15,9 @@ namespace Common.Service.Interface
         ProductViewModel DetailProduct(string slug);
         List<ProductViewModel> ListProductCate(string slug);
         List<CommentProductViewModel> ListComment(int productId);
+        List<CommentProductViewModel> ListCommentAdmin();
+        List<string> ListName(string keyword);
+        bool CheckName(string name);
+        CommentProductViewModel CommentId(int? cmtId);
     }
 }

@@ -1,11 +1,9 @@
 ﻿using Common.Data;
 using Common.Service.Interface;
 using Common.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Common.Service.Repository
 {
@@ -34,6 +32,30 @@ namespace Common.Service.Repository
                             Price=od.Price
                          });
             return order.ToList();
+        }
+        public List<OrderViewModel> ListOrderAdmin()
+        {
+            var order = (from o in _context.order
+                         join od in _context.order_Details on o.Id equals od.OrderId
+                         join p in _context.products on od.ProductId equals p.Id
+                         join u in _context.user on o.UserId equals u.Id
+                         select new OrderViewModel
+                         {
+                             OrderId = o.Id,
+                             UserId = u.Id,
+                             ProductId = p.Id,
+                             CreatedOn = o.CreatedOn,
+                             Total = o.Total,
+                             ShipAdress=o.ShipAdress,
+                             ShipEmail=o.ShipEmail,
+                             StatusOrder = o.Status,
+                             ShipName=o.ShipName,
+                             ShipPhone=o.ShipPhone,
+                             Description = o.Description,
+                             Quantity = od.Quantity,
+                             Price = od.Price
+                         }).ToList();
+            return order;
         }
         public List<OrderViewModel> ListOrder_Details(int id)
         {
