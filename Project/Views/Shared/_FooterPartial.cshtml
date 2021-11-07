@@ -44,11 +44,13 @@
                         <ul class="toggle-footer" style="">
                             <li class="media">
                                 <div class="media-body">
-                                    <p>Chuyên trang Game . Nơi cung cấp đầy đủ các sản phẩm game Playstation, Xbox, Nintendo... giá rẻ,
-                                    game mới cập nhật mỗi ngày và kho phụ kiện phong phú cho bạn lựa chọn.</p>
+                                    <p>
+                                        Chuyên trang Game . Nơi cung cấp đầy đủ các sản phẩm game Playstation, Xbox, Nintendo... giá rẻ,
+                                        game mới cập nhật mỗi ngày và kho phụ kiện phong phú cho bạn lựa chọn.
+                                    </p>
                                 </div>
                             </li>
-                            <li class="media">                             
+                            <li class="media">
                                 <div class="media-body">
                                     <p>
                                         Chính sách đổi / trả hàng
@@ -69,12 +71,12 @@
 
                     <div class="module-body">
                         <ul class="toggle-footer" style="">
-                            <li class="media">                         
+                            <li class="media">
                                 <div class="media-body">
                                     <p>- Các ngày trong tuần (T2 - T7): 9h - 20h</p>
                                 </div>
                             </li>
-                            <li class="media">                              
+                            <li class="media">
                                 <div class="media-body">
                                     <p>
                                         - 65 Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, TP.HCM
@@ -92,8 +94,7 @@
         <div class="container">
             <div class="col-xs-12 col-sm-6 no-padding social">
                 <ul class="link">
-                    <li class="fb pull-left"><a target="_blank" rel="nofollow" href="#" title="Facebook"></a></li>
-                    <li class="tw pull-left"><a target="_blank" rel="nofollow" href="#" title="Twitter"></a></li>
+                    <li class="fb pull-left"><a target="_blank" rel="nofollow" href="fb.com/thanhduy04" title="Facebook"></a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 no-padding">
@@ -110,6 +111,7 @@
             </div>
         </div>
     </div>
+    <a id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 </footer>
 <script src="~/assets/js/jquery-1.11.1.min.js"></script>
 <script src="~/assets/js/bootstrap.min.js"></script>
@@ -125,3 +127,31 @@
 <script src="~/assets/js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="~/assets/js/site.js"></script>
+<script>(function ($) {
+        /* ..............................................
+           Scroll
+           ................................................. */
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > 50) {
+                $('.main-header').addClass('fixed-menu');
+            } else {
+                $('.main-header').removeClass('fixed-menu');
+            }
+        });
+        $(document).ready(function () {
+            $(window).on('scroll', function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+            $('#back-to-top').click(function () {
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 600);
+                return false;
+            });
+        });
+
+    }(jQuery));</script>

@@ -1,72 +1,80 @@
-﻿@model Common.Model.OrderModel
+﻿@model Common.ViewModel.OrderViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Chi tiết</h1>
 
 <div>
-    <h4>OrderModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Total)
+        <dt class="col-sm-2">
+            Tổng hóa đơn
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Total)
+        <dd class="col-sm-10">
+            @Model.Total.ToString("N0") VNĐ
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipName)
+        <dt class="col-sm-2">
+            Hình thức nhận hàng
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ShipName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipPhone)
+        <dt class="col-sm-2">
+            SĐT
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ShipPhone)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipEmail)
+        <dt class="col-sm-2">
+            Email
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ShipEmail)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipAdress)
+        <dt class="col-sm-2">
+            Địa chỉ
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ShipAdress)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+        <dt class="col-sm-2">
+           Ghi chú
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedOn)
+        <dt class="col-sm-2">
+            Ngày tạo
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CreatedOn)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+        <dt class="col-sm-2">
+            Trạng thái
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.user)
+        @if (Model.StatusOrder == true)
+        {
+            <dd class="col-sm-10">
+               Đã xử lý
+            </dd>
+        }
+        @if (Model.StatusOrder == false)
+        {
+            <dd class="col-sm-10">
+                Chờ xử lý
+            </dd>
+        }
+        <dt class="col-sm-2">
+            Người dùng
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.user.Id)
+        <dd class="col-sm-10">
+            @Model.UserName
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.OrderId">Chỉnh sửa</a> |
+    <a asp-action="Index">Quay trở lại</a>
 </div>

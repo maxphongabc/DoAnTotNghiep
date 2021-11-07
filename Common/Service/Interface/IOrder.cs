@@ -8,5 +8,6 @@ namespace Common.Service.Interface
         List<OrderViewModel> ListOrder(int id);
         List<OrderViewModel> ListOrderAdmin();
         List<OrderViewModel> ListOrder_Details(int id);
+        OrderViewModel Details_Order(int id);
     }
 }

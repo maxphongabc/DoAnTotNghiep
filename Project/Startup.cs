@@ -102,9 +102,9 @@ namespace Project
                     var sendmailservice = context.RequestServices.GetService<ISendMailService>();
                     var mailContent = new MailContent();
                     {
-                        mailContent.To = "duyvo049@gmamil.com";
-                        mailContent.Subject = "Alo";
-                        mailContent.Body = "<p>Alo 1234</p>";
+                        mailContent.To = "0306181149@caothang.edu.vn";
+                        mailContent.Subject = "Phụng ngu";
+                        mailContent.Body = "<p>Ngu vcl</p>";
                     }
                     await sendmailservice.SendMail(mailContent);
                     await context.Response.WriteAsync("SendMail");

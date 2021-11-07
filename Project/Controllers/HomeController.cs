@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Common.Data;
@@ -14,17 +13,20 @@ using System.Collections.Generic;
 using X.PagedList;
 using Common.ViewModel;
 using Common.Service.Interface;
+using System.Threading.Tasks;
 
 namespace Project.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IUser _iuser;
+        private readonly ISendMailService sendMailService;
         private readonly ProjectDPContext _context;
-        public HomeController(ProjectDPContext context,IUser iuser)
+        public HomeController(ProjectDPContext context,IUser iuser, ISendMailService sendMail)
         {
             _context = context;
             _iuser = iuser;
+            sendMailService = sendMail;
         }
         public IActionResult Index()
         {
@@ -78,7 +80,7 @@ namespace Project.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(RegisterViewModel member)
+        public async Task<IActionResult> RegisterAsync(RegisterViewModel member)
         {
             if(ModelState.IsValid)
             {
@@ -109,26 +111,25 @@ namespace Project.Controllers
                         Status = true,
                         Avarta = "user-2.png",
                         CreatedOn = DateTime.Now
-                    };
-                    var result = _iuser.Insert(user);
-                    if(result>0)
-                    {
-                        ViewBag.Success = "Đăng Ký thành công";
-                        var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
-                        return Redirect(urlAdmin);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", " Đăng ký không thành công");
+                    };            
+                        MailContent content = new MailContent
+                        {
+                            To = user.Email,
+                            Subject = "Đơn hàng mới" ,
+                            Body = "<p><strong>Xin chào</strong></p>" + "<p>Cảm ơn bạn đã quan tâm sản phẩm của chúng tôi.Đơn hàng của bạn sẽ được xử lý ngay.</p>"
+                        };
+                        await sendMailService.SendMail(content);
+                        _context.Add(user);
+                        await _context.SaveChangesAsync();
+                        TempData["Success"] = "Đăng ký thành công!";
+                        return RedirectToAction(nameof(Index));
                     }
                 }
                 else
                 {
                     ModelState.AddModelError("", "Mật khẩu không trùng");
                 }
-               
-            }
-            return View("Register");
+            return View("Index");
         }
         public IActionResult Logout()
         {

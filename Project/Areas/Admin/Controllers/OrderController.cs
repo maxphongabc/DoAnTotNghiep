@@ -35,22 +35,10 @@ namespace Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Order/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var orderModel = await _context.order
-                .Include(o => o.user)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (orderModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(orderModel);
+            var order = _iorder.Details_Order(id);
+            return View(order);
         }
 
         // GET: Admin/Order/Create

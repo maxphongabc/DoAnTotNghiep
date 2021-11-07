@@ -55,13 +55,8 @@ namespace Project.Areas.Admin.Controllers
                                        select p).ToList();
             }
 
-            var a = (from o in _context.order
-                     where o.Status==true
-                     select new OrderModel { Total = o.Total,
-                     Status=o.Status}
-                     );
-            a.Sum(x => x.Total);
-            ViewBag.SumOrder = a;
+  
+            ViewBag.SumOrder = _context.order.Sum(x=>x.Total);
             return View();
         }
         public IActionResult Logout()

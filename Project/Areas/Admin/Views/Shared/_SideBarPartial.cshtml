@@ -71,33 +71,34 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-action="Index" asp-controller="CommentProduct">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-comment-dots"></i>
-            <span>Quản lý bình luận</span>
+            <span>Quản lý Bình luận</span>
         </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Bình luận</h6>
+                <a class="collapse-item" asp-action="Index" asp-controller="CommentProduct">Bình luận sản phẩm</a>
+                <a class="collapse-item" asp-action="Index" asp-controller="Order_Details">Bình luận bài viết</a>
+
+            </div>
+        </div>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Doanh thu
+        Hóa đơn
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-coins"></i>
-            <span>Quản lý doanh thu</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Hóa đơn</h6>
-                <a class="collapse-item" asp-action="Index" asp-controller="Order">Hóa đơn</a>
-                <a class="collapse-item" asp-action="Index" asp-controller="Order_Details">Chi tiết Hóa đơn</a>
 
-            </div>
-        </div>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="Index" asp-controller="Order">
+            <i class="fas fa-coins"></i>
+            <span>Quản lý Hóa đơn</span>
+        </a>
     </li>
 
     <!-- Divider -->

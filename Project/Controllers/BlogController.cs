@@ -37,10 +37,12 @@ namespace Project.Controllers
             var blog = _iblog.DetailsBlog(slug);
             BlogModel cate = _context.blogs.Where(x => x.Slug == slug).FirstOrDefault();
             ViewBag.ListRelatedBlog = _iblog.ListRelatedBlog(cate.Id);
+            ViewBag.BlogId = cate.Id;
             if (blog == null)
             {
                 return NotFound();
             }
+            ViewBag.Comment = _iblog.ListComment(cate.Id);
             return View(blog);
         }
         public IActionResult BlogByCate(string slug, int? size, int? page)
@@ -84,7 +86,7 @@ namespace Project.Controllers
                 _context.commentBlogs.Add(cmt);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Details", "Product", new { Slug = blog.Slug });
+            return RedirectToAction("Details", "Blog", new { Slug = blog.Slug });
         }
 
     }

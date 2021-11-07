@@ -69,16 +69,9 @@ namespace Project.Areas.Admin.Controllers
             return View(links.ToPagedList(pageNumber, pageSize));
         }
         // GET: Admin/User/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var userModel = await _context.user
-                .Include(u => u.roles)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var userModel = _iuser.ProfileUser(id);
             if (userModel == null)
             {
                 return NotFound();
