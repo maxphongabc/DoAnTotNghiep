@@ -98,16 +98,14 @@ namespace Project.Areas.Admin.Controllers
             return product.Status;
         }
         // GET: Admin/Product/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(string slug)
         {
-            if (id == null)
+            if (slug == null)
             {
                 return NotFound();
             }
 
-            var productModel = await _context.products
-                .Include(p => p.category)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var productModel = _iproduct.DetailProduct(slug);
             if (productModel == null)
             {
                 return NotFound();

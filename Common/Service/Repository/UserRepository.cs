@@ -1,12 +1,11 @@
 ﻿using Common.Data;
+using Common.Encryptor;
 using Common.Model;
 using Common.Service.Interface;
 using Common.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Common.Service.Repository
 {
@@ -48,8 +47,10 @@ namespace Common.Service.Repository
                             UserName = u.UserName,
                             Phone = u.Phone,
                             Address = u.Address,
+                            UserImage = u.Avarta,
                             Email = u.Email,
-                            PassWord = u.PassWord
+                            PassWord =Encryptor.Encryptor.MD5Hash(u.PassWord),
+                            CreateOn=u.CreatedOn
                         }).FirstOrDefault();
             return user;
         }

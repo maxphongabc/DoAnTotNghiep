@@ -1,78 +1,86 @@
-﻿@model Common.Model.ProductModel
+﻿@model Common.ViewModel.ProductViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết";
 }
 
-<h1>Details</h1>
+<h1>Chi tiết sản phẩm @Model.Name</h1>
 
 <div>
-    <h4>ProductModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+        <dt class="col-sm-2">
+            Tên sản phẩm
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+        <dd class="col-sm-10">
+            @Model.Name
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Slug)
+        <dt class="col-sm-2">
+            Tên sâu chuỗi
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Slug)
+        <dd class="col-sm-10">
+            @Model.Slug
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+        <dt class="col-sm-2">
+            Mô tả
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
+        <dd class="col-sm-10">
+            @Html.Raw(Model.Description)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
+        <dt class="col-sm-2">
+            Số lượng
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
+        <dd class="col-sm-10">
+            @Model.Quantity.ToString("N0") VNĐ
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+        <dt class="col-sm-2">
+            Giá bán
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+        <dd class="col-sm-10">
+            @Model.Price
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Model)
+        <dt class="col-sm-2">
+            Model
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Model)
+        <dd class="col-sm-10">
+            @Model
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
+        <dt class="col-sm-2">
+            Hình ảnh
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
+        <dd class="col-sm-10">
+            <img class="img-thumbnail" src="~/img/sanpham/@Model.Image" />
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedOn)
+        <dt class="col-sm-2">
+            Ngày tạo
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedOn)
+        <dd class="col-sm-10">
+            @Model.CreateOn
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.category)
+        <dt class="col-sm-2">
+            Loại sản phẩm
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.category.Id)
+        <dd class="col-sm-10">
+            @Model.NameCate
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+        <dt class="col-sm-2">
+            Trạng thái
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
+        @if (Model.Status == true)
+        {
+            <dd class="col-sm-10">
+                đang hoạt động
+            </dd>
+        }
+        @if (Model.Status == false)
+        {
+            <dd class="col-sm-10">
+               Hết
+            </dd>
+        }
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.ProductId">Chỉnh sửa</a> |
+    <a asp-action="Index">Quay trở về</a>
 </div>

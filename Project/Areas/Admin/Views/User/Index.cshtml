@@ -97,7 +97,7 @@
                     <br />
                     <a asp-action="Details" asp-route-id="@item.Id"><img src="~/Admin/img/list.png" /></a>
                     <br />
-                    <a data-toggle="modal" data-target="#flipFlop" data-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
                 </td>
             </tr>
         }

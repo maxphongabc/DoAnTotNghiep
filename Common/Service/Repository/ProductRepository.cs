@@ -59,6 +59,7 @@ namespace Common.Service.Repository
                                Quantity = p.Quantity,
                                Model = p.Model,
                                NameCate = c.Name,
+                               Status=p.Status,
                                SlugCate = c.Slug
                            });
             return product.FirstOrDefault();
@@ -111,6 +112,7 @@ namespace Common.Service.Repository
         public List<CommentProductViewModel> ListCommentAdmin()
         {
             var comment = (from c in _context.commentsproduct
+                           orderby c.Id
                            join p in _context.products on c.ProductId equals p.Id
                            join u in _context.user on c.UserId equals u.Id
                            select new CommentProductViewModel
@@ -125,6 +127,7 @@ namespace Common.Service.Repository
                                Image = p.Image,
                                Content = c.Content
                            });
+            comment.OrderByDescending(x => x.CreateOn);
             return comment.ToList();
         }
         public List<ProductViewModel> ListWishList(int userId)

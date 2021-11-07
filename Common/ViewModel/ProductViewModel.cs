@@ -19,5 +19,6 @@ namespace Common.ViewModel
         public string Image { get; set; }
         public string NameCate { get; set; }
         public string SlugCate { get; set; }
+        public bool Status { get; set; }
     }
 }

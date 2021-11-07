@@ -84,6 +84,7 @@ namespace Project.Controllers
                 cmt.Status = true;
                 _context.commentsproduct.Add(cmt);
                 _context.SaveChanges();
+                //return Json(true);
             }
             return RedirectToAction("Details", "Product", new { Slug = product.Slug });
         }

@@ -7,20 +7,18 @@
 
 <h1>Danh sách đơn hàng</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table table-bordered" width="100%">
     <thead>
         <tr>
             <th>
-                STT
+                Người nhận hàng
             </th>
             <th>
                 Tổng tiền
             </th>
             <th>
-                Tên
+                Hình thức nhận hàng
             </th>
             <th>
                 SĐT
@@ -45,7 +43,7 @@
         {
             <tr>
                 <td>
-                    
+                    @item.UserName
                 </td>
                 <td>
                     @item.Total.ToString("N0") VNĐ

@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = Model.Title;
     var ListRelatedBlog = (List<Common.Model.BlogModel>)ViewBag.ListRelatedBlog;
+    var comment = (List<Common.ViewModel.CommentBlogViewModel>)ViewBag.Comment;
 }
 <div class="breadcrumb-inner">
     <ul class="list-inline list-unstyled">
@@ -36,42 +37,34 @@
                     </div>
                 </div>
             </div>
-            <div class="blog-review wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="title-review-comments">16 comments</h3>
-                    </div>
-                    <div class="col-md-2 col-sm-2">
-                        <img src="assets\images\testimonials\member1.png" alt="Responsive image" class="img-rounded img-responsive">
-                    </div>
-                    <div class="col-md-10 col-sm-10">
-                        <div class="blog-comments inner-bottom-xs outer-bottom-xs">
-                            <h4>Saraha Smith</h4>
-                            <span class="review-action pull-right">
-                                03 Day ago /
-                                <a href=""> Repost</a> /
-                                <a href=""> Reply</a>
-                            </span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+            @if (comment.Count > 0)
+            {
+                <div class="blog-review wow fadeInUp animated animated" style="visibility: visible; animation-name: fadeInUp;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="title-review-comments"></h3>
                         </div>
-                    </div>                               
-                </div>
-            </div>
-            <div class="blog-write-comment outer-bottom-xs outer-top-xs">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form class="register-form" role="form">
-                            <div class="form-group">
-                                <label class="info-title" for="exampleInputComments">Bình luận của bạn <span>*</span></label>
-                                <textarea class="form-control unicase-form-control" id="exampleInputComments"></textarea>
+                        @foreach (var item in comment)
+                        {
+                            <div class="col-md-2 col-sm-2">
+                                <img src="~/img/user/@item.UserImage" alt="Responsive image" class="img-rounded img-responsive">
                             </div>
-                        </form>
-                    </div>
-                    <div class="col-md-12 outer-bottom-small m-t-20">
-                        <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Bình luận</button>
+                            <div class="col-md-10 col-sm-10">
+                                <div class="blog-comments inner-bottom-xs outer-bottom-xs">
+                                    <h4>@item.UserName</h4>
+                                    <span class="review-action pull-right">
+                                        @item.CreateOn
+                                    </span>
+                                    <p>@item.Content</p>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
-            </div>
+            }
+ 
+                <partial name="~/views/shared/_CommentBlogBox.cshtml" />
+
         </div>
 
         <div class="col-md-3 sidebar">
