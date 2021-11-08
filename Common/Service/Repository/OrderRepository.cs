@@ -17,7 +17,6 @@ namespace Common.Service.Repository
         public List<OrderViewModel> ListOrder(int id)
         {
             var order = (from o in _context.order
-                         join od in _context.order_Details on o.Id equals od.OrderId
                          join u in _context.user on o.UserId equals u.Id
                          where o.UserId == id
                          select new OrderViewModel { 
@@ -26,8 +25,7 @@ namespace Common.Service.Repository
                             CreatedOn = o.CreatedOn,
                             Total = o.Total,
                             Description=o.Description,
-                            Quantity=od.Quantity,
-                            Price=od.Price
+                            StatusOrder=o.Status
                          });
             return order.ToList();
         }
@@ -57,17 +55,15 @@ namespace Common.Service.Repository
                          }).OrderByDescending(x => x.CreatedOn);
             return order.FirstOrDefault();
         }
-        public List<OrderViewModel> ListOrderAdmin()
+        public List<OrderViewModel> ListOrderAdmin_True()
         {
             var order = (from o in _context.order
-                         join od in _context.order_Details on o.Id equals od.OrderId
-                         join p in _context.products on od.ProductId equals p.Id
                          join u in _context.user on o.UserId equals u.Id
+                         where o.Status==true
                          select new OrderViewModel
                          {
                              OrderId = o.Id,
                              UserId = u.Id,
-                             ProductId = p.Id,
                              CreatedOn = o.CreatedOn,
                              UserName = u.UserName,
                              Total = o.Total,
@@ -76,10 +72,29 @@ namespace Common.Service.Repository
                              StatusOrder = o.Status,
                              ShipName=o.ShipName,
                              ShipPhone=o.ShipPhone,
-                             Description = o.Description,
-                             Quantity = od.Quantity,
-                             Price = od.Price
+                             Description = o.Description
                          }).OrderByDescending(x=>x.CreatedOn);
+            return order.ToList();
+        }
+        public List<OrderViewModel> ListOrderAdmin_False()
+        {
+            var order = (from o in _context.order
+                         join u in _context.user on o.UserId equals u.Id
+                         where o.Status == false
+                         select new OrderViewModel
+                         {
+                             OrderId = o.Id,
+                             UserId = u.Id,
+                             CreatedOn = o.CreatedOn,
+                             UserName = u.UserName,
+                             Total = o.Total,
+                             ShipAdress = o.ShipAdress,
+                             ShipEmail = o.ShipEmail,
+                             StatusOrder = o.Status,
+                             ShipName = o.ShipName,
+                             ShipPhone = o.ShipPhone,
+                             Description = o.Description
+                         }).OrderByDescending(x => x.CreatedOn);
             return order.ToList();
         }
         public List<OrderViewModel> ListOrder_Details(int id)
@@ -101,7 +116,8 @@ namespace Common.Service.Repository
                                      Total = o.Total,
                                      CreatedOn = od.CreatedOn,
                                      Description = o.Description,
-                                     ProductName = p.Name
+                                     ProductName = p.Name,
+                                     StatusOrder_Detailsx=od.Status
                                  });
             return order_details.ToList();
         }

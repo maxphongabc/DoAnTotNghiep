@@ -1,6 +1,6 @@
 ﻿@model CartViewModel
 @{ 
-    
+    ViewData["Title"] = "Thanh toán";
 }
 <h2>Thanh toán</h2>
 @if (Model.CartItems.Count > 0)
@@ -121,27 +121,5 @@
         </div>
     }
     </div>
-
-}
-
-
-
-@section Scripts {
-
-    <script>
-        $(function () {
-
-            $("a.checkout").click(function (e) {
-                e.preventDefault();
-
-                $("div.cartbg").removeClass("d-none");
-
-                $.get("/cart/clear", {}, function () {
-                });
-
-            });
-
-        });
-    </script>
 
 }

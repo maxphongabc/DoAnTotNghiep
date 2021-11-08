@@ -5,6 +5,10 @@
     ViewData["Title"] = "Index";
 }
 <h1>Danh sách người dùng</h1>
+
+<div>
+    <a asp-action="Create"><i class="plus-square">Thêm người dùng</i></a>
+</div>
 <br />
 <div class="container">
     <div class="row">
@@ -74,7 +78,6 @@
                     <td><p class="btn btn-primary">Người dùng</p></td>
 
                 }
-
                 <td>
                     @item.Phone
                 </td>
@@ -107,10 +110,9 @@
     @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "User", new { page, @Search = ViewBag.Search }))
 </div>
 @section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/Admin/js/jquery-ui.js"></script>
-    <script src="~/Admin/js/controller/userController.js">
-    </script>
-
+    <script src="~/Admin/js/controller/userController.js"></script>
 }
 
 

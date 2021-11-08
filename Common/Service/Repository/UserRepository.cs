@@ -47,9 +47,10 @@ namespace Common.Service.Repository
                             UserName = u.UserName,
                             Phone = u.Phone,
                             Address = u.Address,
+                            RoleName = r.Name,
                             UserImage = u.Avarta,
                             Email = u.Email,
-                            PassWord =Encryptor.Encryptor.MD5Hash(u.PassWord),
+                            PassWord =u.PassWord,
                             CreateOn=u.CreatedOn
                         }).FirstOrDefault();
             return user;

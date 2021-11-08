@@ -53,7 +53,6 @@
 
                 <td><a href="#" class="btn-active" data-id="@item.OrderId">@Html.Raw(item.StatusOrder ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.OrderId"><img src="~/Admin/img/edit-a.png" /></a>
                     <br />
                     <a asp-action="Details" asp-route-id="@item.OrderId"><img src="~/Admin/img/list.png" /></a>
                     <br />
@@ -83,10 +82,10 @@
                         success: function (response) {
                             console.log(response);
                             if (response.status == true) {
-                                btn.text('Kích hoạt');
+                                btn.text('Đã duyệt');
                             }
                             else {
-                                btn.text('Khoá');
+                                btn.text('Chưa duyệt');
                             }
                         }
                     });

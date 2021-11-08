@@ -1,5 +1,4 @@
-﻿
-var common = {
+﻿var common = {
     init: function () {
         common.registerEvent();
     },
@@ -34,6 +33,7 @@ var common = {
             };
     }
 }
+common.init();
 function readURL(input) {
     if (input.files && input.files[0]) {
         let reader = new FileReader();
