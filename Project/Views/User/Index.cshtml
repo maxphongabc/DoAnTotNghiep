@@ -7,30 +7,29 @@
         <!-- Sign-in -->
         <div class="col-md-6 col-sm-6 sign-in">
             <h4 class="">Thông tin tài khoản</h4>
-            <p class="">Thông tin cá nhân</p>
         <form class="register-form outer-top-xs" role="form">
             <div class="form-group">
                 <label class="info-title" for="exampleInputEmail1">Họ và tên <span>*</span></label>
-                <input type="text" value="@Model.FullName" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+                <div>@Model.FullName</div>
             </div>
             <div class="form-group">
                 <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
                 <div>@Model.Email</div>
             </div>
             <div class="form-group">
-                <label class="info-title" for="exampleInputEmail1">Username <span>*</span></label>
-                <input type="email" value="@Model.UserName" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+                <label class="info-title" for="exampleInputEmail1">Tài khoản <span>*</span></label>
+               <div>@Model.UserName</div>
             </div>
             <div class="form-group">
                 <label class="info-title" for="exampleInputPassword1">SĐT <span>*</span></label>
-                <input type="number" value="@Model.Phone" class="form-control unicase-form-control text-input" id="exampleInputPassword1">
+               <div>@Model.Phone</div>
             </div>
             <div class="form-group">
                 <label class="info-title" for="exampleInputPassword1">Địa chỉ <span>*</span></label>
-                <div type="number" value="@Model.Address" class="form-control unicase-form-control text-input" id="exampleInputPassword1"></div>
+                <div>@Model.Address</div>
             </div>
-            @*<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>*@
         </form>
+            <a asp-action="ChangePassword" asp-controller="User" class="btn btn-primary">Đổi mật khẩu</a>
         </div>
     </div><!-- /.row -->
 </div>

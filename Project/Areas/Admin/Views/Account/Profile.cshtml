@@ -1,0 +1,58 @@
+﻿@model Common.ViewModel.UserViewModel
+@{ 
+    ViewData["Title"] = "Trang cá nhân";
+}
+<h1>Thông tin cá nhân</h1>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label class="control-label">Tên đầy đủ</label>
+                <span class="text-danger">@Model.FullName</span>
+            </div>
+        </form>
+        <form>
+            <div class="form-group">
+                <label class="control-label">Tài khoản</label>
+                <span class="text-danger">@Model.UserName</span>
+            </div>
+        </form>
+        <form>
+            <div class="form-group">
+                <label class="control-label">Quyền</label>
+                <span class="text-danger">@Model.RoleName</span>
+            </div>
+        </form>
+        <form>
+            <div class="form-group">
+                <label class="control-label">Số điện thoại</label>
+                <span class="text-danger">@Model.Phone</span>
+            </div>
+        </form>
+        <form>
+            <div class="form-group">
+                <label class="control-label">Địa chỉ</label>
+                <span class="text-danger">@Model.Address</span>
+            </div>
+        </form>
+        <form>
+            <div class="form-group">
+                <label class="control-label">Địa chỉ</label>
+                <span class="text-danger">@Model.Email</span>
+            </div>
+        </form>
+        <form>
+            <div class="form-group">
+                <label class="control-label">Hình ảnh</label>
+                <img class="img-thumbnail"  src="~/img/user/@Model.UserImage"/>
+            </div>
+        </form>
+        <form>
+            <div class="form-group">
+                <label class="control-label">Ngày tạo tài khoản</label>
+                <span class="text-danger">@Model.CreateOn</span>
+            </div>
+        </form>
+    </div>
+</div>

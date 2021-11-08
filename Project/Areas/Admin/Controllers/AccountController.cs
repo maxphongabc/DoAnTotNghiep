@@ -3,6 +3,7 @@ using System.Linq;
 using Common.Data;
 using Common.Encryptor;
 using Common.Model;
+using Common.Service.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,10 +14,12 @@ namespace Project.Areas.Admin.Controllers
     public class AccountController : Controller
     {
         private readonly ProjectDPContext _context;
+        private readonly IUser _iuser;
 
-        public AccountController(ProjectDPContext context)
+        public AccountController(ProjectDPContext context,IUser _user)
         {
             _context = context;
+            _iuser = _user;
         }
         public IActionResult Login()
         {
@@ -53,6 +56,18 @@ namespace Project.Areas.Admin.Controllers
             HttpContext.Session.Remove("Admin");
             var urlAdmin = Url.RouteUrl(new { controller = "Account", action = "Login", area = "Admin" });
             return Redirect(urlAdmin);
+        }
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            string session = HttpContext.Session.GetString("Admin");
+            UserModel user = JsonConvert.DeserializeObject<UserModel>(session);
+            if (user != null)
+            {
+                var profile = _iuser.ProfileUser(user.Id);
+                return View(profile);
+            }
+            return View();
         }
     }
 }

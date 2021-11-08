@@ -95,21 +95,6 @@ namespace Project
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapGet("/admin/testmail", async context =>
-                {
-
-                    // Lấy dịch vụ sendmailservice
-                    var sendmailservice = context.RequestServices.GetService<ISendMailService>();
-                    var mailContent = new MailContent();
-                    {
-                        mailContent.To = "0306181149@caothang.edu.vn";
-                        mailContent.Subject = "Phụng ngu";
-                        mailContent.Body = "<p>Ngu vcl</p>";
-                    }
-                    await sendmailservice.SendMail(mailContent);
-                    await context.Response.WriteAsync("SendMail");
-
-                });
             });
 
         }

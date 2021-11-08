@@ -1,10 +1,6 @@
-﻿
-using Common.Model;
+﻿using Common.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Common.Data
 {
@@ -22,6 +18,11 @@ namespace Common.Data
                 new CategoryModel { Id=2,Name="Xbox One S",Slug="xbox-one-s",Status=true},
                 new CategoryModel { Id=3,Name="Nintendo Switch",Slug="nintendo-switch",Status=true}
                 );
+            modelBuiler.Entity<Category_PostModel>().HasData(
+             new CategoryModel { Id = 1, Name = "Tin mới", Slug = "tin-mới", Status = true },
+             new CategoryModel { Id = 2, Name = "Sửa chữa", Slug = "sửa-chữa", Status = true },
+             new CategoryModel { Id = 3, Name = "Hướng dẫn sử dụng Xbox", Slug = "hướng-dẫn-sử-dụng-xbox", Status = true }
+             );
             modelBuiler.Entity<ProductModel>().HasData(
                 new ProductModel { Id = 1, Name = "PlayStation 4 Slim 1TB", Slug = "playstation-4-slim-1tb", CategoryId = 1, Description = "Đẹp", Image = "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg",Model= "P12498S1", Quantity = 50, Price = 9180000, CreatedOn = DateTime.Now, Status = true },
                 new ProductModel { Id = 2, Name = "PS4 Slim 1TB", Slug = "ps4-slim-1tb", CategoryId = 1, Description = "Đẹp", Image = "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg", Quantity = 50, Price = 7800000, CreatedOn = DateTime.Now, Status = true },
