@@ -21,12 +21,19 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td><a asp-action="orderDetailsHistory" asp-controller="Order" asp-route-id="@item.OrderId">@item.OrderId</a></td>
-                                    <td>@item.Total.ToString("N0") VNĐ</td>
-                                    <td>@item.CreatedOn</td>
-                                    <td></td>
-                                </tr>
+                            <tr>
+                                <td><a asp-action="orderDetailsHistory" asp-controller="Order" asp-route-id="@item.OrderId">@item.OrderId</a></td>
+                                <td>@item.Total.ToString("N0") VNĐ</td>
+                                <td>@item.CreatedOn</td>
+                                @if (item.StatusOrder == true)
+                                {
+                                    <td>Đã duyệt</td>
+}
+                                @if (item.StatusOrder == false)
+                                {
+                                    <td>Chưa duyệt</td>
+}
+                            </tr>
                             }
                             </tbody><!-- /tbody -->
                     </table><!-- /table -->

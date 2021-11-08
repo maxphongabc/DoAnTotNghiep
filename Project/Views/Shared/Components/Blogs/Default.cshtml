@@ -6,7 +6,7 @@
                 <div class="accordion-group">
                     <div class="accordion-heading">
                     @foreach(var item in Model) {
-                        <a asp-action="BlogByCate" asp-controller="Blog" asp-route-slug="@item.Slug" data-toggle="collapse" class="accordion-toggle collapsed">
+                        <a asp-action="BlogByCate" asp-controller="Blog" asp-route-slug="@item.Slug" class="accordion-toggle collapsed">
                             @item.Name
                         </a>
                     }

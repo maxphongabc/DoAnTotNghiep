@@ -53,19 +53,15 @@ namespace Project.Controllers
             WishListModel wh = new WishListModel();
             UserModel user = JsonConvert.DeserializeObject<UserModel>(sessionUser);
             var product = _context.products.Where(x => x.Id == id).FirstOrDefault();
-            //var check = _context.wistlists.Where(x => x.ProductId == id).FirstOrDefault(x => x.ProductId == product.Id);
             if (user != null && product != null)
-            {
-                //if(check !=null)
-                //{
-                //    ModelState.AddModelError("", "Bạn đã thêm sản phẩm này rồi.");
-                //}    
-                //else
+            {                
                 wh.ProductId = product.Id;
                 wh.UserId = user.Id;
                 wh.CreateOn = DateTime.UtcNow;
                 _context.wistlists.Add(wh);
                 _context.SaveChanges();
+                bool res = true;
+                return Json(res);
             }
             return RedirectToAction("Index");
         }

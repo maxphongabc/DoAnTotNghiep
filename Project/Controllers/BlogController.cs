@@ -88,6 +88,27 @@ namespace Project.Controllers
             }
             return RedirectToAction("Details", "Blog", new { Slug = blog.Slug });
         }
+        public IActionResult Search(int? size, int? page, string Search)
+        {
+            var blog = from m in _context.blogs
+                           select m;
+            ViewBag.searchValue = Search;
+            if (!String.IsNullOrEmpty(Search))
+            {
+                blog = blog.Where(s => s.Title.Contains(Search));
+            }
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
 
+            // 2. Nếu page = null thì đặt lại là 1.
+            page = page ?? 1; //if (page == null) page = 1;
+
+            // 4. Tạo kích thước trang (pageSize), mặc định là 5.
+            int pageSize = (size ?? 5);
+
+            // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
+            // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
+            int pageNumber = (page ?? 1);
+            return View(blog.ToPagedList(pageNumber, pageSize));
+        }
     }
 }

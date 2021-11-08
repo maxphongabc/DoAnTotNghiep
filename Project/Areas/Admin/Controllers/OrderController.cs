@@ -30,8 +30,19 @@ namespace Project.Areas.Admin.Controllers
 
             int pageSize = (size ?? 10);
             int pageNumber = (page ?? 1);
-            var order = _iorder.ListOrderAdmin();
+            var order = _iorder.ListOrderAdmin_False();
             return View(order.ToPagedList(pageNumber,pageSize));
+        }
+        public IActionResult Index1(int? size, int? page)
+        {
+            ViewBag.currentSize = size;
+
+            page = page ?? 1; //if (page == null) page = 1;
+
+            int pageSize = (size ?? 10);
+            int pageNumber = (page ?? 1);
+            var order = _iorder.ListOrderAdmin_True();
+            return View(order.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/Order/Details/5
@@ -41,12 +52,7 @@ namespace Project.Areas.Admin.Controllers
             return View(order);
         }
 
-        // GET: Admin/Order/Create
-        public IActionResult Create()
-        {
-            ViewData["UserId"] = new SelectList(_context.user, "Id", "Id");
-            return View();
-        }     
+     
 
         // GET: Admin/Order/Edit/5
         public async Task<IActionResult> Edit(int? id)

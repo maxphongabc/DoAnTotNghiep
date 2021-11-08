@@ -172,13 +172,12 @@ namespace Project.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                userModel.Status = true;
+                userModel.PassWord = Encryptor.MD5Hash(userModel.PassWord);
                 ViewData["RolesId"] = new SelectList(_context.roles, "Id", "Name");
-                try
-                {
                     var username = await _context.user.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.UserName == userModel.UserName);
                     var email = await _context.user.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Email == userModel.Email);
                     var phone = await _context.user.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Phone == userModel.Phone);
-
                     if (username != null)
                     {
                         ModelState.AddModelError("", "Tài khoản này đã có người dùng.");
@@ -194,49 +193,32 @@ namespace Project.Areas.Admin.Controllers
                         ModelState.AddModelError("", "Số điện thoại này đã có người dùng.");
                         return View(userModel);
                     }
-                    else
+
+                    if (userModel.ImageUpload != null)
                     {
-                        if (userModel.ImageUpload != null)
+                        string uploadsDir = Path.Combine(_webHostEnvironment.WebRootPath, "img/user");
+
+                        if (!string.Equals(userModel.Avarta, "noimage.png"))
                         {
-                            string uploadsDir = Path.Combine(_webHostEnvironment.WebRootPath, "img/user");
-
-                            if (!string.Equals(userModel.Avarta, "noimage.png"))
+                            string oldImagePath = Path.Combine(uploadsDir, userModel.Avarta);
+                            if (System.IO.File.Exists(oldImagePath))
                             {
-                                string oldImagePath = Path.Combine(uploadsDir, userModel.Avarta);
-                                if (System.IO.File.Exists(oldImagePath))
-                                {
-                                    System.IO.File.Delete(oldImagePath);
-                                }
+                                System.IO.File.Delete(oldImagePath);
                             }
-                            string imageName = Guid.NewGuid().ToString() + "_" + userModel.ImageUpload.FileName;
-                            string filePath = Path.Combine(uploadsDir, imageName);
-                            FileStream fs = new FileStream(filePath, FileMode.Create);
-                            await userModel.ImageUpload.CopyToAsync(fs);
-                            fs.Close();
-                            userModel.Avarta = imageName;
-                            _context.Update(userModel);
-                            await _context.SaveChangesAsync();
-                            TempData["Success"] = "Chỉnh sửa thành công!";
-                            return RedirectToAction(nameof(Index));
                         }
+                        string imageName = Guid.NewGuid().ToString() + "_" + userModel.ImageUpload.FileName;
+                        string filePath = Path.Combine(uploadsDir, imageName);
+                        FileStream fs = new FileStream(filePath, FileMode.Create);
+                        await userModel.ImageUpload.CopyToAsync(fs);
+                        fs.Close();
+                    userModel.Avarta = imageName;
                     }
-
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserModelExists(userModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
+                _context.Update(userModel);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Chỉnh sửa thành công!";
+                return RedirectToAction(nameof(Index));
             }
-            TempData["Success"] = "Chỉnh sửa thành công!";
-            return View("Index");      
+            return View(userModel);      
         }
 
         // GET: Admin/User/Delete/5

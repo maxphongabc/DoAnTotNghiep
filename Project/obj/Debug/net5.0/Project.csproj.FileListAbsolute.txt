@@ -198,7 +198,6 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Vie
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\Register.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\Search.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Product\Details.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Product\Index.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Product\ProductByCategory.cshtml.g.cs
@@ -251,4 +250,5 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Are
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\Delete.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Roles\Delete.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\Delete.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Shared\_CommentBlogBox.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Index1.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Product\Search.cshtml.g.cs

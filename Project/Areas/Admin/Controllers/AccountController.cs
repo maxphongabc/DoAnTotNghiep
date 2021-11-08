@@ -24,8 +24,8 @@ namespace Project.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(UserModel member)
-        {
+        public IActionResult Login(UserModel member,string username,string password)
+        {         
             if (member.UserName != null && member.PassWord != null)
             {
                 member.PassWord = Encryptor.MD5Hash(member.PassWord);
@@ -44,43 +44,9 @@ namespace Project.Areas.Admin.Controllers
                         var urlAdmin = Url.RouteUrl(new { controller = "HomeAdmin", action = "Index", area = "Admin" });
                         return Redirect(urlAdmin);
                     }
-                    else
-                    {
-                        var str = JsonConvert.SerializeObject(r[0]);
-                        HttpContext.Session.SetString("user", str);
-                        var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
-                        return Redirect(urlAdmin);
-
-                    }
                 }
-            }
+            }          
             return View();
-        }
-        public IActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Register(UserModel member)
-        {
-            member = new UserModel()
-            {
-                Address = member.Address,
-                Email=member.Email,
-                DateOfBirth=member.DateOfBirth,
-                Phone=member.Phone,
-                FullName=member.FullName,
-                UserName=member.UserName,
-                PassWord=Encryptor.MD5Hash(member.PassWord),
-                RolesId=2,
-                Status=true,
-                CreatedOn=DateTime.Now
-            };
-            _context.Add(member);
-            _context.SaveChanges();
-            var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index", area = "" });
-            return Redirect(urlAdmin);
         }
         public IActionResult Logout()
         {

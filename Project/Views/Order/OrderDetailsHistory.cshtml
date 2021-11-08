@@ -15,21 +15,30 @@
                                 <th>Sản phẩm</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
+                                <th></th>
                             </tr>
                         </thead><!-- /thead -->
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td class="cart-image">
-                                        <a class="entry-thumbnail">
-                                            <img src="~/img/sanpham/@item.ProductImage" alt="">
-                                        </a>
-                                    </td>
-                                    <td>@item.ProductName</td>
-                                    <td>@item.Price.ToString("N0") VNĐ</td>
-                                    <td>@item.Quantity</td>
-                                </tr>
+                            <tr>
+                                <td class="cart-image">
+                                    <a class="entry-thumbnail">
+                                        <img src="~/img/sanpham/@item.ProductImage" alt="">
+                                    </a>
+                                </td>
+                                <td>@item.ProductName</td>
+                                <td>@item.Price.ToString("N0") VNĐ</td>
+                                <td>@item.Quantity</td>
+                                @if (item.StatusOrder_Detailsx == true)
+                                {
+                                    <td>Đã duyệt</td>
+}
+                                @if (item.StatusOrder_Detailsx == false)
+                                {
+                                    <td>Chờ duyệt</td>
+}
+                            </tr>
                             }
                         </tbody><!-- /tbody -->
                     </table><!-- /table -->

@@ -50,6 +50,7 @@ namespace Common.Service.Repository
                         select new BlogViewModel
                         {
                             Title = b.Title,
+                            BlogId=b.Id,
                             Slug = b.Slug,
                             SlugCate = c.Slug,
                             Status = b.Status,

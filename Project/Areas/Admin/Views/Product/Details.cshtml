@@ -31,19 +31,19 @@
             Số lượng
         </dt>
         <dd class="col-sm-10">
-            @Model.Quantity.ToString("N0") VNĐ
+            @Model.Quantity
         </dd>
         <dt class="col-sm-2">
             Giá bán
         </dt>
         <dd class="col-sm-10">
-            @Model.Price
+            @Model.Price.ToString("N0") VNĐ
         </dd>
         <dt class="col-sm-2">
             Model
         </dt>
         <dd class="col-sm-10">
-            @Model
+            @Model.Model
         </dd>
         <dt class="col-sm-2">
             Hình ảnh
@@ -69,13 +69,13 @@
         @if (Model.Status == true)
         {
             <dd class="col-sm-10">
-                đang hoạt động
+                Đang hoạt động
             </dd>
         }
         @if (Model.Status == false)
         {
             <dd class="col-sm-10">
-               Hết
+               Tạm khóa
             </dd>
         }
     </dl>

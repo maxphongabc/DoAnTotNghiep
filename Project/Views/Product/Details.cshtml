@@ -3,6 +3,9 @@
     var ListRelatedProduct = (List<Common.Model.ProductModel>)ViewBag.ListRelatedProduct;
     ViewData["Title"] = Model.Name;
     var comment = (List<Common.ViewModel.CommentProductViewModel>)ViewBag.Comment;
+
+    @using Microsoft.AspNetCore.Http
+    @using Newtonsoft.Json
 }
 <link href="~/assets/css/customs.css" rel="stylesheet" />
 <div class="breadcrumb-inner">
@@ -165,9 +168,17 @@
                                                 </div>
                                             }
                                         </div>
-                                    </div>                                                                    
+                                    </div>
                                 }
-                                <partial name="~/views/shared/_CommentBox.cshtml"/>
+                                @if (Context.Session.GetString("user") != null)
+                                {
+                                    string a = Context.Session.GetString("user");
+                                    Common.Model.UserModel user = JsonConvert.DeserializeObject<Common.Model.UserModel>(a);
+                                    <partial name="~/views/shared/_CommentBox.cshtml" />
+                                }
+                                else {
+                                    <a asp-action="Login" asp-controller="Home" class="btn-upper btn btn-primary checkout-page-button">Đăng nhập</a>
+                                }
                             </div><!-- /.tab-content -->
                         </div><!-- /.col -->
                     </div><!-- /.row -->
