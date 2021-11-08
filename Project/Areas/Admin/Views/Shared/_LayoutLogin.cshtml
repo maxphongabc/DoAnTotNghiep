@@ -24,7 +24,7 @@
     <link rel="stylesheet" type="text/css" href="~/admin/login/css/main.css">
     <!--===============================================================================================-->
 </head>
-<body>
+<body style="background-image: url('/Admin/Login/bg-01.jpg'); background-repeat: no-repeat; background-size:100% 400%">
     <div class="container">
         @RenderBody()
     </div>
@@ -46,3 +46,45 @@
 <script src="~/admin/login/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 <script src="~/admin/login/js/main.js"></script>
+<script>
+    let showPassword = false
+    const ipnElement = document.querySelector('#ipnPassword')
+    const btnElement = document.querySelector('#btnPassword')
+
+    btnElement.addEventListener('click', togglePassword)
+
+    function togglePassword() {
+        if (showPassword) {
+            // Đang hiện password
+            // Chuyển sang ẩn password
+            ipnElement.setAttribute('type', 'password')
+            showPassword = false
+        } else {
+            // Đang ẩn password
+            // Chuyển sang hiện password
+            ipnElement.setAttribute('type', 'text')
+            showPassword = true
+        }
+    }
+</script>
+@*<script>
+        function validate() {
+            var ValiPhone = /^[0-9]{10}$/;
+            var x = document.getElementById("phone11111").value;
+            if (!ValiPhone.test(x)) {
+                alert("không đúng dịnh dạng sdt");
+            }
+
+        }
+    </script>*@
+<script>
+    const error = document.getElementById('error');
+    function validate() {
+
+        var ValiPhone = /^[0-9]{10}$/;
+        var x = document.getElementById("phone11111").value;
+        if (!ValiPhone.test(x)) {
+            error.innerHTML = "Số điện thoại không hợp lệ!";
+        }
+    }
+</script>

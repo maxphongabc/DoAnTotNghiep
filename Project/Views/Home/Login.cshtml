@@ -1,42 +1,57 @@
 ﻿@model Project.Models.LoginViewModel
 @{
-    <title>Đăng nhập</title>
+    <title>Login</title>
     Layout = "~/Areas/Admin/Views/Shared/_layoutlogin.cshtml";
 }
 <div class="limiter">
-    <div class="container-login100" style="background-image: url('/wwwroot/img/bg-01.jpg');">
+    <div class="container-login100">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form  asp-controller="home" asp-action="Login" method="post" class="login100-form validate-form">
+            <form asp-area="Admin" asp-controller="Account" asp-action="Login" method="post" class="login100-form validate-form">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <span class="login100-form-title p-b-49">
-                    Login
+                <span class="login100-form-title p-b-49" style="font-family:Arial">
+                    Đăng Nhập
                 </span>
-                <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-                    <span class="label-input100">Username</span>
-                    <input asp-for="UserName" class="input100" type="text" placeholder="Type your username">
+                <div class="wrap-input100 validate-input m-b-23" data-validate="Tài Khoản Không hợp lệ!">
+                    <span class="label-input100">Tài Khoản</span>
+                    <input asp-for="UserName" class="input100" type="text" placeholder="Nhập Tài Khoản">
                     <span asp-validation-for="UserName" class="focus-input100" data-symbol="&#xf206;"></span>
                 </div>
-                <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <span class="label-input100">Password</span>
-                    <input asp-for="PassWord" class="input100" type="password" placeholder="Type your password">
-                    <span asp-validation-for="PassWord" class="focus-input100" data-symbol="&#xf190;"></span>
-                </div>
+                <table style="width:100%">
+                    <tr>
+                        <th style="width:90%">
+                            <div class="wrap-input100 validate-input" data-validate="Mật Khẩu Không hợp lệ!">
+                                <span class="label-input100">Mật Khẩu</span>
+                                <input id="ipnPassword" asp-for="PassWord" class="input100" type="password" placeholder="Nhập Mật Khẩu">
+                                <span asp-validation-for="PassWord" class="focus-input100" data-symbol="&#xf190;"></span>
+                            </div>
+                        </th>
+                        <th style="width:10%; padding-top:25px;">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="btnPassword">
+                                    <img src="~/Admin/Login/123.png" style="width: 20px; height: 20px" />
+                                </button>
+                            </div>
+                        </th>
+
+
+                    </tr>
+                </table>
                 <div class="text-right p-t-8 p-b-31">
                     <a href="#">
-                        Forgot password?
+                        Quên Mật Khẩu?
                     </a>
                 </div>
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
                         <button class="login100-form-btn">
-                            Login
+                            Đăng Nhập
                         </button>
                     </div>
                 </div>
                 <div class="txt1 text-center p-t-54 p-b-20">
                     <span>
-                        Or Sign Up Using
+                        Hoặc Đăng Nhập
                     </span>
                 </div>
                 <div class="flex-c-m">
@@ -51,14 +66,15 @@
                     </a>
                 </div>
                 <div class="flex-c-m">
-                    <a asp-area="Admin" asp-controller="Account" asp-action="Register" class="txt2">
-                        Sign Up
+                    <a asp-controller="Home" asp-action="Register" class="txt2">
+                        Đăng Ký
                     </a>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 
 
 <div id="dropDownSelect1"></div>
