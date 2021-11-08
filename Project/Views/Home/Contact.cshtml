@@ -1,47 +1,44 @@
-﻿@model IEnumerable<Common.Model.FeedBackModel>
-@{ 
+﻿@model Common.Model.FeedBackModel
+@{
     ViewData["Title"] = "Liên hệ";
 }
 <div class="contact-page">
     <div class="row">
         <div class="col-md-12 contact-map outer-bottom-vs">
-            <iframe src=""width="600" height="450" style="border:0"></iframe>
+            <iframe src="" width="600" height="450" style="border:0"></iframe>
         </div>
-    @Html.BeginForm("Contact","Home",FormMethod.Post)
-    {
-        <div class="col-md-9 contact-form">
+        <form asp-action="Contact" class="col-md-9 contact-form">
             <div class="col-md-12 contact-title">
                 <h4>Phản hồi</h4>
             </div>
             <div class="col-md-4 ">
-                <form class="register-form" role="form">
+                <div class="register-form" role="form">
                     <div class="form-group">
                         <label class="info-title" for="exampleInputName">Tên của bạn <span>*</span></label>
-                        <input name="Name" type="text" class="form-control unicase-form-control text-input" id="exampleInputName" placeholder="">
+                        <input asp-for="Name" name="Name" type="text" class="form-control unicase-form-control text-input" id="exampleInputName" placeholder="">
                     </div>
-                </form>
+                </div>
             </div>
             <div class="col-md-4">
-                <form class="register-form" role="form">
+                <div class="register-form" role="form">
                     <div class="form-group">
                         <label class="info-title" for="exampleInputEmail1">Email  <span>*</span></label>
-                        <input name="Email" type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">
+                        <input asp-for="Email" name="Email" type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">
                     </div>
-                </form>
+                </div>
             </div>
             <div class="col-md-12">
-                <form class="register-form" role="form">
+                <div class="register-form" role="form">
                     <div class="form-group">
                         <label class="info-title" for="exampleInputComments">Nội dung <span>*</span></label>
-                        <textarea class="form-control unicase-form-control" id="exampleInputComments"></textarea>
+                        <textarea asp-for="Content" class="form-control unicase-form-control" id="exampleInputComments"></textarea>
                     </div>
-                </form>
+                </div>
             </div>
             <div class="col-md-12 outer-bottom-small m-t-20">
                 <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Gửi hồi đáp</button>
             </div>
-        </div>
-    }
+        </form>
         <div class="col-md-3 contact-info">
             <div class="contact-title">
                 <h4>Thông tin liên hệ</h4>

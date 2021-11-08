@@ -54,19 +54,15 @@ namespace Project.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Contact(string content,string name,string email)
+        public IActionResult Contact(FeedBackModel fb)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                FeedBackModel fb = new FeedBackModel();
-                fb.Content = content;
-                fb.Name = name;
-                fb.Email = email;
                 fb.Status = true;
                 _context.feedbacks.Add(fb);
                 _context.SaveChanges();
-                return View("Index");
-            }    
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
         public IActionResult FAQ()
