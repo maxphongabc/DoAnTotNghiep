@@ -60,8 +60,8 @@ namespace Project.Controllers
                 wh.CreateOn = DateTime.UtcNow;
                 _context.wistlists.Add(wh);
                 _context.SaveChanges();
-                bool res = true;
-                return Json(res);
+                //bool res = true;
+                //return Json(res);
             }
             return RedirectToAction("Index");
         }

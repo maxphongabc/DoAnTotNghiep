@@ -26,7 +26,7 @@
                                         </div>
                                     </td>
                                     <td class="col-md-2">
-                                        <a href="#" class="btn-upper btn btn-primary">Thêm vào giỏ hàng</a>
+                                        <a data-id="@item.ProductId" class="btn-upper btn btn-primary ajax-add-to-cart">Thêm vào giỏ hàng</a>
                                     </td>
                                     <td class="col-md-1 close-btn">
                                         <a asp-action="Delete" asp-controller="WishList" asp-route-id="@item.WishListId" class=""><i class="fa fa-times"></i></a>

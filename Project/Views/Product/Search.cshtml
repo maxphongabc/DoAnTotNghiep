@@ -66,9 +66,8 @@
 
                                             <div class="product-info text-left">
                                                 <h3 class="name"><a asp-action="Details" asp-controller="Product">@item.Name</a></h3>
-                                                <div class="rating rateit-small rateit"><button id="rateit-reset-2" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-2" style="display: none;"></button><div id="rateit-range-2" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-2" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
                                                 <div class="description"></div>
-                                                <div class="product-price"> <span class="price"> @item.Price.ToString("N0") VNĐ </span> <span class="price-before-discount">$ 0</span> </div>
+                                                <div class="product-price"> <span class="price"> @item.Price.ToString("N0") VNĐ </span>  </div>
                                                 <!-- /.product-price -->
 
                                             </div>
@@ -130,7 +129,7 @@
                                             <div class="col col-sm-8 col-lg-8">
                                                 <div class="product-info">
                                                     <h3 class="name"><a asp-action="Details" asp-controller="Product" asp-route-slug="@item.Slug">@item.Name</a></h3>
-                                                    <div class="rating rateit-small rateit"><button id="rateit-reset-15" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-15" style="display: none;"></button><div id="rateit-range-15" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-15" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
+                                     
                                                     <div class="product-price"> <span class="price"> @item.Price.ToString("N0") VNĐ </span>  </div>
                                                     <!-- /.product-price -->
                                                     <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget.</div>
