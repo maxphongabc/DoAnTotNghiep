@@ -6,7 +6,7 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form asp-area="Admin" asp-controller="Account" asp-action="Login" method="post" class="login100-form validate-form">
+            <form asp-controller="home" asp-action="Login"  method="post" class="login100-form validate-form">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <span class="login100-form-title p-b-49" style="font-family:Arial">
                     Đăng Nhập
@@ -32,14 +32,10 @@
                                 </button>
                             </div>
                         </th>
-
-
                     </tr>
                 </table>
                 <div class="text-right p-t-8 p-b-31">
-                    <a href="#">
-                        Quên Mật Khẩu?
-                    </a>
+                    
                 </div>
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
@@ -48,22 +44,6 @@
                             Đăng Nhập
                         </button>
                     </div>
-                </div>
-                <div class="txt1 text-center p-t-54 p-b-20">
-                    <span>
-                        Hoặc Đăng Nhập
-                    </span>
-                </div>
-                <div class="flex-c-m">
-                    <a href="#" class="login100-social-item bg1">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                    <a href="#" class="login100-social-item bg2">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                    <a href="#" class="login100-social-item bg3">
-                        <i class="fa fa-google"></i>
-                    </a>
                 </div>
                 <div class="flex-c-m">
                     <a asp-controller="Home" asp-action="Register" class="txt2">

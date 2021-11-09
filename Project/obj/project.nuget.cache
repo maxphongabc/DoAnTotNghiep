@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Gi8Rg0o5v0gdBc6RYI2BVtYVsg/kJhj2pgvyK2DGk/V1M5L2FeTwC+nWFu3Xx/si+Kn57GTBL4RyEATOUaBAzQ==",
+  "dgSpecHash": "qaHlLn1SL5ykHhAhTJdW2XUjmthEXYjglNwDXRBGReuQlOL3Y8YPWQtIwfeu688YKxZxhXcyCbp2ctIEPdxqzg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\DELL\\Source\\Repos\\DoAnTotNghiep\\Project\\Project.csproj",
+  "projectFilePath": "C:\\Users\\DELL\\source\\repos\\DoAnTotNghiep\\Project\\Project.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\jetbrains.annotations\\2021.1.0\\jetbrains.annotations.2021.1.0.nupkg.sha512",

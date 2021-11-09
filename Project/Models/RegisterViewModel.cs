@@ -16,6 +16,7 @@ namespace Project.Models
         [Required]
         public string PassWord { get; set; }
         [Required]
+        public string NewPassword { get; internal set; }
         public string ConfirmPassword { get; set; }
         [Display(Name = "Địa chỉ Email")]
         [Required(ErrorMessage = "Địa chỉ Email là bắt buộc")]
