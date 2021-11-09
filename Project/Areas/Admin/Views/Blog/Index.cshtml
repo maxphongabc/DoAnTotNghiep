@@ -50,27 +50,26 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    <img src="~/img/blogs/@item.Image" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id"><img src="~/Admin/img/edit-a.png" /></a>
-                    <br />
-                    <a asp-action="Details" asp-route-id="@item.Id"><img src="~/Admin/img/list.png" /></a>
-                    <br />
-                    <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                <img src="~/img/blogs/@item.Image" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostedDate)
+            </td>
+            <td>
+            <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><img src="~/Admin/img/edit-a.png" /></a>
+                <br />
+                <a asp-action="Details" asp-route-id="@item.Id"><img src="~/Admin/img/list.png" /></a>
+                <br />
+                <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -90,3 +89,35 @@
 <div class="d-flex w-100 justify-content-center">
     @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "Blog", new { page, size = ViewBag.currentSize, Search = ViewBag.searchValue }))
 </div>
+@section Scripts{    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    var product = {
+        init: function () {
+            product.registerEvents();
+        },
+        registerEvents: function () {
+            $('.btn-active').off('click').on('click', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data('id');
+                $.ajax({
+                    url: "/Admin/Blog/ChangeStatus",
+                    data: { id: id },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (response) {
+                        console.log(response);
+                        if (response.status == true) {
+                            btn.text('Kích hoạt');
+                        }
+                        else {
+                            btn.text('Khoá');
+                        }
+                    }
+                });
+            });
+        }
+    }
+    product.init();
+</script>
+}

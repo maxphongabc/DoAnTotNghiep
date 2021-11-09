@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Common.Model.FeedBackModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Phản hồi từ người dùng</h2>
+
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Tên
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Nội dung
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>@item.Email</td>
+            <th>@item.Content</th>
+            <td>
+            <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Đã xem</strong>" : "Chưa xem")</a></td>
+            <td>
+                <br />
+                <a asp-action="Details" asp-route-id="@item.Id"><img src="~/Admin/img/list.png" /></a>
+                <br />
+                <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var user = {
+            init: function () {
+                user.registerEvents();
+            },
+            registerEvents: function () {
+                $('.btn-active').off('click').on('click', function (e) {
+                    e.preventDefault();
+                    var btn = $(this);
+                    var id = btn.data('id');
+                    $.ajax({
+                        url: "/Admin/FeedBack/ChangeStatus",
+                        data: { id: id },
+                        dataType: "json",
+                        type: "POST",
+                        success: function (response) {
+                            console.log(response);
+                            if (response.status == true) {
+                                btn.text('Đã xem');
+                            }
+                            else {
+                                btn.text('Chưa xem');
+                            }
+                        }
+                    });
+                });
+            }
+        }
+        user.init();
+    </script>
+}

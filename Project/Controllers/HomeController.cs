@@ -107,12 +107,12 @@ namespace Project.Controllers
                         Status = true,
                         Avarta = "user-2.png",
                         CreatedOn = DateTime.Now
-                    };            
-                        MailContent content = new MailContent
-                        {
-                            To = user.Email,
-                            Subject = "Đơn hàng mới" ,
-                            Body = "<p><strong>Xin chào</strong></p>" + "<p>Cảm ơn bạn đã quan tâm sản phẩm của chúng tôi.Đơn hàng của bạn sẽ được xử lý ngay.</p>"
+                    };
+                    MailContent content = new MailContent
+                    {
+                        To = user.Email,
+                        Subject = "Tạo tài khoản mới thành công",
+                        Body = "<p><strong>Xin chào</strong></p>" + "<p>Chúc mừng thành viên mới.</p>" + user.FullName + ""
                         };
                         await sendMailService.SendMail(content);
                         _context.Add(user);
@@ -144,7 +144,7 @@ namespace Project.Controllers
             if (member.UserName != null && member.PassWord != null)
             {
                 member.PassWord = Encryptor.MD5Hash(member.PassWord);
-                var r = _context.user.Where(m => m.UserName == member.UserName && m.PassWord == (member.PassWord)).ToList();
+                var r = _context.user.Where(m => m.UserName == member.UserName && m.PassWord == (member.PassWord) && m.Status==true).ToList();
                 if (r.Count == 0)
                 {
                     return View("Login");
@@ -156,6 +156,13 @@ namespace Project.Controllers
                         var str = JsonConvert.SerializeObject(r[0]);
                         HttpContext.Session.SetString("user", str);
                         var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index"});
+                        return Redirect(urlAdmin);
+                    }
+                    if (r[0].RolesId == 1)
+                    {
+                        var str = JsonConvert.SerializeObject(r[0]);
+                        HttpContext.Session.SetString("admin", str);
+                        var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
                         return Redirect(urlAdmin);
                     }
                 }

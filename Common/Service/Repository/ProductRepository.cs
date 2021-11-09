@@ -97,6 +97,7 @@ namespace Common.Service.Repository
                            join p in _context.products on c.ProductId equals p.Id
                            join u in _context.user on c.UserId equals u.Id
                            where p.Id == productId
+                           where c.Status==true
                            select new CommentProductViewModel {
                            ProductId = p.Id,
                            CommentId = c.Id,
@@ -118,6 +119,7 @@ namespace Common.Service.Repository
                            select new CommentProductViewModel
                            {
                                ProductId = p.Id,
+                               Status=c.Status,
                                CommentId = c.Id,
                                CreateOn = c.CreateOn,
                                UserId = u.Id,

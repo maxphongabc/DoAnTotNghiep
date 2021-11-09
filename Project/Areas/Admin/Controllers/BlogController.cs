@@ -221,6 +221,22 @@ namespace Project.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        public JsonResult ChangeStatus(int id)
+        {
+            var result = ChangeStatuss(id);
+            return Json(new
+            {
+                status = result
+            });
+        }
+        public bool ChangeStatuss(int id)
+        {
+            var blog = _context.blogs.Find(id);
+            blog.Status = !blog.Status;
+            _context.SaveChanges();
+            return blog.Status;
+        }
 
         private bool BlogModelExists(int id)
         {

@@ -22,6 +22,7 @@ namespace Common.Service.Repository
                             select new ProductViewModel
                             {
                                 Name = p.Name,
+                                ProductId=p.Id,
                                 WishListId=wh.Id,
                                 Image = p.Image,
                                 Price = p.Price

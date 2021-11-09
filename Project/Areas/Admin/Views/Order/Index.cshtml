@@ -85,9 +85,9 @@
 @section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        var user = {
+        var product = {
             init: function () {
-                user.registerEvents();
+                product.registerEvents();
             },
             registerEvents: function () {
                 $('.btn-active').off('click').on('click', function (e) {
@@ -103,17 +103,15 @@
                             console.log(response);
                             if (response.status == true) {
                                 btn.text('Đã duyệt');
-                                location.reload();
                             }
                             else {
                                 btn.text('Chưa duyệt');
-                                location.reload();
                             }
                         }
                     });
                 });
             }
         }
-        user.init();
+        product.init();
     </script>
 }

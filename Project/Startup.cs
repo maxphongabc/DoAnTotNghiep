@@ -2,10 +2,8 @@
 using Common.Service.Interface;
 using Common.Service.Repository;
 using Common.ViewModel;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,22 +46,6 @@ namespace Project
             services.AddOptions();                                         // Kích hoạt Options
             var mailsettings = Configuration.GetSection("MailSettings");  // đọc config
             services.Configure<MailSettings>(mailsettings);                // đăng ký để Inject
-
-
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //})
-            //    .AddCookie(options =>
-            //    {
-            //        options.LoginPath = "/account/dang-nhap-tu-google";
-            //    })
-            //    .AddGoogle(options =>
-            //    {
-            //        options.ClientId = "846805682596-r2610qkh5e0ln6olk5b5sk8bes0k0do3.apps.googleusercontent.com";
-            //        options.ClientSecret = "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";
-            //        options.CallbackPath = "/dang-nhap-tu-google";
-            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

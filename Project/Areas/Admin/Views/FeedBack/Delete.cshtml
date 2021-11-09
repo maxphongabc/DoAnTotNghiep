@@ -1,0 +1,55 @@
+﻿@model Common.Model.FeedBackModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Bạn có chắc là muốn xóa không ?</h3>
+<div>
+    <h4>RolesModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Email
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            Nội dung
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt>
+            Trạng thái
+        </dt>
+        @if (Model.Status == true)
+        {
+            <dd>
+                Đã xem
+            </dd>
+        }
+        @if (Model.Status == false)
+        {
+            <dd>
+                Chưa xem
+            </dd>
+        }
+
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

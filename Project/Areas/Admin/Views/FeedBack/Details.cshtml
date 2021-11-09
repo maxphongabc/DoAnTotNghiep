@@ -1,13 +1,12 @@
-﻿@model Common.Model.RolesModel
+﻿@model Common.Model.FeedBackModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Chi tiết</h2>
 
 <div>
-    <h4>RolesModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,18 +16,30 @@
             @Model.Name
         </dd>
         <dt>
+            Email
+        </dt>
+        <dd>
+            @Model.Email
+        </dd>
+        <dt>
+            Nội dung
+        </dt>
+        <dd>
+            @Model.Content
+        </dd>
+        <dt>
             Trạng thái
         </dt>
         @if (Model.Status == true)
         {
             <dd class="col-sm-10">
-                đang hoạt động
+                Đã xem
             </dd>
         }
         @if (Model.Status == false)
         {
             <dd class="col-sm-10">
-                Đã khóa
+                Chưa xem
             </dd>
         }
     </dl>

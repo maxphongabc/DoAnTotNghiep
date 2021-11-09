@@ -257,7 +257,7 @@ namespace Project.Areas.Admin.Controllers
         {
             var userModel = await _context.user.FindAsync(id);
             _context.user.Remove(userModel);
-            TempData["Success"] = "Đã xóa sản phẩm thành công!";
+            TempData["Success"] = "Đã xóa người dùng thành công!";
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
