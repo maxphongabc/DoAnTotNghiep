@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Common.Infrastructure;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Common.ViewModel
 {
@@ -15,8 +14,12 @@ namespace Common.ViewModel
         public string FullName { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        [NotMapped]
+        [FileExtension]
+        public IFormFile ImageUpload { get; set; }
         public string UserImage { get; set; }
         public string PassWord { get; set; }
+        public string ConfirmPassword { get; set; }
         public string Email { get; set; }
         public bool StatusUser { get; set; }
         public DateTime? CreateOn { get; set; }

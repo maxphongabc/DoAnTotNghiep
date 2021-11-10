@@ -10,6 +10,6 @@ namespace Common.Service.Interface
         BlogViewModel DetailsBlog(string slug);
         List<BlogViewModel> ListBlogCate(string slug);
         List<BlogModel> ListRelatedBlog(int id);
-        List<CommentBlogViewModel> ListComment(int blogsId);
+        //List<CommentBlogViewModel> ListComment(int blogsId);
     }
 }

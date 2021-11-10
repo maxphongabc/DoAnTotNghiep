@@ -42,7 +42,7 @@ namespace Project.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Comment = _iblog.ListComment(cate.Id);
+            //ViewBag.Comment = _iblog.ListComment(cate.Id);
             return View(blog);
         }
         public IActionResult BlogByCate(string slug, int? size, int? page)
@@ -63,31 +63,31 @@ namespace Project.Controllers
             return View(blog.ToPagedList(pageNumber, pageSize));
         }
         public const string USER = "user";
-        [HttpPost]
-        public IActionResult AddComment(int BlogId, string Comment)
-        {
-            var sessionUser = HttpContext.Session.GetString(USER);
-            if (sessionUser == null)
-            {
-                var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Login" });
-                return Redirect(urlAdmin);
-            }
-            CommentBlogModel cmt = new CommentBlogModel();
-            UserModel user = JsonConvert.DeserializeObject<UserModel>(sessionUser);
-            var blog = _context.blogs.Where(x => x.Id == BlogId).FirstOrDefault();
+        //[HttpPost]
+        //public IActionResult AddComment(int BlogId, string Comment)
+        //{
+        //    var sessionUser = HttpContext.Session.GetString(USER);
+        //    if (sessionUser == null)
+        //    {
+        //        var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Login" });
+        //        return Redirect(urlAdmin);
+        //    }
+        //    CommentBlogModel cmt = new CommentBlogModel();
+        //    UserModel user = JsonConvert.DeserializeObject<UserModel>(sessionUser);
+        //    var blog = _context.blogs.Where(x => x.Id == BlogId).FirstOrDefault();
 
-            if (user != null && blog != null)
-            {
-                cmt.CreateOn = DateTime.Now;
-                cmt.BlogId = BlogId;
-                cmt.UserId = user.Id;
-                cmt.Content = Comment;
-                cmt.Status = true;
-                _context.commentBlogs.Add(cmt);
-                _context.SaveChanges();
-            }
-            return RedirectToAction("Details", "Blog", new { Slug = blog.Slug });
-        }
+        //    if (user != null && blog != null)
+        //    {
+        //        cmt.CreateOn = DateTime.Now;
+        //        cmt.BlogId = BlogId;
+        //        cmt.UserId = user.Id;
+        //        cmt.Content = Comment;
+        //        cmt.Status = true;
+        //        _context.commentBlogs.Add(cmt);
+        //        _context.SaveChanges();
+        //    }
+        //    return RedirectToAction("Details", "Blog", new { Slug = blog.Slug });
+        //}
         public IActionResult Search(int? size, int? page, string Search)
         {
             var blog = from m in _context.blogs

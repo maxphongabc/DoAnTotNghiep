@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +75,7 @@ namespace Project.Controllers
             UserModel user = JsonConvert.DeserializeObject<UserModel>(sessionUser);
             var product = _context.products.Where(x => x.Id == ProductId).FirstOrDefault(); 
 
-            if(user!=null && product!=null)
+            if(user!=null && product!=null && Comment!=null)
             {
                 cmt.CreateOn = DateTime.Now;
                 cmt.ProductId = ProductId;

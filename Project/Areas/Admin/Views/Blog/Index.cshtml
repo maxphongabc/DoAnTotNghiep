@@ -60,7 +60,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PostedDate)
             </td>
-            <td>
             <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id"><img src="~/Admin/img/edit-a.png" /></a>

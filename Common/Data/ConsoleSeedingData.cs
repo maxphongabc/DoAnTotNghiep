@@ -38,8 +38,8 @@ namespace Common.Data
                 new ProductModel { Id = 12, Name = "Nintendo Switch Animal Crossing", Slug = "nintendo-switch-animal-crossing", CategoryId = 3, Description = "Đẹp", Image = "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg", Quantity = 50, Price = 7380000, CreatedOn = DateTime.Now, Status = true }
                 );
             modelBuiler.Entity<UserModel>().HasData(
-                new UserModel { Id=1,FullName="Võ Thành Duy",RolesId=1,Address="115 Trần Xuân Soạn",Phone="0393030574",Email="duyvo049@gmail.com",Avarta= "user-1.png",DateOfBirth=null, UserName="thanhduy",PassWord= "25f9e794323b453885f5181f1b624d0b",CreatedOn=DateTime.Now,Status=true },
-                new UserModel { Id = 2, FullName = "Lê Xuân Lộc",RolesId=2,Address = "115 Trần Xuân Soạn", Phone = "0393030574", Email = "leloc603@gmail.com", Avarta = "user-2.png", DateOfBirth = null, UserName = "leloc", PassWord = "25f9e794323b453885f5181f1b624d0b", CreatedOn = DateTime.Now, Status = true }
+                new UserModel { Id=1,FullName="Võ Thành Duy",RolesId=1,Address="115 Trần Xuân Soạn",Phone="0393030574",Email="duyvo049@gmail.com",Avarta= "user-1.png", UserName="thanhduy",PassWord= "25f9e794323b453885f5181f1b624d0b",CreatedOn=DateTime.Now,Status=true },
+                new UserModel { Id = 2, FullName = "Lê Xuân Lộc",RolesId=2,Address = "115 Trần Xuân Soạn", Phone = "0393030574", Email = "leloc603@gmail.com", Avarta = "user-2.png",  UserName = "leloc", PassWord = "25f9e794323b453885f5181f1b624d0b", CreatedOn = DateTime.Now, Status = true }
                 );
             
         }

@@ -66,7 +66,7 @@ namespace Project.Areas.Admin.Controllers
                 links = links.Where(x => x.FullName.Contains(Search)||x.UserName.Contains(Search));
             }
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
-            return View(links.ToPagedList(pageNumber, pageSize));
+            return View(links.OrderBy(s=>s.CreatedOn).ToPagedList(pageNumber, pageSize));
         }
         // GET: Admin/User/Details/5
         public IActionResult Details(int id)
@@ -197,15 +197,6 @@ namespace Project.Areas.Admin.Controllers
                     if (userModel.ImageUpload != null)
                     {
                         string uploadsDir = Path.Combine(_webHostEnvironment.WebRootPath, "img/user");
-
-                        if (!string.Equals(userModel.Avarta, "noimage.png"))
-                        {
-                            string oldImagePath = Path.Combine(uploadsDir, userModel.Avarta);
-                            if (System.IO.File.Exists(oldImagePath))
-                            {
-                                System.IO.File.Delete(oldImagePath);
-                            }
-                        }
                         string imageName = Guid.NewGuid().ToString() + "_" + userModel.ImageUpload.FileName;
                         string filePath = Path.Combine(uploadsDir, imageName);
                         FileStream fs = new FileStream(filePath, FileMode.Create);

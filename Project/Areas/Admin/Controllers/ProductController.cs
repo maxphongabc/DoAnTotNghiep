@@ -30,7 +30,7 @@ namespace Project.Areas.Admin.Controllers
 
         [HttpGet]
         // GET: /Link/
-        public ActionResult Index(int? size, int? page, string Search)
+        public IActionResult Index(int? size, int? page, string Search,string sort)
         {
             ViewBag.searchValue = Search;
             ViewBag.page = page;
@@ -67,9 +67,37 @@ namespace Project.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(Search))
             {
                 links = links.Where(x => x.Name.Contains(Search));
+                //ViewBag.totalSpSearch = links.Count();
+                ViewBag.posts = links.ToPagedList(pageNumber, pageSize);
             }
+            ////sort
+            //if(sort !=null)
+            //{
+            //    switch(sort)
+            //    {
+            //        case "PriceLowToHigh":
+            //            links = links.OrderBy(s => s.Price);
+            //            break;
+            //        case "PriceHighToLow":
+            //            links = links.OrderByDescending(s => s.Price);
+            //            break;
+            //        case "CharA_Z":
+            //            links = links.OrderBy(s => s.Name);
+            //            break;
+            //        case "CharZ_A":
+            //            links = links.OrderByDescending(s => s.Name);
+            //            break;
+            //    }    
+            //}
+            //else
+            //{
+            //    ViewBag.posts = links.ToPagedList(pageNumber, pageSize);
+            //}
+            //ViewBag.posts = links.ToPagedList(pageNumber, pageSize);
+
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
-            return View(links.ToPagedList(pageNumber, pageSize));
+            //return View();
+            return View(links.OrderByDescending(x => x.CreatedOn).ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]
         public JsonResult ListName(string q)
@@ -204,15 +232,6 @@ namespace Project.Areas.Admin.Controllers
                 if (product.ImageUpload != null)
                 {
                     string uploadsDir = Path.Combine(webHostEnvironment.WebRootPath, "img/sanpham");
-
-                    if (!string.Equals(product.Image, "noimage.png"))
-                    {
-                        string oldImagePath = Path.Combine(uploadsDir, product.Image);
-                        if (System.IO.File.Exists(oldImagePath))
-                        {
-                            System.IO.File.Delete(oldImagePath);
-                        }
-                    }
                     string imageName = Guid.NewGuid().ToString() + "_" + product.ImageUpload.FileName;
                     string filePath = Path.Combine(uploadsDir, imageName);
                     FileStream fs = new FileStream(filePath, FileMode.Create);
@@ -243,15 +262,15 @@ namespace Project.Areas.Admin.Controllers
             }
             else
             {
-                if (!string.Equals(product.Image, "noimage.jpg"))
-                {
-                    string uploadsDir = Path.Combine(webHostEnvironment.WebRootPath, "img/sanpham");
-                    string oldImagePath = Path.Combine(uploadsDir, product.Image);
-                    if (System.IO.File.Exists(oldImagePath))
-                    {
-                        System.IO.File.Delete(oldImagePath);
-                    }
-                }
+                //if (!string.Equals(product.Image, "noimage.jpg"))
+                //{
+                //    string uploadsDir = Path.Combine(webHostEnvironment.WebRootPath, "img/sanpham");
+                //    //string oldImagePath = Path.Combine(uploadsDir, product.Image);
+                //    //if (System.IO.File.Exists(oldImagePath))
+                //    //{
+                //    //    System.IO.File.Delete(oldImagePath);
+                //    //}
+                //}
                 _context.products.Remove(product);
                 await _context.SaveChangesAsync();
 

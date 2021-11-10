@@ -32,9 +32,7 @@ namespace Project.Models
                    ErrorMessage = "Không đúng số nhà mạng.")]
         public string Phone { get; set; }
         public string Avarta { get; set; }
+
         public bool Status { get; set; }
-        [NotMapped]
-        [FileExtension]
-        public IFormFile ImageUpload { get; set; }
     }
 }

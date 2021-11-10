@@ -93,24 +93,24 @@ namespace Common.Service.Repository
             var blog = _context.blogs.Find(id);
             return _context.blogs.Where(x => x.Id != id && x.Category_PostId == blog.Category_PostId).Take(2).ToList();
         }
-        public List<CommentBlogViewModel> ListComment(int blogsId)
-        {
-            var comment = (from c in _context.commentBlogs
-                           join b in _context.blogs on c.BlogId equals b.Id
-                           join u in _context.user on c.UserId equals u.Id
-                           where b.Id == blogsId
-                           select new CommentBlogViewModel
-                           {
-                               BlogsId = b.Id,
-                               CommentId = c.Id,
-                               CreateOn = c.CreateOn,
-                               UserId = u.Id,
-                               UserImage = u.Avarta,
-                               UserName = u.UserName,
-                               Image = b.Image,
-                               Content = c.Content
-                           });
-            return comment.ToList();
-        }
+        //public List<CommentBlogViewModel> ListComment(int blogsId)
+        //{
+        //    var comment = (from c in _context.commentBlogs
+        //                   join b in _context.blogs on c.BlogId equals b.Id
+        //                   join u in _context.user on c.UserId equals u.Id
+        //                   where b.Id == blogsId
+        //                   select new CommentBlogViewModel
+        //                   {
+        //                       BlogsId = b.Id,
+        //                       CommentId = c.Id,
+        //                       CreateOn = c.CreateOn,
+        //                       UserId = u.Id,
+        //                       UserImage = u.Avarta,
+        //                       UserName = u.UserName,
+        //                       Image = b.Image,
+        //                       Content = c.Content
+        //                   });
+        //    return comment.ToList();
+        //}
     }
 }

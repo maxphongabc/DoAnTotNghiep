@@ -117,7 +117,11 @@ namespace Project.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Tiêu đề bài viết đã có.");
                     return View(blog);
                 }
-
+                if (blog.Category_PostId == 0)
+                {
+                    ModelState.AddModelError("", "Thể loại bài viết không được để trống ");
+                    return View(blog);
+                }
                 string imageName = "noimage.jpg";
                 if (blog.ImageUpload != null)
                 {
@@ -166,16 +170,51 @@ namespace Project.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            string a = HttpContext.Session.GetString("Admin");
+            UserModel user = JsonConvert.DeserializeObject<UserModel>(a);
             if (ModelState.IsValid)
             {
                 try
                 {
+                    blogModel.UserId = user.Id;
                     blogModel.PostedDate = blogModel.PostedDate;
                     blogModel.Status = true;
                     blogModel.Slug = blogModel.Title.ToLower().Replace(" ", "-");
+                    var slug = await _context.blogs.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Slug == blogModel.Slug);
+                    if (slug != null)
+                    {
+                        ModelState.AddModelError("", "Bài viết đã có.");
+                        return View(blogModel);
+                    }
+                    if(blogModel.Category_PostId==0)
+                    {
+                        ModelState.AddModelError("", "Thể loại bài viết không được để trống ");
+                        return View(blogModel);
+                    }    
+                    if (blogModel.ImageUpload != null)
+                    {
+                        string uploadsDir = Path.Combine(webHostEnvironment.WebRootPath, "img/blogs");
+
+                        if (!string.Equals(blogModel.Image, "noimage.png"))
+                        {
+                            string oldImagePath = Path.Combine(uploadsDir, blogModel.Image);
+                            if (System.IO.File.Exists(oldImagePath))
+                            {
+                                System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+                        string imageName = Guid.NewGuid().ToString() + "_" + blogModel.ImageUpload.FileName;
+                        string filePath = Path.Combine(uploadsDir, imageName);
+                        FileStream fs = new FileStream(filePath, FileMode.Create);
+                        await blogModel.ImageUpload.CopyToAsync(fs);
+                        fs.Close();
+                        blogModel.Image = imageName;
+                    }
                     _context.Update(blogModel);
                     await _context.SaveChangesAsync();
+                    TempData["Success"] = "Chỉnh sửa bài viết thành công!";
+
+                    return RedirectToAction("Index");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -188,7 +227,7 @@ namespace Project.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
             }
             return View(blogModel);
         }
@@ -219,6 +258,7 @@ namespace Project.Areas.Admin.Controllers
             var blogModel = await _context.blogs.FindAsync(id);
             _context.blogs.Remove(blogModel);
             await _context.SaveChangesAsync();
+            TempData["Success"] = "Xóa bài viết thành công!";
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]

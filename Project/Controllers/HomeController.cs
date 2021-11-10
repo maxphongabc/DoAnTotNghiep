@@ -22,7 +22,7 @@ namespace Project.Controllers
         private readonly IUser _iuser;
         private readonly ISendMailService sendMailService;
         private readonly ProjectDPContext _context;
-        public HomeController(ProjectDPContext context,IUser iuser, ISendMailService sendMail)
+        public HomeController(ProjectDPContext context, IUser iuser, ISendMailService sendMail)
         {
             _context = context;
             _iuser = iuser;
@@ -40,9 +40,9 @@ namespace Project.Controllers
             ViewBag.ListSPNintendo = _context.products.Where(sp => sp.Status == true && sp.CategoryId == 3).OrderBy(sp => sp.Id).ToList();
             //lay tat ca san pham co trong kho
             ViewBag.All = _context.products.Where(sp => sp.Status == true).ToList();
-            ViewBag.Blog = _context.blogs.Where(b => b.Status == true).Take(4).ToList();
+            ViewBag.Blog = _context.blogs.Where(b => b.Status == true).ToList();
             return View();
-        }      
+        }
         public ProductModel GetProduct(int id)
         {
             var product = _context.products.Find(id);
@@ -76,24 +76,26 @@ namespace Project.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterAsync(RegisterViewModel member)
+        public async Task<IActionResult> Register(RegisterViewModel member)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                
                 if (_iuser.CheckUserName(member.UserName))
                 {
                     ModelState.AddModelError("", "Tên đăng nhập đã tồn tại");
+                    return View(member);
                 }
-                else if (_iuser.CheckEmail(member.Email))
+                if (_iuser.CheckEmail(member.Email))
                 {
                     ModelState.AddModelError("", "Email đã tồn tại");
+                    return View(member);
                 }
-                else if (_iuser.CheckPhone(member.Phone))
+                if (_iuser.CheckPhone(member.Phone))
                 {
                     ModelState.AddModelError("", "Số điện thoại này đã có người sủ dụng !");
+                    return View(member);
                 }
-                else if (member.PassWord == member.ConfirmPassword)
+                if (member.PassWord == member.ConfirmPassword)
                 {
                     var user = new UserModel()
                     {
@@ -113,24 +115,25 @@ namespace Project.Controllers
                         To = user.Email,
                         Subject = "Tạo tài khoản mới thành công",
                         Body = "<p><strong>Xin chào</strong></p>" + "<p>Chúc mừng thành viên mới.</p>" + user.FullName + ""
-                        };
-                        await sendMailService.SendMail(content);
-                        _context.Add(user);
-                        await _context.SaveChangesAsync();
-                        TempData["Success"] = "Đăng ký thành công!";
-                        return RedirectToAction(nameof(Index));
-                    }
+                    };
+                    await sendMailService.SendMail(content);
+                    _context.Add(user);
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = "Đăng ký thành công!";
+                    return RedirectToAction(nameof(Login));
                 }
                 else
                 {
                     ModelState.AddModelError("", "Mật khẩu không trùng");
+                    return View(member);
                 }
-            return View("Index");
+            }
+            return View();
         }
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("user");
-            var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index"});
+            var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
             return Redirect(urlAdmin);
         }
         public IActionResult Login()
@@ -139,32 +142,22 @@ namespace Project.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(UserModel member)
+        public IActionResult Login(LoginViewModel member)
         {
-            if (member.UserName != null && member.PassWord != null)
+            if (ModelState.IsValid)
             {
-                member.PassWord = Encryptor.MD5Hash(member.PassWord);
-                var r = _context.user.Where(m => m.UserName == member.UserName && m.PassWord == (member.PassWord) && m.Status==true).ToList();
-                if (r.Count == 0)
+                var result = _context.user.Where(s => s.UserName == member.UserName && s.PassWord == Encryptor.MD5Hash(member.PassWord) && s.Status == true).ToList();
+                if (result.Count == 0)
                 {
-                    return View("Login");
+                    ModelState.AddModelError("", "Tài khoản và mật khẩu không đúng");
+                    return View(member);
                 }
-                else
+                else if (result[0].RolesId == 2)
                 {
-                    if (r[0].RolesId == 2)
-                    {
-                        var str = JsonConvert.SerializeObject(r[0]);
-                        HttpContext.Session.SetString("user", str);
-                        var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index"});
-                        return Redirect(urlAdmin);
-                    }
-                    if (r[0].RolesId == 1)
-                    {
-                        var str = JsonConvert.SerializeObject(r[0]);
-                        HttpContext.Session.SetString("admin", str);
-                        var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
-                        return Redirect(urlAdmin);
-                    }
+                    var str = JsonConvert.SerializeObject(result[0]);
+                    HttpContext.Session.SetString("user", str);
+                    var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
+                    return Redirect(urlAdmin);
                 }
             }
             return View();
@@ -173,7 +166,6 @@ namespace Project.Controllers
         {
             return View();
         }
-        
-        
+
     }
 }

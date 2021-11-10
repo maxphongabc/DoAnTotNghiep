@@ -399,7 +399,6 @@ C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Project.T
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Project.RazorCoreGenerate.cache
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Account\Login.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Account\Profile.cshtml.g.cs
-C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Account\Register.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blog\Create.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blog\Delete.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blog\Details.cshtml.g.cs
@@ -499,3 +498,4 @@ C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Project.g
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\FeedBack\Index.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\FeedBack\Delete.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\FeedBack\Details.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\User\DMK.cshtml.g.cs

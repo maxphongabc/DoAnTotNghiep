@@ -28,8 +28,7 @@ namespace Common.Model
         [Display(Name = "Địa chỉ Email")]
         [Required(ErrorMessage = "Địa chỉ Email là bắt buộc")]
         [EmailAddress(ErrorMessage = "Địa chỉ Email không đúng")]
-        public string Email { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public string Email { get; set; }      
         public string Avarta { get; set; }
         [NotMapped]
         [FileExtension]

@@ -22,7 +22,7 @@ namespace Common.Data
         public DbSet<Category_PostModel> category_Posts { get; set; }
         public DbSet<WishListModel> wistlists { get; set; }
         public DbSet<FeedBackModel> feedbacks { get; set; }
-        public DbSet<CommentBlogModel> commentBlogs { get; set; }
+        //public DbSet<CommentBlogModel> commentBlogs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Seed();

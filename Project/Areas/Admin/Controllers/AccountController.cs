@@ -7,6 +7,7 @@ using Common.Service.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Project.Models;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -27,28 +28,29 @@ namespace Project.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(UserModel member,string username,string password)
-        {         
-            if (member.UserName != null && member.PassWord != null)
+        public IActionResult Login(LoginViewModel member)
+        {
+            if (ModelState.IsValid)
             {
-                member.PassWord = Encryptor.MD5Hash(member.PassWord);
-                var r = _context.user.Where(m => m.UserName == member.UserName && m.PassWord == (member.PassWord)).ToList();
-                if (r.Count == 0)
+                var result = _context.user.Where(s => s.UserName == member.UserName && s.PassWord == Encryptor.MD5Hash(member.PassWord) && s.Status == true).ToList();
+                if (result.Count == 0)
                 {
-                    return View("Login");
+                    ModelState.AddModelError("", "Tài khoản và mật khẩu không đúng");
+                    return View(member);
+                }
+                else if (result[0].RolesId == 1)
+                {
+                    var str = JsonConvert.SerializeObject(result[0]);
+                    HttpContext.Session.SetString("Admin", str);
+                    var urlAdmin = Url.RouteUrl(new {ares="Admin", controller = "HomeAdmin", action = "Index"  });
+                    return Redirect(urlAdmin);
                 }
                 else
                 {
-                    if (r[0].RolesId == 1)
-                    {
-                        var str = JsonConvert.SerializeObject(r[0]);
-                        HttpContext.Session.SetString("Admin", str);
-
-                        var urlAdmin = Url.RouteUrl(new { controller = "HomeAdmin", action = "Index", area = "Admin" });
-                        return Redirect(urlAdmin);
-                    }
+                    ModelState.AddModelError("", "Bạn không có quyền truy cập vào đây");
+                    return View();
                 }
-            }          
+            }
             return View();
         }
         public IActionResult Logout()

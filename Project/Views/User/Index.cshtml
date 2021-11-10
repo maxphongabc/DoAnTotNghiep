@@ -7,29 +7,62 @@
         <!-- Sign-in -->
         <div class="col-md-6 col-sm-6 sign-in">
             <h4 class="">Thông tin tài khoản</h4>
-        <form class="register-form outer-top-xs" role="form">
-            <div class="form-group">
-                <label class="info-title" for="exampleInputEmail1">Họ và tên <span>*</span></label>
-                <div>@Model.FullName</div>
-            </div>
-            <div class="form-group">
-                <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
-                <div>@Model.Email</div>
-            </div>
-            <div class="form-group">
-                <label class="info-title" for="exampleInputEmail1">Tài khoản <span>*</span></label>
-               <div>@Model.UserName</div>
-            </div>
-            <div class="form-group">
-                <label class="info-title" for="exampleInputPassword1">SĐT <span>*</span></label>
-               <div>@Model.Phone</div>
-            </div>
-            <div class="form-group">
-                <label class="info-title" for="exampleInputPassword1">Địa chỉ <span>*</span></label>
-                <div>@Model.Address</div>
-            </div>
-        </form>
-            @*<a asp-action="ChangePassword" asp-controller="User" class="btn btn-primary">Đổi mật khẩu</a>*@
+            <form class="register-form outer-top-xs" role="form">
+                <div class="form-group">
+                    <img src="~/img/user/@Model.UserImage" />
+                    <a asp-action="ChangeImage" asp-controller="User">Thay ảnh</a>
+                </div>
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Họ và tên <span>*</span></label>
+                    <div>@Model.FullName</div>
+                </div>
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
+                    <div>@Model.Email</div>
+                </div>
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Tài khoản <span>*</span></label>
+                    <div>@Model.UserName</div>
+                </div>
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputPassword1">SĐT <span>*</span></label>
+                    <div>@Model.Phone</div>
+                </div>
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputPassword1">Địa chỉ <span>*</span></label>
+                    <div>@Model.Address</div>
+                </div>
+            </form>
+            <a asp-action="DMK" asp-controller="User" class="btn btn-primary">Đổi mật khẩu</a>
         </div>
+        @*<div class="col-md-6 col-sm-6 create-new-account">
+            <h4 class="checkout-subtitle">Create a new account</h4>
+            <p class="text title-tag-line">Create your new account.</p>
+            <form class="register-form outer-top-xs" role="form">
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
+                    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail2">
+                </div>
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Name <span>*</span></label>
+                    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+                </div>
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Phone Number <span>*</span></label>
+                    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+                </div>
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Password <span>*</span></label>
+                    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+                </div>
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Confirm Password <span>*</span></label>
+                    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+                </div>
+                <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+            </form>
+
+
+        </div>*@
     </div><!-- /.row -->
 </div>

@@ -8,36 +8,46 @@
 <div class="row">
     @if (Model.Count > 0)
     {
-    <div class="blog-page">
-        <div class="col-md-9">
-            @foreach (var item in Model)
-            {
-                <div class="blog-post outer-top-bd  wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
-                    <a  asp-route-slug="@item.Slug" asp-controller="Blog" asp-action="Details"><img class="img-responsive" src="~/img/blogs/@item.Image" alt=""></a>
-                    <h1><a asp-route-slug="@item.Slug" asp-controller="Blog" asp-action="Details" >@item.Title</a></h1>
-                    <span class="author">@item.UserName</span>
-                    <span class="date-time">@item.PostedDate</span>
-                    <p>@item.Title</p>
-                    <a asp-route-slug="@item.Slug" asp-controller="Blog" asp-action="Details" class="btn btn-upper btn-primary read-more">Xem thêm</a>
+        <div class="blog-page">
+            <div class="col-md-9">
+                @foreach (var item in Model)
+                {
+                    <div class="blog-post outer-top-bd  wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                        <a asp-route-slug="@item.Slug" asp-controller="Blog" asp-action="Details"><img class="img-responsive" src="~/img/blogs/@item.Image" alt=""></a>
+                        <h1><a asp-route-slug="@item.Slug" asp-controller="Blog" asp-action="Details">@item.Title</a></h1>
+                        <span class="author">@item.UserName</span>
+                        <span class="date-time">@item.PostedDate</span>
+                        <p>@item.Title</p>
+                        <a asp-route-slug="@item.Slug" asp-controller="Blog" asp-action="Details" class="btn btn-upper btn-primary read-more">Xem thêm</a>
+                    </div>
+                }
+                <div class="d-flex w-100 justify-content-center">
+                    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "Blog", new { page, size = ViewBag.currentSize }))
                 </div>
-            }
-            <div class="d-flex w-100 justify-content-center">
-                @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "Blog", new { page, size = ViewBag.currentSize }))
+                <div class="col col-sm-3 col-md-6 no-padding">
+                    Trang: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                    <!-- /.lbl-cnt -->
+                </div>
             </div>
-            <div class="col col-sm-3 col-md-6 no-padding">
-                Trang: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-                <!-- /.lbl-cnt -->
+            <div class="col-md-3 sidebar">
+                <div class="sidebar-module-container">
+                    <div class="search-area outer-bottom-small">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-3 sidebar">
             <div class="sidebar-module-container">
                 <div class="search-area outer-bottom-small">
+                   
                 </div>
+                @await Component.InvokeAsync("Blogs")
             </div>
         </div>
-    </div>
+
     }
-    else { 
-<p class="alert alert-danger">Chưa có bài viết nào !</p>
+    else
+    {
+        <p class="alert alert-danger">Chưa có bài viết nào !</p>
     }
 </div>

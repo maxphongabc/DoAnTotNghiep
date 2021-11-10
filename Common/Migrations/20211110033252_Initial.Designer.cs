@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Common.Migrations
 {
     [DbContext(typeof(ProjectDPContext))]
-    [Migration("20211102122941_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211110033252_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -133,6 +133,68 @@ namespace Common.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("category_Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Tin mới",
+                            Slug = "tin-mới",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sửa chữa",
+                            Slug = "sửa-chữa",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Hướng dẫn sử dụng Xbox",
+                            Slug = "hướng-dẫn-sử-dụng-xbox",
+                            Status = true
+                        });
+                });
+
+            modelBuilder.Entity("Common.Model.CommentBlogModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("CreateOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("blogsId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("usersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("blogsId");
+
+                    b.HasIndex("usersId");
+
+                    b.ToTable("CommentBlogModel");
                 });
 
             modelBuilder.Entity("Common.Model.CommentProduct", b =>
@@ -172,6 +234,32 @@ namespace Common.Migrations
                     b.HasIndex("usersId");
 
                     b.ToTable("commentsproduct");
+                });
+
+            modelBuilder.Entity("Common.Model.FeedBackModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("feedbacks");
                 });
 
             modelBuilder.Entity("Common.Model.OrderModel", b =>
@@ -300,7 +388,7 @@ namespace Common.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 549, DateTimeKind.Local).AddTicks(2249),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 359, DateTimeKind.Local).AddTicks(2402),
                             Description = "Đẹp",
                             Image = "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg",
                             Model = "P12498S1",
@@ -314,7 +402,7 @@ namespace Common.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2821),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 360, DateTimeKind.Local).AddTicks(9982),
                             Description = "Đẹp",
                             Image = "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg",
                             Name = "PS4 Slim 1TB",
@@ -327,7 +415,7 @@ namespace Common.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2845),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(40),
                             Description = "Đẹp",
                             Image = "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg",
                             Name = "Sony PS4 Slim Days Of Play 2019 Limited Edition",
@@ -340,7 +428,7 @@ namespace Common.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2925),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(45),
                             Description = "Đẹp",
                             Image = "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg",
                             Name = "PS4 Pro 2nd hand",
@@ -353,7 +441,7 @@ namespace Common.Migrations
                         {
                             Id = 5,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2928),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(51),
                             Description = "Đẹp",
                             Image = "e1f498e5-8386-4221-b9ac-6f5cd7acea80_ps4-pro-god-of-war-limited-edition-44-700x700.jpg",
                             Name = "Xbox Series X",
@@ -366,7 +454,7 @@ namespace Common.Migrations
                         {
                             Id = 6,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2930),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(54),
                             Description = "Đẹp",
                             Image = "6d9b947a-8d78-4a34-91a6-20c96a37395a_xbox-series-x-00-700x700.jpg",
                             Name = "Xbox Series X",
@@ -379,7 +467,7 @@ namespace Common.Migrations
                         {
                             Id = 7,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2932),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(58),
                             Description = "Đẹp",
                             Image = "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg",
                             Name = "Xbox Series X",
@@ -392,7 +480,7 @@ namespace Common.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2934),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(61),
                             Description = "Đẹp",
                             Image = "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg",
                             Name = "Xbox Series S",
@@ -405,7 +493,7 @@ namespace Common.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2936),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(63),
                             Description = "Đẹp",
                             Image = "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg",
                             Name = "Nintendo Switch V2 Màu Neon",
@@ -418,7 +506,7 @@ namespace Common.Migrations
                         {
                             Id = 10,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2938),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(66),
                             Description = "Đẹp",
                             Image = "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg",
                             Name = "Nintendo Switch Lite - Màu Blue",
@@ -431,7 +519,7 @@ namespace Common.Migrations
                         {
                             Id = 11,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2940),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(70),
                             Description = "Đẹp",
                             Image = "86236c3c-1dbe-4ab2-85b0-f892a37413c0_nintendo-switch-gray-joy-con-45-700x700.jpg",
                             Name = "Nintendo Switch Fortnite Special Edition",
@@ -444,7 +532,7 @@ namespace Common.Migrations
                         {
                             Id = 12,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(2942),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(72),
                             Description = "Đẹp",
                             Image = "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg",
                             Name = "Nintendo Switch Animal Crossing",
@@ -495,6 +583,7 @@ namespace Common.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Avarta")
@@ -507,15 +596,19 @@ namespace Common.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PassWord")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RolesId")
@@ -525,6 +618,7 @@ namespace Common.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -539,7 +633,7 @@ namespace Common.Migrations
                             Id = 1,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-1.png",
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(7086),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(9885),
                             Email = "duyvo049@gmail.com",
                             FullName = "Võ Thành Duy",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -553,7 +647,7 @@ namespace Common.Migrations
                             Id = 2,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-2.png",
-                            CreatedOn = new DateTime(2021, 11, 2, 19, 29, 40, 550, DateTimeKind.Local).AddTicks(7692),
+                            CreatedOn = new DateTime(2021, 11, 10, 10, 32, 50, 362, DateTimeKind.Local).AddTicks(1565),
                             Email = "leloc603@gmail.com",
                             FullName = "Lê Xuân Lộc",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -606,6 +700,21 @@ namespace Common.Migrations
                     b.Navigation("Category_Post");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Common.Model.CommentBlogModel", b =>
+                {
+                    b.HasOne("Common.Model.BlogModel", "blogs")
+                        .WithMany("commentBlogs")
+                        .HasForeignKey("blogsId");
+
+                    b.HasOne("Common.Model.UserModel", "users")
+                        .WithMany()
+                        .HasForeignKey("usersId");
+
+                    b.Navigation("blogs");
+
+                    b.Navigation("users");
                 });
 
             modelBuilder.Entity("Common.Model.CommentProduct", b =>
@@ -692,6 +801,11 @@ namespace Common.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Common.Model.BlogModel", b =>
+                {
+                    b.Navigation("commentBlogs");
                 });
 
             modelBuilder.Entity("Common.Model.CategoryModel", b =>

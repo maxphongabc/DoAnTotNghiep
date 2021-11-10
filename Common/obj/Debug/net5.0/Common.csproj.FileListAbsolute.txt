@@ -27,3 +27,4 @@ C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.dll
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Common\obj\Debug\net5.0\ref\Common.dll
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.pdb
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.genruntimeconfig.cache
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Common\obj\Debug\net5.0\Common.csprojAssemblyReference.cache

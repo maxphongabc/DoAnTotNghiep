@@ -103,9 +103,11 @@
                             console.log(response);
                             if (response.status == true) {
                                 btn.text('Đã duyệt');
+                                location.reload();
                             }
                             else {
                                 btn.text('Chưa duyệt');
+                                location.reload();
                             }
                         }
                     });

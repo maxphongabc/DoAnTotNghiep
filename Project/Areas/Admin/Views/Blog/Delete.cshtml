@@ -10,41 +10,50 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+        <dt class="col-sm-2">
+            Tiêu đề
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Brief)
+        <dt class="col-sm-2">
+            Rút gọn
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Brief)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
+        <dt class="col-sm-2">
+            Nội dung
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.Raw(Model.Content)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostedDate)
+        <dt class="col-sm-2">
+            Ngày đăng
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PostedDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+        <dt class="col-sm-2">
+            Trạng thái
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
+        @if (Model.Status == true)
+        {
+            <dd class="col-sm-10">
+                Đang hoạt động
+            </dd>
+        }
+        @if (Model.Status == false)
+        {
+            <dd class="col-sm-10">
+               Đã khóa
+            </dd>
+        }
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index">Quay trở lại</a>
     </form>
 </div>

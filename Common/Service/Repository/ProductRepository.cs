@@ -76,6 +76,7 @@ namespace Common.Service.Repository
                                Slug = p.Slug,
                                CategoryId = c.Id,
                                Image = p.Image,
+                               CreateOn = p.CreatedOn,
                                Description = p.Description,
                                System = p.System,
                                Price = p.Price,
@@ -83,7 +84,7 @@ namespace Common.Service.Repository
                                Model = p.Model,
                                NameCate = c.Name,
                                SlugCate = c.Slug
-                           });
+                           }).OrderByDescending(x=>x.CreateOn);
             return product.ToList();
         }
         public List<ProductModel> ListRelatedProduct(int id)

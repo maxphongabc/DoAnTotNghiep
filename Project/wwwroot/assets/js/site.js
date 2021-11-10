@@ -14,57 +14,58 @@
 		return false;
 	});
 });
-            $(document).ready(function () {
-            $(".ajax-add-to-cart").click(function () {
-                $.ajax({
-                    url: "/Cart/AddCart",
-                    data: {
-                        id: $(this).data("id")
-                    },
-                    success: function (data) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Thêm giỏ hàng thành công',
-                            showConfirmButton: false,
-                            timer: 2500
-                        });
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Thêm giỏ hàng thất bại',
-                            text: 'Vui lòng thử lại',
-                            showConfirmButton: false,
-                            timer: 2500
-                        });
-                    }
+$(document).ready(function () {
+    $(".ajax-add-to-cart").click(function () {
+        $.ajax({
+            url: "/Cart/AddCart",
+            data: {
+                id: $(this).data("id")
+            },
+            success: function (data) {
+                location.reload()
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thêm giỏ hàng thành công',
+                    showConfirmButton: false,
+                    timer: 2500
                 });
-            });
+                windown.location.reload();
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Thêm giỏ hàng thất bại',
+                    text: 'Vui lòng thử lại',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
         });
-//$(document).ready(function () {
-//    $(".ajax-add-to-wishlist").click(function () {
-//        $.ajax({
-//            url: "/WishList/AddWishList",
-//            data: {
-//                id: $(this).data("id")
-//            },
-//            success: function (data) {
-//                Swal.fire({
-//                    icon: 'success',
-//                    title: 'Đã thêm vào danh sách yêu thích ',
-//                    showConfirmButton: false,
-//                    timer: 2500
-//                });
-//            },
-//            error: function () {
-//                Swal.fire({
-//                    icon: 'error',
-//                    title: 'Thêm sản phẩm yêu thích thất bại',
-//                    text: 'Vui lòng thử lại',
-//                    showConfirmButton: false,
-//                    timer: 2500
-//                });
-//            }
-//        });
-//    });
-//});
+    });
+});
+$(function () {
+
+    if ($("a.confirmDeletion").length) {
+        $("a.confirmDeletion").click(() => {
+            if (!confirm("Confirm deletion")) return false;
+        });
+    }
+
+    if ($("div.alert.notification").length) {
+        setTimeout(() => {
+            $("div.alert.notification").fadeOut();
+        }, 2000);
+    }
+
+});
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        let reader = new FileReader();
+
+        reader.onload = function (e) {
+            $("img#imgpreview").attr("src", e.target.result).width(200).height(200);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}

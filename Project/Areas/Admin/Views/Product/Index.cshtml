@@ -61,7 +61,7 @@
             </td>
             @if (item.CategoryId == 1)
             {
-                <td><p class="btn btn-primary">PlayStation</p></td>
+                <td><p class="btn btn-primary">PlayStation 4</p></td>
             }
             @if (item.CategoryId == 2)
             {
@@ -71,6 +71,10 @@
             {
                 <td><p class="btn btn-danger">Nintendo</p></td>
             }
+            @if (item.CategoryId == 4)
+            {
+                <td><p class="btn btn-outline-primary">PlayStaion 5</p></td>
+            }
             @if (item.Quantity < 1)
             {
                 <td>
@@ -79,11 +83,11 @@
                     </p>
                 </td>
             }
-            @if(item.Quantity>0)
+            @if (item.Quantity > 0)
             {
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
             }
             <td>
                 @item.Price.ToString("N0") VNĐ
