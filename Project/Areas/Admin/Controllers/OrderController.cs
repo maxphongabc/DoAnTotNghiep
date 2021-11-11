@@ -122,6 +122,7 @@ namespace Project.Areas.Admin.Controllers
             _context.SaveChanges();
             return order.Status;
         }
+
         // GET: Admin/Order/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

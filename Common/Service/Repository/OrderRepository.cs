@@ -100,22 +100,16 @@ namespace Common.Service.Repository
         public List<OrderViewModel> ListOrder_Details(int id)
         {
             var order_details = (from od in _context.order_Details
-                                 join o in _context.order on od.OrderId equals o.Id
                                  join p in _context.products on od.ProductId equals p.Id
                                  where od.OrderId == id 
                                  select new OrderViewModel
-                                 {
-                                     OrderId=o.Id,
+                                 {  
+                                     Order_DetailId = od.Id,
                                      Price = od.Price,
-                                     Quantity = od.Quantity,
-                                     ShipAdress = o.ShipAdress,
-                                     ShipEmail = o.ShipEmail,
                                      ProductImage=p.Image,
-                                     ShipPhone = o.ShipPhone,
-                                     ShipName = o.ShipName,
-                                     Total = o.Total,
+                                     Quantity = od.Quantity,
                                      CreatedOn = od.CreatedOn,
-                                     Description = o.Description,
+                                     StatusOrder=od.Status,
                                      ProductName = p.Name,
                                      StatusOrder_Detailsx=od.Status
                                  });

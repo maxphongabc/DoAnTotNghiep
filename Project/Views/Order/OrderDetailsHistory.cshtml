@@ -15,7 +15,7 @@
                                 <th>Sản phẩm</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
-                                <th></th>
+                                <th>Trạng thái</th>
                             </tr>
                         </thead><!-- /thead -->
                         <tbody>
@@ -32,12 +32,12 @@
                                 <td>@item.Quantity</td>
                                 @if (item.StatusOrder_Detailsx == true)
                                 {
-                                    <td>Đã duyệt</td>
-}
+                                    <td><i style="color:lawngreen" class="fa fa-check-circle" aria-hidden="true"></i></td>
+                                }
                                 @if (item.StatusOrder_Detailsx == false)
                                 {
-                                    <td>Chờ duyệt</td>
-}
+                                    <td><i class="fa fa-check-circle-o" aria-hidden="true"></i></td>
+                                }
                             </tr>
                             }
                         </tbody><!-- /tbody -->

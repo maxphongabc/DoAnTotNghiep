@@ -8,7 +8,7 @@
 <h1>Sản phẩm</h1>
 
 <div>
-    <a asp-action="Create"><i class="plus-square">Thêm sản phẩm</i></a>
+    <a class="btn btn-outline-primary" asp-action="Create"><img src="~/Admin/img/plus.png"/> Thêm sản phẩm</a>
 </div>
 <br />
 <div class="container">
@@ -26,6 +26,12 @@
                     </div>
                 </div>
             }
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4 ">
+            <div>
+                <a asp-action="trashbin" class="btn btn-outline-danger"><img src="~/Admin/img/trash-bin.png" />Thùng rác</a>
+            </div>
         </div>
     </div>
 </div>
@@ -103,8 +109,6 @@
                 <a asp-action="Edit" asp-route-id="@item.Id"><img src="~/Admin/img/edit-a.png" /></a>
                 <br />
                 <a asp-action="Details" asp-route-slug="@item.Slug"><img src="~/Admin/img/list.png" /></a>
-                <br />
-                <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
             </td>
         </tr>
         }

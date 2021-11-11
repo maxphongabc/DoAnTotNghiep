@@ -27,12 +27,12 @@
                                 <td>@item.CreatedOn</td>
                                 @if (item.StatusOrder == true)
                                 {
-                                    <td>Đã duyệt</td>
-}
+                                    <td><i style="color:lawngreen" class="fa fa-check-circle" aria-hidden="true"></i></td>
+                                }
                                 @if (item.StatusOrder == false)
                                 {
-                                    <td>Chưa duyệt</td>
-}
+                                    <td><i class="fa fa-check-circle-o" aria-hidden="true"></i></td>
+                                }
                             </tr>
                             }
                             </tbody><!-- /tbody -->

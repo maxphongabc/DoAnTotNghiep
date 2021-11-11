@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Quên mật khẩu";
+}
+<div class="sign-in-page">
+    <div class="row">
+        <!-- Sign-in -->
+        <div class="col-md-6 col-sm-6 sign-in">
+            <p class="">Quên mật khẩu</p>
+            <form asp-action="ForgotPass" asp-controller="Home" class="register-form outer-top-xs" role="form">
+                <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1"> <span>Tìm lại mật khẩu</span></label>
+                    <input type="email" name="email" placeholder="Địa chỉ Email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+                </div>
+                <button class="btn btn-primary" type="submit">Tiếp tục</button>
+            </form>
+
+        </div>
+    </div><!-- /.row -->
+</div>

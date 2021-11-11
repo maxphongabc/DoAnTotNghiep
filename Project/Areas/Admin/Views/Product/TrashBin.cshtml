@@ -1,0 +1,118 @@
+﻿@model IPagedList<Common.Model.ProductModel>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Sản phẩm đã xóa</h1>
+
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Tìm kiếm</h3>
+            @using (Html.BeginForm("TrashBin", "Product", FormMethod.Get))
+            {
+                <div class="input-group">
+                    <input id="txtKeyword" type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm ..." name="Search" aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+<br />
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Tên</th>
+            <th>Model máy</th>
+            <th>Thể loại</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+            <th>Hình ảnh</th>
+            <th>Ngày tạo</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @item.Model
+                </td>
+                @if (item.CategoryId == 1)
+                {
+                    <td><p class="btn btn-primary">PlayStation 4</p></td>
+                }
+                @if (item.CategoryId == 2)
+                {
+                    <td><p class="btn btn-success">Xbox</p></td>
+                }
+                @if (item.CategoryId == 3)
+                {
+                    <td><p class="btn btn-danger">Nintendo</p></td>
+                }
+                @if (item.CategoryId == 4)
+                {
+                    <td><p class="btn btn-outline-primary">PlayStaion 5</p></td>
+                }
+                @if (item.Quantity < 1)
+                {
+                    <td>
+                        <p class="btn btn-danger">
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </p>
+                    </td>
+                }
+                @if (item.Quantity > 0)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                }
+                <td>
+                    @item.Price.ToString("N0") VNĐ
+                </td>
+                <td>
+                    <img class="img-thumbnail" src="~/img/sanpham/@item.Image" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><img src="~/Admin/img/edit-a.png" /></a>
+                    <br />
+                    <a asp-action="Details" asp-route-slug="@item.Slug"><img src="~/Admin/img/list.png" /></a>
+                    <br />
+                    <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="d-flex w-100 justify-content-center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("TrashBin", "Product", new { page, size = ViewBag.currentSize, Search = ViewBag.searchValue }))
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/Admin/js/jquery-ui.js"></script>
+    <script src="~/Admin/js/controller/productController.js"></script>
+}

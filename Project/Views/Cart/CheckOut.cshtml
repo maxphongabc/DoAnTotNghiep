@@ -35,16 +35,16 @@
                                 <div class="cart-quantity">
                                     <div class="quant-input">
                                         <div class="arrows">
-                                            <a asp-action="AddCart" asp-controller="Cart" asp-route-id="@cartitem.ProductId" class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></a>
-                                            <a asp-action="Decrease" asp-controller="Cart" asp-route-id="@cartitem.ProductId" class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></a>
+                                            <a  data-id="@cartitem.ProductId" class="arrow plus plus-a"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></a>
+                                            <a data-id="@cartitem.ProductId" class="arrow minus gradient Decrease-a"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></a>
                                         </div>
-                                        <input type="text" value="@cartitem.Quantity" max="@cartitem.Quantity">
+                                        <input type="number" value="@cartitem.Quantity" max="@cartitem.Quantity">
                                     </div>
                                 </div>
                             </td>
                             <td class="cart-product-sub-total"><span class="cart-sub-total-price">@cartitem.Price.ToString("N0")</span>VNĐ</td>
                             <td class="cart-product-grand-total"><span class="cart-grand-total-price">@cartitem.Total.ToString("N0")</span>VNĐ</td>
-                            <td class="romove-item"><a asp-action="Remove" asp-controller="Cart" asp-route-id="@cartitem.ProductId" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
+                            <td class="romove-item "><a  data-id="@cartitem.ProductId" title="cancel" class="icon Remove-a"><i class="fa fa-trash-o"></i></a></td>
 
                         </tr>
                     }

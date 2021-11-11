@@ -53,6 +53,12 @@ namespace Project.Controllers
             WishListModel wh = new WishListModel();
             UserModel user = JsonConvert.DeserializeObject<UserModel>(sessionUser);
             var product = _context.products.Where(x => x.Id == id).FirstOrDefault();
+            //bool res = true;
+            //if(user!=null && product.Id == wh.ProductId)
+            //{
+            //    res = false;
+            //    return Json(res);
+            //}    
             if (user != null && product != null)
             {                
                 wh.ProductId = product.Id;
@@ -60,9 +66,9 @@ namespace Project.Controllers
                 wh.CreateOn = DateTime.UtcNow;
                 _context.wistlists.Add(wh);
                 _context.SaveChanges();
-                //bool res = true;
+                //res = true;
                 //return Json(res);
-            }
+            }           
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Delete(int id)

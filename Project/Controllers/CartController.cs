@@ -52,11 +52,10 @@ namespace Project.Controllers
             {
                 cartItem.Quantity += 1;
             }
-
             HttpContext.Session.SetJson("Cart", cart);
 
             if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
-                return RedirectToAction("Index");
+                return View();
 
             return ViewComponent("SmallCart");
 
@@ -87,9 +86,25 @@ namespace Project.Controllers
                 HttpContext.Session.SetJson("Cart", cart);
             }
 
-            return RedirectToAction("Index");
+            return Json(true);
         }
+        public IActionResult Plus(int id)
+        {
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
 
+            CartItem cartItem = cart.Where(x => x.ProductId == id).FirstOrDefault();
+            if(cartItem!= null)
+            {
+                cartItem.Quantity += 1;
+            }
+            HttpContext.Session.SetJson("Cart", cart);
+
+            if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                return Json(true);
+
+            return ViewComponent("SmallCart");
+
+        }
         public IActionResult Remove(int id)
         {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
@@ -105,7 +120,7 @@ namespace Project.Controllers
                 HttpContext.Session.SetJson("Cart", cart);
             }
 
-            return RedirectToAction("Index");
+            return Json(true);
         }
 
         public ProductModel GetProduct(int id)
@@ -122,13 +137,12 @@ namespace Project.Controllers
             return Ok();
         }
         [HttpGet]
-        [HttpGet]
         public IActionResult CheckOut()
         {
             var sessionUser = HttpContext.Session.GetString(USER);
             if (sessionUser == null)
             {
-                var urlAdmin = Url.RouteUrl(new { controller = "Account", action = "Login", area = "Admin" });
+                var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Login" });
                 return Redirect(urlAdmin);
             }
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();

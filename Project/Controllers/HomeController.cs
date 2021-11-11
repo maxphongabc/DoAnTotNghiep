@@ -31,7 +31,7 @@ namespace Project.Controllers
         public IActionResult Index()
         {
             //lay 4 san pham moi nhat
-            ViewBag.ListNewProduct = _context.products.OrderByDescending(x => x.CreatedOn).Take(4).ToList();
+            ViewBag.ListNewProduct = _context.products.OrderByDescending(x => x.CreatedOn ).Where(x=>x.Status==true).Take(4).ToList();
             //lay list san pham playstation
             ViewBag.ListSPPlayStation = _context.products.Where(sp => sp.Status == true && sp.CategoryId == 1).OrderBy(sp => sp.Id).ToList();
             //lay list sanpham xbox
@@ -133,6 +133,7 @@ namespace Project.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("user");
+            HttpContext.Session.Remove("Cart");
             var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
             return Redirect(urlAdmin);
         }
@@ -149,9 +150,9 @@ namespace Project.Controllers
                 var result = _context.user.Where(s => s.UserName == member.UserName && s.PassWord == Encryptor.MD5Hash(member.PassWord) && s.Status == true).ToList();
                 if (result.Count == 0)
                 {
-                    ModelState.AddModelError("", "Tài khoản và mật khẩu không đúng");
+                    ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng");
                     return View(member);
-                }
+                }               
                 else if (result[0].RolesId == 2)
                 {
                     var str = JsonConvert.SerializeObject(result[0]);
@@ -164,6 +165,42 @@ namespace Project.Controllers
         }
         public IActionResult Error()
         {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult ForgotPass()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPass(string email)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _context.user.Where(s => s.Email == email).ToList();
+                if (result.Count == 0)
+                {
+                    TempData["Error"] = "Địa chỉ Email này không có trong hệ thống của chúng tôi!";
+                    return View();
+                }
+                else if (result[0].Status == false)
+                {
+                    TempData["Error"] = "Tài khoản của bạn đã bị khóa!";
+                    return View();
+                }
+                else if(result.Count==1)
+                {
+                    MailContent content = new MailContent
+                    {
+                        To = email,
+                        Subject = "FlipMart- Yêu cầu tạo lại mật khẩu",
+                        Body = "<p><strong>Xin chào</strong></div>" + "<p>Bạn vừa thực hiện yêu cầu tạo lại mật khẩu.</div>"+"<div>Để tạo lại mật khẩu vui lòng liên hệ SĐT 0393030574</div>"
+                    };
+                    await sendMailService.SendMail(content);
+                    TempData["Success"] = "Gửi mail thành công!";
+                }
+            }
             return View();
         }
 

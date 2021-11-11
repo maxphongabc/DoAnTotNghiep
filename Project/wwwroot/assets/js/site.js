@@ -21,20 +21,111 @@ $(document).ready(function () {
             data: {
                 id: $(this).data("id")
             },
-            success: function (data) {
-                location.reload()
+            success: function (data) {            
                 Swal.fire({
                     icon: 'success',
                     title: 'Thêm giỏ hàng thành công',
                     showConfirmButton: false,
                     timer: 2500
                 });
-                windown.location.reload();
+             
             },
             error: function () {
                 Swal.fire({
                     icon: 'error',
                     title: 'Thêm giỏ hàng thất bại',
+                    text: 'Vui lòng thử lại',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+
+        });
+    });
+});
+$(document).ready(function () {
+    $(".plus-a").click(function () {
+        $.ajax({
+            url: "/Cart/Plus",
+            data: {
+                id: $(this).data("id")
+            },
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function () {
+
+            }
+        });
+    });
+});
+$(document).ready(function () {
+    $(".Decrease-a").click(function () {
+        $.ajax({
+            url: "/Cart/Decrease",
+            data: {
+                id: $(this).data("id")
+            },
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function () {
+               
+            }
+        });
+    });
+});
+$(document).ready(function () {
+    $(".Remove-a").click(function () {
+        $.ajax({
+            url: "/Cart/Remove",
+            data: {
+                id: $(this).data("id")
+            },
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Thêm giỏ hàng thất bại',
+                    text: 'Vui lòng thử lại',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+        });
+    });
+});
+$(document).ready(function () {
+    $(".whistlist-a").click(function () {
+        $.ajax({
+            url: "/WishList/AddWishList",
+            data: {
+                id: $(this).data("id")
+            },
+            success: function (data,res) {
+                if (res == true) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đã thêm vào danh sách yêu thích thành công',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Sản phẩm này đã có trong danh sách yêu thích ',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Thêm vào danh sách yêu thích thất bại',
                     text: 'Vui lòng thử lại',
                     showConfirmButton: false,
                     timer: 2500

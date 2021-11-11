@@ -63,9 +63,11 @@ var product = {
                     console.log(response);
                     if (response.status == true) {
                         btn.text('Kích hoạt');
+                        window.location.reload();
                     }
                     else {
                         btn.text('Khoá');
+                        window.location.reload();
                     }
                 }
             });

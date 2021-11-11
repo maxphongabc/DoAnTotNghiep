@@ -50,6 +50,7 @@ namespace Project.Areas.Admin.Controllers
                 if (item.Value == size.ToString()) item.Selected = true;
             }
             var links = from l in _context.products
+                        where l.Status==true
                         select l;
             // 1.2. Tạo các biến ViewBag
             ViewBag.size = items; // ViewBag DropDownList
@@ -69,31 +70,38 @@ namespace Project.Areas.Admin.Controllers
                 links = links.Where(x => x.Name.Contains(Search));
                 //ViewBag.totalSpSearch = links.Count();
                 ViewBag.posts = links.ToPagedList(pageNumber, pageSize);
+            }         
+
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            //return View();
+            return View(links.OrderByDescending(x => x.CreatedOn).ToPagedList(pageNumber, pageSize));
+        }
+        public IActionResult TrashBin(int? size, int? page, string Search, string sort)
+        {
+            ViewBag.searchValue = Search;
+            ViewBag.page = page;
+            // 1. Tạo list pageSize để người dùng có thể chọn xem để phân trang
+            // Bạn có thể thêm bớt tùy ý --- dammio.com
+            var links = from l in _context.products
+                        where l.Status == false
+                        select l;
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+
+            // 2. Nếu page = null thì đặt lại là 1.
+            page = page ?? 1; //if (page == null) page = 1;
+
+            // 4. Tạo kích thước trang (pageSize), mặc định là 5.
+            int pageSize = (size ?? 5);
+
+            // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
+            // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
+            int pageNumber = (page ?? 1);
+            if (!string.IsNullOrEmpty(Search))
+            {
+                links = links.Where(x => x.Name.Contains(Search));
+                //ViewBag.totalSpSearch = links.Count();
+                ViewBag.posts = links.ToPagedList(pageNumber, pageSize);
             }
-            ////sort
-            //if(sort !=null)
-            //{
-            //    switch(sort)
-            //    {
-            //        case "PriceLowToHigh":
-            //            links = links.OrderBy(s => s.Price);
-            //            break;
-            //        case "PriceHighToLow":
-            //            links = links.OrderByDescending(s => s.Price);
-            //            break;
-            //        case "CharA_Z":
-            //            links = links.OrderBy(s => s.Name);
-            //            break;
-            //        case "CharZ_A":
-            //            links = links.OrderByDescending(s => s.Name);
-            //            break;
-            //    }    
-            //}
-            //else
-            //{
-            //    ViewBag.posts = links.ToPagedList(pageNumber, pageSize);
-            //}
-            //ViewBag.posts = links.ToPagedList(pageNumber, pageSize);
 
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             //return View();
@@ -107,6 +115,16 @@ namespace Project.Areas.Admin.Controllers
             {
                 data = data,
                 status = true
+            });
+        }
+        [HttpGet]
+        public JsonResult ListNametb(string q)
+        {
+            var data = _iproduct.ListName(q);
+            return Json(new
+            {
+                data = data,
+                status = false
             });
         }
         [HttpPost]

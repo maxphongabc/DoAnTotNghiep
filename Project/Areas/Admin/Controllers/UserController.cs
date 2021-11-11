@@ -30,7 +30,7 @@ namespace Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/User
-        public ActionResult Index(int? size, int? page, string Search)
+        public IActionResult Index(int? size, int? page, string Search)
         {
 
             ViewBag.searchValue = Search;
@@ -47,6 +47,7 @@ namespace Project.Areas.Admin.Controllers
                 if (item.Value == size.ToString()) item.Selected = true;
             }
             var links = from l in _context.user
+                        where l.Status == true && l.RolesId==2
                         select l;
             // 1.2. Tạo các biến ViewBag
             ViewBag.size = items; // ViewBag DropDownList
@@ -67,6 +68,36 @@ namespace Project.Areas.Admin.Controllers
             }
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return View(links.OrderBy(s=>s.CreatedOn).ToPagedList(pageNumber, pageSize));
+        }
+        public IActionResult TrashBin(int? size, int? page, string Search)
+        {
+
+            ViewBag.searchValue = Search;
+            ViewBag.page = page;
+            // 1. Tạo list pageSize để người dùng có thể chọn xem để phân trang
+            // Bạn có thể thêm bớt tùy ý --- dammio.com
+           
+            var links = from l in _context.user
+                        where l.Status==false
+                        select l;
+            // 1.2. Tạo các biến ViewBag
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+
+            // 2. Nếu page = null thì đặt lại là 1.
+            page = page ?? 1; //if (page == null) page = 1;
+
+            // 4. Tạo kích thước trang (pageSize), mặc định là 5.
+            int pageSize = (size ?? 5);
+
+            // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
+            // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
+            int pageNumber = (page ?? 1);
+            if (!string.IsNullOrEmpty(Search))
+            {
+                links = links.Where(x => x.FullName.Contains(Search) || x.UserName.Contains(Search));
+            }
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return View(links.OrderBy(s => s.CreatedOn).ToPagedList(pageNumber, pageSize));
         }
         // GET: Admin/User/Details/5
         public IActionResult Details(int id)

@@ -18,8 +18,8 @@
             @foreach (var item in Model)
             {
                 <div class="blog-post outer-top-bd  wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
-                    <a href="blog-details.html"><img class="img-responsive" src="~/img/blogs/@item.Image" alt=""></a>
-                    <h1><a href="blog-details.html">@item.Title</a></h1>
+                    <a asp-action="Details" asp-route-slug="@item.Slug"><img class="img-responsive" src="~/img/blogs/@item.Image" alt=""></a>
+                    <h1><a asp-action="Details" asp-route-slug="@item.Slug">@item.Title</a></h1>
                     <span class="author">@item.UserName</span>
                     <span class="date-time">@item.PostedDate</span>
                     <p>@item.Brief</p>...

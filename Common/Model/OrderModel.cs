@@ -14,6 +14,7 @@ namespace Common.Model
         public string ShipAdress { get; set; }
         public string Description { get; set; }
         public ICollection<Order_DetailsModel> order_Details { get; set; }
+        public ICollection <CommentProduct> commentproducts { get; set; }
         public DateTime? CreatedOn { get; set; }
         public bool Status { get; set; }
         public virtual UserModel user { get; set; }

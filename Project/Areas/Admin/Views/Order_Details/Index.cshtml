@@ -51,12 +51,12 @@
                     @item.CreatedOn
                 </td>
 
-                <td><a href="#" class="btn-active" data-id="@item.OrderId">@Html.Raw(item.StatusOrder ? "<strong>Đã duyệt</strong>" : "Chờ duyệt")</a></td>
+                <td><a href="#" class="btn-active" data-id="@item.Order_DetailId">@Html.Raw(item.StatusOrder ? "<strong>Đã duyệt</strong>" : "Chờ duyệt")</a></td>
                 <td>
                     <br />
-                    <a asp-action="Details" asp-route-id="@item.OrderId"><img src="~/Admin/img/list.png" /></a>
+                    <a asp-action="Details" asp-route-id="@item.Order_DetailId"><img src="~/Admin/img/list.png" /></a>
                     <br />
-                    <a asp-action="Delete" asp-route-id="@item.OrderId"><img src="~/Admin/img/trash-bin.png" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.Order_DetailId"><img src="~/Admin/img/trash-bin.png" /></a>
                 </td>
             </tr>
         }

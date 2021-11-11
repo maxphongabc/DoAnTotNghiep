@@ -66,9 +66,9 @@ namespace Common.Service.Repository
         }
         public List<ProductViewModel> ListAll()
         {
-
             var product = (from p in _context.products
                            join c in _context.categories on p.CategoryId equals c.Id
+                           where p.Status==true
                            select new ProductViewModel
                            {
                                ProductId = p.Id,
