@@ -115,7 +115,7 @@ namespace Project.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category_PostModel category_PostModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Slug")] Category_PostModel category_PostModel)
         {
             if (id != category_PostModel.Id)
             {
@@ -126,8 +126,17 @@ namespace Project.Areas.Admin.Controllers
             {
                 try
                 {
+                    category_PostModel.Status = true;
+                    category_PostModel.Slug = category_PostModel.Name.ToLower().Replace(" ", "-");
+                    var slug = await _context.category_Posts.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Slug == category_PostModel.Slug);
+                    if (slug != null)
+                    {
+                        ModelState.AddModelError("", "Loại bài viết này đã có.");
+                        return View(category_PostModel);
+                    }
                     _context.Update(category_PostModel);
                     await _context.SaveChangesAsync();
+                    TempData["Success"] = "chỉnh sửa thành công!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {

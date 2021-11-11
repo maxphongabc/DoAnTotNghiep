@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Common.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -108,7 +108,6 @@ namespace Common.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Avarta = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PassWord = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -157,37 +156,6 @@ namespace Common.Migrations
                         principalTable: "user",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "commentsproduct",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    CreateOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    productsId = table.Column<int>(type: "int", nullable: true),
-                    usersId = table.Column<int>(type: "int", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_commentsproduct", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_commentsproduct_products_productsId",
-                        column: x => x.productsId,
-                        principalTable: "products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_commentsproduct_user_usersId",
-                        column: x => x.usersId,
-                        principalTable: "user",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -276,6 +244,51 @@ namespace Common.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "commentsproduct",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CreateOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    productsId = table.Column<int>(type: "int", nullable: true),
+                    cmtId = table.Column<int>(type: "int", nullable: true),
+                    usersId = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    OrderModelId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_commentsproduct", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_commentsproduct_commentsproduct_cmtId",
+                        column: x => x.cmtId,
+                        principalTable: "commentsproduct",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_commentsproduct_order_OrderModelId",
+                        column: x => x.OrderModelId,
+                        principalTable: "order",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_commentsproduct_products_productsId",
+                        column: x => x.productsId,
+                        principalTable: "products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_commentsproduct_user_usersId",
+                        column: x => x.usersId,
+                        principalTable: "user",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "order_Details",
                 columns: table => new
                 {
@@ -286,7 +299,7 @@ namespace Common.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -339,27 +352,25 @@ namespace Common.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedOn", "Description", "Image", "Model", "Name", "Price", "Quantity", "Slug", "Status", "System" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 11, 10, 10, 32, 50, 359, DateTimeKind.Local).AddTicks(2402), "Đẹp", "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg", "P12498S1", "PlayStation 4 Slim 1TB", 9180000, 50, "playstation-4-slim-1tb", true, null },
-                    { 2, 1, new DateTime(2021, 11, 10, 10, 32, 50, 360, DateTimeKind.Local).AddTicks(9982), "Đẹp", "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg", null, "PS4 Slim 1TB", 7800000, 50, "ps4-slim-1tb", true, null },
-                    { 3, 1, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(40), "Đẹp", "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg", null, "Sony PS4 Slim Days Of Play 2019 Limited Edition", 4800000, 50, "sony-ps4-slim-days-of-play-2019-limited-edition", true, null },
-                    { 4, 1, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(45), "Đẹp", "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg", null, "PS4 Pro 2nd hand", 9300000, 50, "ps4-pro-2nd-hand", true, null },
-                    { 5, 2, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(51), "Đẹp", "e1f498e5-8386-4221-b9ac-6f5cd7acea80_ps4-pro-god-of-war-limited-edition-44-700x700.jpg", null, "Xbox Series X", 8800000, 50, "xbox-series-x", true, null },
-                    { 6, 2, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(54), "Đẹp", "6d9b947a-8d78-4a34-91a6-20c96a37395a_xbox-series-x-00-700x700.jpg", null, "Xbox Series X", 19300000, 50, "xbox-series-x", true, null },
-                    { 7, 2, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(58), "Đẹp", "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg", null, "Xbox Series X", 11800000, 50, "xbox-series-x", true, null },
-                    { 8, 2, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(61), "Đẹp", "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg", null, "Xbox Series S", 9800000, 50, "xbox-series-s", true, null },
-                    { 9, 3, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(63), "Đẹp", "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg", null, "Nintendo Switch V2 Màu Neon", 9800000, 50, "nintendo-switch-v2-mau-neon", true, null },
-                    { 10, 3, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(66), "Đẹp", "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", null, "Nintendo Switch Lite - Màu Blue", 7080000, 50, "nintendo-switch-lite-mau-blue", true, null },
-                    { 11, 3, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(70), "Đẹp", "86236c3c-1dbe-4ab2-85b0-f892a37413c0_nintendo-switch-gray-joy-con-45-700x700.jpg", null, "Nintendo Switch Fortnite Special Edition", 6880000, 50, "nintendo-switch-fortnite-special-edition", true, null },
-                    { 12, 3, new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(72), "Đẹp", "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg", null, "Nintendo Switch Animal Crossing", 7380000, 50, "nintendo-switch-animal-crossing", true, null }
+                    { 1, 1, new DateTime(2021, 11, 11, 20, 29, 30, 60, DateTimeKind.Local).AddTicks(2822), "Đẹp", "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg", "P12498S1", "PlayStation 4 Slim 1TB", 9180000, 50, "playstation-4-slim-1tb", true, null },
+                    { 2, 1, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1698), "Đẹp", "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg", null, "PS4 Slim 1TB", 7800000, 50, "ps4-slim-1tb", true, null },
+                    { 3, 1, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1778), "Đẹp", "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg", null, "Sony PS4 Slim Days Of Play 2019 Limited Edition", 4800000, 50, "sony-ps4-slim-days-of-play-2019-limited-edition", true, null },
+                    { 4, 1, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1781), "Đẹp", "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg", null, "PS4 Pro 2nd hand", 9300000, 50, "ps4-pro-2nd-hand", true, null },
+                    { 7, 2, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1784), "Đẹp", "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg", null, "Xbox Series X", 11800000, 50, "xbox-series-x", true, null },
+                    { 8, 2, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1786), "Đẹp", "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg", null, "Xbox Series S", 9800000, 50, "xbox-series-s", true, null },
+                    { 9, 3, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1788), "Đẹp", "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg", null, "Nintendo Switch V2 Màu Neon", 9800000, 50, "nintendo-switch-v2-mau-neon", true, null },
+                    { 10, 3, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1790), "Đẹp", "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", null, "Nintendo Switch Lite - Màu Blue", 7080000, 50, "nintendo-switch-lite-mau-blue", true, null },
+                    { 11, 3, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1792), "Đẹp", "86236c3c-1dbe-4ab2-85b0-f892a37413c0_nintendo-switch-gray-joy-con-45-700x700.jpg", null, "Nintendo Switch Fortnite Special Edition", 6880000, 50, "nintendo-switch-fortnite-special-edition", true, null },
+                    { 12, 3, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1796), "Đẹp", "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg", null, "Nintendo Switch Animal Crossing", 7380000, 50, "nintendo-switch-animal-crossing", true, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "user",
-                columns: new[] { "Id", "Address", "Avarta", "CreatedOn", "DateOfBirth", "Email", "FullName", "PassWord", "Phone", "RolesId", "Status", "UserName" },
+                columns: new[] { "Id", "Address", "Avarta", "CreatedOn", "Email", "FullName", "PassWord", "Phone", "RolesId", "Status", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "115 Trần Xuân Soạn", "user-1.png", new DateTime(2021, 11, 10, 10, 32, 50, 361, DateTimeKind.Local).AddTicks(9885), null, "duyvo049@gmail.com", "Võ Thành Duy", "25f9e794323b453885f5181f1b624d0b", "0393030574", 1, true, "thanhduy" },
-                    { 2, "115 Trần Xuân Soạn", "user-2.png", new DateTime(2021, 11, 10, 10, 32, 50, 362, DateTimeKind.Local).AddTicks(1565), null, "leloc603@gmail.com", "Lê Xuân Lộc", "25f9e794323b453885f5181f1b624d0b", "0393030574", 2, true, "leloc" }
+                    { 1, "115 Trần Xuân Soạn", "user-1.png", new DateTime(2021, 11, 11, 20, 29, 30, 63, DateTimeKind.Local).AddTicks(6379), "duyvo049@gmail.com", "Võ Thành Duy", "25f9e794323b453885f5181f1b624d0b", "0393030574", 1, true, "thanhduy" },
+                    { 2, "115 Trần Xuân Soạn", "user-2.png", new DateTime(2021, 11, 11, 20, 29, 30, 63, DateTimeKind.Local).AddTicks(7722), "leloc603@gmail.com", "Lê Xuân Lộc", "25f9e794323b453885f5181f1b624d0b", "0393030574", 2, true, "leloc" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -381,6 +392,16 @@ namespace Common.Migrations
                 name: "IX_CommentBlogModel_usersId",
                 table: "CommentBlogModel",
                 column: "usersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_commentsproduct_cmtId",
+                table: "commentsproduct",
+                column: "cmtId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_commentsproduct_OrderModelId",
+                table: "commentsproduct",
+                column: "OrderModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_commentsproduct_productsId",

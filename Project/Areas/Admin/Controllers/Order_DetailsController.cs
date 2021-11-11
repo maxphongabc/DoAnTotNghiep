@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Common.Data;
 using Common.Service.Interface;
 using X.PagedList;
+using Common.Model;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -26,7 +27,38 @@ namespace Project.Areas.Admin.Controllers
             var order_details = _iorder.ListOrder_Details(id);
             return View(order_details.ToPagedList());
         }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var order_detail = await _context.order_Details.FindAsync(id);
+            if (order_detail == null)
+            {
+                return NotFound();
+            }
+            return View(order_detail);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductId,OrderId,CreatedOn,Price,Quantity,Status,Tranfer")] Order_DetailsModel model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                _context.Update(model);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
         // GET: Admin/Order_Details/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -83,21 +115,21 @@ namespace Project.Areas.Admin.Controllers
         {
             return _context.order_Details.Any(e => e.Id == id);
         }
-        [HttpPost]
-        public JsonResult ChangeStatus(int id)
-        {
-            var result = ChangeStatuss(id);
-            return Json(new
-            {
-                status = result
-            });
-        }
-        public bool ChangeStatuss(int id)
-        {
-            var order = _context.order_Details.Find(id);
-            order.Status = !order.Status;
-            _context.SaveChanges();
-            return order.Status;
-        }
+        //[HttpPost]
+        //public JsonResult ChangeStatus(int id)
+        //{
+        //    var result = ChangeStatuss(id);
+        //    return Json(new
+        //    {
+        //        status = result
+        //    });
+        //}
+        //public bool ChangeStatuss(int id)
+        //{
+        //    var order = _context.order_Details.Find(id);
+        //    order.Status = !order.Status;
+        //    _context.SaveChanges();
+        //    return order.Status;
+        //}
     }
 }

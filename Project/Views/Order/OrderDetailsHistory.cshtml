@@ -30,13 +30,25 @@
                                 <td>@item.ProductName</td>
                                 <td>@item.Price.ToString("N0") VNĐ</td>
                                 <td>@item.Quantity</td>
-                                @if (item.StatusOrder_Detailsx == true)
+                                @if (item.StatusOrder_Detail == 1)
                                 {
-                                    <td><i style="color:lawngreen" class="fa fa-check-circle" aria-hidden="true"></i></td>
+                                    <td>Đang xác nhận<i class="fa fa-check-circle-o" aria-hidden="true"></i></td>
                                 }
-                                @if (item.StatusOrder_Detailsx == false)
+                                @if (item.StatusOrder_Detail == 2)
                                 {
-                                    <td><i class="fa fa-check-circle-o" aria-hidden="true"></i></td>
+                                    <td>Đang đóng gói</td>
+                                }
+                                @if (item.StatusOrder_Detail == 3)
+                                {
+                                    <td>Đangn vận chuyển</td>
+                                }
+                                @if (item.StatusOrder_Detail == 4)
+                                {
+                                    <td>Giao hàng thành công</td>
+                                }
+                                @if (item.StatusOrder_Detail == 5)
+                                {
+                                    <td>Đã hủy</td>
                                 }
                             </tr>
                             }

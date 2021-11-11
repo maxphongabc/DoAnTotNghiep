@@ -210,9 +210,6 @@ namespace Common.Migrations
                     b.Property<DateTime>("CreateOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("OrderModelId")
                         .HasColumnType("int");
 
@@ -280,9 +277,6 @@ namespace Common.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Check")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -339,8 +333,8 @@ namespace Common.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -402,7 +396,7 @@ namespace Common.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 359, DateTimeKind.Local).AddTicks(4438),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 60, DateTimeKind.Local).AddTicks(2822),
                             Description = "Đẹp",
                             Image = "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg",
                             Model = "P12498S1",
@@ -416,7 +410,7 @@ namespace Common.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5261),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1698),
                             Description = "Đẹp",
                             Image = "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg",
                             Name = "PS4 Slim 1TB",
@@ -429,7 +423,7 @@ namespace Common.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5336),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1778),
                             Description = "Đẹp",
                             Image = "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg",
                             Name = "Sony PS4 Slim Days Of Play 2019 Limited Edition",
@@ -442,7 +436,7 @@ namespace Common.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5341),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1781),
                             Description = "Đẹp",
                             Image = "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg",
                             Name = "PS4 Pro 2nd hand",
@@ -453,35 +447,9 @@ namespace Common.Migrations
                         },
                         new
                         {
-                            Id = 5,
-                            CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5344),
-                            Description = "Đẹp",
-                            Image = "e1f498e5-8386-4221-b9ac-6f5cd7acea80_ps4-pro-god-of-war-limited-edition-44-700x700.jpg",
-                            Name = "Xbox Series X",
-                            Price = 8800000,
-                            Quantity = 50,
-                            Slug = "xbox-series-x",
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5349),
-                            Description = "Đẹp",
-                            Image = "6d9b947a-8d78-4a34-91a6-20c96a37395a_xbox-series-x-00-700x700.jpg",
-                            Name = "Xbox Series X",
-                            Price = 19300000,
-                            Quantity = 50,
-                            Slug = "xbox-series-x",
-                            Status = true
-                        },
-                        new
-                        {
                             Id = 7,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5352),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1784),
                             Description = "Đẹp",
                             Image = "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg",
                             Name = "Xbox Series X",
@@ -494,7 +462,7 @@ namespace Common.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5354),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1786),
                             Description = "Đẹp",
                             Image = "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg",
                             Name = "Xbox Series S",
@@ -507,7 +475,7 @@ namespace Common.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5357),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1788),
                             Description = "Đẹp",
                             Image = "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg",
                             Name = "Nintendo Switch V2 Màu Neon",
@@ -520,7 +488,7 @@ namespace Common.Migrations
                         {
                             Id = 10,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5360),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1790),
                             Description = "Đẹp",
                             Image = "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg",
                             Name = "Nintendo Switch Lite - Màu Blue",
@@ -533,7 +501,7 @@ namespace Common.Migrations
                         {
                             Id = 11,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5363),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1792),
                             Description = "Đẹp",
                             Image = "86236c3c-1dbe-4ab2-85b0-f892a37413c0_nintendo-switch-gray-joy-con-45-700x700.jpg",
                             Name = "Nintendo Switch Fortnite Special Edition",
@@ -546,7 +514,7 @@ namespace Common.Migrations
                         {
                             Id = 12,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 366, DateTimeKind.Local).AddTicks(5365),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1796),
                             Description = "Đẹp",
                             Image = "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg",
                             Name = "Nintendo Switch Animal Crossing",
@@ -644,7 +612,7 @@ namespace Common.Migrations
                             Id = 1,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-1.png",
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 367, DateTimeKind.Local).AddTicks(2753),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 63, DateTimeKind.Local).AddTicks(6379),
                             Email = "duyvo049@gmail.com",
                             FullName = "Võ Thành Duy",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -658,7 +626,7 @@ namespace Common.Migrations
                             Id = 2,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-2.png",
-                            CreatedOn = new DateTime(2021, 11, 10, 22, 35, 42, 367, DateTimeKind.Local).AddTicks(4845),
+                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 63, DateTimeKind.Local).AddTicks(7722),
                             Email = "leloc603@gmail.com",
                             FullName = "Lê Xuân Lộc",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",

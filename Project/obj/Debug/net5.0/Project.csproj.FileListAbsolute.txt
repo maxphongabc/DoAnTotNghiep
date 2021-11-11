@@ -502,3 +502,4 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Vie
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\TrashBin.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\ForgotPass.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\TrashBin.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order_Details\Edit.cshtml.g.cs

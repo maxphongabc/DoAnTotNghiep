@@ -43,7 +43,7 @@ namespace Project.Controllers
             return View();
 
         }
-        public IActionResult OrderDetailsHistory(int id)
+        public  IActionResult OrderDetailsHistory(int id)
         {
             string session = HttpContext.Session.GetString(USER);
             if (session == null)

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Project.Models;
+using System.Threading.Tasks;
 
 namespace Project.Controllers
 {
@@ -43,7 +44,7 @@ namespace Project.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult DMK(RegisterViewModel model)
+        public async Task<IActionResult> DMK(RegisterViewModel model)
         {
             string session = HttpContext.Session.GetString("user");
             if (session == null)
@@ -56,11 +57,10 @@ namespace Project.Controllers
             {
                 if (Encryptor.MD5Hash(model.PassWord) == user.PassWord)
                 {
-
                     string pass = Encryptor.MD5Hash(model.ConfirmPassword);
                     user.PassWord = pass;
                     _context.Update(user);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     TempData["Success"] = "Chỉnh sửa thành công!";
                     return RedirectToAction(nameof(Index));
                 }

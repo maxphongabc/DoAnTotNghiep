@@ -13,9 +13,9 @@ namespace Common.Model
         public int ProductId { get; set; }
         public int UserId { get; set; }
         public DateTime CreateOn { get; set; }
-        public virtual ProductModel products { get; set; }
-        public virtual CommentProduct cmt { get; set; }
-        public virtual UserModel users { get; set; }
+        public  ProductModel products { get; set; }
+        public  CommentProduct cmt { get; set; }
+        public  UserModel users { get; set; }
         public bool Status { get; set; }
     }
 }

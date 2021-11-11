@@ -109,9 +109,8 @@ namespace Common.Service.Repository
                                      ProductImage=p.Image,
                                      Quantity = od.Quantity,
                                      CreatedOn = od.CreatedOn,
-                                     StatusOrder=od.Status,
                                      ProductName = p.Name,
-                                     StatusOrder_Detailsx=od.Status
+                                     StatusOrder_Detail=od.Status
                                  });
             return order_details.ToList();
         }

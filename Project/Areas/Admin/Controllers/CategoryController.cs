@@ -142,6 +142,14 @@ namespace Project.Areas.Admin.Controllers
             {
                 try
                 {
+                    categoryModel.Slug = categoryModel.Name.ToLower().Replace(" ", "-");
+                    categoryModel.Status = true;
+                    var slug = await _context.categories.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Slug == categoryModel.Slug);
+                    if (slug != null)
+                    {
+                        ModelState.AddModelError("", "Loại sản phẩm này đã có.");
+                        return View(categoryModel);
+                    }
                     _context.Update(categoryModel);
                     await _context.SaveChangesAsync();
                 }

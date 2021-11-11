@@ -186,7 +186,7 @@ namespace Project.Controllers
                 details.CreatedOn = DateTime.Now;
                 details.Price = item.Price;
                 details.ProductId = item.ProductId;
-                details.Status = false;
+                details.Status = 1;
                 details.Quantity = item.Quantity;
                 product.Quantity = product.Quantity - details.Quantity;
                 _context.order_Details.Add(details);

@@ -56,7 +56,7 @@ namespace Project.Areas.Admin.Controllers
             }
 
   
-            ViewBag.SumOrder = _context.order.Sum(x=>x.Total);
+            ViewBag.SumOrder = _context.order.Where(x=>x.Status==true).Sum(x=>x.Total);
             return View();
         }
         public IActionResult Logout()

@@ -12,6 +12,6 @@ namespace Common.Model
         public DateTime? CreatedOn { get; set; }
         public ProductModel product { get; set; }
         public OrderModel order { get; set; }
-        public bool Status { get; set; }
+        public int Status { get; set; }
     }
 }
