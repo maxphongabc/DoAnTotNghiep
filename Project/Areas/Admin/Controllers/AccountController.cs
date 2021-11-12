@@ -35,7 +35,7 @@ namespace Project.Areas.Admin.Controllers
                 var result = _context.user.Where(s => s.UserName == member.UserName && s.PassWord == Encryptor.MD5Hash(member.PassWord) && s.Status == true).ToList();
                 if (result.Count == 0)
                 {
-                    ModelState.AddModelError("", "Tài khoản và mật khẩu không đúng");
+                    ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng");
                     return View(member);
                 }
                 else if (result[0].RolesId == 1)

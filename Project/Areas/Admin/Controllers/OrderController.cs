@@ -11,7 +11,7 @@ using X.PagedList;
 namespace Project.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
         private readonly ProjectDPContext _context;
         private readonly IOrder _iorder;

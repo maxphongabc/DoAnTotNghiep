@@ -35,11 +35,14 @@ namespace Project.Controllers
                 return Redirect(urlAdmin);
             }
             UserModel user = JsonConvert.DeserializeObject<UserModel>(session);
+
             if (user.Id != 0)
             {
                 var order = _iorder.ListOrder(user.Id);
+                //ViewBag.Total = order.
                 return View(order);
             }
+            
             return View();
 
         }

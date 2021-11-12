@@ -197,7 +197,7 @@ namespace Project.Controllers
             MailContent content = new MailContent
             {
                 To = user.Email,
-                Subject = "Đơn hàng mới" + "#"+order.Id,
+                Subject = "Đơn hàng mới từ FlipMart" + "#"+order.Id,
                 Body = "<p><strong>Xin chào</strong></p>" + user.FullName + "<p>Cảm ơn bạn đã quan tâm sản phẩm của chúng tôi.Đơn hàng của bạn sẽ được xử lý ngay.</p>"
             };
             await sendMailService.SendMail(content);

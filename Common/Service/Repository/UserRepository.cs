@@ -43,6 +43,7 @@ namespace Common.Service.Repository
                         where u.Id == id
                         select new UserViewModel
                         {
+                            UserId=u.Id,
                             FullName = u.FullName,
                             UserName = u.UserName,
                             Phone = u.Phone,
@@ -57,7 +58,7 @@ namespace Common.Service.Repository
         }
         public List<string> ListName(string keyword)
         {
-            return _context.user.Where(x => x.FullName.Contains(keyword)).Select(x => x.FullName).ToList();
+            return _context.user.Where(x => x.FullName.Contains(keyword)).Where(x=>x.RolesId==2).Select(x => x.FullName).ToList();
         }
         public bool CheckUserName(string userName)
         {

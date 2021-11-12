@@ -10,7 +10,7 @@ using Common.Model;
 namespace Project.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class Order_DetailsController : Controller
+    public class Order_DetailsController : BaseController
     {
         private readonly ProjectDPContext _context;
         private readonly IOrder _iorder;
@@ -55,7 +55,7 @@ namespace Project.Areas.Admin.Controllers
 
                 _context.Update(model);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Edit", "Order_Details", new { id = model.Id });
             }
             return View(model);
         }
