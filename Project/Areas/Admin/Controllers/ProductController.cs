@@ -30,7 +30,7 @@ namespace Project.Areas.Admin.Controllers
 
         [HttpGet]
         // GET: /Link/
-        public IActionResult Index(int? size, int? page, string Search,string sort)
+        public IActionResult Index(int? size, int? page, string Search)
         {
             ViewBag.searchValue = Search;
             ViewBag.page = page;

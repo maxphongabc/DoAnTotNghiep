@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Common.Migrations
 {
     [DbContext(typeof(ProjectDPContext))]
-    [Migration("20211111132931_InitialCreate")]
+    [Migration("20211114123250_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,14 +71,14 @@ namespace Common.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Sorting")
-                        .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -93,7 +93,6 @@ namespace Common.Migrations
                             Id = 1,
                             Name = "PlayStaion 4",
                             Slug = "playstation-4",
-                            Sorting = 0,
                             Status = true
                         },
                         new
@@ -101,7 +100,6 @@ namespace Common.Migrations
                             Id = 2,
                             Name = "Xbox One S",
                             Slug = "xbox-one-s",
-                            Sorting = 0,
                             Status = true
                         },
                         new
@@ -109,7 +107,6 @@ namespace Common.Migrations
                             Id = 3,
                             Name = "Nintendo Switch",
                             Slug = "nintendo-switch",
-                            Sorting = 0,
                             Status = true
                         });
                 });
@@ -156,45 +153,6 @@ namespace Common.Migrations
                             Slug = "hướng-dẫn-sử-dụng-xbox",
                             Status = true
                         });
-                });
-
-            modelBuilder.Entity("Common.Model.CommentBlogModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("CreateOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("blogsId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("usersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("blogsId");
-
-                    b.HasIndex("usersId");
-
-                    b.ToTable("CommentBlogModel");
                 });
 
             modelBuilder.Entity("Common.Model.CommentProduct", b =>
@@ -288,6 +246,9 @@ namespace Common.Migrations
                     b.Property<string>("ShipAdress")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("ShipDateOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ShipEmail")
                         .HasColumnType("nvarchar(max)");
 
@@ -303,10 +264,15 @@ namespace Common.Migrations
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
+                    b.Property<int>("TransactStatusId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TransactStatusId");
 
                     b.HasIndex("UserId");
 
@@ -398,7 +364,7 @@ namespace Common.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 60, DateTimeKind.Local).AddTicks(2822),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 128, DateTimeKind.Local).AddTicks(907),
                             Description = "Đẹp",
                             Image = "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg",
                             Model = "P12498S1",
@@ -412,7 +378,7 @@ namespace Common.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1698),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6148),
                             Description = "Đẹp",
                             Image = "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg",
                             Name = "PS4 Slim 1TB",
@@ -425,7 +391,7 @@ namespace Common.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1778),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6226),
                             Description = "Đẹp",
                             Image = "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg",
                             Name = "Sony PS4 Slim Days Of Play 2019 Limited Edition",
@@ -438,7 +404,7 @@ namespace Common.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1781),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6232),
                             Description = "Đẹp",
                             Image = "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg",
                             Name = "PS4 Pro 2nd hand",
@@ -451,7 +417,7 @@ namespace Common.Migrations
                         {
                             Id = 7,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1784),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6235),
                             Description = "Đẹp",
                             Image = "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg",
                             Name = "Xbox Series X",
@@ -464,7 +430,7 @@ namespace Common.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1786),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6238),
                             Description = "Đẹp",
                             Image = "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg",
                             Name = "Xbox Series S",
@@ -477,7 +443,7 @@ namespace Common.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1788),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6241),
                             Description = "Đẹp",
                             Image = "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg",
                             Name = "Nintendo Switch V2 Màu Neon",
@@ -490,39 +456,13 @@ namespace Common.Migrations
                         {
                             Id = 10,
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1790),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6244),
                             Description = "Đẹp",
                             Image = "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg",
                             Name = "Nintendo Switch Lite - Màu Blue",
                             Price = 7080000,
                             Quantity = 50,
                             Slug = "nintendo-switch-lite-mau-blue",
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1792),
-                            Description = "Đẹp",
-                            Image = "86236c3c-1dbe-4ab2-85b0-f892a37413c0_nintendo-switch-gray-joy-con-45-700x700.jpg",
-                            Name = "Nintendo Switch Fortnite Special Edition",
-                            Price = 6880000,
-                            Quantity = 50,
-                            Slug = "nintendo-switch-fortnite-special-edition",
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1796),
-                            Description = "Đẹp",
-                            Image = "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg",
-                            Name = "Nintendo Switch Animal Crossing",
-                            Price = 7380000,
-                            Quantity = 50,
-                            Slug = "nintendo-switch-animal-crossing",
                             Status = true
                         });
                 });
@@ -555,6 +495,57 @@ namespace Common.Migrations
                         {
                             Id = 2,
                             Name = "User",
+                            Status = true
+                        });
+                });
+
+            modelBuilder.Entity("Common.Model.TransactStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransactStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Chờ Admin xác nhận đơn hàng",
+                            Name = "Đang xác nhận",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Admin xác nhận đơn hàng và đang giao hàng",
+                            Name = "Đang giao hàng",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Đơn hàng hoàn tất",
+                            Name = "Giao hàng thành công",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Đơn hàng đã hủy",
+                            Name = "Hủy",
                             Status = true
                         });
                 });
@@ -614,7 +605,7 @@ namespace Common.Migrations
                             Id = 1,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-1.png",
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 63, DateTimeKind.Local).AddTicks(6379),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 138, DateTimeKind.Local).AddTicks(5905),
                             Email = "duyvo049@gmail.com",
                             FullName = "Võ Thành Duy",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -628,7 +619,7 @@ namespace Common.Migrations
                             Id = 2,
                             Address = "115 Trần Xuân Soạn",
                             Avarta = "user-2.png",
-                            CreatedOn = new DateTime(2021, 11, 11, 20, 29, 30, 63, DateTimeKind.Local).AddTicks(7722),
+                            CreatedOn = new DateTime(2021, 11, 14, 19, 32, 48, 138, DateTimeKind.Local).AddTicks(8038),
                             Email = "leloc603@gmail.com",
                             FullName = "Lê Xuân Lộc",
                             PassWord = "25f9e794323b453885f5181f1b624d0b",
@@ -683,21 +674,6 @@ namespace Common.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Common.Model.CommentBlogModel", b =>
-                {
-                    b.HasOne("Common.Model.BlogModel", "blogs")
-                        .WithMany("commentBlogs")
-                        .HasForeignKey("blogsId");
-
-                    b.HasOne("Common.Model.UserModel", "users")
-                        .WithMany()
-                        .HasForeignKey("usersId");
-
-                    b.Navigation("blogs");
-
-                    b.Navigation("users");
-                });
-
             modelBuilder.Entity("Common.Model.CommentProduct", b =>
                 {
                     b.HasOne("Common.Model.OrderModel", null)
@@ -725,11 +701,19 @@ namespace Common.Migrations
 
             modelBuilder.Entity("Common.Model.OrderModel", b =>
                 {
+                    b.HasOne("Common.Model.TransactStatus", "TransactStatus")
+                        .WithMany("Order")
+                        .HasForeignKey("TransactStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Common.Model.UserModel", "user")
                         .WithMany("orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TransactStatus");
 
                     b.Navigation("user");
                 });
@@ -794,11 +778,6 @@ namespace Common.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Common.Model.BlogModel", b =>
-                {
-                    b.Navigation("commentBlogs");
-                });
-
             modelBuilder.Entity("Common.Model.CategoryModel", b =>
                 {
                     b.Navigation("products");
@@ -828,6 +807,11 @@ namespace Common.Migrations
             modelBuilder.Entity("Common.Model.RolesModel", b =>
                 {
                     b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Common.Model.TransactStatus", b =>
+                {
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Common.Model.UserModel", b =>

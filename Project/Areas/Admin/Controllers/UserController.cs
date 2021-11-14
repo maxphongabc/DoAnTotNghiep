@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Common.Data;
 using Common.Encryptor;
 using Common.Model;
@@ -20,13 +21,15 @@ namespace Project.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         private readonly ProjectDPContext _context;
+        private readonly INotyfService _notyf;
         private readonly IUser _iuser;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public UserController(ProjectDPContext context,IUser iuser, IWebHostEnvironment webHostEnvironment)
+        public UserController(ProjectDPContext context,IUser iuser, IWebHostEnvironment webHostEnvironment,INotyfService notyf)
         {
             _iuser = iuser;
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _notyf = notyf;
         }
 
         // GET: Admin/User
@@ -237,7 +240,7 @@ namespace Project.Areas.Admin.Controllers
                     }
                 _context.Update(userModel);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = "Chỉnh sửa thành công!";
+                _notyf.Success("Chỉnh sửa thành công",3);
                 return RedirectToAction(nameof(Index));
             }
             return View(userModel);      

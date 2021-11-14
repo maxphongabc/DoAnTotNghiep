@@ -3,72 +3,97 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h1>Edit</h1>
-
-<h4>OrderModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<div class="modal-header">
+    <h3 class="modal-title">Chỉnh sửa trạng thái đơn hàng</h3>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body" >
+    <div class="card">
+        <div class="card-body">
+            <h4>Thông tin đơn hàng #@Model.Id</h4>
+            <div class="table-responsive">
+                <table class="product-info-table m-t-20">
+                    <tbody>
+                        <tr>
+                            <td>ID:</td>
+                            <td class="text-dark font-weight-bold">#@Model.Id</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày mua:</td>
+                            <td>@Model.CreatedOn</td>
+                        </tr>
+                        <tr>
+                            <td>Người mua:</td>
+                            <td>@Model.user.UserName</td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại:</td>
+                            <td>@Model.ShipPhone</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ:</td>
+                            <td>@Model.ShipAdress</td>
+                        </tr>
+                        <tr>
+                            <td>Hình thức nhận hàng:</td>
+                            <td>@Model.ShipName</td>
+                        </tr>
+                        <tr>
+                            <td>Ghi chú:</td>
+                            <td>@Model.Description</td>
+                        </tr>
+                        <tr>
+                            <td>Tổng tiền:</td>
+                            <td>@Model.Total.ToString("N0") VNĐ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form asp-area="admin" asp-controller="order" asp-action="Edit" asp-route-id="@Model.Id">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
-                <input asp-for="Total" class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipName" class="control-label"></label>
-                <input asp-for="ShipName" class="form-control" />
-                <span asp-validation-for="ShipName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipPhone" class="control-label"></label>
-                <input asp-for="ShipPhone" class="form-control" />
-                <span asp-validation-for="ShipPhone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipEmail" class="control-label"></label>
-                <input asp-for="ShipEmail" class="form-control" />
-                <span asp-validation-for="ShipEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipAdress" class="control-label"></label>
-                <input asp-for="ShipAdress" class="form-control" />
-                <span asp-validation-for="ShipAdress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedOn" class="control-label"></label>
-                <input asp-for="CreatedOn" class="form-control" />
-                <span asp-validation-for="CreatedOn" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            @*<input type="hidden" asp-for="@Model.Id" />
+            <input type="hidden" asp-for="@Model.ShipName" />
+            <input type="hidden" asp-for="@Model.ShipEmail" />
+            <input type="hidden" asp-for="@Model.ShipPhone" />
+            <input type="hidden" asp-for="@Model.UserId" />
+            <input type="hidden" asp-for="@Model.UserId" />
+            <input type="hidden" asp-for="@Model.Description" />
+            <input type="hidden" asp-for="@Model.CreatedOn" />
+            <input type="hidden" asp-for="@Model.ShipAdress" />
+            <input type="hidden" asp-for="@Model.Total" />*@
+            <div class="row">
+                <div class="col-md-6">
+                    @*<div class="form-group">
+            <label>Trạng thái đơn hàng</label>
+            <select asp-for="StatusOrder" class="form-control">
+                <option value="0" disabled selected>Chọn trạng thái đơn hàng</option>
+                <option value="1">Đang xác nhận</option>
+                <option value="2">Đóng đóng gói</option>
+                <option value="3">Đang vận chuyển</option>
+                <option value="4">Giao hàng thành công</option>
+                <option value="5">Đã hủy</option>
+            </select>
+        </div>*@
+                    <div class="form-group">
+                        <label class="control-label">Loại sản phẩm</label>
+                        <select asp-for="TransactStatusId" class="form-control" asp-items="ViewBag.TransactStatusId"></select>
+                        <span asp-validation-for="TransactStatusId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -93,9 +93,14 @@ namespace Project.Controllers
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
 
             CartItem cartItem = cart.Where(x => x.ProductId == id).FirstOrDefault();
+            var prooduct = _context.products.Where(x => x.Id == id).FirstOrDefault();
             if(cartItem!= null)
             {
                 cartItem.Quantity += 1;
+                if(cartItem.Quantity>=prooduct.Quantity)
+                {
+                    return Json(false);
+                }
             }
             HttpContext.Session.SetJson("Cart", cart);
 
@@ -172,9 +177,10 @@ namespace Project.Controllers
             order.ShipAdress = user.Address;
             order.ShipEmail = user.Email;
             order.ShipPhone = user.Phone;
+            order.Status = true;
+            order.TransactStatusId = 1;
             order.ShipName = shipname;
             order.CreatedOn = DateTime.Now;
-            order.Status = false;
             order.UserId = user.Id;
             _context.order.Add(order);
             _context.SaveChanges();
@@ -186,7 +192,6 @@ namespace Project.Controllers
                 details.CreatedOn = DateTime.Now;
                 details.Price = item.Price;
                 details.ProductId = item.ProductId;
-                details.Status = 1;
                 details.Quantity = item.Quantity;
                 product.Quantity = product.Quantity - details.Quantity;
                 _context.order_Details.Add(details);

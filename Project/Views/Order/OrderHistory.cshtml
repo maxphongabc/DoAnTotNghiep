@@ -1,45 +1,80 @@
-﻿@model IEnumerable<Common.ViewModel.OrderViewModel>
-@{ 
+﻿@model IPagedList<Common.ViewModel.OrderViewModel>
+@using X.PagedList
+@{
     ViewData["Title"] = "Đơn hàng của tôi";
 }
-@if(Model!=null)
-{ 
-<div class="track-order-page">
+@if (Model != null)
+{
     <div class="row">
         <div class="shopping-cart">
             <div class="shopping-cart-table ">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Mã đơn hàng</th>
                                 <th>Tổng tiền</th>
                                 <th>Ngày mua</th>
                                 <th>Trạng thái</th>
+                                <th></th>
                             </tr>
                         </thead><!-- /thead -->
                         <tbody>
                             @foreach (var item in Model)
                             {
                             <tr>
-                                <td><a asp-action="orderDetailsHistory" asp-controller="Order" asp-route-id="@item.OrderId">      @item.OrderId</a></td>
+                                <td><a asp-action="orderDetailsHistory" asp-controller="Order" asp-route-id="@item.OrderId">@item.OrderId</a></td>
                                 <td>@item.Total.ToString("N0") VNĐ</td>
                                 <td>@item.CreatedOn</td>
-                                @if (item.StatusOrder == true)
+                                <td>@item.TransactStatusName</td>
+                                @if (item.TransactStatusId == 1)
                                 {
-                                    <td><i style="color:lawngreen" class="fa fa-check-circle" aria-hidden="true"></i></td>
+                                    <td><a class="btn btn-outline-danger" onclick="HuyHD(@item.OrderId)">Hủy</a></td>
                                 }
-                                @if (item.StatusOrder == false)
+                                @*else
                                 {
-                                    <td><i class="fa fa-check-circle-o" aria-hidden="true"></i></td>
-                                }
+                                    <td><a class="btn btn-outline-danger" asp-action="Cancel" asp-controller="Order" asp-route-id="@item.OrderId">Hủy</a></td>
+                                }*@
                             </tr>
                             }
-                            </tbody><!-- /tbody -->
+                        </tbody><!-- /tbody -->
                     </table><!-- /table -->
                 </div>
-            </div><!-- /.shopping-cart-table -->				
+            </div><!-- /.shopping-cart-table -->
         </div>
     </div><!-- /.row -->
-</div>
 }
+else
+{
+    <p class="alert alert-danger">Bạn chưa mua gì cả !!!</p>
+}
+<script>
+    function HuyHD(id) {
+        var r = confirm("Bạn có muốn hủy đơn hàng này không?");
+        
+        if (r == true) {
+           $.ajax({
+                "async": false,
+               "crossDomain": true,
+               "url": "@Url.Action("Cancel", "Order")?Id=" + id ,
+                "headers": {
+                    "Content-Type": "application/json",
+                    "cache-control": "no-cache"
+               },
+                "method": "POST",
+
+           }).done(function (result) {
+               if (result == true) {
+                   alert("Hủy đơn hàng thành công")
+                   window.location.reload();
+               }
+               else {
+                   alert("Hủy đơn hàng thất bại")
+               }
+            })
+        } else {
+            txt = "You pressed Cancel!";
+        }
+
+    }
+</script>

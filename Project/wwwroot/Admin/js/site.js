@@ -57,3 +57,24 @@ jQueryAjaxDelete = form => {
     //prevent default form submit event
     return false;
 }
+showModal = (url) => {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function (res) {
+            $('#form-modal .modal-body').html(res);
+            $('#form-modal').modal('show');
+        }
+    })
+}
+
+showModallarge = (url) => {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function (res) {
+            $('#from-modal-large .modal-body').html(res);
+            $('#form-modal-large').modal('show');
+        }
+    })
+}

@@ -22,7 +22,6 @@ namespace Common.Model
         public IFormFile ImageUpload { get; set; }
         public bool Status { get; set; }
         public virtual Category_PostModel Category_Post { get; set; }
-        public ICollection<CommentBlogModel> commentBlogs { get; set; }
         public virtual UserModel User { get; set; }
 
     }

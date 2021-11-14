@@ -42,34 +42,28 @@ namespace Project.Controllers
             return View();
         }
         public const string USER = "user";
-        public IActionResult AddWishList(int id)
+        [HttpPost]
+        public async Task <IActionResult> AddWishList(int id)
         {
             var sessionUser = HttpContext.Session.GetString(USER);
             if (sessionUser == null)
             {
                 var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Login" });
                 return Redirect(urlAdmin);
-            }
-            WishListModel wh = new WishListModel();
+            }            
             UserModel user = JsonConvert.DeserializeObject<UserModel>(sessionUser);
-            var product = _context.products.Where(x => x.Id == id).FirstOrDefault();
-            //bool res = true;
-            //if(user!=null && product.Id == wh.ProductId)
-            //{
-            //    res = false;
-            //    return Json(res);
-            //}    
-            if (user != null && product != null)
-            {                
-                wh.ProductId = product.Id;
-                wh.UserId = user.Id;
-                wh.CreateOn = DateTime.UtcNow;
-                _context.wistlists.Add(wh);
-                _context.SaveChanges();
-                //res = true;
-                //return Json(res);
-            }           
-            return RedirectToAction("Index");
+            var wh = _context.wistlists.Where(x => x.ProductId == id && x.UserId ==user.Id ).FirstOrDefault();
+            WishListModel wishList = new WishListModel();
+            if (wh==null)
+            {
+                wishList.ProductId = id;
+                wishList.UserId = user.Id;
+                wishList.CreateOn = DateTime.UtcNow;
+                _context.wistlists.Add(wishList);
+                await _context.SaveChangesAsync();
+                return Json(true);
+            }
+            return Json(false);
         }
         public async Task<IActionResult> Delete(int id)
         {

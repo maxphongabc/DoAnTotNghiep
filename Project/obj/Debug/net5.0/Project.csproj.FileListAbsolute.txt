@@ -422,10 +422,6 @@ C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Are
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Details.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Edit.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Index.cshtml.g.cs
-C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Index1.cshtml.g.cs
-C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order_Details\Delete.cshtml.g.cs
-C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order_Details\Details.cshtml.g.cs
-C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order_Details\Index.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\Create.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\Delete.cshtml.g.cs
 C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\Details.cshtml.g.cs
@@ -502,4 +498,9 @@ C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Vie
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\TrashBin.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\ForgotPass.cshtml.g.cs
 C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\TrashBin.cshtml.g.cs
-C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order_Details\Edit.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\bin\Debug\net5.0\Project.StaticWebAssets.xml
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\bin\Debug\net5.0\AspNetCoreHero.ToastNotification.Views.dll
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\bin\Debug\net5.0\AspNetCoreHero.ToastNotification.dll
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Index2.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Index3.cshtml.g.cs
+C:\Users\Thanh Duy\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\Order\Index4.cshtml.g.cs

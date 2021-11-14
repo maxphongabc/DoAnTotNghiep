@@ -81,7 +81,7 @@ namespace Project.Controllers
                 cmt.ProductId = ProductId;
                 cmt.UserId = user.Id;
                 cmt.Content = Comment;
-                cmt.Status = true;
+                cmt.Status = false;
                 _context.commentsproduct.Add(cmt);
                 _context.SaveChanges();
                 //return Json(true);

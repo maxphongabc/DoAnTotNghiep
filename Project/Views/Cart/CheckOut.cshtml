@@ -5,12 +5,14 @@
 <h2>Thanh toán</h2>
 @if (Model.CartItems.Count > 0)
 {
+    int i = 1;
 <div class="shopping-cart">
     <div class="shopping-cart-table ">
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
+                        <th class="cart-description item">STT</th>
                         <th class="cart-description item">Hình ảnh</th>
                         <th class="cart-product-name item">Tên sản phẩm</th>
                         <th class="cart-qty item">Số lượng</th>
@@ -23,6 +25,7 @@
                     @foreach (var cartitem in Model.CartItems)
                     {
                         <tr>
+                            <td>@i</td>
                             <td class="cart-image">
                                 <a class="entry-thumbnail">
                                     <img src="~/img/sanpham/@cartitem.Image" alt="">
@@ -47,6 +50,7 @@
                             <td class="romove-item "><a  data-id="@cartitem.ProductId" title="cancel" class="icon Remove-a"><i class="fa fa-trash-o"></i></a></td>
 
                         </tr>
+                        i++;
                     }
                 </tbody><!-- /tbody -->
             </table><!-- /table -->

@@ -3,10 +3,10 @@
 }
 @using Newtonsoft.Json;
 @using Microsoft.AspNetCore.Http
-@{ 
+@*@{ 
     var session = Context.Session.GetString("Admin");
     Common.Model.UserModel user = JsonConvert.DeserializeObject<Common.Model.UserModel>(session);
-}
+}*@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
@@ -31,15 +31,15 @@
         <!-- Nav Item - Messages -->
        
         <!-- Nav Item - User Information -->
-        @if (session != null)
-        {
-        <li class="nav-item dropdown no-arrow">
+        @*@if (session != null)
+        {*@
+        <!--<li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@user.UserName</span>
-                <img class="img-profile rounded-circle" src="~/img/user/@user.Avarta">
-            </a>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">user.UserName</span>
+                <img class="img-profile rounded-circle" src="~/img/user/user.Avarta">
+            </a>-->
             <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+            <!--<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" asp-action="Profile" asp-controller="account">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Trang cá nhân
@@ -50,8 +50,8 @@
                     Đăng xuất
                 </a>
             </div>
-        </li>
-        }
+        </li>-->
+        @*}*@
 
     </ul>
 

@@ -13,10 +13,14 @@ namespace Common.Model
         public string ShipEmail { get; set; }
         public string ShipAdress { get; set; }
         public string Description { get; set; }
+        public int TransactStatusId { get; set; }
+        public bool Status { get; set; }
         public ICollection<Order_DetailsModel> order_Details { get; set; }
         public ICollection <CommentProduct> commentproducts { get; set; }
         public DateTime? CreatedOn { get; set; }
-        public bool Status { get; set; }
+        public DateTime? ShipDateOn { get; set; }
+
         public virtual UserModel user { get; set; }
+        public virtual TransactStatus TransactStatus { get; set; }
     }
 }

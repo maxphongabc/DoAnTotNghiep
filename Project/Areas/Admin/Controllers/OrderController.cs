@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Common.Data;
 using Common.Model;
 using Common.Service.Interface;
@@ -15,8 +17,10 @@ namespace Project.Areas.Admin.Controllers
     {
         private readonly ProjectDPContext _context;
         private readonly IOrder _iorder;
-        public OrderController(ProjectDPContext context, IOrder iorder)
+        private readonly INotyfService _notyf;
+        public OrderController(ProjectDPContext context, IOrder iorder,INotyfService notyf)
         {
+            _notyf = notyf;
             _context = context;
             _iorder = iorder;
         }
@@ -30,10 +34,10 @@ namespace Project.Areas.Admin.Controllers
 
             int pageSize = (size ?? 10);
             int pageNumber = (page ?? 1);
-            var order = _iorder.ListOrderAdmin_False();
+            var order = _iorder.ListOrderAdmin_1();
             return View(order.ToPagedList(pageNumber,pageSize));
         }
-        public IActionResult Index1(int? size, int? page)
+        public IActionResult Index2(int? size, int? page)
         {
             ViewBag.currentSize = size;
 
@@ -41,19 +45,45 @@ namespace Project.Areas.Admin.Controllers
 
             int pageSize = (size ?? 10);
             int pageNumber = (page ?? 1);
-            var order = _iorder.ListOrderAdmin_True();
+            var order = _iorder.ListOrderAdmin_2();
+            return View(order.ToPagedList(pageNumber, pageSize));
+        }
+        public IActionResult Index3(int? size, int? page)
+        {
+            ViewBag.currentSize = size;
+
+            page = page ?? 1; //if (page == null) page = 1;
+
+            int pageSize = (size ?? 10);
+            int pageNumber = (page ?? 1);
+            var order = _iorder.ListOrderAdmin_3();
+            return View(order.ToPagedList(pageNumber, pageSize));
+        }
+        public IActionResult Index4(int? size, int? page)
+        {
+            ViewBag.currentSize = size;
+
+            page = page ?? 1; //if (page == null) page = 1;
+
+            int pageSize = (size ?? 10);
+            int pageNumber = (page ?? 1);
+            var order = _iorder.ListOrderAdmin_4();
             return View(order.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/Order/Details/5
-        public IActionResult Details(int id)
+        public async Task <IActionResult> Details(int id)
         {
             var order = _iorder.Details_Order(id);
-            return View(order);
+            var order_Details =await _context.order_Details
+                .Include(x => x.product)
+                .AsNoTracking()
+                .Where(x => x.OrderId == order.OrderId)
+                .OrderBy(x => x.OrderId)
+                .ToListAsync();
+            ViewBag.CTHD = order_Details;
+            return PartialView(order);
         }
-
-     
-
         // GET: Admin/Order/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -61,14 +91,13 @@ namespace Project.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            var orderModel = await _context.order.FindAsync(id);
-            if (orderModel == null)
+            var order =await _context.order.AsNoTracking().Include(x => x.user).FirstOrDefaultAsync(x => x.Id==id);
+            ViewData["TransactStatusId"] = new SelectList(_context.TransactStatuses, "Id", "Name", order.TransactStatusId);
+            if (order == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.user, "Id", "Id", orderModel.UserId);
-            return View(orderModel);
+            return PartialView(order);
         }
 
         // POST: Admin/Order/Edit/5
@@ -76,7 +105,7 @@ namespace Project.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Total,ShipName,ShipPhone,ShipEmail,ShipAdress,Description,CreatedOn,UpdatedOn,Status")] OrderModel orderModel)
+        public async Task<IActionResult> Edit(int id, OrderModel orderModel)
         {
             if (id != orderModel.Id)
             {
@@ -87,8 +116,39 @@ namespace Project.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(orderModel);
-                    await _context.SaveChangesAsync();
+                    var order = await _context.order.AsNoTracking().Include(x => x.user).FirstOrDefaultAsync(x => x.Id == id);
+                    ProductModel product = new ProductModel();
+                    var order_Details = _context.order_Details
+                    .Include(x => x.product)
+                    .AsNoTracking()
+                    .Where(x => x.OrderId == order.Id)
+                    .OrderBy(x => x.OrderId)
+                    .ToList();
+                    ViewData["TransactStatusId"] = new SelectList(_context.TransactStatuses, "Id", "Name", order.TransactStatusId);
+                    if (order != null)
+                    {
+                        order.TransactStatusId = orderModel.TransactStatusId;
+                        if(order.TransactStatusId==4)
+                        {
+                            order.ShipDateOn = DateTime.Now;
+                        }    
+                        if(order.TransactStatusId==5)
+                        {
+                            foreach(var item in order_Details)
+                            {
+                                product = GetProduct(item.ProductId);
+                                product.Quantity = product.Quantity + item.Quantity;
+                            }    
+                            order.ShipDateOn = null;
+                            _context.Update(product);
+                        }    
+                    }
+         
+
+                    _context.Update(order);
+                        await _context.SaveChangesAsync();
+                    _notyf.Success("Cập nhật trạng thái đơn hàng thành công", 3);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -103,26 +163,13 @@ namespace Project.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.user, "Id", "Id", orderModel.UserId);
-            return View(orderModel);
+            return PartialView("Edit", orderModel);
         }
-        [HttpPost]
-        public JsonResult ChangeStatus(int id)
+        public ProductModel GetProduct(int id)
         {
-            var result = ChangeStatuss(id);
-            return Json(new
-            {
-                status = result
-            });
+            var product = _context.products.Find(id);
+            return product;
         }
-        public bool ChangeStatuss(int id)
-        {
-            var order = _context.order.Find(id);
-            order.Status = !order.Status;
-            _context.SaveChanges();
-            return order.Status;
-        }
-
         // GET: Admin/Order/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -139,7 +186,7 @@ namespace Project.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            return View(orderModel);
+            return PartialView(orderModel);
         }
 
         // POST: Admin/Order/Delete/5
@@ -148,7 +195,8 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var orderModel = await _context.order.FindAsync(id);
-            _context.order.Remove(orderModel);
+            orderModel.TransactStatusId = 5;
+            _context.order.Update(orderModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

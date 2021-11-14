@@ -5,7 +5,7 @@
     ViewData["Title"] = "Đơn hàng";
 }
 
-<h1>Danh sách đơn hàng đang xác nhận</h1>
+<h1>Danh sách đơn hàng đang giao</h1>
 
 
 <table class="table table-bordered" width="100%">
@@ -68,7 +68,7 @@
                 <td>
                     <a style="cursor:pointer" onclick="showModal('@Url.Action("Edit","Order",new { id=item.OrderId},Context.Request.Scheme)')"><img src="~/Admin/img/edit-a.png" /></a>
                     <br />
-                    <a style="cursor:pointer" onclick="showModal('@Url.Action("Details","Order",new { id=item.OrderId},Context.Request.Scheme)')"><img src="~/Admin/img/list.png" /></a>
+                    <a style="cursor:pointer" onclick="showModallarge('@Url.Action("Details","Order",new { id=item.OrderId},Context.Request.Scheme)')"><img src="~/Admin/img/list.png" /></a>
                     <br />
                 </td>
                 <td>
@@ -82,34 +82,5 @@
 </div>
 @section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-    function Editdh(id) {
-   /*     var r = confirm("Bạn có muốn hủy đơn hàng này không?");*/
 
-        if (r == true) {
-           $.ajax({
-                "async": false,
-               "crossDomain": true,
-               "url": "@Url.Action("Edit", "Order")?Id=" + id ,
-                "headers": {
-                    "Content-Type": "application/json",
-                    "cache-control": "no-cache"
-               },
-                "method": "POST",
-
-           }).done(function (result) {
-               if (result == true) {
-                   alert("Hủy đơn hàng thành công")
-                   window.location.reload();
-               }
-               else {
-                   alert("Hủy đơn hàng thất bại")
-               }
-            })
-        //} else {
-        //    txt = "You pressed Cancel!";
-        //}
-
-    }
-    </script>
 }

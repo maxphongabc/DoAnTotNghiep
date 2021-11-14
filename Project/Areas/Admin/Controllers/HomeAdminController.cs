@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Common.Data;
 using Common.Model;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -13,9 +14,11 @@ namespace Project.Areas.Admin.Controllers
     public class HomeAdminController : BaseController
     {
         private readonly ProjectDPContext _context;
-        public HomeAdminController(ProjectDPContext context)
+        private readonly INotyfService _notyf;
+        public HomeAdminController(ProjectDPContext context,INotyfService notyf)
         {
             _context = context;
+            _notyf = notyf;
         }
         public override void OnActionExecuted(ActionExecutedContext context)
         {
@@ -35,11 +38,11 @@ namespace Project.Areas.Admin.Controllers
         }
         public IActionResult Index(string count,string countn,string countnn,int total)
         {
-            
+            _notyf.Success("Ok nhá");
             if (count == null)
             {
                 ViewBag.ListProduct = (from p in _context.products
-                                       where p.Name.IndexOf(count) >= 0 && p.Status == true
+                                       where p.Name.IndexOf(count) >= 0 && p.Status == true 
                                        select p).ToList(); 
             }
             if(countn==null)
@@ -56,7 +59,8 @@ namespace Project.Areas.Admin.Controllers
             }
 
   
-            ViewBag.SumOrder = _context.order.Where(x=>x.Status==true).Sum(x=>x.Total);
+            ViewBag.SumOrder = _context.order.Where(x=>x.Status==true &&x.TransactStatusId==3).Sum(x=>x.Total);
+            //ViewBag.Product = _context.order_Details.Where(x=> x.ProductId ).Sum(x => x.Total);
             return View();
         }
         public IActionResult Logout()

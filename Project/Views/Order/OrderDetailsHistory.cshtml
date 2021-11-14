@@ -1,21 +1,20 @@
 ﻿@model IEnumerable<Common.ViewModel.OrderViewModel>
 @{
     ViewData["Title"] = "Đơn hàng của tôi";
-    var a = ViewBag.Total;
 }
-<div class="track-order-page">
+@if (Model != null)
+{
     <div class="row">
         <div class="shopping-cart">
             <div class="shopping-cart-table ">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Hình ảnh</th>
                                 <th>Sản phẩm</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
-                                <th>Trạng thái</th>
                             </tr>
                         </thead><!-- /thead -->
                         <tbody>
@@ -30,26 +29,6 @@
                                 <td>@item.ProductName</td>
                                 <td>@item.Price.ToString("N0") VNĐ</td>
                                 <td>@item.Quantity</td>
-                                @if (item.StatusOrder_Detail == 1)
-                                {
-                                    <td>Đang xác nhận<i class="fa fa-check-circle-o" aria-hidden="true"></i></td>
-                                }
-                                @if (item.StatusOrder_Detail == 2)
-                                {
-                                    <td>Đang đóng gói</td>
-                                }
-                                @if (item.StatusOrder_Detail == 3)
-                                {
-                                    <td>Đangn vận chuyển</td>
-                                }
-                                @if (item.StatusOrder_Detail == 4)
-                                {
-                                    <td>Giao hàng thành công</td>
-                                }
-                                @if (item.StatusOrder_Detail == 5)
-                                {
-                                    <td>Đã hủy</td>
-                                }
                             </tr>
                             }
                         </tbody><!-- /tbody -->
@@ -57,7 +36,8 @@
                 </div>
             </div><!-- /.shopping-cart-table -->
         </div>
+    
     </div><!-- /.row -->
-</div>
-<div class="col-md-4 col-sm-12 estimate-ship-tax"></div>
-<div class="col-md-4 col-sm-12 estimate-ship-tax"></div>
+}
+
+

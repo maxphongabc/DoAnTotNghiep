@@ -1,4 +1,5 @@
-﻿using Common.Data;
+﻿using AspNetCoreHero.ToastNotification;
+using Common.Data;
 using Common.Service.Interface;
 using Common.Service.Repository;
 using Common.ViewModel;
@@ -34,6 +35,10 @@ namespace Project
             services.AddHttpClient();
             services.AddHttpContextAccessor();
             services.AddMvc();
+            services.AddNotyf(config => { config.DurationInSeconds = 10;
+                config.IsDismissable = true;
+                config.Position = NotyfPosition.TopRight;
+            });
             services.AddDbContext<ProjectDPContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ProjectDPContext")));
             services.AddDistributedMemoryCache();

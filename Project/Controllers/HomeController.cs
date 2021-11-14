@@ -159,6 +159,7 @@ namespace Project.Controllers
                     HttpContext.Session.SetString("user", str);
                     var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
                     return Redirect(urlAdmin);
+                    //return Json(true);
                 }
             }
             return View();

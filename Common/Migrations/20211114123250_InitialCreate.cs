@@ -15,7 +15,7 @@ namespace Common.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sorting = table.Column<int>(type: "int", nullable: false),
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -66,6 +66,21 @@ namespace Common.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransactStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,12 +186,20 @@ namespace Common.Migrations
                     ShipEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShipAdress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TransactStatusId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false)
+                    ShipDateOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_order_TransactStatuses_TransactStatusId",
+                        column: x => x.TransactStatusId,
+                        principalTable: "TransactStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_order_user_UserId",
                         column: x => x.UserId,
@@ -210,37 +233,6 @@ namespace Common.Migrations
                         principalTable: "user",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CommentBlogModel",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    BlogId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    CreateOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    blogsId = table.Column<int>(type: "int", nullable: true),
-                    usersId = table.Column<int>(type: "int", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CommentBlogModel", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CommentBlogModel_blogs_blogsId",
-                        column: x => x.blogsId,
-                        principalTable: "blogs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CommentBlogModel_user_usersId",
-                        column: x => x.usersId,
-                        principalTable: "user",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -319,13 +311,24 @@ namespace Common.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "categories",
-                columns: new[] { "Id", "Name", "Slug", "Sorting", "Status" },
+                table: "TransactStatuses",
+                columns: new[] { "Id", "Description", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, "PlayStaion 4", "playstation-4", 0, true },
-                    { 2, "Xbox One S", "xbox-one-s", 0, true },
-                    { 3, "Nintendo Switch", "nintendo-switch", 0, true }
+                    { 1, "Chờ Admin xác nhận đơn hàng", "Đang xác nhận", true },
+                    { 2, "Admin xác nhận đơn hàng và đang giao hàng", "Đang giao hàng", true },
+                    { 3, "Đơn hàng hoàn tất", "Giao hàng thành công", true },
+                    { 4, "Đơn hàng đã hủy", "Hủy", true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "categories",
+                columns: new[] { "Id", "Icon", "Name", "Slug", "Status" },
+                values: new object[,]
+                {
+                    { 1, null, "PlayStaion 4", "playstation-4", true },
+                    { 2, null, "Xbox One S", "xbox-one-s", true },
+                    { 3, null, "Nintendo Switch", "nintendo-switch", true }
                 });
 
             migrationBuilder.InsertData(
@@ -352,16 +355,14 @@ namespace Common.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedOn", "Description", "Image", "Model", "Name", "Price", "Quantity", "Slug", "Status", "System" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 11, 11, 20, 29, 30, 60, DateTimeKind.Local).AddTicks(2822), "Đẹp", "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg", "P12498S1", "PlayStation 4 Slim 1TB", 9180000, 50, "playstation-4-slim-1tb", true, null },
-                    { 2, 1, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1698), "Đẹp", "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg", null, "PS4 Slim 1TB", 7800000, 50, "ps4-slim-1tb", true, null },
-                    { 3, 1, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1778), "Đẹp", "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg", null, "Sony PS4 Slim Days Of Play 2019 Limited Edition", 4800000, 50, "sony-ps4-slim-days-of-play-2019-limited-edition", true, null },
-                    { 4, 1, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1781), "Đẹp", "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg", null, "PS4 Pro 2nd hand", 9300000, 50, "ps4-pro-2nd-hand", true, null },
-                    { 7, 2, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1784), "Đẹp", "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg", null, "Xbox Series X", 11800000, 50, "xbox-series-x", true, null },
-                    { 8, 2, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1786), "Đẹp", "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg", null, "Xbox Series S", 9800000, 50, "xbox-series-s", true, null },
-                    { 9, 3, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1788), "Đẹp", "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg", null, "Nintendo Switch V2 Màu Neon", 9800000, 50, "nintendo-switch-v2-mau-neon", true, null },
-                    { 10, 3, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1790), "Đẹp", "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", null, "Nintendo Switch Lite - Màu Blue", 7080000, 50, "nintendo-switch-lite-mau-blue", true, null },
-                    { 11, 3, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1792), "Đẹp", "86236c3c-1dbe-4ab2-85b0-f892a37413c0_nintendo-switch-gray-joy-con-45-700x700.jpg", null, "Nintendo Switch Fortnite Special Edition", 6880000, 50, "nintendo-switch-fortnite-special-edition", true, null },
-                    { 12, 3, new DateTime(2021, 11, 11, 20, 29, 30, 62, DateTimeKind.Local).AddTicks(1796), "Đẹp", "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg", null, "Nintendo Switch Animal Crossing", 7380000, 50, "nintendo-switch-animal-crossing", true, null }
+                    { 1, 1, new DateTime(2021, 11, 14, 19, 32, 48, 128, DateTimeKind.Local).AddTicks(907), "Đẹp", "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg", "P12498S1", "PlayStation 4 Slim 1TB", 9180000, 50, "playstation-4-slim-1tb", true, null },
+                    { 2, 1, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6148), "Đẹp", "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg", null, "PS4 Slim 1TB", 7800000, 50, "ps4-slim-1tb", true, null },
+                    { 3, 1, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6226), "Đẹp", "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg", null, "Sony PS4 Slim Days Of Play 2019 Limited Edition", 4800000, 50, "sony-ps4-slim-days-of-play-2019-limited-edition", true, null },
+                    { 4, 1, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6232), "Đẹp", "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg", null, "PS4 Pro 2nd hand", 9300000, 50, "ps4-pro-2nd-hand", true, null },
+                    { 7, 2, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6235), "Đẹp", "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg", null, "Xbox Series X", 11800000, 50, "xbox-series-x", true, null },
+                    { 8, 2, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6238), "Đẹp", "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg", null, "Xbox Series S", 9800000, 50, "xbox-series-s", true, null },
+                    { 9, 3, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6241), "Đẹp", "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg", null, "Nintendo Switch V2 Màu Neon", 9800000, 50, "nintendo-switch-v2-mau-neon", true, null },
+                    { 10, 3, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6244), "Đẹp", "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", null, "Nintendo Switch Lite - Màu Blue", 7080000, 50, "nintendo-switch-lite-mau-blue", true, null }
                 });
 
             migrationBuilder.InsertData(
@@ -369,8 +370,8 @@ namespace Common.Migrations
                 columns: new[] { "Id", "Address", "Avarta", "CreatedOn", "Email", "FullName", "PassWord", "Phone", "RolesId", "Status", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "115 Trần Xuân Soạn", "user-1.png", new DateTime(2021, 11, 11, 20, 29, 30, 63, DateTimeKind.Local).AddTicks(6379), "duyvo049@gmail.com", "Võ Thành Duy", "25f9e794323b453885f5181f1b624d0b", "0393030574", 1, true, "thanhduy" },
-                    { 2, "115 Trần Xuân Soạn", "user-2.png", new DateTime(2021, 11, 11, 20, 29, 30, 63, DateTimeKind.Local).AddTicks(7722), "leloc603@gmail.com", "Lê Xuân Lộc", "25f9e794323b453885f5181f1b624d0b", "0393030574", 2, true, "leloc" }
+                    { 1, "115 Trần Xuân Soạn", "user-1.png", new DateTime(2021, 11, 14, 19, 32, 48, 138, DateTimeKind.Local).AddTicks(5905), "duyvo049@gmail.com", "Võ Thành Duy", "25f9e794323b453885f5181f1b624d0b", "0393030574", 1, true, "thanhduy" },
+                    { 2, "115 Trần Xuân Soạn", "user-2.png", new DateTime(2021, 11, 14, 19, 32, 48, 138, DateTimeKind.Local).AddTicks(8038), "leloc603@gmail.com", "Lê Xuân Lộc", "25f9e794323b453885f5181f1b624d0b", "0393030574", 2, true, "leloc" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -382,16 +383,6 @@ namespace Common.Migrations
                 name: "IX_blogs_UserId",
                 table: "blogs",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CommentBlogModel_blogsId",
-                table: "CommentBlogModel",
-                column: "blogsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CommentBlogModel_usersId",
-                table: "CommentBlogModel",
-                column: "usersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_commentsproduct_cmtId",
@@ -412,6 +403,11 @@ namespace Common.Migrations
                 name: "IX_commentsproduct_usersId",
                 table: "commentsproduct",
                 column: "usersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_order_TransactStatusId",
+                table: "order",
+                column: "TransactStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_order_UserId",
@@ -452,7 +448,7 @@ namespace Common.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CommentBlogModel");
+                name: "blogs");
 
             migrationBuilder.DropTable(
                 name: "commentsproduct");
@@ -467,7 +463,7 @@ namespace Common.Migrations
                 name: "wistlists");
 
             migrationBuilder.DropTable(
-                name: "blogs");
+                name: "category_Posts");
 
             migrationBuilder.DropTable(
                 name: "order");
@@ -476,7 +472,7 @@ namespace Common.Migrations
                 name: "products");
 
             migrationBuilder.DropTable(
-                name: "category_Posts");
+                name: "TransactStatuses");
 
             migrationBuilder.DropTable(
                 name: "user");

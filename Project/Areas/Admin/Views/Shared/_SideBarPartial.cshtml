@@ -64,7 +64,7 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Người dùng</h6>
+                <h6 class="collapse-header">Bài viết</h6>
                 <a class="collapse-item" asp-action="Index" asp-controller="Blog">Bài viết</a>
                 <a class="collapse-item" asp-action="Index" asp-controller="Category_Post">Loại bài viết</a>
             </div>
@@ -72,16 +72,22 @@
     </li>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-comment-dots"></i>
-            <span>Quản lý Bình luận</span>
+            <i class="fas fa-list-ol"></i>
+            <span>Quản lý hóa đơn</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Bình luận</h6>
-                <a class="collapse-item" asp-action="Index" asp-controller="CommentProduct">Bình luận sản phẩm</a>
+                <h6 class="collapse-header">Hóa đơn</h6>
+                <a class="collapse-item" asp-action="Index" asp-controller="Order">Hóa đơn đang chờ</a>
+                <a class="collapse-item" asp-action="Index2" asp-controller="Order">Hóa đơn đang giao hàng</a>
+                <a class="collapse-item" asp-action="Index3" asp-controller="Order">Hóa đơn đã hoàn tất</a>
+                <h6 class="collapse-header">Hóa đơn hủy</h6>
+                <a class="collapse-item" asp-action="Index4" asp-controller="Order">Hóa đơn hủy</a>
             </div>
         </div>
     </li>
+
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -92,21 +98,16 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
 
+
     <li class="nav-item">
-        <a class="nav-link" asp-action="Index" asp-controller="Order">
-            <i class="fas fa-coins"></i>
-            <span>Hóa đơn chờ duyệt</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-action="Index1" asp-controller="Order">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Hóa đơn đã duyệt</span>
+        <a class="nav-link" asp-action="Index" asp-controller="Commentproduct">
+  <i class="fas fa-comment-dots"></i>
+            <span>Quản lý bình luận</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" asp-action="Index" asp-controller="FeedBack">
-            <i class="far fa-comments-alt"></i>
+            <i class="comment-lines"></i>
             <span>Phản hồi từ người dùng</span>
         </a>
     </li>

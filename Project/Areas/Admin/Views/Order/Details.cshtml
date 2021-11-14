@@ -1,79 +1,93 @@
 ﻿@model Common.ViewModel.OrderViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    List<Common.Model.Order_DetailsModel> order_details = ViewBag.CTHD;
 }
+<h1>Chi tiết đơn hàng #@Model.OrderId</h1>
 
-<h1>Chi tiết</h1>
+<div class="modal-body">
+    <div class="card">
+        <div class="card-body">
+            <h4>Thông tin đơn hàng #@Model.OrderId</h4>
+            <div class="table-responsive">
+                <table class="product-info-table m-t-20">
+                    <tbody>
+                        <tr>
+                            <td>ID:</td>
+                            <td class="text-dark font-weight-bold">#@Model.OrderId</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày mua:</td>
+                            <td>@Model.CreatedOn</td>
+                        </tr>
+                        <tr>
+                            <td>Người mua:</td>
+                            <td>@Model.UserName</td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại:</td>
+                            <td>@Model.ShipPhone</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ:</td>
+                            <td>@Model.ShipAdress</td>
+                        </tr>
+                        <tr>
+                            <td>Hình thức nhận hàng:</td>
+                            <td>@Model.ShipName</td>
+                        </tr>
+                        <tr>
+                            <td>Ghi chú:</td>
+                            <td>@Model.Description</td>
+                        </tr>
+                        <tr>
+                            <td>Tổng tiền:</td>
+                            <td>@Model.Total.ToString("N0") VNĐ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="m-t-20">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã chi tiết hóa đơn</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Ngày tạo hóa đơn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (order_details != null && order_details.Count() > 0)
+                            {
+                                int i = 1;
+                                @foreach (var item in order_details)
+                                {
+                                    <tr>
+                                        <th>@i</th>
+                                        <th>@item.Id</th>
+                                        <th>@item.product.Name</th>
+                                        <th>@item.Price.ToString("N0") VNĐ</th>
+                                        <th>@item.Quantity</th>
+                                        <th>@item.CreatedOn</th>
+                                        <th></th>
+                                    </tr>
+                                    i++;
+                                }
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Tổng hóa đơn
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Total.ToString("N0") VNĐ
-        </dd>
-        <dt class="col-sm-2">
-            Hình thức nhận hàng
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ShipName)
-        </dd>
-        <dt class="col-sm-2">
-            SĐT
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ShipPhone)
-        </dd>
-        <dt class="col-sm-2">
-            Email
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ShipEmail)
-        </dd>
-        <dt class="col-sm-2">
-            Địa chỉ
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ShipAdress)
-        </dd>
-        <dt class="col-sm-2">
-           Ghi chú
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            Ngày tạo
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-        <dt class="col-sm-2">
-            Trạng thái
-        </dt>
-        @if (Model.StatusOrder == true)
-        {
-            <dd class="col-sm-10">
-               Đã xử lý
-            </dd>
-        }
-        @if (Model.StatusOrder == false)
-        {
-            <dd class="col-sm-10">
-                Chờ xử lý
-            </dd>
-        }
-        <dt class="col-sm-2">
-            Người dùng
-        </dt>
-        <dd class="col-sm-10">
-            @Model.UserName
-        </dd>
-    </dl>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.OrderId">Chỉnh sửa</a> |
     <a asp-action="Index">Quay trở lại</a>

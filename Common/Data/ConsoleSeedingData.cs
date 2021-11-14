@@ -9,6 +9,12 @@ namespace Common.Data
 
         public static void Seed(this ModelBuilder modelBuiler)
         {
+            modelBuiler.Entity<TransactStatus>().HasData(
+                new TransactStatus { Id = 1, Name = "Đang xác nhận",Description="Chờ Admin xác nhận đơn hàng", Status = true },
+                new TransactStatus { Id = 2, Name = "Đang giao hàng", Description = "Admin xác nhận đơn hàng và đang giao hàng", Status = true },
+                new TransactStatus { Id = 3, Name = "Giao hàng thành công", Description = "Đơn hàng hoàn tất", Status = true },
+                new TransactStatus { Id = 4, Name = "Hủy", Description = "Đơn hàng đã hủy", Status = true }
+                );
             modelBuiler.Entity<RolesModel>().HasData(
                 new RolesModel { Id = 1, Name = "Admin", Status = true },
                 new RolesModel { Id = 2, Name = "User", Status = true }
@@ -31,9 +37,7 @@ namespace Common.Data
                 new ProductModel { Id = 7, Name = "Xbox Series X", Slug = "xbox-series-x", CategoryId = 2, Description = "Đẹp", Image = "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg", Quantity = 50, Price = 11800000, CreatedOn = DateTime.Now, Status = true },
                 new ProductModel { Id = 8, Name = "Xbox Series S", Slug = "xbox-series-s", CategoryId = 2, Description = "Đẹp", Image = "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg", Quantity = 50, Price = 9800000, CreatedOn = DateTime.Now, Status = true },
                 new ProductModel { Id = 9, Name = "Nintendo Switch V2 Màu Neon", Slug = "nintendo-switch-v2-mau-neon", CategoryId = 3, Description = "Đẹp", Image = "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg", Quantity = 50, Price = 9800000, CreatedOn = DateTime.Now, Status = true },
-                new ProductModel { Id = 10, Name = "Nintendo Switch Lite - Màu Blue", Slug = "nintendo-switch-lite-mau-blue", CategoryId = 3, Description = "Đẹp", Image = "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", Quantity = 50, Price = 7080000, CreatedOn = DateTime.Now, Status = true },
-                new ProductModel { Id = 11, Name = "Nintendo Switch Fortnite Special Edition", Slug = "nintendo-switch-fortnite-special-edition", CategoryId = 3, Description = "Đẹp", Image = "86236c3c-1dbe-4ab2-85b0-f892a37413c0_nintendo-switch-gray-joy-con-45-700x700.jpg", Quantity = 50, Price = 6880000, CreatedOn = DateTime.Now, Status = true },
-                new ProductModel { Id = 12, Name = "Nintendo Switch Animal Crossing", Slug = "nintendo-switch-animal-crossing", CategoryId = 3, Description = "Đẹp", Image = "e660c20e-9450-472f-ae39-40284f3379ff_nintendo-switch-animal-crossing-horizon-42-700x700.jpg", Quantity = 50, Price = 7380000, CreatedOn = DateTime.Now, Status = true }
+                new ProductModel { Id = 10, Name = "Nintendo Switch Lite - Màu Blue", Slug = "nintendo-switch-lite-mau-blue", CategoryId = 3, Description = "Đẹp", Image = "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", Quantity = 50, Price = 7080000, CreatedOn = DateTime.Now, Status = true }
                 );
             modelBuiler.Entity<UserModel>().HasData(
                 new UserModel { Id=1,FullName="Võ Thành Duy",RolesId=1,Address="115 Trần Xuân Soạn",Phone="0393030574",Email="duyvo049@gmail.com",Avarta= "user-1.png", UserName="thanhduy",PassWord= "25f9e794323b453885f5181f1b624d0b",CreatedOn=DateTime.Now,Status=true },
