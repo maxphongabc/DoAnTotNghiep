@@ -2,102 +2,122 @@
 @{
     ViewData["Title"] = "Index";
 }
-    <div class="row">
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Số sản phẩm đang kinh doanh</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"> @(((ICollection<Common.Model.ProductModel>)ViewBag.ListProduct).Count)</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-gamepad fa-2x text-gray-300"></i>
-                        </div>
+<div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tổng sản phẩm</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"> @(((ICollection<Common.Model.ProductModel>)ViewBag.ListProduct).Count)</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-gamepad fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Tổng hóa đơn</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@(((ICollection<Common.Model.OrderModel>)ViewBag.ListOrder).Count)</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-list-ol fa-2x text-gray-300"></i>
-                        </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Tổng hóa đơn</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@(((ICollection<Common.Model.OrderModel>)ViewBag.ListOrder).Count)</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-list-ol fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tổng số người dùng</div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@(((ICollection<Common.Model.UserModel>)ViewBag.ListUser).Count)</div>
-                                </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tổng số người dùng</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@(((ICollection<Common.Model.UserModel>)ViewBag.ListUser).Count)</div>
                             </div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Tổng số doanh thu</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.SumOrder.ToString("N0") VNĐ</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-cash-register fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<center>
+    <div class="row">
+
+        <div class="col-md-12">
+            <canvas id="myChart" style="width:100%"></canvas>
+            <p>Biểu đồ số lượng sản phẩm bán được trong tháng</p>
         </div>
 
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Tổng số doanh thu</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.SumOrder.ToString("N0") VNĐ</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-cash-register fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="row">
-        <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Thống kê doanh thu</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Ok</h6>                 
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">     
-                    @ViewBag.SumOrderDay.ToString("N0") VNĐ
-                </div>
-            </div>
-        </div>
-    </div>
+</center>
+<script>
+    var a = @Html.Raw(Json.Serialize(ViewBag.Total));
+
+
+
+
+
+    var xValues = ["tháng 1", "tháng 2", "thang 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+
+    var yValues = [];
+   // var barColors = ["red", "green", "blue", "orange"];
+
+    for (var y = 0; y < a.length; y++) {
+            yValues.push(a[y]) // giá
+    }
+
+
+    new Chart("myChart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: 'blue',
+                data: yValues
+            }]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: ""
+            }
+        }
+    });
+</script>
+
