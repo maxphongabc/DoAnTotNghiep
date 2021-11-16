@@ -20,9 +20,9 @@ namespace Common.Data
                 new RolesModel { Id = 2, Name = "User", Status = true }
                 );
             modelBuiler.Entity<CategoryModel>().HasData(
-                new CategoryModel { Id=1,Name="PlayStaion 4",Slug="playstation-4",Status=true},
-                new CategoryModel { Id=2,Name="Xbox One S",Slug="xbox-one-s",Status=true},
-                new CategoryModel { Id=3,Name="Nintendo Switch",Slug="nintendo-switch",Status=true}
+                new CategoryModel { Id=1,Name="PlayStaion 4",Slug="playstation-4",Icon= "fab fa-playstation", Status=true},
+                new CategoryModel { Id=2,Name="Xbox One S",Slug="xbox-one-s",Icon= "fab fa-xbox", Status=true},
+                new CategoryModel { Id=3,Name="Nintendo Switch",Slug="nintendo-switch",Icon="",Status=true}
                 );
             modelBuiler.Entity<Category_PostModel>().HasData(
              new CategoryModel { Id = 1, Name = "Tin mới", Slug = "tin-mới", Status = true },
@@ -40,8 +40,8 @@ namespace Common.Data
                 new ProductModel { Id = 10, Name = "Nintendo Switch Lite - Màu Blue", Slug = "nintendo-switch-lite-mau-blue", CategoryId = 3, Description = "Đẹp", Image = "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", Quantity = 50, Price = 7080000, CreatedOn = DateTime.Now, Status = true }
                 );
             modelBuiler.Entity<UserModel>().HasData(
-                new UserModel { Id=1,FullName="Võ Thành Duy",RolesId=1,Address="115 Trần Xuân Soạn",Phone="0393030574",Email="duyvo049@gmail.com",Avarta= "user-1.png", UserName="thanhduy",PassWord= "25f9e794323b453885f5181f1b624d0b",CreatedOn=DateTime.Now,Status=true },
-                new UserModel { Id = 2, FullName = "Lê Xuân Lộc",RolesId=2,Address = "115 Trần Xuân Soạn", Phone = "0393030574", Email = "leloc603@gmail.com", Avarta = "user-2.png",  UserName = "leloc", PassWord = "25f9e794323b453885f5181f1b624d0b", CreatedOn = DateTime.Now, Status = true }
+                new UserModel { Id=1,FullName="Võ Thành Duy",RolesId=1,Address="115 Trần Xuân Soạn",Phone="0393030574",Email="duyvo049@gmail.com",Avarta= "user-1.png", UserName="thanhduy",PassWord= "B44A3937D371C5C81D0D81802E839EDD", CreatedOn=DateTime.Now,Status=true },
+                new UserModel { Id = 2, FullName = "Lê Xuân Lộc",RolesId=2,Address = "115 Trần Xuân Soạn", Phone = "05282211820", Email = "leloc603@gmail.com", Avarta = "user-2.png",  UserName = "leloc", PassWord = "B44A3937D371C5C81D0D81802E839EDD", CreatedOn = DateTime.Now, Status = true }
                 );
             
         }

@@ -33,14 +33,13 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>@item.Email</td>
-            <th>@item.Content</th>
-            <td>
+            <td>@item.Content</td>
             <td><a href="#" class="btn-active" data-id="@item.Id">@Html.Raw(item.Status ? "<strong>Đã xem</strong>" : "Chưa xem")</a></td>
             <td>
                 <br />
                 <a asp-action="Details" asp-route-id="@item.Id"><img src="~/Admin/img/list.png" /></a>
                 <br />
-                <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
+                <a style="cursor:pointer" onclick="showModal('@Url.Action("Delete","Feedback",new { id=item.Id},Context.Request.Scheme)')"><img src="~/Admin/img/trash-bin.png" /></a>
             </td>
         </tr>
         }

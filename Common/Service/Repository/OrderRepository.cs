@@ -49,6 +49,7 @@ namespace Common.Service.Repository
                              Total = o.Total,
                              ShipAdress = o.ShipAdress,
                              TransactStatusId = o.TransactStatusId,
+                             ShipDateOn = o.ShipDateOn,
                              TransactStatusName = tr.Name,
                              ShipEmail = o.ShipEmail,
                              ShipName = o.ShipName,

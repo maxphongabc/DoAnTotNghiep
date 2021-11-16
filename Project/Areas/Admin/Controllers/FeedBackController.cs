@@ -1,4 +1,5 @@
-﻿using Common.Data;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Common.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,10 +13,12 @@ namespace Project.Areas.Admin.Controllers
     public class FeedBackController : BaseController
     {
         private readonly ProjectDPContext _context;
+        private readonly INotyfService _notyf;
 
-        public FeedBackController(ProjectDPContext context)
+        public FeedBackController(ProjectDPContext context,INotyfService notyf)
         {
             _context = context;
+            _notyf = notyf;
         }
         public async Task<IActionResult> Index()
         {
@@ -51,7 +54,7 @@ namespace Project.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            return View(rolesModel);
+            return PartialView(rolesModel);
         }
 
         // POST: Admin/Roles/Delete/5
@@ -62,6 +65,7 @@ namespace Project.Areas.Admin.Controllers
             var fb = await _context.feedbacks.FindAsync(id);
             _context.feedbacks.Remove(fb);
             await _context.SaveChangesAsync();
+            _notyf.Success("Xóa thành công", 5);
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
@@ -78,6 +82,7 @@ namespace Project.Areas.Admin.Controllers
             var cmt = _context.feedbacks.Find(id);
             cmt.Status = !cmt.Status;
             _context.SaveChanges();
+            _notyf.Success("Thay đổi thành công", 3);
             return cmt.Status;
         }
     }

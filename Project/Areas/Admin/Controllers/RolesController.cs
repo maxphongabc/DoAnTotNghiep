@@ -1,6 +1,7 @@
 ﻿
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Common.Data;
 using Common.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,12 @@ namespace Project.Areas.Admin.Controllers
     public class RolesController : BaseController
     {
         private readonly ProjectDPContext _context;
+        private readonly INotyfService _notyf;
 
-        public RolesController(ProjectDPContext context)
+        public RolesController(ProjectDPContext context,INotyfService notyf)
         {
             _context = context;
+            _notyf = notyf;
         }
 
         // GET: Admin/Roles
@@ -59,7 +62,7 @@ namespace Project.Areas.Admin.Controllers
             {
                 if(CheckName(rolesModel.Name))
                 {
-                    ModelState.AddModelError("", "Tên quyền này đã có");
+                    _notyf.Success("Tên quyền này đã có",5);
                 }    
                 _context.Add(rolesModel);
                 await _context.SaveChangesAsync();
@@ -102,6 +105,7 @@ namespace Project.Areas.Admin.Controllers
                 {
                     _context.Update(rolesModel);
                     await _context.SaveChangesAsync();
+                    _notyf.Success("Chỉnh sửa thành công", 5);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

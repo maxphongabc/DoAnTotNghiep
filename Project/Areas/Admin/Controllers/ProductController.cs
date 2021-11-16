@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using X.PagedList;
 using System.Linq.Dynamic.Core;
 using Common.Service.Interface;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -21,11 +22,13 @@ namespace Project.Areas.Admin.Controllers
         private readonly ProjectDPContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IProduct _iproduct;
-        public ProductController(ProjectDPContext context, IWebHostEnvironment webHostEnvironment,IProduct iproduct)
+        private readonly INotyfService _notyf;
+        public ProductController(ProjectDPContext context, IWebHostEnvironment webHostEnvironment,IProduct iproduct,INotyfService notyf)
         {
             _context = context;
             this.webHostEnvironment = webHostEnvironment;
             _iproduct = iproduct;
+            _notyf = notyf;
         }
 
         [HttpGet]
@@ -182,7 +185,7 @@ namespace Project.Areas.Admin.Controllers
                 var slug = await _context.products.FirstOrDefaultAsync(x => x.Slug == product.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError("", "Sản phẩm đã có.");
+                    _notyf.Error("Sản phẩm đã có", 5);
                     return View(product);
                 }
 
@@ -202,7 +205,7 @@ namespace Project.Areas.Admin.Controllers
                 _context.Add(product);
                 await _context.SaveChangesAsync();
 
-                TempData["Success"] = "Thêm sản phẩm thành công!";
+                _notyf.Success("Thêm sản phẩm thành công", 5);
 
                 return RedirectToAction("Index");
             }
@@ -243,7 +246,7 @@ namespace Project.Areas.Admin.Controllers
                 var slug = await _context.products.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Slug == product.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError("", "Sản phẩm đã có.");
+                    _notyf.Error("Sản phẩm đã có", 5);
                     return View(product);
                 }
 
@@ -261,7 +264,7 @@ namespace Project.Areas.Admin.Controllers
                 _context.Update(product);
                 await _context.SaveChangesAsync();
 
-                TempData["Success"] = "Chỉnh sửa sản phẩm thành công!";
+                _notyf.Success("Chỉnh sửa sản phẩm thành công", 5);
 
                 return RedirectToAction("Index");
             }
@@ -280,15 +283,7 @@ namespace Project.Areas.Admin.Controllers
             }
             else
             {
-                //if (!string.Equals(product.Image, "noimage.jpg"))
-                //{
-                //    string uploadsDir = Path.Combine(webHostEnvironment.WebRootPath, "img/sanpham");
-                //    //string oldImagePath = Path.Combine(uploadsDir, product.Image);
-                //    //if (System.IO.File.Exists(oldImagePath))
-                //    //{
-                //    //    System.IO.File.Delete(oldImagePath);
-                //    //}
-                //}
+              
                 _context.products.Remove(product);
                 await _context.SaveChangesAsync();
 

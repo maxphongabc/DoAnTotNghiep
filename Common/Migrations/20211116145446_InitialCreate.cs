@@ -326,9 +326,9 @@ namespace Common.Migrations
                 columns: new[] { "Id", "Icon", "Name", "Slug", "Status" },
                 values: new object[,]
                 {
-                    { 1, null, "PlayStaion 4", "playstation-4", true },
-                    { 2, null, "Xbox One S", "xbox-one-s", true },
-                    { 3, null, "Nintendo Switch", "nintendo-switch", true }
+                    { 1, "fab fa-playstation", "PlayStaion 4", "playstation-4", true },
+                    { 2, "fab fa-xbox", "Xbox One S", "xbox-one-s", true },
+                    { 3, "", "Nintendo Switch", "nintendo-switch", true }
                 });
 
             migrationBuilder.InsertData(
@@ -355,14 +355,14 @@ namespace Common.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedOn", "Description", "Image", "Model", "Name", "Price", "Quantity", "Slug", "Status", "System" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 11, 14, 19, 32, 48, 128, DateTimeKind.Local).AddTicks(907), "Đẹp", "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg", "P12498S1", "PlayStation 4 Slim 1TB", 9180000, 50, "playstation-4-slim-1tb", true, null },
-                    { 2, 1, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6148), "Đẹp", "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg", null, "PS4 Slim 1TB", 7800000, 50, "ps4-slim-1tb", true, null },
-                    { 3, 1, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6226), "Đẹp", "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg", null, "Sony PS4 Slim Days Of Play 2019 Limited Edition", 4800000, 50, "sony-ps4-slim-days-of-play-2019-limited-edition", true, null },
-                    { 4, 1, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6232), "Đẹp", "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg", null, "PS4 Pro 2nd hand", 9300000, 50, "ps4-pro-2nd-hand", true, null },
-                    { 7, 2, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6235), "Đẹp", "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg", null, "Xbox Series X", 11800000, 50, "xbox-series-x", true, null },
-                    { 8, 2, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6238), "Đẹp", "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg", null, "Xbox Series S", 9800000, 50, "xbox-series-s", true, null },
-                    { 9, 3, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6241), "Đẹp", "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg", null, "Nintendo Switch V2 Màu Neon", 9800000, 50, "nintendo-switch-v2-mau-neon", true, null },
-                    { 10, 3, new DateTime(2021, 11, 14, 19, 32, 48, 137, DateTimeKind.Local).AddTicks(6244), "Đẹp", "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", null, "Nintendo Switch Lite - Màu Blue", 7080000, 50, "nintendo-switch-lite-mau-blue", true, null }
+                    { 1, 1, new DateTime(2021, 11, 16, 21, 54, 44, 868, DateTimeKind.Local).AddTicks(6113), "Đẹp", "c7b94b6a-6f03-407d-8aff-19b5da5aa199_ps4-slim-1-00-700x700.jpg", "P12498S1", "PlayStation 4 Slim 1TB", 9180000, 50, "playstation-4-slim-1tb", true, null },
+                    { 2, 1, new DateTime(2021, 11, 16, 21, 54, 44, 870, DateTimeKind.Local).AddTicks(3034), "Đẹp", "6f4b42c9-2539-4b8d-a0ae-7106202ce538_ps4-pro-monster-hunter-world-41-700x700.jpg", null, "PS4 Slim 1TB", 7800000, 50, "ps4-slim-1tb", true, null },
+                    { 3, 1, new DateTime(2021, 11, 16, 21, 54, 44, 870, DateTimeKind.Local).AddTicks(3086), "Đẹp", "c5996329-9c51-4d4b-ac45-1998d785181c_ps4-2015-44-700x700.jpg", null, "Sony PS4 Slim Days Of Play 2019 Limited Edition", 4800000, 50, "sony-ps4-slim-days-of-play-2019-limited-edition", true, null },
+                    { 4, 1, new DateTime(2021, 11, 16, 21, 54, 44, 870, DateTimeKind.Local).AddTicks(3091), "Đẹp", "fe2663d3-e87c-4213-a998-8a362420e7a6_ps4-pro-white-cu-00-700x700.jpg", null, "PS4 Pro 2nd hand", 9300000, 50, "ps4-pro-2nd-hand", true, null },
+                    { 7, 2, new DateTime(2021, 11, 16, 21, 54, 44, 870, DateTimeKind.Local).AddTicks(3096), "Đẹp", "9cbed2a6-203e-41fa-a5d5-e17377089d46_xbox-series-s-41-700x700.jpg", null, "Xbox Series X", 11800000, 50, "xbox-series-x", true, null },
+                    { 8, 2, new DateTime(2021, 11, 16, 21, 54, 44, 870, DateTimeKind.Local).AddTicks(3099), "Đẹp", "852dfd15-3d2f-49bd-b34e-cae9407ea211_nintendo-switch-oled-white-joy-con-41-700x700.jpg", null, "Xbox Series S", 9800000, 50, "xbox-series-s", true, null },
+                    { 9, 3, new DateTime(2021, 11, 16, 21, 54, 44, 870, DateTimeKind.Local).AddTicks(3101), "Đẹp", "5a62915a-2995-4115-854c-aed29d98c352_nintendo-switch-oled-red-blue-joy-con-41-700x700.jpg", null, "Nintendo Switch V2 Màu Neon", 9800000, 50, "nintendo-switch-v2-mau-neon", true, null },
+                    { 10, 3, new DateTime(2021, 11, 16, 21, 54, 44, 870, DateTimeKind.Local).AddTicks(3104), "Đẹp", "92013fe8-793b-4f08-8bf1-bad4bb53e66e_nintendo-switch-neon-joy-con-45-700x700.jpg", null, "Nintendo Switch Lite - Màu Blue", 7080000, 50, "nintendo-switch-lite-mau-blue", true, null }
                 });
 
             migrationBuilder.InsertData(
@@ -370,8 +370,8 @@ namespace Common.Migrations
                 columns: new[] { "Id", "Address", "Avarta", "CreatedOn", "Email", "FullName", "PassWord", "Phone", "RolesId", "Status", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "115 Trần Xuân Soạn", "user-1.png", new DateTime(2021, 11, 14, 19, 32, 48, 138, DateTimeKind.Local).AddTicks(5905), "duyvo049@gmail.com", "Võ Thành Duy", "25f9e794323b453885f5181f1b624d0b", "0393030574", 1, true, "thanhduy" },
-                    { 2, "115 Trần Xuân Soạn", "user-2.png", new DateTime(2021, 11, 14, 19, 32, 48, 138, DateTimeKind.Local).AddTicks(8038), "leloc603@gmail.com", "Lê Xuân Lộc", "25f9e794323b453885f5181f1b624d0b", "0393030574", 2, true, "leloc" }
+                    { 1, "115 Trần Xuân Soạn", "user-1.png", new DateTime(2021, 11, 16, 21, 54, 44, 871, DateTimeKind.Local).AddTicks(2979), "duyvo049@gmail.com", "Võ Thành Duy", "B44A3937D371C5C81D0D81802E839EDD", "0393030574", 1, true, "thanhduy" },
+                    { 2, "115 Trần Xuân Soạn", "user-2.png", new DateTime(2021, 11, 16, 21, 54, 44, 871, DateTimeKind.Local).AddTicks(4631), "leloc603@gmail.com", "Lê Xuân Lộc", "B44A3937D371C5C81D0D81802E839EDD", "05282211820", 2, true, "leloc" }
                 });
 
             migrationBuilder.CreateIndex(

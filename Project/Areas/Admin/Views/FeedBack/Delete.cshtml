@@ -4,11 +4,13 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
-
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 <h3>Bạn có chắc là muốn xóa không ?</h3>
 <div>
-    <h4>RolesModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -49,7 +51,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Xóa" class="btn btn-default" /> |
+        <a asp-action="Index">Quay trở lại</a>
     </form>
 </div>

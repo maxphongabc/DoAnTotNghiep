@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Common.Data;
 using Common.Model;
 using System.Collections.Generic;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -14,9 +15,11 @@ namespace Project.Areas.Admin.Controllers
     public class HomeAdminController : BaseController
     {
         private readonly ProjectDPContext _context;
-        public HomeAdminController(ProjectDPContext context)
+        private readonly INotyfService _notyf;
+        public HomeAdminController(ProjectDPContext context,INotyfService notyf)
         {
             _context = context;
+            _notyf = notyf;
         }
         public override void OnActionExecuted(ActionExecutedContext context)
         {
@@ -36,7 +39,6 @@ namespace Project.Areas.Admin.Controllers
         }
         public IActionResult Index(string count, string countn, string countnn, int total)
         {
-
             if (count == null)
             {
                 ViewBag.ListProduct = (from p in _context.products

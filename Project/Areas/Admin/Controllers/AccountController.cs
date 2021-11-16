@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Common.Data;
 using Common.Encryptor;
 using Common.Model;
@@ -16,11 +17,13 @@ namespace Project.Areas.Admin.Controllers
     {
         private readonly ProjectDPContext _context;
         private readonly IUser _iuser;
+        private readonly INotyfService _notyf;
 
-        public AccountController(ProjectDPContext context,IUser _user)
+        public AccountController(ProjectDPContext context,IUser _user,INotyfService notyf)
         {
             _context = context;
             _iuser = _user;
+            _notyf = notyf;
         }
         public IActionResult Login()
         {
@@ -35,7 +38,7 @@ namespace Project.Areas.Admin.Controllers
                 var result = _context.user.Where(s => s.UserName == member.UserName && s.PassWord == Encryptor.MD5Hash(member.PassWord) && s.Status == true).ToList();
                 if (result.Count == 0)
                 {
-                    ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng");
+                    _notyf.Error("Tài khoản hoặc mật khẩu không đúng",5);
                     return View(member);
                 }
                 else if (result[0].RolesId == 1)
@@ -44,10 +47,11 @@ namespace Project.Areas.Admin.Controllers
                     HttpContext.Session.SetString("Admin", str);
                     var urlAdmin = Url.RouteUrl(new {ares="Admin", controller = "HomeAdmin", action = "Index"  });
                     return Redirect(urlAdmin);
+                    _notyf.Success("Đăng nhập thành công", 5);
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Bạn không có quyền truy cập vào đây");
+                    _notyf.Error("Bạn không có quyền truy cập vào đây",5);
                     return View();
                 }
             }

@@ -86,17 +86,17 @@ namespace Project.Controllers
             {
                 if (_iuser.CheckUserName(member.UserName))
                 {
-                    ModelState.AddModelError("", "Tên đăng nhập đã tồn tại");
+                    _notyf.Error("Tên đăng nhập đã có người dùng", 3);
                     return View(member);
                 }
                 if (_iuser.CheckEmail(member.Email))
                 {
-                    ModelState.AddModelError("", "Email đã tồn tại");
+                    _notyf.Error("Email đã có người dùng", 3);
                     return View(member);
                 }
                 if (_iuser.CheckPhone(member.Phone))
                 {
-                    ModelState.AddModelError("", "Số điện thoại này đã có người sủ dụng !");
+                    _notyf.Error("SĐT đã có người dùng", 3);
                     return View(member);
                 }
                 if (member.PassWord == member.ConfirmPassword)
