@@ -100,10 +100,11 @@ namespace Project.Controllers
             if(cartItem!= null)
             {
                 cartItem.Quantity += 1;
-                if(cartItem.Quantity>=prooduct.Quantity)
-                {
-                    _notyf.Error("Số lượng trong kho không đủ",5);
-                }
+                //if (cartItem.Quantity >= prooduct.Quantity)
+                //{
+                //    _notyf.Error("Số lượng trong kho không đủ", 5);
+                //}
+                //return Json(false);
             }
             HttpContext.Session.SetJson("Cart", cart);
 

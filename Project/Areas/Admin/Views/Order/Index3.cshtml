@@ -32,6 +32,7 @@
             <th>
                 Ngày tạo
             </th>
+            <th>Ngày giao hàng</th>
             <th>
                 Trạng thái
             </th>
@@ -64,10 +65,10 @@
                 <td>
                     @item.CreatedOn
                 </td>
-
-                <td>          
+                <td>@item.ShipDateOn</td>
+                <td>
                     <br />
-                    <a style="cursor:pointer" onclick="showModallarge('@Url.Action("Details","Order",new { id=item.OrderId},Context.Request.Scheme)')"><img src="~/Admin/img/list.png" /></a>
+                    <a style="cursor:pointer" onclick="showModal('@Url.Action("Details","Order",new { id=item.OrderId},Context.Request.Scheme)')"><img src="~/Admin/img/list.png" /></a>
                     <br />
                 </td>
                 <td>

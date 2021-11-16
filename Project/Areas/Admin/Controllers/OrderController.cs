@@ -128,11 +128,11 @@ namespace Project.Areas.Admin.Controllers
                     if (order != null)
                     {
                         order.TransactStatusId = orderModel.TransactStatusId;
-                        if(order.TransactStatusId==4)
+                        if(order.TransactStatusId==3)
                         {
                             order.ShipDateOn = DateTime.Now;
                         }    
-                        if(order.TransactStatusId==5)
+                        if(order.TransactStatusId==4)
                         {
                             foreach(var item in order_Details)
                             {

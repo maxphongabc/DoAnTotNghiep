@@ -114,6 +114,7 @@ namespace Common.Service.Repository
                              ShipAdress = o.ShipAdress,
                              ShipEmail = o.ShipEmail,
                              ShipName = o.ShipName,
+                             ShipDateOn = o.ShipDateOn,
                              ShipPhone = o.ShipPhone,
                              Description = o.Description
                          }).OrderByDescending(x => x.CreatedOn);
@@ -132,6 +133,7 @@ namespace Common.Service.Repository
                              UserName = u.UserName,
                              Total = o.Total,
                              ShipAdress = o.ShipAdress,
+                             ShipDateOn=o.ShipDateOn,
                              ShipEmail = o.ShipEmail,
                              ShipName = o.ShipName,
                              ShipPhone = o.ShipPhone,

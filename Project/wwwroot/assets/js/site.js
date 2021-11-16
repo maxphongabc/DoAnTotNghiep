@@ -50,7 +50,7 @@ $(document).ready(function () {
             data: {
                 id: $(this).data("id")
             },
-            success: function (data) {z
+            success: function (data) {
                 window.location.reload();
             },
             error: function () {

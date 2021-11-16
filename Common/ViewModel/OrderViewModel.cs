@@ -17,6 +17,7 @@ namespace Common.ViewModel
         public string ShipEmail { get; set; }
         public int StatusOrder{ get; set; }
         public string ShipAdress { get; set; }
+        public DateTime? ShipDateOn { get; set; }
         public string Description { get; set; }
         public int Check { get; set; }
         public int Quantity { get; set; }
