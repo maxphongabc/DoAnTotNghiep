@@ -2,6 +2,6 @@
 @foreach (var item in Model)
 {
     <li class="list-group-item">
-        <a class="nav-link text-dark" asp-controller="Product" asp-action="ProductByCategory" asp-route-slug="@item.Slug">@item.Name</a>
+        <a class="nav-link text-dark" asp-controller="Product" asp-action="ProductByCategory" asp-route-slug="@item.Slug"><i class="@item.Icon"></i>@item.Name</a>
     </li>
 }

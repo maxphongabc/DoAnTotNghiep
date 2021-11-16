@@ -55,9 +55,21 @@ namespace Project.Areas.Admin.Controllers
                                      where p.Description.IndexOf(countnn) >= 0 && p.Status == true
                                      select p).ToList();
             }
-
-
-            ViewBag.SumOrder = _context.order.Where(x => x.Status == true).Sum(x => x.Total);
+            //Tổng doanh thu
+            ViewBag.SumOrder = _context.order.Where(x => x.Status == true && x.TransactStatusId==3).Sum(x => x.Total);
+            //danh sách hóa đơn
+            ViewBag.Orderwait = _context.order.Where(x => x.Status == true && x.TransactStatusId == 1).Count();
+            ViewBag.Ordership = _context.order.Where(x => x.Status == true && x.TransactStatusId == 2).Count();
+            ViewBag.Orderconfirm = _context.order.Where(x => x.Status == true && x.TransactStatusId == 3).Count();
+            ViewBag.Ordercancel = _context.order.Where(x => x.Status == true && x.TransactStatusId == 4).Count();
+            //Nguoi dung dang hoat dong
+            ViewBag.UserActive = _context.user.Where(x => x.Status == true).Count();
+            ViewBag.UserBlock = _context.user.Where(x => x.Status == false).Count();
+            //san pham
+            ViewBag.ProductActive = _context.products.Where(x => x.Status == true).Count();
+            ViewBag.ProductBlock = _context.products.Where(x => x.Status == false).Count();
+            var b = _context.order_Details.Where(x => x.Status == 0).Sum(x => x.Quantity);
+            //Biểu đồ
             var totalorder1 = _context.order.Where(x => x.Status == true && x.TransactStatusId == 3 && x.CreatedOn.Value.Month == 1 && x.CreatedOn.Value.Year == 2021).Sum(x => x.Total);
             var totalorder2 = _context.order.Where(x => x.Status == true && x.TransactStatusId == 3 && x.CreatedOn.Value.Month == 2 && x.CreatedOn.Value.Year == 2021).Sum(x => x.Total);
             var totalorder3 = _context.order.Where(x => x.Status == true && x.TransactStatusId == 3 && x.CreatedOn.Value.Month == 3 && x.CreatedOn.Value.Year == 2021).Sum(x => x.Total);

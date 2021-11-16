@@ -227,7 +227,7 @@
                                         <li class="lnk wishlist"> <a style="color:#d9534f;" class="add-to-cart outstock" title="Hết hàng"> <i class="fas fa-window-close inner-right-vs"></i> </a> </li>
                                     }
 
-                                        <li class="lnk wishlist"> <a class="add-to-cart" asp-controller="wishlist" asp-action="addwishlish" asp-route-id="@sanpham.Id" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                        <li class="lnk wishlist"> <a class="add-to-cart" onclick="wishlist(@sanpham.Id)" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
                                         <li class="lnk"> <a class="add-to-cart" asp-controller="product" asp-action="details" asp-route-slug="@sanpham.Slug" title="Chi tiết"> <i class="fa fa-signal"></i> </a> </li>
                                     </ul>
                                 </div>
@@ -259,5 +259,31 @@
                 buttontext.innerHTML = "Xem thêm"
             }
         }
+    </script>
+    <script>
+    function wishlist(id) {
+        $.ajax({
+            "async": false,
+            "crossDomain": true,
+            "url": "@Url.Action("AddWishList", "Wishlist")?Id=" + id,
+            "headers": {
+                "Content-Type": "application/json",
+                "cache-control": "no-cache"
+            },
+            "method": "POST",
+
+        }).done(function (result) {
+            if (result == true) {
+                alert("Thêm sản phẩm yêu thích thành công")
+                window.location.reload();
+            }
+            else if (result == false) {
+                alert("Sản phẩm đã cố trong danh sách")
+            }
+            else {
+                alert("Bạn chưa đăng nhập mà ?")
+            }
+        })
+    }
     </script>
 }

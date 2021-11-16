@@ -165,3 +165,29 @@
 
     </div>
 </div>
+<script>
+    function wishlist(id) {
+        $.ajax({
+            "async": false,
+            "crossDomain": true,
+            "url": "@Url.Action("AddWishList", "Wishlist")?Id=" + id,
+            "headers": {
+                "Content-Type": "application/json",
+                "cache-control": "no-cache"
+            },
+            "method": "POST",
+
+        }).done(function (result) {
+            if (result == true) {
+                alert("Thêm sản phẩm yêu thích thành công")
+                window.location.reload();
+            }
+            else if (result == false) {
+                alert("Sản phẩm đã cố trong danh sách")
+            }
+            else {
+                alert("Bạn chưa đăng nhập mà ?")
+            }
+        })
+    }
+</script>

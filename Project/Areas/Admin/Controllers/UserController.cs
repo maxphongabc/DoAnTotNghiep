@@ -222,7 +222,7 @@ namespace Project.Areas.Admin.Controllers
                         ModelState.AddModelError("", "EMail này đã có người dùng.");
                         return View(userModel);
                     }
-                    else if (email != null)
+                    else if (phone != null)
                     {
                         ModelState.AddModelError("", "Số điện thoại này đã có người dùng.");
                         return View(userModel);

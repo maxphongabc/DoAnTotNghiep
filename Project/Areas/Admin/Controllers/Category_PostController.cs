@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Common.Data;
 using Common.Model;
 using X.PagedList;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -12,10 +13,11 @@ namespace Project.Areas.Admin.Controllers
     public class Category_PostController : BaseController
     {
         private readonly ProjectDPContext _context;
-
-        public Category_PostController(ProjectDPContext context)
+        private readonly INotyfService _notyf;
+        public Category_PostController(ProjectDPContext context,INotyfService notyf)
         {
             _context = context;
+            _notyf = notyf;
         }
 
         // GET: Admin/Category_Post
@@ -83,12 +85,12 @@ namespace Project.Areas.Admin.Controllers
                 var slug = await _context.products.FirstOrDefaultAsync(x => x.Slug == category_PostModel.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError("", "Thể loại bài viết đã có.");
+                    _notyf.Error("Thể loại bài viết này đã có", 5);
                     return View(category_PostModel);
                 }
                 _context.Add(category_PostModel);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = "Thêm thể loại bài viết thành công!";
+                _notyf.Success("Thêm thể loại bài viết thành công", 5);
                 return RedirectToAction(nameof(Index));
             }
             return View(category_PostModel);
@@ -131,12 +133,12 @@ namespace Project.Areas.Admin.Controllers
                     var slug = await _context.category_Posts.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Slug == category_PostModel.Slug);
                     if (slug != null)
                     {
-                        ModelState.AddModelError("", "Loại bài viết này đã có.");
+                        _notyf.Error("Thể loại bài viết này đã có", 5);
                         return View(category_PostModel);
                     }
                     _context.Update(category_PostModel);
                     await _context.SaveChangesAsync();
-                    TempData["Success"] = "chỉnh sửa thành công!";
+                    _notyf.Success("Sửa thể loại bài viết thành công", 5);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

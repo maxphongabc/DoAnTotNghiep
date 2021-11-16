@@ -502,3 +502,5 @@ C:\Users\DELL\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Ad
 C:\Users\DELL\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\TrashBin.cshtml.g.cs
 C:\Users\DELL\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Home\ForgotPass.cshtml.g.cs
 C:\Users\DELL\source\repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\User\DMK.cshtml.g.cs
+C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\User\EditMember.cshtml.g.cs
+C:\Users\Thanh Duy\Source\Repos\DoAnTotNghiep\Project\obj\Debug\net5.0\Razor\Views\Cart\Thanks.cshtml.g.cs

@@ -14,6 +14,7 @@ using X.PagedList;
 using Common.ViewModel;
 using Common.Service.Interface;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Project.Controllers
 {
@@ -22,11 +23,13 @@ namespace Project.Controllers
         private readonly IUser _iuser;
         private readonly ISendMailService sendMailService;
         private readonly ProjectDPContext _context;
-        public HomeController(ProjectDPContext context, IUser iuser, ISendMailService sendMail)
+        private readonly INotyfService _notyf;
+        public HomeController(ProjectDPContext context, IUser iuser, ISendMailService sendMail,INotyfService notyf)
         {
             _context = context;
             _iuser = iuser;
             sendMailService = sendMail;
+            _notyf = notyf;
         }
         public IActionResult Index()
         {
@@ -61,6 +64,7 @@ namespace Project.Controllers
                 fb.Status = true;
                 _context.feedbacks.Add(fb);
                 _context.SaveChanges();
+                _notyf.Success("Đã gửi", 5);
                 return RedirectToAction(nameof(Index));
             }
             return View();
@@ -119,12 +123,12 @@ namespace Project.Controllers
                     await sendMailService.SendMail(content);
                     _context.Add(user);
                     await _context.SaveChangesAsync();
-                    TempData["Success"] = "Đăng ký thành công!";
+                    _notyf.Success("Đăng ký thành công", 5);
                     return RedirectToAction(nameof(Login));
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Mật khẩu không trùng");
+                    _notyf.Error("Mật khẩu không trùng", 5);
                     return View(member);
                 }
             }

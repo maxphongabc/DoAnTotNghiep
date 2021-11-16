@@ -12,6 +12,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -20,11 +21,12 @@ namespace Project.Areas.Admin.Controllers
     {
         private readonly ProjectDPContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-
-        public BlogController(ProjectDPContext context, IWebHostEnvironment webHostEnvironment)
+        private readonly INotyfService _notyf;
+        public BlogController(ProjectDPContext context, IWebHostEnvironment webHostEnvironment,INotyfService notyf)
         {
             _context = context;
             this.webHostEnvironment = webHostEnvironment;
+            _notyf = notyf;
         }
 
         // GET: Admin/Blog
@@ -114,12 +116,13 @@ namespace Project.Areas.Admin.Controllers
                 var slug = await _context.products.FirstOrDefaultAsync(x => x.Slug == blog.Slug);
                 if (slug != null)
                 {
+                    _notyf.Error("Tiêu đề bài viết đã có", 5);
                     ModelState.AddModelError("", "Tiêu đề bài viết đã có.");
                     return View(blog);
                 }
                 if (blog.Category_PostId == 0)
                 {
-                    ModelState.AddModelError("", "Thể loại bài viết không được để trống ");
+                    _notyf.Warning("Thể loại bài viết không được để trống", 5);
                     return View(blog);
                 }
                 string imageName = "noimage.jpg";
@@ -135,7 +138,7 @@ namespace Project.Areas.Admin.Controllers
                 blog.Image = imageName;
                 _context.Add(blog);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = "Thêm bài viết thành công!";
+                _notyf.Success("Thêm bài viết thành công", 5);
                 return RedirectToAction(nameof(Index));
             }
             return View(blog);
@@ -183,12 +186,12 @@ namespace Project.Areas.Admin.Controllers
                     var slug = await _context.blogs.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Slug == blogModel.Slug);
                     if (slug != null)
                     {
-                        ModelState.AddModelError("", "Bài viết đã có.");
+                        _notyf.Error("Bài viết này đã có", 5);
                         return View(blogModel);
                     }
                     if(blogModel.Category_PostId==0)
                     {
-                        ModelState.AddModelError("", "Thể loại bài viết không được để trống ");
+                        _notyf.Warning("Thể loại bài viết không được để trống", 5);
                         return View(blogModel);
                     }    
                     if (blogModel.ImageUpload != null)
@@ -212,7 +215,7 @@ namespace Project.Areas.Admin.Controllers
                     }
                     _context.Update(blogModel);
                     await _context.SaveChangesAsync();
-                    TempData["Success"] = "Chỉnh sửa bài viết thành công!";
+                    _notyf.Success("Sửa bài viết thành công", 5);
 
                     return RedirectToAction("Index");
                 }
@@ -247,7 +250,7 @@ namespace Project.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            return View(blogModel);
+            return PartialView(blogModel);
         }
 
         // POST: Admin/Blog/Delete/5
@@ -256,9 +259,10 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var blogModel = await _context.blogs.FindAsync(id);
-            _context.blogs.Remove(blogModel);
+            blogModel.Status = false;
+            _context.blogs.Update(blogModel);
             await _context.SaveChangesAsync();
-            TempData["Success"] = "Xóa bài viết thành công!";
+            _notyf.Success("Xóa bài viết thành công", 5);
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]

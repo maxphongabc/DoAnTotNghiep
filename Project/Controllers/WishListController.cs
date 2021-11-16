@@ -63,7 +63,10 @@ namespace Project.Controllers
                 await _context.SaveChangesAsync();
                 return Json(true);
             }
-            return Json(false);
+            else
+            {
+                return Json(false);
+            }
         }
         public async Task<IActionResult> Delete(int id)
         {

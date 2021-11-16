@@ -16,7 +16,7 @@
                                 <th>Tổng tiền</th>
                                 <th>Ngày mua</th>
                                 <th>Trạng thái</th>
-                                <th></th>
+                                <th>Hủy đơn hàng</th>
                             </tr>
                         </thead><!-- /thead -->
                         <tbody>
@@ -29,12 +29,8 @@
                                 <td>@item.TransactStatusName</td>
                                 @if (item.TransactStatusId == 1)
                                 {
-                                    <td><a class="btn btn-outline-danger" onclick="HuyHD(@item.OrderId)">Hủy</a></td>
+                                    <td><a class="btn btn-danger" onclick="HuyHD(@item.OrderId)">Hủy đơn hàng</a></td>
                                 }
-                                @*else
-                                {
-                                    <td><a class="btn btn-outline-danger" asp-action="Cancel" asp-controller="Order" asp-route-id="@item.OrderId">Hủy</a></td>
-                                }*@
                             </tr>
                             }
                         </tbody><!-- /tbody -->

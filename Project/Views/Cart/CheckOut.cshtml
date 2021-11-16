@@ -41,7 +41,7 @@
                                             <a  data-id="@cartitem.ProductId" class="arrow plus plus-a"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></a>
                                             <a data-id="@cartitem.ProductId" class="arrow minus gradient Decrease-a"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></a>
                                         </div>
-                                        <input type="number" value="@cartitem.Quantity" max="@cartitem.Quantity">
+                                        <input data-dismiss="" type="number" value="@cartitem.Quantity" max="@cartitem.Quantity">
                                     </div>
                                 </div>
                             </td>
@@ -73,6 +73,13 @@
                 <td>
                     <div class="form-group">
                         <input type="text" name="description" class="form-control unicase-form-control text-input" placeholder="Thêm ghi chú cho đơn hàng của bạn">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <input type="text" name="shipaddress" class="form-control unicase-form-control text-input" placeholder="Thay đổi địa chỉ nhận hàng nếu có" />
                     </div>
                 </td>
             </tr>

@@ -5,6 +5,7 @@ using Common.Data;
 using Common.Model;
 using Common.Service.Interface;
 using X.PagedList;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -13,11 +14,13 @@ namespace Project.Areas.Admin.Controllers
     {
         private readonly ProjectDPContext _context;
         private readonly IProduct _iproduct;
+        private readonly INotyfService _notyf;
 
-        public CommentProductController(ProjectDPContext context,IProduct iproduct)
+        public CommentProductController(ProjectDPContext context,IProduct iproduct, INotyfService notyf)
         {
             _context = context;
             _iproduct = iproduct;
+            _notyf = notyf;
         }
 
         // GET: Admin/CommentProduct
@@ -30,7 +33,7 @@ namespace Project.Areas.Admin.Controllers
             page = page ?? 1; //if (page == null) page = 1;
 
             // 4. Tạo kích thước trang (pageSize), mặc định là 5.
-            int pageSize = (size ?? 5);
+            int pageSize = (size ?? 10);
 
             // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
             // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
@@ -67,13 +70,13 @@ namespace Project.Areas.Admin.Controllers
 
             if (cmt == null)
             {
-                TempData["Error"] = "Không có sản phẩm để xóa!";
+                _notyf.Error("Không có bình luận nào để xóa", 5);
             }
             else
             {           
                 _context.commentsproduct.Remove(cmt);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = "Đã xóa sản phẩm thành công!";
+                _notyf.Success("Xóa bình luận thành công", 5);
             }
             return RedirectToAction("Index");
         }

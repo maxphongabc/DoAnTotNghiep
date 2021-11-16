@@ -23,8 +23,9 @@
                 <tbody>
                     @foreach (var cartitem in Model.CartItems)
                     {
+                        int i = 1;
                         <tr>
-                            <td></td>
+                            <td>@i</td>
                             <td class="cart-image">
                                 <a class="entry-thumbnail">
                                     <img src="~/img/sanpham/@cartitem.Image" alt="">
@@ -49,6 +50,7 @@
                             <td class="romove-item"><a data-id="@cartitem.ProductId" title="cancel" class="icon Remove-a"><i class="fa fa-trash-o"></i></a></td>
 
                         </tr>
+                        i++;
                     }
                 </tbody><!-- /tbody -->
             </table><!-- /table -->

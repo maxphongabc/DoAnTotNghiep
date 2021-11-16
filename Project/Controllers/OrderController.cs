@@ -52,7 +52,7 @@ namespace Project.Controllers
             return View();
 
         }
-        public IActionResult OrderDetailsHistory(int id)
+        public async Task <IActionResult> OrderDetailsHistory(int id)
         {
             string session = HttpContext.Session.GetString(USER);
             if (session == null)
@@ -61,16 +61,30 @@ namespace Project.Controllers
                 return Redirect(urlAdmin);
             }
             UserModel user = JsonConvert.DeserializeObject<UserModel>(session);
-            OrderModel order = new OrderModel();
-            Order_DetailsModel od = new Order_DetailsModel();
-            user.Id = order.UserId;
-            if (order.Id == od.OrderId)
+            var order = await _context.order.Include(x => x.user)
+                                            .Include(x => x.TransactStatus)
+                                             .FirstOrDefaultAsync(x => x.Id == id);
+            if(user.Id == order.UserId)
             {
-                var order_details = _iorder.ListOrder_Details(id);
-                return View(order_details);
+                var CTHD = _context.order_Details.Include(x => x.product)
+                                                  .AsNoTracking()
+                                                  .Where(x => x.OrderId == order.Id)
+                                                  .OrderBy(x => x.Id)
+                                                  .ToList();
+                ViewBag.CTHD = CTHD;
+                return View(order);
             }
+            return NotFound();
+            //OrderModel order = new OrderModel();
+            //Order_DetailsModel od = new Order_DetailsModel();
+            //user.Id = order.UserId;
+            //if (order.Id == od.OrderId)
+            //{
+            //    var order_details = _iorder.ListOrder_Details(id);
+            //    return View(order_details);
+            //}
 
-            else return View();
+            //else return View();
         }
         public ProductModel GetProduct(int id)
         {

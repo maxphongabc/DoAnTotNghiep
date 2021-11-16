@@ -1,7 +1,18 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    var ordership = ViewBag.Ordership;
+    var Orderwait = ViewBag.Orderwait;
+    var Orderconfirm = ViewBag.Orderconfirm;
+    var Ordercancel = ViewBag.Ordercancel;
+    var useractive = ViewBag.UserActive;
+    var userblock = ViewBag.UserBlock;
+    var productactive = ViewBag.ProductActive;
+    var productblock = ViewBag.ProductBlock;
 }
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Trang chủ</h1>
+</div>
 <div class="row">
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
@@ -75,10 +86,67 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Hóa đơn</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    <a class="btn btn-outline-warning" asp-action="Index" asp-controller="Order">Số hóa đơn đang chờ: @Orderwait</a>
+                </div>
+                <br />
+                <div>
+                    <a class="btn  btn-outline-primary" asp-action="Index2" asp-controller="Order">Số hóa đơn đang giao: @ordership</a>
+                </div>
+                <br />
+                <div>
+                    <a class="btn btn-outline-success" asp-action="Index3" asp-controller="Order">Số hóa đơn thành công: @Orderconfirm</a>
+                </div>
+                <br />
+                <div>
+                    <a class="btn btn-outline-danger" asp-action="Index4" asp-controller="Order">Số hóa đơn đã hủy: @Ordercancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Hoạt động khác</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    <a class="btn btn-outline-primary">Số người dùng còn đang hoạt động: @useractive</a>
+                </div>
+                <br />
+                <div>
+                    <a class="btn btn-outline-danger">Số người dùng đã khóa: @userblock</a>
+                </div>
+                <br />
+                <div>
+                    <a class="btn btn-outline-primary">Số sản phẩm đang bày bán: @productactive</a>
+                </div>
+                <br />
+                <div>
+                    <a class="btn btn-outline-danger">Số sản phẩm đã khóa: @productblock</a>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
 <center>
     <div class="row">
-
         <div class="col-md-12">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Biểu đồ doanh thu</h6>
+            </div>
             <canvas id="myChart" style="width:100%"></canvas>
             <p>Biểu đồ số lượng sản phẩm bán được trong tháng</p>
         </div>
@@ -87,11 +155,6 @@
 </center>
 <script>
     var a = @Html.Raw(Json.Serialize(ViewBag.Total));
-
-
-
-
-
     var xValues = ["tháng 1", "tháng 2", "thang 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
 
     var yValues = [];

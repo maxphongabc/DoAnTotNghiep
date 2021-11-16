@@ -7887,19 +7887,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DELL\\.nuget\\packages\\": {}
+    "C:\\Users\\Thanh Duy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DELL\\Source\\Repos\\DoAnTotNghiep\\Common\\Common.csproj",
+      "projectUniqueName": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\Common\\Common.csproj",
       "projectName": "Common",
-      "projectPath": "C:\\Users\\DELL\\Source\\Repos\\DoAnTotNghiep\\Common\\Common.csproj",
-      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DELL\\Source\\Repos\\DoAnTotNghiep\\Common\\obj\\",
+      "projectPath": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\Common\\Common.csproj",
+      "packagesPath": "C:\\Users\\Thanh Duy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Thanh Duy\\Source\\Repos\\DoAnTotNghiep\\Common\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Thanh Duy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7997,14 +7997,11 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.209\\RuntimeIdentifierGraph.json"
       }
     }
   }

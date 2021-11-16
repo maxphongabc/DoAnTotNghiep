@@ -1,4 +1,5 @@
-﻿using Common.Data;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Common.Data;
 using Common.Model;
 using Common.Service.Interface;
 using Common.ViewModel;
@@ -18,10 +19,12 @@ namespace Project.Controllers
     {
         private readonly ProjectDPContext _context;
         private readonly ISendMailService sendMailService;
-        public CartController(ProjectDPContext context,ISendMailService sendMail)
+        private readonly INotyfService _notyf;
+        public CartController(ProjectDPContext context,ISendMailService sendMail,INotyfService notyf)
         {
             _context = context;
             sendMailService = sendMail;
+            _notyf = notyf;
         }
         public IActionResult Index()
         {
@@ -99,7 +102,7 @@ namespace Project.Controllers
                 cartItem.Quantity += 1;
                 if(cartItem.Quantity>=prooduct.Quantity)
                 {
-                    return Json(false);
+                    _notyf.Error("Số lượng trong kho không đủ",5);
                 }
             }
             HttpContext.Session.SetJson("Cart", cart);
@@ -161,7 +164,7 @@ namespace Project.Controllers
     
         
         [HttpPost]
-        public async Task <IActionResult> CheckOut(string description,string shipname)
+        public async Task <IActionResult> CheckOut(string description,string shipname,string shipaddress)
         {
             ProductModel product = new ProductModel();
             string a = HttpContext.Session.GetString(USER);
@@ -174,7 +177,7 @@ namespace Project.Controllers
             };
             OrderModel order = new OrderModel();
             order.Description = description;
-            order.ShipAdress = user.Address;
+
             order.ShipEmail = user.Email;
             order.ShipPhone = user.Phone;
             order.Status = true;
@@ -182,6 +185,14 @@ namespace Project.Controllers
             order.ShipName = shipname;
             order.CreatedOn = DateTime.Now;
             order.UserId = user.Id;
+            if(shipaddress==null)
+            {
+                order.ShipAdress = user.Address;
+            }
+            else
+            {
+                order.ShipAdress = shipaddress;
+            }
             _context.order.Add(order);
             _context.SaveChanges();
             foreach (var item in cart)
@@ -209,9 +220,16 @@ namespace Project.Controllers
 
             _context.Update(order);
             _context.SaveChanges();
+            _notyf.Success("Gửi đơn hàng thành công", 5);
             HttpContext.Session.Remove("Cart");
-            var urlAdmin = Url.RouteUrl(new { controller = "Home", action = "Index" });
+            
+            var urlAdmin = Url.RouteUrl(new { controller = "Cart", action = "Thanks" });
             return Redirect(urlAdmin);
+        }
+        [HttpGet]
+        public IActionResult Thanks()
+        {
+            return View();
         }
     }
 }

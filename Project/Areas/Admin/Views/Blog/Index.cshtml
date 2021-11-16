@@ -55,7 +55,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                <img src="~/img/blogs/@item.Image" />
+                <img class="img-thumbnail" src="~/img/blogs/@item.Image" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PostedDate)
@@ -66,7 +66,7 @@
                 <br />
                 <a asp-action="Details" asp-route-id="@item.Id"><img src="~/Admin/img/list.png" /></a>
                 <br />
-                <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/Admin/img/trash-bin.png" /></a>
+                <a style="cursor:pointer" onclick="showModal('@Url.Action("Delete","Blog",new { id=item.Id},Context.Request.Scheme)')"><img src="~/Admin/img/trash-bin.png" /></a>
             </td>
         </tr>
         }

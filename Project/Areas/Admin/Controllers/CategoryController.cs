@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using X.PagedList;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -13,10 +14,11 @@ namespace Project.Areas.Admin.Controllers
     public class CategoryController : BaseController
     {
         private readonly ProjectDPContext _context;
-
-        public CategoryController(ProjectDPContext context)
+        private readonly INotyfService _notyf;
+        public CategoryController(ProjectDPContext context,INotyfService notyf)
         {
             _context = context;
+            _notyf = notyf;
         }
 
         // GET: Admin/Category
@@ -100,11 +102,12 @@ namespace Project.Areas.Admin.Controllers
                 if (slug != null)
                 {
                     ModelState.AddModelError("", "Thể loại sản phẩm đã có.");
+                    _notyf.Error("Thể loại sản phẩm đã có", 5);
                     return View(categoryModel);
                 }
                 _context.Add(categoryModel);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = "Thêm thể loại sản phẩm thành công!";
+                _notyf.Success("Thêm thể loại sản phẩm thành công", 5);
                 return RedirectToAction(nameof(Index));
             }
             return View(categoryModel);
@@ -147,11 +150,12 @@ namespace Project.Areas.Admin.Controllers
                     var slug = await _context.categories.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Slug == categoryModel.Slug);
                     if (slug != null)
                     {
-                        ModelState.AddModelError("", "Loại sản phẩm này đã có.");
+                        _notyf.Error("Thể loại sản phẩm đã có", 5);
                         return View(categoryModel);
                     }
                     _context.Update(categoryModel);
                     await _context.SaveChangesAsync();
+                    _notyf.Success("Sửa thể loại sản phẩm thành công", 5);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
